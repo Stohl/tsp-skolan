@@ -1,0 +1,21 @@
+---
+alwaysApply: true
+---
+
+# Cursor Rules for "TSP Skolan"
+
+rules:
+  - Vi chattar på svenska
+  - All code must use **TypeScript** (not plain JavaScript).
+  - Use **React** as the framework.
+  - Use **Material UI (MUI)** for UI components and styling.
+  - The app should be **mobile-first** with bottom navigation tabs.
+  - All UI text, labels, and navigation must be in **Swedish**.
+  - Always add **detailed comments** in the code to explain logic and structure,
+    since the user is new to React and TypeScript.
+  - Keep the code clean and beginner-friendly: 
+    use clear function names, avoid over-engineering.
+  - Prefer **functional components** and React Hooks over class components.
+  - Ensure the project structure is modular and easy to expand later.
+  - When possible, follow **best practices from React and Material UI documentation**.
+# Cursor Rules for "TSP Skolan"
