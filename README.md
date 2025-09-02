@@ -2,6 +2,10 @@
 
 En React-app för att lära sig teckenspråk, byggd med TypeScript och Material UI.
 
+## 🌐 Live Demo
+
+Appen är live på: **[https://stohl.github.io/jubilant-garbanzo](https://stohl.github.io/jubilant-garbanzo)**
+
 ## Funktioner
 
 - **Bottom Navigation**: Enkel navigation mellan 4 huvudsektioner
