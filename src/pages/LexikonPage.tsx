@@ -122,6 +122,9 @@ const LexikonPage: React.FC = () => {
             }}
             sx={{ mb: 2 }}
           />
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            Söker efter ord i ordlistan. Skriv minst 2 bokstäver för att få resultat.
+          </Typography>
           {isLoading && (
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <CircularProgress size={20} />
@@ -240,6 +243,12 @@ const LexikonPage: React.FC = () => {
             </Typography>
             
             {searchResults.length > 0 && (
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                Hittade {searchResults.length} ord som innehåller "{searchTerm}"
+              </Typography>
+            )}
+            
+            {searchResults.length > 0 && (
               <List>
                 {searchResults.slice(0, 10).map((word, index) => (
                   <React.Fragment key={word.id}>
@@ -298,7 +307,7 @@ const LexikonPage: React.FC = () => {
             
             {searchTerm && searchResults.length === 0 && !isLoading && (
               <Typography variant="body2" color="text.secondary">
-                Inga resultat hittades för "{searchTerm}".
+                Inga ord hittades som innehåller "{searchTerm}". Prova att skriva ett annat ord.
               </Typography>
             )}
           </CardContent>

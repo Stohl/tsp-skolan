@@ -62,6 +62,26 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
       </DialogTitle>
       
       <DialogContent>
+        {/* Video högst upp */}
+        {word.video_url && (
+          <Box sx={{ mb: 3, textAlign: 'center' }}>
+            <video
+              controls
+              autoPlay
+              muted
+              style={{ 
+                width: '100%', 
+                maxWidth: '400px',
+                borderRadius: '8px',
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+              }}
+            >
+              <source src={word.video_url} type="video/mp4" />
+              Din webbläsare stöder inte video-elementet.
+            </video>
+          </Box>
+        )}
+
         {/* Beskrivning */}
         {word.beskrivning && word.beskrivning.trim() && (
           <Box sx={{ mb: 3 }}>

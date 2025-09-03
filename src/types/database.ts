@@ -67,12 +67,10 @@ export const loadPhraseDatabase = async (): Promise<PhraseDatabase> => {
 // Funktion för att söka efter ord
 export const searchWords = (database: WordDatabase, searchTerm: string): Word[] => {
   const term = searchTerm.toLowerCase().trim();
-  if (!term) return [];
+  if (!term || term.length < 2) return [];
   
   return Object.values(database).filter(word => 
-    word.ord.toLowerCase().includes(term) ||
-    (word.beskrivning && word.beskrivning.toLowerCase().includes(term)) ||
-    (word.ämne && word.ämne.some(ämne => ämne.toLowerCase().includes(term)))
+    word.ord.toLowerCase().includes(term)
   );
 };
 
