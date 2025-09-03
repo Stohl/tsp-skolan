@@ -30,9 +30,9 @@ const ListorPage: React.FC = () => {
   // State för att hålla reda på vilken sub-tab som är aktiv
   const [activeTab, setActiveTab] = useState(0);
   const [wordLists, setWordLists] = useState<WordList[]>([]);
-  const [selectedWordList, setSelectedWordList] = useState<WordList | null>(null);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [wordProgress, setWordProgress] = useState<{ [key: string]: number }>({});
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
@@ -47,21 +47,96 @@ const ListorPage: React.FC = () => {
     setActiveTab(newValue);
   };
 
-  // Funktion som körs när användaren klickar på en ordlista
-  const handleWordListClick = (wordList: WordList) => {
-    setSelectedWordList(selectedWordList?.id === wordList.id ? null : wordList);
-  };
-
   // Funktion som körs när användaren klickar på ett ord
   const handleWordClick = (word: Word) => {
     setSelectedWord(word);
     setDialogOpen(true);
   };
 
-  // Hämtar ord för den valda ordlistan
-  const getWordsForSelectedList = () => {
-    if (!selectedWordList) return [];
-    return getWordsFromList(selectedWordList, wordDatabase);
+  // Funktion som körs när användaren klickar på progress-cirkeln
+  const handleProgressClick = (wordId: string, event: React.MouseEvent) => {
+    event.stopPropagation(); // Förhindrar att dialog öppnas
+    
+    setWordProgress(prev => {
+      const currentLevel = prev[wordId] || 0;
+      const newLevel = (currentLevel + 1) % 3; // Cyklar mellan 0, 1, 2
+      return {
+        ...prev,
+        [wordId]: newLevel
+      };
+    });
+  };
+
+  // Funktion som hämtar progress-nivå för ett ord
+  const getWordProgress = (wordId: string): number => {
+    return wordProgress[wordId] || 0;
+  };
+
+  // Funktion som renderar progress-cirkel
+  const renderProgressCircle = (wordId: string) => {
+    const level = getWordProgress(wordId);
+    
+    const circleStyle = {
+      width: 24,
+      height: 24,
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      border: '2px solid',
+      transition: 'all 0.2s ease',
+      '&:hover': {
+        transform: 'scale(1.1)'
+      }
+    };
+
+    switch (level) {
+      case 0: // Ej markerad
+        return (
+          <Box
+            sx={{
+              ...circleStyle,
+              backgroundColor: 'transparent',
+              borderColor: 'grey.400',
+              color: 'grey.400'
+            }}
+            onClick={(e) => handleProgressClick(wordId, e)}
+          >
+            ⚪
+          </Box>
+        );
+      case 1: // Vill lära sig
+        return (
+          <Box
+            sx={{
+              ...circleStyle,
+              backgroundColor: 'yellow.200',
+              borderColor: 'yellow.600',
+              color: 'yellow.800'
+            }}
+            onClick={(e) => handleProgressClick(wordId, e)}
+          >
+            🟡
+          </Box>
+        );
+      case 2: // Lärt sig
+        return (
+          <Box
+            sx={{
+              ...circleStyle,
+              backgroundColor: 'green.200',
+              borderColor: 'green.600',
+              color: 'green.800'
+            }}
+            onClick={(e) => handleProgressClick(wordId, e)}
+          >
+            🟢
+          </Box>
+        );
+      default:
+        return null;
+    }
   };
 
   // Hämtar fraser för det valda ordet
@@ -73,35 +148,62 @@ const ListorPage: React.FC = () => {
   };
 
   // Funktion som renderar innehållet för "Att lära mig"-taben
-  const renderAttLaraMig = () => (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        Ord att lära mig
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Här kommer du att se ord som du behöver öva på. 
-        Funktionen kommer att implementeras senare.
-      </Typography>
-      
-      <Card>
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            Inga ord att lära mig just nu. 
-            När du börjar använda appen kommer ord att dyka upp här.
-          </Typography>
-        </CardContent>
-      </Card>
-    </Box>
-  );
+  const renderAttLaraMig = () => {
+    // Hämta alla ord som användaren vill lära sig (nivå 1)
+    const learningWords = Object.entries(wordProgress)
+      .filter(([_, level]) => level === 1)
+      .map(([wordId]) => wordDatabase[wordId])
+      .filter(word => word !== undefined);
+
+    return (
+      <Box sx={{ p: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          Ord att lära mig
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          Ord som du har markerat som "vill lära sig".
+        </Typography>
+        
+        {learningWords.length > 0 ? (
+          <List>
+            {learningWords.map((word, index) => (
+              <React.Fragment key={word.id}>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleWordClick(word)}>
+                    <ListItemText
+                      primary={word.ord}
+                      secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
+                    />
+                    {renderProgressCircle(word.id)}
+                    <PlayArrow color="primary" />
+                  </ListItemButton>
+                </ListItem>
+                {index < learningWords.length - 1 && <Divider />}
+              </React.Fragment>
+            ))}
+          </List>
+        ) : (
+          <Card>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                Inga ord att lära mig just nu. 
+                Klicka på progress-cirklarna i ordlistorna för att markera ord.
+              </Typography>
+            </CardContent>
+          </Card>
+        )}
+      </Box>
+    );
+  };
 
   // Funktion som renderar innehållet för "Ordlistor"-taben
   const renderOrdlistor = () => (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>
-        Tillgängliga ordlistor
+        Ordlistor
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Klicka på en ordlista för att se ord i den listan.
+        Klicka på progress-cirklarna för att markera ord. ⚪ Ej markerad → 🟡 Vill lära sig → 🟢 Lärt sig
       </Typography>
       
       {isLoading && (
@@ -119,53 +221,76 @@ const ListorPage: React.FC = () => {
         </Alert>
       )}
       
-      {wordLists.length > 0 && (
-        <List>
-          {wordLists.map((wordList, index) => {
-            const wordsInList = getWordsFromList(wordList, wordDatabase);
-            return (
-              <React.Fragment key={wordList.id}>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => handleWordListClick(wordList)}>
-                    <ListItemText
-                      primary={
-                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                          {wordList.name}
-                          <Chip 
-                            label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
-                            size="small" 
-                            color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
-                            variant="outlined"
+      {wordLists.length > 0 && wordLists.map((wordList) => {
+        const wordsInList = getWordsFromList(wordList, wordDatabase);
+        
+        return (
+          <Card key={wordList.id} sx={{ mb: 3 }}>
+            <CardContent>
+              <Typography variant="h6" gutterBottom>
+                {wordList.name}
+                <Chip 
+                  label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
+                  size="small" 
+                  color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
+                  variant="outlined"
+                  sx={{ ml: 1 }}
+                />
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                {wordList.description} ({wordsInList.length} ord)
+              </Typography>
+              
+              {wordsInList.length > 0 ? (
+                <List dense>
+                  {wordsInList.map((word, index) => (
+                    <React.Fragment key={word.id}>
+                      <ListItem disablePadding>
+                        <ListItemButton onClick={() => handleWordClick(word)}>
+                          <ListItemText
+                            primary={word.ord}
+                            secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
                           />
-                        </Box>
-                      }
-                      secondary={
-                        <Box>
-                          <Typography variant="body2" color="text.secondary">
-                            {wordList.description}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                            {wordsInList.length} ord
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </ListItemButton>
-                </ListItem>
-                {index < wordLists.length - 1 && <Divider />}
-              </React.Fragment>
-            );
-          })}
-        </List>
-      )}
-      
-      {selectedWordList && (
-        <Box sx={{ mt: 3 }}>
-          <Typography variant="h6" gutterBottom>
-            Ord i "{selectedWordList.name}"
-          </Typography>
+                          {renderProgressCircle(word.id)}
+                          <PlayArrow color="primary" />
+                        </ListItemButton>
+                      </ListItem>
+                      {index < wordsInList.length - 1 && <Divider />}
+                    </React.Fragment>
+                  ))}
+                </List>
+              ) : (
+                <Typography variant="body2" color="text.secondary">
+                  Inga ord hittades i denna ordlista.
+                </Typography>
+              )}
+            </CardContent>
+          </Card>
+        );
+      })}
+    </Box>
+  );
+
+  // Funktion som renderar innehållet för "Lärda"-taben
+  const renderLarda = () => {
+    // Hämta alla ord som användaren har lärt sig (nivå 2)
+    const learnedWords = Object.entries(wordProgress)
+      .filter(([_, level]) => level === 2)
+      .map(([wordId]) => wordDatabase[wordId])
+      .filter(word => word !== undefined);
+
+    return (
+      <Box sx={{ p: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          Lärda ord
+        </Typography>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          Ord som du har markerat som "lärt sig".
+        </Typography>
+        
+        {learnedWords.length > 0 ? (
           <List>
-            {getWordsForSelectedList().map((word, index) => (
+            {learnedWords.map((word, index) => (
               <React.Fragment key={word.id}>
                 <ListItem disablePadding>
                   <ListItemButton onClick={() => handleWordClick(word)}>
@@ -173,39 +298,27 @@ const ListorPage: React.FC = () => {
                       primary={word.ord}
                       secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
                     />
+                    {renderProgressCircle(word.id)}
                     <PlayArrow color="primary" />
                   </ListItemButton>
                 </ListItem>
-                {index < getWordsForSelectedList().length - 1 && <Divider />}
+                {index < learnedWords.length - 1 && <Divider />}
               </React.Fragment>
             ))}
           </List>
-        </Box>
-      )}
-    </Box>
-  );
-
-  // Funktion som renderar innehållet för "Lärda"-taben
-  const renderLarda = () => (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        Lärda ord
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Här kommer du att se ord som du har lärt dig. 
-        Funktionen kommer att implementeras senare.
-      </Typography>
-      
-      <Card>
-        <CardContent>
-          <Typography variant="body2" color="text.secondary">
-            Inga lärda ord just nu. 
-            När du lär dig ord kommer de att dyka upp här.
-          </Typography>
-        </CardContent>
-      </Card>
-    </Box>
-  );
+        ) : (
+          <Card>
+            <CardContent>
+              <Typography variant="body2" color="text.secondary">
+                Inga lärda ord just nu. 
+                Klicka på progress-cirklarna i ordlistorna för att markera ord som lärda.
+              </Typography>
+            </CardContent>
+          </Card>
+        )}
+      </Box>
+    );
+  };
 
   return (
     <Container maxWidth="sm" sx={{ py: 3 }}>
