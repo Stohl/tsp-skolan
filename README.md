@@ -4,7 +4,7 @@ En React-app för att lära sig teckenspråk, byggd med TypeScript och Material 
 
 ## 🌐 Live Demo
 
-Appen är live på: **[https://stohl.github.io/jubilant-garbanzo](https://stohl.github.io/jubilant-garbanzo)**
+Appen är live på: **[https://stohl.github.io](https://stohl.github.io)**
 
 ## Funktioner
 
