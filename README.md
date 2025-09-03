@@ -23,17 +23,23 @@ Appen är live på: **[https://stohl.github.io](https://stohl.github.io)**
 
 ## Installation
 
-1. Installera dependencies:
+1. Klona repositoryn:
+```bash
+git clone https://github.com/Stohl/stohl.github.io.git
+cd stohl.github.io
+```
+
+2. Installera dependencies:
 ```bash
 npm install
 ```
 
-2. Starta utvecklingsservern:
+3. Starta utvecklingsservern:
 ```bash
 npm start
 ```
 
-3. Öppna [http://localhost:3000](http://localhost:3000) i din webbläsare.
+4. Öppna [http://localhost:3000](http://localhost:3000) i din webbläsare.
 
 ## Projektstruktur
 
