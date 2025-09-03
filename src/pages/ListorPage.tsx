@@ -13,11 +13,12 @@ import {
   ListItemButton,
   Divider,
   CircularProgress,
-  Alert
+  Alert,
+  Chip
 } from '@mui/material';
 import { List as ListIcon, PlayArrow } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
-import { getAllSubjects, getWordsBySubject, getPhrasesForWord } from '../types/database';
+import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
 import WordDetailDialog from '../components/WordDetailDialog';
 import { Word } from '../types/database';
 
@@ -28,16 +29,16 @@ const ListorPage: React.FC = () => {
   
   // State för att hålla reda på vilken sub-tab som är aktiv
   const [activeTab, setActiveTab] = useState(0);
-  const [subjects, setSubjects] = useState<string[]>([]);
-  const [selectedSubject, setSelectedSubject] = useState<string | null>(null);
+  const [wordLists, setWordLists] = useState<WordList[]>([]);
+  const [selectedWordList, setSelectedWordList] = useState<WordList | null>(null);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
 
-  // Laddar alla ämnen när databasen är redo
+  // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
     if (Object.keys(wordDatabase).length > 0) {
-      const allSubjects = getAllSubjects(wordDatabase);
-      setSubjects(allSubjects);
+      const allLists = getAllWordLists(wordDatabase);
+      setWordLists(allLists);
     }
   }, [wordDatabase]);
 
@@ -47,8 +48,8 @@ const ListorPage: React.FC = () => {
   };
 
   // Funktion som körs när användaren klickar på en ordlista
-  const handleWordListClick = (subject: string) => {
-    setSelectedSubject(selectedSubject === subject ? null : subject);
+  const handleWordListClick = (wordList: WordList) => {
+    setSelectedWordList(selectedWordList?.id === wordList.id ? null : wordList);
   };
 
   // Funktion som körs när användaren klickar på ett ord
@@ -57,16 +58,18 @@ const ListorPage: React.FC = () => {
     setDialogOpen(true);
   };
 
-  // Hämtar ord för det valda ämnet
-  const getWordsForSelectedSubject = () => {
-    if (!selectedSubject) return [];
-    return getWordsBySubject(wordDatabase, selectedSubject);
+  // Hämtar ord för den valda ordlistan
+  const getWordsForSelectedList = () => {
+    if (!selectedWordList) return [];
+    return getWordsFromList(selectedWordList, wordDatabase);
   };
 
   // Hämtar fraser för det valda ordet
   const getPhrasesForSelectedWord = () => {
     if (!selectedWord) return [];
-    return getPhrasesForWord(phraseDatabase, selectedWord.id);
+    return Object.values(phraseDatabase).filter(phrase => 
+      phrase.ord_id === selectedWord.id
+    );
   };
 
   // Funktion som renderar innehållet för "Att lära mig"-taben
@@ -98,7 +101,7 @@ const ListorPage: React.FC = () => {
         Tillgängliga ordlistor
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Klicka på en kategori för att se ord i den kategorin.
+        Klicka på en ordlista för att se ord i den listan.
       </Typography>
       
       {isLoading && (
@@ -116,31 +119,53 @@ const ListorPage: React.FC = () => {
         </Alert>
       )}
       
-      {subjects.length > 0 && (
+      {wordLists.length > 0 && (
         <List>
-          {subjects.slice(0, 20).map((subject, index) => (
-            <React.Fragment key={subject}>
-              <ListItem disablePadding>
-                <ListItemButton onClick={() => handleWordListClick(subject)}>
-                  <ListItemText
-                    primary={subject}
-                    secondary={`${getWordsBySubject(wordDatabase, subject).length} ord`}
-                  />
-                </ListItemButton>
-              </ListItem>
-              {index < Math.min(subjects.length, 20) - 1 && <Divider />}
-            </React.Fragment>
-          ))}
+          {wordLists.map((wordList, index) => {
+            const wordsInList = getWordsFromList(wordList, wordDatabase);
+            return (
+              <React.Fragment key={wordList.id}>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={() => handleWordListClick(wordList)}>
+                    <ListItemText
+                      primary={
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                          {wordList.name}
+                          <Chip 
+                            label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
+                            size="small" 
+                            color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
+                            variant="outlined"
+                          />
+                        </Box>
+                      }
+                      secondary={
+                        <Box>
+                          <Typography variant="body2" color="text.secondary">
+                            {wordList.description}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                            {wordsInList.length} ord
+                          </Typography>
+                        </Box>
+                      }
+                    />
+                  </ListItemButton>
+                </ListItem>
+                {index < wordLists.length - 1 && <Divider />}
+              </React.Fragment>
+            );
+          })}
         </List>
       )}
       
-      {selectedSubject && (
+      {selectedWordList && (
         <Box sx={{ mt: 3 }}>
           <Typography variant="h6" gutterBottom>
-            Ord i kategorin "{selectedSubject}"
+            Ord i "{selectedWordList.name}"
           </Typography>
           <List>
-            {getWordsForSelectedSubject().slice(0, 10).map((word, index) => (
+            {getWordsForSelectedList().map((word, index) => (
               <React.Fragment key={word.id}>
                 <ListItem disablePadding>
                   <ListItemButton onClick={() => handleWordClick(word)}>
@@ -151,7 +176,7 @@ const ListorPage: React.FC = () => {
                     <PlayArrow color="primary" />
                   </ListItemButton>
                 </ListItem>
-                {index < Math.min(getWordsForSelectedSubject().length, 10) - 1 && <Divider />}
+                {index < getWordsForSelectedList().length - 1 && <Divider />}
               </React.Fragment>
             ))}
           </List>
