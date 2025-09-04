@@ -15,9 +15,12 @@ import {
   CircularProgress,
   Alert,
   Chip,
-  Button
+  Select,
+  MenuItem,
+  FormControl,
+  Collapse
 } from '@mui/material';
-import { List as ListIcon, PlayArrow } from '@mui/icons-material';
+import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
 import WordDetailDialog from '../components/WordDetailDialog';
@@ -34,6 +37,7 @@ const ListorPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [wordProgress, setWordProgress] = useState<{ [key: string]: number }>({});
+  const [expandedLists, setExpandedLists] = useState<{ [key: string]: boolean }>({});
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
@@ -79,6 +83,14 @@ const ListorPage: React.FC = () => {
       });
       return newProgress;
     });
+  };
+
+  // Funktion som körs när användaren klickar på expandera/kollapsa ordlista
+  const handleToggleList = (wordListId: string) => {
+    setExpandedLists(prev => ({
+      ...prev,
+      [wordListId]: !prev[wordListId]
+    }));
   };
 
   // Funktion som hämtar progress-nivå för ett ord
@@ -211,14 +223,14 @@ const ListorPage: React.FC = () => {
     );
   };
 
-    // Funktion som renderar innehållet för "Ordlistor"-taben
+  // Funktion som renderar innehållet för "Ordlistor"-taben
   const renderOrdlistor = () => (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>
         Ordlistor
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Klicka på progress-cirklarna för att markera ord. ⚪ Ej markerad → 🟡 Vill lära sig → 🟢 Lärt sig
+        Klicka på ordlistan för att expandera och se orden. Klicka på progress-cirklarna för att markera ord. ⚪ Ej markerad → 🟡 Vill lära sig → 🟢 Lärt sig
       </Typography>
       
       {isLoading && (
@@ -239,57 +251,98 @@ const ListorPage: React.FC = () => {
       {wordLists.length > 0 && wordLists.map((wordList) => {
         const wordsInList = getWordsFromList(wordList, wordDatabase)
           .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
+        const isExpanded = expandedLists[wordList.id] || false;
         
         return (
-          <Card key={wordList.id} sx={{ mb: 3 }}>
-            <CardContent>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-                <Typography variant="h6">
-                  {wordList.name}
-                  <Chip 
-                    label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
-                    size="small" 
-                    color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
-                    variant="outlined"
-                    sx={{ ml: 1 }}
-                  />
-                </Typography>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => handleBulkTag(wordList, 1)}
-                  sx={{ mr: 1 }}
-                >
-                  Markera alla som "vill lära sig"
-                </Button>
-              </Box>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {wordList.description} ({wordsInList.length} ord)
-              </Typography>
+          <Card key={wordList.id} sx={{ mb: 2 }}>
+            <CardContent sx={{ p: 0 }}>
+              {/* Ordlista header - klickbar för att expandera */}
+              <ListItemButton 
+                onClick={() => handleToggleList(wordList.id)}
+                sx={{ 
+                  borderBottom: isExpanded ? '1px solid' : 'none',
+                  borderColor: 'divider',
+                  p: 2
+                }}
+              >
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography variant="h6">
+                        {wordList.name}
+                      </Typography>
+                      <Chip 
+                        label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
+                        size="small" 
+                        color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
+                        variant="outlined"
+                      />
+                    </Box>
+                  }
+                  secondary={
+                    <Typography variant="body2" color="text.secondary">
+                      {wordList.description} ({wordsInList.length} ord)
+                    </Typography>
+                  }
+                />
+                {isExpanded ? <ExpandLess /> : <ExpandMore />}
+              </ListItemButton>
               
-              {wordsInList.length > 0 ? (
-                <List dense>
-                  {wordsInList.map((word, index) => (
-                    <React.Fragment key={word.id}>
-                      <ListItem disablePadding>
-                        <ListItemButton onClick={() => handleWordClick(word)}>
-                          <ListItemText
-                            primary={word.ord}
-                            secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
-                          />
-                          {renderProgressCircle(word.id)}
-                          <PlayArrow color="primary" />
-                        </ListItemButton>
-                      </ListItem>
-                      {index < wordsInList.length - 1 && <Divider />}
-                    </React.Fragment>
-                  ))}
-                </List>
-              ) : (
-                <Typography variant="body2" color="text.secondary">
-                  Inga ord hittades i denna ordlista.
-                </Typography>
-              )}
+              {/* Expandera/kollapsa innehåll */}
+              <Collapse in={isExpanded} timeout="auto" unmountOnExit>
+                <Box sx={{ p: 2, pt: 1 }}>
+                  {/* Bulk-tagging kontroller */}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2, p: 1, bgcolor: 'grey.50', borderRadius: 1 }}>
+                    <Typography variant="body2" color="text.secondary">
+                      Markera alla som:
+                    </Typography>
+                    <FormControl size="small" sx={{ minWidth: 200 }}>
+                      <Select
+                        value=""
+                        displayEmpty
+                        onChange={(e) => {
+                          const level = parseInt(e.target.value as string);
+                          if (!isNaN(level)) {
+                            handleBulkTag(wordList, level);
+                          }
+                        }}
+                      >
+                        <MenuItem value="" disabled>
+                          Välj nivå...
+                        </MenuItem>
+                        <MenuItem value={0}>⚪ Ej markerad</MenuItem>
+                        <MenuItem value={1}>🟡 Vill lära sig</MenuItem>
+                        <MenuItem value={2}>🟢 Lärt sig</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                  
+                  {/* Ordlista */}
+                  {wordsInList.length > 0 ? (
+                    <List dense>
+                      {wordsInList.map((word, index) => (
+                        <React.Fragment key={word.id}>
+                          <ListItem disablePadding>
+                            <ListItemButton onClick={() => handleWordClick(word)}>
+                              <ListItemText
+                                primary={word.ord}
+                                secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
+                              />
+                              {renderProgressCircle(word.id)}
+                              <PlayArrow color="primary" />
+                            </ListItemButton>
+                          </ListItem>
+                          {index < wordsInList.length - 1 && <Divider />}
+                        </React.Fragment>
+                      ))}
+                    </List>
+                  ) : (
+                    <Typography variant="body2" color="text.secondary">
+                      Inga ord hittades i denna ordlista.
+                    </Typography>
+                  )}
+                </Box>
+              </Collapse>
             </CardContent>
           </Card>
         );
