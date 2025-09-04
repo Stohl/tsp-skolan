@@ -20,6 +20,8 @@ interface WordDetailDialogProps {
   phrases: Phrase[];
   open: boolean;
   onClose: () => void;
+  wordProgress?: number;
+  onProgressChange?: (wordId: string, newLevel: number) => void;
 }
 
 // Komponent för att visa detaljerad information om ett ord
@@ -27,7 +29,9 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
   word,
   phrases,
   open,
-  onClose
+  onClose,
+  wordProgress = 0,
+  onProgressChange
 }) => {
   if (!word) return null;
 
@@ -45,6 +49,80 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
     }
   };
 
+  // Funktion som körs när användaren klickar på progress-cirkeln
+  const handleProgressClick = () => {
+    if (onProgressChange) {
+      const newLevel = (wordProgress + 1) % 3; // Cyklar mellan 0, 1, 2
+      onProgressChange(word.id, newLevel);
+    }
+  };
+
+  // Funktion som renderar progress-cirkel
+  const renderProgressCircle = () => {
+    const circleStyle = {
+      width: 32,
+      height: 32,
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      cursor: 'pointer',
+      border: '2px solid',
+      transition: 'all 0.2s ease',
+      fontSize: '18px',
+      '&:hover': {
+        transform: 'scale(1.1)'
+      }
+    };
+
+    switch (wordProgress) {
+      case 0: // Ej markerad
+        return (
+          <Box
+            sx={{
+              ...circleStyle,
+              backgroundColor: 'transparent',
+              borderColor: 'grey.400',
+              color: 'grey.400'
+            }}
+            onClick={handleProgressClick}
+          >
+            ⚪
+          </Box>
+        );
+      case 1: // Vill lära sig
+        return (
+          <Box
+            sx={{
+              ...circleStyle,
+              backgroundColor: 'yellow.200',
+              borderColor: 'yellow.600',
+              color: 'yellow.800'
+            }}
+            onClick={handleProgressClick}
+          >
+            🟡
+          </Box>
+        );
+      case 2: // Lärt sig
+        return (
+          <Box
+            sx={{
+              ...circleStyle,
+              backgroundColor: 'green.200',
+              borderColor: 'green.600',
+              color: 'green.800'
+            }}
+            onClick={handleProgressClick}
+          >
+            🟢
+          </Box>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <Dialog 
       open={open} 
@@ -56,9 +134,17 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
       }}
     >
       <DialogTitle>
-        <Typography variant="h5" component="div">
-          {word.ord}
-        </Typography>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <Typography variant="h5" component="div">
+            {word.ord}
+          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <Typography variant="body2" color="text.secondary">
+              Progress:
+            </Typography>
+            {renderProgressCircle()}
+          </Box>
+        </Box>
       </DialogTitle>
       
       <DialogContent>

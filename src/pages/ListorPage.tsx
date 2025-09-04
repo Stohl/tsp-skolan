@@ -14,7 +14,8 @@ import {
   Divider,
   CircularProgress,
   Alert,
-  Chip
+  Chip,
+  Button
 } from '@mui/material';
 import { List as ListIcon, PlayArrow } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
@@ -64,6 +65,19 @@ const ListorPage: React.FC = () => {
         ...prev,
         [wordId]: newLevel
       };
+    });
+  };
+
+  // Funktion som körs när användaren klickar på bulk-tagging knappen
+  const handleBulkTag = (wordList: WordList, level: number) => {
+    const wordsInList = getWordsFromList(wordList, wordDatabase);
+    
+    setWordProgress(prev => {
+      const newProgress = { ...prev };
+      wordsInList.forEach(word => {
+        newProgress[word.id] = level;
+      });
+      return newProgress;
     });
   };
 
@@ -153,7 +167,8 @@ const ListorPage: React.FC = () => {
     const learningWords = Object.entries(wordProgress)
       .filter(([_, level]) => level === 1)
       .map(([wordId]) => wordDatabase[wordId])
-      .filter(word => word !== undefined);
+      .filter(word => word !== undefined)
+      .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
 
     return (
       <Box sx={{ p: 2 }}>
@@ -196,7 +211,7 @@ const ListorPage: React.FC = () => {
     );
   };
 
-  // Funktion som renderar innehållet för "Ordlistor"-taben
+    // Funktion som renderar innehållet för "Ordlistor"-taben
   const renderOrdlistor = () => (
     <Box sx={{ p: 2 }}>
       <Typography variant="h6" gutterBottom>
@@ -222,21 +237,32 @@ const ListorPage: React.FC = () => {
       )}
       
       {wordLists.length > 0 && wordLists.map((wordList) => {
-        const wordsInList = getWordsFromList(wordList, wordDatabase);
+        const wordsInList = getWordsFromList(wordList, wordDatabase)
+          .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
         
         return (
           <Card key={wordList.id} sx={{ mb: 3 }}>
             <CardContent>
-              <Typography variant="h6" gutterBottom>
-                {wordList.name}
-                <Chip 
-                  label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
-                  size="small" 
-                  color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+                <Typography variant="h6">
+                  {wordList.name}
+                  <Chip 
+                    label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
+                    size="small" 
+                    color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
+                    variant="outlined"
+                    sx={{ ml: 1 }}
+                  />
+                </Typography>
+                <Button
                   variant="outlined"
-                  sx={{ ml: 1 }}
-                />
-              </Typography>
+                  size="small"
+                  onClick={() => handleBulkTag(wordList, 1)}
+                  sx={{ mr: 1 }}
+                >
+                  Markera alla som "vill lära sig"
+                </Button>
+              </Box>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                 {wordList.description} ({wordsInList.length} ord)
               </Typography>
@@ -277,7 +303,8 @@ const ListorPage: React.FC = () => {
     const learnedWords = Object.entries(wordProgress)
       .filter(([_, level]) => level === 2)
       .map(([wordId]) => wordDatabase[wordId])
-      .filter(word => word !== undefined);
+      .filter(word => word !== undefined)
+      .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
 
     return (
       <Box sx={{ p: 2 }}>
@@ -375,6 +402,13 @@ const ListorPage: React.FC = () => {
         phrases={getPhrasesForSelectedWord()}
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
+        wordProgress={selectedWord ? getWordProgress(selectedWord.id) : 0}
+        onProgressChange={(wordId, newLevel) => {
+          setWordProgress(prev => ({
+            ...prev,
+            [wordId]: newLevel
+          }));
+        }}
       />
     </Container>
   );
