@@ -114,7 +114,7 @@ export const useWordProgress = () => {
     updateWordProgress(wordId, { level });
   };
 
-  // Funktion för att hämta ord för övning (prioritera svåra ord)
+  // Funktion för att hämta ord för övning (prioritera ord som användaren vill lära sig)
   const getWordsForPractice = (wordDatabase: any, count: number = 10): any[] => {
     const wordsWithProgress = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
       ...word,
@@ -124,12 +124,25 @@ export const useWordProgress = () => {
       }
     }));
 
-    // Sortera efter svårighetsgrad (högst först) och senast övade (längst tillbaka först)
+    // Sortera ord för övning:
+    // 1. Ord markerade som "vill lära mig" (nivå 1) först
+    // 2. Sedan efter svårighetsgrad (högst först)
+    // 3. Sedan efter senast övade (längst tillbaka först)
     return wordsWithProgress
       .sort((a, b) => {
+        // Prioritera ord som användaren vill lära sig (nivå 1)
+        const levelA = a.progress.level;
+        const levelB = b.progress.level;
+        
+        // Om ena är nivå 1 och andra inte, prioritera nivå 1
+        if (levelA === 1 && levelB !== 1) return -1;
+        if (levelA !== 1 && levelB === 1) return 1;
+        
+        // Om båda är nivå 1 eller båda inte är nivå 1, sortera efter svårighetsgrad
         const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
         if (difficultyDiff !== 0) return difficultyDiff;
         
+        // Om svårighetsgrad är samma, sortera efter senast övade
         const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
         const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
         return lastPracticedA - lastPracticedB;

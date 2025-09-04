@@ -448,7 +448,7 @@ const SignExercise: React.FC<{
 // Huvudkomponent för övningssidan
 const OvningPage: React.FC = () => {
   const { wordDatabase, isLoading, error } = useDatabase();
-  const { getWordsForPractice, markWordResult, setWordLevel } = useWordProgress();
+  const { getWordsForPractice, markWordResult, setWordLevel, wordProgress } = useWordProgress();
   
   const [selectedExerciseType, setSelectedExerciseType] = useState<ExerciseType | null>(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -460,9 +460,45 @@ const OvningPage: React.FC = () => {
   useEffect(() => {
     if (Object.keys(wordDatabase).length > 0) {
       const words = getWordsForPractice(wordDatabase, 10);
-      setPracticeWords(words);
+      console.log('Laddade ord för övning:', words.length, words);
+      
+      // Om inga ord hittas för övning, använd alla ord
+      if (words.length === 0) {
+        const allWords = Object.values(wordDatabase).slice(0, 10);
+        console.log('Använder alla ord som fallback:', allWords.length);
+        setPracticeWords(allWords);
+      } else {
+        setPracticeWords(words);
+      }
     }
   }, [wordDatabase, getWordsForPractice]);
+
+  // Funktion för att ladda bara ord som användaren vill lära sig
+  const loadLearningWordsOnly = () => {
+    if (Object.keys(wordDatabase).length > 0) {
+      const allWords = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
+        ...word,
+        progress: wordProgress[wordId] || {
+          level: 0,
+          stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
+        }
+      }));
+
+      const learningWords = allWords.filter(word => word.progress.level === 1);
+      console.log('Laddade bara ord som användaren vill lära sig:', learningWords.length);
+      setPracticeWords(learningWords.slice(0, 10));
+    }
+  };
+
+  // Debug: Logga när practiceWords ändras
+  useEffect(() => {
+    console.log('PracticeWords uppdaterades:', practiceWords.length, practiceWords);
+  }, [practiceWords]);
+
+  // Debug: Logga när currentWordIndex ändras
+  useEffect(() => {
+    console.log('CurrentWordIndex:', currentWordIndex, 'av', practiceWords.length);
+  }, [currentWordIndex, practiceWords.length]);
 
   // Funktion som körs när användaren väljer övningstyp
   const handleExerciseTypeSelect = (exerciseType: ExerciseType) => {
@@ -631,8 +667,55 @@ const OvningPage: React.FC = () => {
               Din progress
             </Typography>
             <Typography variant="body2" color="text.secondary">
-              {practiceWords.length} ord redo för övning (prioriterade efter svårighetsgrad)
+              {practiceWords.length} ord redo för övning
             </Typography>
+            
+            {/* Visa hur många ord som är markerade som "vill lära mig" */}
+            {(() => {
+              const learningWords = practiceWords.filter(word => 
+                word.progress?.level === 1
+              );
+              const otherWords = practiceWords.filter(word => 
+                word.progress?.level !== 1
+              );
+              
+              return (
+                <Box sx={{ mt: 2 }}>
+                  {learningWords.length > 0 && (
+                    <Typography variant="body2" color="primary.main">
+                      🟡 {learningWords.length} ord markerade som "vill lära mig" (prioriterade)
+                    </Typography>
+                  )}
+                  {otherWords.length > 0 && (
+                    <Typography variant="body2" color="text.secondary">
+                      ⚪ {otherWords.length} andra ord baserat på svårighetsgrad
+                    </Typography>
+                  )}
+                  
+                  {/* Knapp för att bara öva på ord som användaren vill lära sig */}
+                  {(() => {
+                    const allLearningWords = Object.entries(wordDatabase).filter(([wordId, word]: [string, any]) => {
+                      const progress = wordProgress[wordId];
+                      return progress?.level === 1;
+                    });
+                    
+                    if (allLearningWords.length > 0) {
+                      return (
+                        <Button
+                          variant="outlined"
+                          size="small"
+                          onClick={loadLearningWordsOnly}
+                          sx={{ mt: 2 }}
+                        >
+                          Öva bara på ord jag vill lära mig ({allLearningWords.length})
+                        </Button>
+                      );
+                    }
+                    return null;
+                  })()}
+                </Box>
+              );
+            })()}
           </Paper>
         )}
       </Container>
@@ -725,6 +808,24 @@ const OvningPage: React.FC = () => {
           value={((currentWordIndex + 1) / practiceWords.length) * 100}
           sx={{ mb: 2 }}
         />
+
+        {/* Debug: Manuell nästa-knapp */}
+        <Box sx={{ textAlign: 'center', mt: 2 }}>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => {
+              console.log('Manuell nästa-knapp klickad');
+              if (currentWordIndex < practiceWords.length - 1) {
+                setCurrentWordIndex(prev => prev + 1);
+              } else {
+                setShowResults(true);
+              }
+            }}
+          >
+            Nästa ord (debug)
+          </Button>
+        </Box>
       </Box>
 
       {/* Övningskomponent */}
@@ -761,6 +862,22 @@ const OvningPage: React.FC = () => {
         sx={{ position: 'fixed', bottom: 16, right: 16 }}
       >
         <Refresh />
+      </Fab>
+
+      {/* Debug-knapp för att testa navigering */}
+      <Fab
+        color="primary"
+        aria-label="debug"
+        onClick={() => {
+          console.log('Debug info:');
+          console.log('Current word index:', currentWordIndex);
+          console.log('Practice words length:', practiceWords.length);
+          console.log('Current word:', practiceWords[currentWordIndex]);
+          console.log('Results:', results);
+        }}
+        sx={{ position: 'fixed', bottom: 16, right: 80 }}
+      >
+        <Typography variant="h6">?</Typography>
       </Fab>
     </Container>
   );
