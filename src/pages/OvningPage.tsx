@@ -59,6 +59,12 @@ const FlashcardsExercise: React.FC<{
   const [showVideo, setShowVideo] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
 
+  // Återställ state när ordet ändras
+  useEffect(() => {
+    setShowVideo(false);
+    setCountdown(null);
+  }, [word.id]);
+
   // Starta countdown när komponenten laddas
   useEffect(() => {
     if (!showVideo) {
@@ -197,12 +203,20 @@ const QuizExercise: React.FC<{
     return wrongWords.map(w => ({ id: w.id, text: w.ord }));
   };
 
-  const [answers] = useState(() => {
+  // Använd useMemo för att generera svarsalternativ när ordet ändras
+  const answers = useMemo(() => {
     const wrongAnswers = getWrongAnswers();
     const correctAnswer = { id: word.id, text: word.ord };
     const allAnswers = [...wrongAnswers, correctAnswer];
     return allAnswers.sort(() => Math.random() - 0.5); // Blanda svaren
-  });
+  }, [word.id, allWords]); // Uppdatera när ordet eller allWords ändras
+
+  // Återställ state när ordet ändras
+  useEffect(() => {
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setCountdown(10);
+  }, [word.id]);
 
   // Countdown timer
   useEffect(() => {
@@ -342,6 +356,13 @@ const SignExercise: React.FC<{
   const [countdown, setCountdown] = useState(5);
   const [showVideo, setShowVideo] = useState(false);
   const [isCountingDown, setIsCountingDown] = useState(true);
+
+  // Återställ state när ordet ändras
+  useEffect(() => {
+    setCountdown(5);
+    setShowVideo(false);
+    setIsCountingDown(true);
+  }, [word.id]);
 
   // Countdown timer
   useEffect(() => {
