@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Container,
   Typography,
@@ -452,43 +452,67 @@ const OvningPage: React.FC = () => {
   
   const [selectedExerciseType, setSelectedExerciseType] = useState<ExerciseType | null>(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
-  const [practiceWords, setPracticeWords] = useState<any[]>([]);
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<ExerciseResult[]>([]);
+  const [learningWordsOnly, setLearningWordsOnly] = useState(false);
 
-  // Ladda ord för övning när databasen är redo
-  const loadPracticeWords = useCallback(() => {
-    if (Object.keys(wordDatabase).length > 0) {
-      const words = getWordsForPractice(wordDatabase, 10);
-      
-      // Om inga ord hittas för övning, använd alla ord
-      if (words.length === 0) {
-        const allWords = Object.values(wordDatabase).slice(0, 10);
-        setPracticeWords(allWords);
-      } else {
-        setPracticeWords(words);
+  // Beräkna ord för övning med useMemo för att undvika oändlig loop
+  const practiceWords = useMemo(() => {
+    if (Object.keys(wordDatabase).length === 0) return [];
+    
+    const wordsWithProgress = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
+      ...word,
+      progress: wordProgress[wordId] || {
+        level: 0,
+        stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
       }
-    }
-  }, [wordDatabase, getWordsForPractice]);
+    }));
 
-  useEffect(() => {
-    loadPracticeWords();
-  }, [loadPracticeWords]);
+    // Om learningWordsOnly är aktiverat, filtrera bara ord som användaren vill lära sig
+    let filteredWords = wordsWithProgress;
+    if (learningWordsOnly) {
+      filteredWords = wordsWithProgress.filter(word => word.progress.level === 1);
+    }
+
+    // Sortera ord för övning:
+    // 1. Ord markerade som "vill lära mig" (nivå 1) först
+    // 2. Sedan efter svårighetsgrad (högst först)
+    // 3. Sedan efter senast övade (längst tillbaka först)
+    const sortedWords = filteredWords
+      .sort((a, b) => {
+        // Prioritera ord som användaren vill lära sig (nivå 1)
+        const levelA = a.progress.level;
+        const levelB = b.progress.level;
+        
+        // Om ena är nivå 1 och andra inte, prioritera nivå 1
+        if (levelA === 1 && levelB !== 1) return -1;
+        if (levelA !== 1 && levelB === 1) return 1;
+        
+        // Om båda är nivå 1 eller båda inte är nivå 1, sortera efter svårighetsgrad
+        const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
+        if (difficultyDiff !== 0) return difficultyDiff;
+        
+        // Om svårighetsgrad är samma, sortera efter senast övade
+        const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
+        const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
+        return lastPracticedA - lastPracticedB;
+      })
+      .slice(0, 10);
+
+    // Om inga ord hittas för övning, använd alla ord
+    if (sortedWords.length === 0) {
+      return Object.values(wordDatabase).slice(0, 10);
+    }
+    
+    return sortedWords;
+  }, [wordDatabase, wordProgress, learningWordsOnly]); // Lägg till learningWordsOnly som dependency
 
   // Funktion för att ladda bara ord som användaren vill lära sig
   const loadLearningWordsOnly = () => {
-    if (Object.keys(wordDatabase).length > 0) {
-      const allWords = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
-        ...word,
-        progress: wordProgress[wordId] || {
-          level: 0,
-          stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
-        }
-      }));
-
-      const learningWords = allWords.filter(word => word.progress.level === 1);
-      setPracticeWords(learningWords.slice(0, 10));
-    }
+    setLearningWordsOnly(true);
+    setCurrentWordIndex(0);
+    setResults([]);
+    setShowResults(false);
   };
 
   // Funktion som körs när användaren väljer övningstyp
@@ -542,6 +566,7 @@ const OvningPage: React.FC = () => {
     setCurrentWordIndex(0);
     setResults([]);
     setShowResults(false);
+    setLearningWordsOnly(false);
   };
 
   // Funktion som körs när användaren går tillbaka till menyn
@@ -550,6 +575,7 @@ const OvningPage: React.FC = () => {
     setCurrentWordIndex(0);
     setResults([]);
     setShowResults(false);
+    setLearningWordsOnly(false);
   };
 
   // Beräkna statistik
