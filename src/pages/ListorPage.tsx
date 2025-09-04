@@ -23,7 +23,9 @@ import {
 import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
+import { getPhrasesForWord } from '../types/database';
 import WordDetailDialog from '../components/WordDetailDialog';
+import { useWordProgress } from '../hooks/usePersistentState';
 import { Word } from '../types/database';
 
 // Listor-sidan med sub-tabs för olika kategorier
@@ -36,8 +38,10 @@ const ListorPage: React.FC = () => {
   const [wordLists, setWordLists] = useState<WordList[]>([]);
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [wordProgress, setWordProgress] = useState<{ [key: string]: number }>({});
   const [expandedLists, setExpandedLists] = useState<{ [key: string]: boolean }>({});
+
+  // Använd persistent word progress hook
+  const { wordProgress, setWordLevel, markWordResult } = useWordProgress();
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
@@ -62,26 +66,17 @@ const ListorPage: React.FC = () => {
   const handleProgressClick = (wordId: string, event: React.MouseEvent) => {
     event.stopPropagation(); // Förhindrar att dialog öppnas
     
-    setWordProgress(prev => {
-      const currentLevel = prev[wordId] || 0;
-      const newLevel = (currentLevel + 1) % 3; // Cyklar mellan 0, 1, 2
-      return {
-        ...prev,
-        [wordId]: newLevel
-      };
-    });
+    const currentLevel = wordProgress[wordId]?.level || 0;
+    const newLevel = (currentLevel + 1) % 3; // Cyklar mellan 0, 1, 2
+    setWordLevel(wordId, newLevel);
   };
 
   // Funktion som körs när användaren klickar på bulk-tagging knappen
   const handleBulkTag = (wordList: WordList, level: number) => {
     const wordsInList = getWordsFromList(wordList, wordDatabase);
     
-    setWordProgress(prev => {
-      const newProgress = { ...prev };
-      wordsInList.forEach(word => {
-        newProgress[word.id] = level;
-      });
-      return newProgress;
+    wordsInList.forEach(word => {
+      setWordLevel(word.id, level);
     });
   };
 
@@ -95,7 +90,7 @@ const ListorPage: React.FC = () => {
 
   // Funktion som hämtar progress-nivå för ett ord
   const getWordProgress = (wordId: string): number => {
-    return wordProgress[wordId] || 0;
+    return wordProgress[wordId]?.level || 0;
   };
 
   // Funktion som renderar progress-cirkel
@@ -177,7 +172,7 @@ const ListorPage: React.FC = () => {
   const renderAttLaraMig = () => {
     // Hämta alla ord som användaren vill lära sig (nivå 1)
     const learningWords = Object.entries(wordProgress)
-      .filter(([_, level]) => level === 1)
+      .filter(([_, progress]) => progress.level === 1)
       .map(([wordId]) => wordDatabase[wordId])
       .filter(word => word !== undefined)
       .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
@@ -354,7 +349,7 @@ const ListorPage: React.FC = () => {
   const renderLarda = () => {
     // Hämta alla ord som användaren har lärt sig (nivå 2)
     const learnedWords = Object.entries(wordProgress)
-      .filter(([_, level]) => level === 2)
+      .filter(([_, progress]) => progress.level === 2)
       .map(([wordId]) => wordDatabase[wordId])
       .filter(word => word !== undefined)
       .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
@@ -457,10 +452,7 @@ const ListorPage: React.FC = () => {
         onClose={() => setDialogOpen(false)}
         wordProgress={selectedWord ? getWordProgress(selectedWord.id) : 0}
         onProgressChange={(wordId, newLevel) => {
-          setWordProgress(prev => ({
-            ...prev,
-            [wordId]: newLevel
-          }));
+          setWordLevel(wordId, newLevel);
         }}
       />
     </Container>
