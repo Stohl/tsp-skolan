@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Container,
   Typography,
@@ -457,21 +457,23 @@ const OvningPage: React.FC = () => {
   const [results, setResults] = useState<ExerciseResult[]>([]);
 
   // Ladda ord för övning när databasen är redo
-  useEffect(() => {
+  const loadPracticeWords = useCallback(() => {
     if (Object.keys(wordDatabase).length > 0) {
       const words = getWordsForPractice(wordDatabase, 10);
-      console.log('Laddade ord för övning:', words.length, words);
       
       // Om inga ord hittas för övning, använd alla ord
       if (words.length === 0) {
         const allWords = Object.values(wordDatabase).slice(0, 10);
-        console.log('Använder alla ord som fallback:', allWords.length);
         setPracticeWords(allWords);
       } else {
         setPracticeWords(words);
       }
     }
   }, [wordDatabase, getWordsForPractice]);
+
+  useEffect(() => {
+    loadPracticeWords();
+  }, [loadPracticeWords]);
 
   // Funktion för att ladda bara ord som användaren vill lära sig
   const loadLearningWordsOnly = () => {
@@ -485,20 +487,9 @@ const OvningPage: React.FC = () => {
       }));
 
       const learningWords = allWords.filter(word => word.progress.level === 1);
-      console.log('Laddade bara ord som användaren vill lära sig:', learningWords.length);
       setPracticeWords(learningWords.slice(0, 10));
     }
   };
-
-  // Debug: Logga när practiceWords ändras
-  useEffect(() => {
-    console.log('PracticeWords uppdaterades:', practiceWords.length, practiceWords);
-  }, [practiceWords]);
-
-  // Debug: Logga när currentWordIndex ändras
-  useEffect(() => {
-    console.log('CurrentWordIndex:', currentWordIndex, 'av', practiceWords.length);
-  }, [currentWordIndex, practiceWords.length]);
 
   // Funktion som körs när användaren väljer övningstyp
   const handleExerciseTypeSelect = (exerciseType: ExerciseType) => {
