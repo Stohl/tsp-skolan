@@ -136,6 +136,7 @@ const FlashcardsExercise: React.FC<{
             {word.video_url && (
               <Box sx={{ mb: 3 }}>
                 <video
+                  key={word.id} // Tvingar React att skapa ny video när ordet ändras
                   controls
                   autoPlay
                   muted
@@ -192,7 +193,6 @@ const QuizExercise: React.FC<{
 }> = ({ word, allWords, onResult, onSkip }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
-  const [countdown, setCountdown] = useState(10);
 
   // Generera felaktiga alternativ
   const getWrongAnswers = () => {
@@ -215,20 +215,8 @@ const QuizExercise: React.FC<{
   useEffect(() => {
     setSelectedAnswer(null);
     setShowResult(false);
-    setCountdown(10);
   }, [word.id]);
 
-  // Countdown timer
-  useEffect(() => {
-    if (countdown > 0 && !showResult) {
-      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
-      return () => clearTimeout(timer);
-    } else if (countdown === 0 && !showResult) {
-      // Tid slut - räkna som fel
-      setShowResult(true);
-      setTimeout(() => onResult(false), 2000);
-    }
-  }, [countdown, showResult, onResult]);
 
   const handleAnswerSelect = (answerId: string) => {
     if (selectedAnswer || showResult) return;
@@ -245,23 +233,12 @@ const QuizExercise: React.FC<{
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
       <CardContent sx={{ textAlign: 'center', p: 4 }}>
-        {/* Timer */}
-        <Box sx={{ mb: 3 }}>
-          <Typography variant="h6" color="primary">
-            Tid kvar: {countdown}s
-          </Typography>
-          <LinearProgress 
-            variant="determinate" 
-            value={(countdown / 10) * 100} 
-            sx={{ mt: 1 }}
-          />
-        </Box>
-
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
             <Box sx={{ mb: 3 }}>
               <video
+                key={word.id} // Tvingar React att skapa ny video när ordet ändras
                 controls
                 autoPlay
                 muted
@@ -409,6 +386,7 @@ const SignExercise: React.FC<{
             {word.video_url && (
               <Box sx={{ mb: 3 }}>
                 <video
+                  key={word.id} // Tvingar React att skapa ny video när ordet ändras
                   controls
                   autoPlay
                   muted
