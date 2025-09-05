@@ -13,6 +13,7 @@ import {
   ListItemButton,
   Divider,
   CircularProgress,
+  Button,
   Alert,
   Chip,
   Select,
@@ -39,6 +40,7 @@ const ListorPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [expandedLists, setExpandedLists] = useState<{ [key: string]: boolean }>({});
+  const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect'>('name');
 
   // Använd persistent word progress hook
   const { wordProgress, setWordLevel, markWordResult } = useWordProgress();
@@ -175,16 +177,70 @@ const ListorPage: React.FC = () => {
       .filter(([_, progress]) => progress.level === 1)
       .map(([wordId]) => wordDatabase[wordId])
       .filter(word => word !== undefined)
-      .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
+      .sort((a, b) => {
+        const progressA = wordProgress[a.id];
+        const progressB = wordProgress[b.id];
+        
+        switch (sortBy) {
+          case 'name':
+            return a.ord.localeCompare(b.ord, 'sv');
+          case 'lastPracticed':
+            const dateA = progressA?.stats?.lastPracticed ? new Date(progressA.stats.lastPracticed).getTime() : 0;
+            const dateB = progressB?.stats?.lastPracticed ? new Date(progressB.stats.lastPracticed).getTime() : 0;
+            return dateB - dateA; // Senast först
+          case 'correct':
+            const correctA = progressA?.stats?.correct || 0;
+            const correctB = progressB?.stats?.correct || 0;
+            return correctB - correctA; // Flest rätt först
+          case 'incorrect':
+            const incorrectA = progressA?.stats?.incorrect || 0;
+            const incorrectB = progressB?.stats?.incorrect || 0;
+            return incorrectB - incorrectA; // Flest fel först
+          default:
+            return a.ord.localeCompare(b.ord, 'sv');
+        }
+      });
 
     return (
       <Box sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom>
           Ord att lära mig
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
           Ord som du har markerat som "vill lära sig".
         </Typography>
+        
+        {/* Sorteringsknappar */}
+        <Box sx={{ mb: 3, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+          <Button
+            variant={sortBy === 'name' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setSortBy('name')}
+          >
+            Namn
+          </Button>
+          <Button
+            variant={sortBy === 'lastPracticed' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setSortBy('lastPracticed')}
+          >
+            Senast övat
+          </Button>
+          <Button
+            variant={sortBy === 'correct' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setSortBy('correct')}
+          >
+            Antal rätt
+          </Button>
+          <Button
+            variant={sortBy === 'incorrect' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setSortBy('incorrect')}
+          >
+            Antal fel
+          </Button>
+        </Box>
         
         {learningWords.length > 0 ? (
           <List>
@@ -202,8 +258,10 @@ const ListorPage: React.FC = () => {
                           {wordProgress[word.id]?.stats && (
                             <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
                               ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel
-                              {wordProgress[word.id].stats.lastPracticed && (
+                              {wordProgress[word.id].stats.lastPracticed && wordProgress[word.id].stats.lastPracticed !== new Date().toISOString().split('T')[0] + 'T00:00:00.000Z' ? (
                                 <span> • Senast: {new Date(wordProgress[word.id].stats.lastPracticed).toLocaleDateString('sv-SE')}</span>
+                              ) : (
+                                <span> • Aldrig övat</span>
                               )}
                             </Typography>
                           )}

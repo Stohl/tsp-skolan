@@ -55,20 +55,23 @@ export const useWordProgress = () => {
 
   // Funktion för att uppdatera progress för ett specifikt ord
   const updateWordProgress = (wordId: string, updates: Partial<WordProgressData>) => {
-    setWordProgress((prev: WordProgressStorage) => ({
-      ...prev,
-      [wordId]: {
-        level: prev[wordId]?.level || 0,
-        stats: {
-          correct: prev[wordId]?.stats.correct || 0,
-          incorrect: prev[wordId]?.stats.incorrect || 0,
-          lastPracticed: prev[wordId]?.stats.lastPracticed || new Date().toISOString(),
-          difficulty: prev[wordId]?.stats.difficulty || 50,
-          ...updates.stats
-        },
-        ...updates
-      }
-    }));
+    setWordProgress((prev: WordProgressStorage) => {
+      const current = prev[wordId] || {
+        level: 0,
+        stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
+      };
+      
+      return {
+        ...prev,
+        [wordId]: {
+          level: updates.level !== undefined ? updates.level : current.level,
+          stats: {
+            ...current.stats,
+            ...(updates.stats || {})
+          }
+        }
+      };
+    });
   };
 
   // Funktion för att beräkna svårighetsgrad baserat på performance
