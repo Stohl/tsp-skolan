@@ -193,6 +193,7 @@ const QuizExercise: React.FC<{
 }> = ({ word, allWords, onResult, onSkip }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Generera felaktiga alternativ
@@ -222,6 +223,7 @@ const QuizExercise: React.FC<{
     
     setSelectedAnswer(null);
     setShowResult(false);
+    setClickedAnswer(null);
   }, [word.id]);
 
   // Cleanup timeout när komponenten unmountas
@@ -236,6 +238,7 @@ const QuizExercise: React.FC<{
   const handleAnswerSelect = (answerId: string) => {
     if (selectedAnswer || showResult) return;
     
+    setClickedAnswer(answerId); // Sätt omedelbart för visuell feedback
     setSelectedAnswer(answerId);
     setShowResult(true);
     
@@ -285,21 +288,21 @@ const QuizExercise: React.FC<{
                   onClick={() => handleAnswerSelect(answer.id)}
                   disabled={selectedAnswer !== null || showResult}
                   sx={{
-                    border: selectedAnswer === answer.id ? '2px solid' : '1px solid',
+                    border: (selectedAnswer === answer.id || clickedAnswer === answer.id) ? '2px solid' : '1px solid',
                     borderColor: showResult 
                       ? (isCorrectAnswer(answer.id) ? 'success.main' : 'error.main')
-                      : 'divider',
+                      : (clickedAnswer === answer.id ? 'primary.main' : 'divider'),
                     borderRadius: 1,
                     mb: 1,
                     backgroundColor: showResult 
                       ? (isCorrectAnswer(answer.id) ? 'success.light' : 'error.light')
-                      : 'transparent'
+                      : (clickedAnswer === answer.id ? 'primary.light' : 'transparent')
                   }}
                 >
                   <ListItemText
                     primary={
                       <Typography variant="h6">
-                        {String.fromCharCode(65 + index)}. {answer.text}
+                        {answer.text}
                       </Typography>
                     }
                   />
@@ -837,23 +840,6 @@ const OvningPage: React.FC = () => {
           sx={{ mb: 2 }}
         />
 
-        {/* Debug: Manuell nästa-knapp */}
-        <Box sx={{ textAlign: 'center', mt: 2 }}>
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={() => {
-              console.log('Manuell nästa-knapp klickad');
-              if (currentWordIndex < practiceWords.length - 1) {
-                setCurrentWordIndex(prev => prev + 1);
-              } else {
-                setShowResults(true);
-              }
-            }}
-          >
-            Nästa ord (debug)
-          </Button>
-        </Box>
       </Box>
 
       {/* Övningskomponent */}
@@ -892,21 +878,6 @@ const OvningPage: React.FC = () => {
         <Refresh />
       </Fab>
 
-      {/* Debug-knapp för att testa navigering */}
-      <Fab
-        color="primary"
-        aria-label="debug"
-        onClick={() => {
-          console.log('Debug info:');
-          console.log('Current word index:', currentWordIndex);
-          console.log('Practice words length:', practiceWords.length);
-          console.log('Current word:', practiceWords[currentWordIndex]);
-          console.log('Results:', results);
-        }}
-        sx={{ position: 'fixed', bottom: 16, right: 80 }}
-      >
-        <Typography variant="h6">?</Typography>
-      </Fab>
     </Container>
   );
 };

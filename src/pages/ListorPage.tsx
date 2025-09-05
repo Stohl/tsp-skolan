@@ -194,7 +194,21 @@ const ListorPage: React.FC = () => {
                   <ListItemButton onClick={() => handleWordClick(word)}>
                     <ListItemText
                       primary={word.ord}
-                      secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
+                      secondary={
+                        <Box>
+                          <Typography variant="body2" color="text.secondary">
+                            {word.beskrivning || 'Ingen beskrivning tillgänglig'}
+                          </Typography>
+                          {wordProgress[word.id]?.stats && (
+                            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                              ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel
+                              {wordProgress[word.id].stats.lastPracticed && (
+                                <span> • Senast: {new Date(wordProgress[word.id].stats.lastPracticed).toLocaleDateString('sv-SE')}</span>
+                              )}
+                            </Typography>
+                          )}
+                        </Box>
+                      }
                     />
                     {renderProgressCircle(word.id)}
                     <PlayArrow color="primary" />
