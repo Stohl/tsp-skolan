@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import {
   Container,
   Typography,
@@ -193,7 +193,7 @@ const QuizExercise: React.FC<{
 }> = ({ word, allWords, onResult, onSkip }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
-  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // Generera felaktiga alternativ
   const getWrongAnswers = () => {
@@ -215,23 +215,23 @@ const QuizExercise: React.FC<{
   // Återställ state när ordet ändras
   useEffect(() => {
     // Rensa eventuell pågående timeout
-    if (timeoutId) {
-      clearTimeout(timeoutId);
-      setTimeoutId(null);
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
     }
     
     setSelectedAnswer(null);
     setShowResult(false);
-  }, [word.id, timeoutId]);
+  }, [word.id]);
 
   // Cleanup timeout när komponenten unmountas
   useEffect(() => {
     return () => {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
     };
-  }, [timeoutId]);
+  }, []);
 
   const handleAnswerSelect = (answerId: string) => {
     if (selectedAnswer || showResult) return;
@@ -241,7 +241,7 @@ const QuizExercise: React.FC<{
     
     const isCorrect = answerId === word.id;
     const timeout = setTimeout(() => onResult(isCorrect), 2000);
-    setTimeoutId(timeout);
+    timeoutRef.current = timeout;
   };
 
   const isCorrectAnswer = (answerId: string) => answerId === word.id;
