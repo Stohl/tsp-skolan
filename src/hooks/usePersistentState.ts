@@ -58,7 +58,7 @@ export const useWordProgress = () => {
     setWordProgress((prev: WordProgressStorage) => {
       const current = prev[wordId] || {
         level: 0,
-        stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
+        stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
       };
       
       return {
@@ -95,7 +95,7 @@ export const useWordProgress = () => {
   const markWordResult = (wordId: string, isCorrect: boolean) => {
     const current = wordProgress[wordId] || {
       level: 0,
-      stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
+      stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
     };
 
     const newStats = {
@@ -114,6 +114,7 @@ export const useWordProgress = () => {
 
   // Funktion för att ändra nivå för ett ord
   const setWordLevel = (wordId: string, level: number) => {
+    console.log(`setWordLevel called: wordId=${wordId}, level=${level}`);
     updateWordProgress(wordId, { level });
   };
 
@@ -123,7 +124,7 @@ export const useWordProgress = () => {
       ...word,
       progress: wordProgress[wordId] || {
         level: 0,
-        stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
+        stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
       }
     }));
 
@@ -146,8 +147,8 @@ export const useWordProgress = () => {
         if (difficultyDiff !== 0) return difficultyDiff;
         
         // Om svårighetsgrad är samma, sortera efter senast övade
-        const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
-        const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
+        const lastPracticedA = a.progress.stats.lastPracticed ? new Date(a.progress.stats.lastPracticed).getTime() : 0;
+        const lastPracticedB = b.progress.stats.lastPracticed ? new Date(b.progress.stats.lastPracticed).getTime() : 0;
         return lastPracticedA - lastPracticedB;
       })
       .slice(0, count);

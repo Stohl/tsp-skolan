@@ -77,7 +77,10 @@ const ListorPage: React.FC = () => {
   const handleBulkTag = (wordList: WordList, level: number) => {
     const wordsInList = getWordsFromList(wordList, wordDatabase);
     
+    console.log(`Bulk tagging ${wordsInList.length} words to level ${level}`);
+    
     wordsInList.forEach(word => {
+      console.log(`Setting word ${word.id} (${word.ord}) to level ${level}`);
       setWordLevel(word.id, level);
     });
   };
@@ -258,7 +261,7 @@ const ListorPage: React.FC = () => {
                           {wordProgress[word.id]?.stats && (
                             <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
                               ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel
-                              {wordProgress[word.id].stats.lastPracticed && wordProgress[word.id].stats.lastPracticed !== new Date().toISOString().split('T')[0] + 'T00:00:00.000Z' ? (
+                              {wordProgress[word.id].stats.lastPracticed ? (
                                 <span> • Senast: {new Date(wordProgress[word.id].stats.lastPracticed).toLocaleDateString('sv-SE')}</span>
                               ) : (
                                 <span> • Aldrig övat</span>
