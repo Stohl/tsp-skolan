@@ -193,6 +193,7 @@ const QuizExercise: React.FC<{
 }> = ({ word, allWords, onResult, onSkip }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
 
   // Generera felaktiga alternativ
   const getWrongAnswers = () => {
@@ -213,10 +214,24 @@ const QuizExercise: React.FC<{
 
   // Återställ state när ordet ändras
   useEffect(() => {
+    // Rensa eventuell pågående timeout
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      setTimeoutId(null);
+    }
+    
     setSelectedAnswer(null);
     setShowResult(false);
-  }, [word.id]);
+  }, [word.id, timeoutId]);
 
+  // Cleanup timeout när komponenten unmountas
+  useEffect(() => {
+    return () => {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    };
+  }, [timeoutId]);
 
   const handleAnswerSelect = (answerId: string) => {
     if (selectedAnswer || showResult) return;
@@ -225,7 +240,8 @@ const QuizExercise: React.FC<{
     setShowResult(true);
     
     const isCorrect = answerId === word.id;
-    setTimeout(() => onResult(isCorrect), 2000);
+    const timeout = setTimeout(() => onResult(isCorrect), 2000);
+    setTimeoutId(timeout);
   };
 
   const isCorrectAnswer = (answerId: string) => answerId === word.id;
@@ -538,15 +554,11 @@ const OvningPage: React.FC = () => {
     setResults(prev => [...prev, result]);
     markWordResult(currentWord.id, isCorrect);
 
-    // Gå till nästa ord eller visa resultat
+    // Gå till nästa ord eller visa resultat direkt (utan timeout)
     if (currentWordIndex < practiceWords.length - 1) {
-      setTimeout(() => {
-        setCurrentWordIndex(prev => prev + 1);
-      }, 2000);
+      setCurrentWordIndex(prev => prev + 1);
     } else {
-      setTimeout(() => {
-        setShowResults(true);
-      }, 2000);
+      setShowResults(true);
     }
   };
 
