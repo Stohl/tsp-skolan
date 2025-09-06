@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { 
   Box, 
   Typography, 
@@ -73,16 +73,16 @@ const ListorPage: React.FC = () => {
     setWordLevel(wordId, newLevel);
   };
 
-  const [bulkTaggingInProgress, setBulkTaggingInProgress] = useState(false);
+  const bulkTaggingRef = useRef(false);
 
   // Funktion som körs när användaren klickar på bulk-tagging knappen
   const handleBulkTag = (wordList: WordList, level: number) => {
-    if (bulkTaggingInProgress) {
+    if (bulkTaggingRef.current) {
       console.log('Bulk tagging already in progress, skipping...');
       return;
     }
     
-    setBulkTaggingInProgress(true);
+    bulkTaggingRef.current = true;
     
     const wordsInList = getWordsFromList(wordList, wordDatabase);
     
@@ -108,7 +108,9 @@ const ListorPage: React.FC = () => {
       });
       
       // Reset flag efter uppdatering
-      setTimeout(() => setBulkTaggingInProgress(false), 100);
+      setTimeout(() => {
+        bulkTaggingRef.current = false;
+      }, 100);
       
       return newProgress;
     });
