@@ -107,13 +107,13 @@ const ListorPage: React.FC = () => {
         };
       });
       
-      // Reset flag efter uppdatering
-      setTimeout(() => {
-        bulkTaggingRef.current = false;
-      }, 100);
-      
       return newProgress;
     });
+    
+    // Reset flag efter state-uppdatering
+    setTimeout(() => {
+      bulkTaggingRef.current = false;
+    }, 100);
   };
 
   // Funktion som körs när användaren klickar på expandera/kollapsa ordlista
