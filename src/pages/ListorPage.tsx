@@ -73,8 +73,17 @@ const ListorPage: React.FC = () => {
     setWordLevel(wordId, newLevel);
   };
 
+  const [bulkTaggingInProgress, setBulkTaggingInProgress] = useState(false);
+
   // Funktion som körs när användaren klickar på bulk-tagging knappen
   const handleBulkTag = (wordList: WordList, level: number) => {
+    if (bulkTaggingInProgress) {
+      console.log('Bulk tagging already in progress, skipping...');
+      return;
+    }
+    
+    setBulkTaggingInProgress(true);
+    
     const wordsInList = getWordsFromList(wordList, wordDatabase);
     
     console.log(`Bulk tagging ${wordsInList.length} words to level ${level}`);
@@ -97,6 +106,9 @@ const ListorPage: React.FC = () => {
           level: level
         };
       });
+      
+      // Reset flag efter uppdatering
+      setTimeout(() => setBulkTaggingInProgress(false), 100);
       
       return newProgress;
     });
@@ -271,12 +283,12 @@ const ListorPage: React.FC = () => {
                     <ListItemText
                       primary={word.ord}
                       secondary={
-                        <Box component="div">
-                          <Typography component="div" variant="body2" color="text.secondary">
+                        <Box component="span">
+                          <Typography component="span" variant="body2" color="text.secondary">
                             {word.beskrivning || 'Ingen beskrivning tillgänglig'}
                           </Typography>
                           {wordProgress[word.id]?.stats && (
-                            <Typography component="div" variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                            <Typography component="span" variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
                               ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel
                               {wordProgress[word.id].stats.lastPracticed ? (
                                 <span> • Senast: {new Date(wordProgress[word.id].stats.lastPracticed).toLocaleDateString('sv-SE')}</span>
