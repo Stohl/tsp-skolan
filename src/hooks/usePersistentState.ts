@@ -114,7 +114,6 @@ export const useWordProgress = () => {
 
   // Funktion för att ändra nivå för ett ord
   const setWordLevel = (wordId: string, level: number) => {
-    console.log(`setWordLevel called: wordId=${wordId}, level=${level}`);
     updateWordProgress(wordId, { level });
   };
 
@@ -156,6 +155,7 @@ export const useWordProgress = () => {
 
   return {
     wordProgress,
+    setWordProgress,
     updateWordProgress,
     markWordResult,
     setWordLevel,

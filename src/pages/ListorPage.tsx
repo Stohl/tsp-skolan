@@ -26,7 +26,7 @@ import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
 import { getPhrasesForWord } from '../types/database';
 import WordDetailDialog from '../components/WordDetailDialog';
-import { useWordProgress } from '../hooks/usePersistentState';
+import { useWordProgress, WordProgressStorage } from '../hooks/usePersistentState';
 import { Word } from '../types/database';
 
 // Listor-sidan med sub-tabs för olika kategorier
@@ -43,7 +43,7 @@ const ListorPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect'>('name');
 
   // Använd persistent word progress hook
-  const { wordProgress, setWordLevel, markWordResult } = useWordProgress();
+  const { wordProgress, setWordLevel, markWordResult, setWordProgress } = useWordProgress();
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
@@ -79,9 +79,26 @@ const ListorPage: React.FC = () => {
     
     console.log(`Bulk tagging ${wordsInList.length} words to level ${level}`);
     
-    wordsInList.forEach(word => {
-      console.log(`Setting word ${word.id} (${word.ord}) to level ${level}`);
-      setWordLevel(word.id, level);
+    // Batch-uppdatera alla ord samtidigt
+    setWordProgress((prev: WordProgressStorage) => {
+      const newProgress = { ...prev };
+      
+      wordsInList.forEach(word => {
+        console.log(`Setting word ${word.id} (${word.ord}) to level ${level}`);
+        
+        // Behåll befintlig data eller skapa ny
+        const current = prev[word.id] || {
+          level: 0,
+          stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
+        };
+        
+        newProgress[word.id] = {
+          ...current,
+          level: level
+        };
+      });
+      
+      return newProgress;
     });
   };
 
@@ -254,12 +271,12 @@ const ListorPage: React.FC = () => {
                     <ListItemText
                       primary={word.ord}
                       secondary={
-                        <Box>
-                          <Typography variant="body2" color="text.secondary">
+                        <Box component="div">
+                          <Typography component="div" variant="body2" color="text.secondary">
                             {word.beskrivning || 'Ingen beskrivning tillgänglig'}
                           </Typography>
                           {wordProgress[word.id]?.stats && (
-                            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                            <Typography component="div" variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
                               ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel
                               {wordProgress[word.id].stats.lastPracticed ? (
                                 <span> • Senast: {new Date(wordProgress[word.id].stats.lastPracticed).toLocaleDateString('sv-SE')}</span>
