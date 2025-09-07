@@ -23,7 +23,7 @@ import {
 } from '@mui/material';
 import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
-import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
+import { getAllWordLists, getWordsFromList, WordList, getDifficultyInfo } from '../types/wordLists';
 import { getPhrasesForWord } from '../types/database';
 import WordDetailDialog from '../components/WordDetailDialog';
 import { useWordProgress, WordProgressStorage } from '../hooks/usePersistentState';
@@ -392,7 +392,7 @@ const ListorPage: React.FC = () => {
               >
                 <ListItemText
                   primary={
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
                       <Typography variant="h6">
                         {wordList.name}
                       </Typography>
@@ -402,12 +402,24 @@ const ListorPage: React.FC = () => {
                         color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
                         variant="outlined"
                       />
+                      <Chip 
+                        label={getDifficultyInfo(wordList.difficulty).label}
+                        size="small" 
+                        color={getDifficultyInfo(wordList.difficulty).color as any}
+                        variant="filled"
+                        icon={<span>{getDifficultyInfo(wordList.difficulty).icon}</span>}
+                      />
                     </Box>
                   }
                   secondary={
-                    <Typography variant="body2" color="text.secondary">
-                      {wordList.description} ({wordsInList.length} ord)
-                    </Typography>
+                    <Box sx={{ mt: 0.5 }}>
+                      <Typography variant="body2" color="text.secondary">
+                        {wordList.description} ({wordsInList.length} ord)
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                        {getDifficultyInfo(wordList.difficulty).description}
+                      </Typography>
+                    </Box>
                   }
                 />
                 {isExpanded ? <ExpandLess /> : <ExpandMore />}

@@ -276,7 +276,6 @@ const QuizExercise: React.FC<{
                 autoPlay
                 muted
                 playsInline // Förhindrar helskärm på mobil
-                loop // Spelar videon i loop
                 onClick={() => {
                   // Spela videon igen när man klickar på den
                   const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
@@ -321,7 +320,14 @@ const QuizExercise: React.FC<{
                     mb: 1,
                     backgroundColor: showResult 
                       ? (isCorrectAnswer(answer.id) ? 'success.light' : 'error.light')
-                      : (clickedAnswer === answer.id ? 'primary.light' : 'transparent')
+                      : (clickedAnswer === answer.id ? 'primary.light' : 'transparent'),
+                    // Tvinga omedelbar färguppdatering
+                    transition: 'none !important',
+                    '&:hover': {
+                      backgroundColor: showResult 
+                        ? (isCorrectAnswer(answer.id) ? 'success.light' : 'error.light')
+                        : (clickedAnswer === answer.id ? 'primary.light' : 'action.hover')
+                    }
                   }}
                 >
                   <ListItemText
