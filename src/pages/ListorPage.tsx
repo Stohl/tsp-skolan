@@ -55,13 +55,17 @@ const ListorPage: React.FC = () => {
 
   // Funktion som körs när användaren klickar på en sub-tab
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    console.log(`[DEBUG] Tab changed from ${activeTab} to ${newValue}`);
     setActiveTab(newValue);
+    console.log(`[DEBUG] Active tab set to: ${newValue}`);
   };
 
   // Funktion som körs när användaren klickar på ett ord
   const handleWordClick = (word: Word) => {
+    console.log(`[DEBUG] Word clicked: ${word.id} (${word.ord})`);
     setSelectedWord(word);
     setDialogOpen(true);
+    console.log(`[DEBUG] Dialog opened for word: ${word.id}`);
   };
 
   // Funktion som körs när användaren klickar på progress-cirkeln
@@ -70,30 +74,38 @@ const ListorPage: React.FC = () => {
     
     const currentLevel = wordProgress[wordId]?.level || 0;
     const newLevel = (currentLevel + 1) % 3; // Cyklar mellan 0, 1, 2
+    
+    console.log(`[DEBUG] Progress clicked: wordId=${wordId}, currentLevel=${currentLevel}, newLevel=${newLevel}`);
     setWordLevel(wordId, newLevel);
+    console.log(`[DEBUG] setWordLevel called for ${wordId} with level ${newLevel}`);
   };
 
   const bulkTaggingRef = useRef(false);
 
   // Funktion som körs när användaren klickar på bulk-tagging knappen
   const handleBulkTag = (wordList: WordList, level: number) => {
+    console.log(`[DEBUG] handleBulkTag called: listId=${wordList.id}, level=${level}, guard=${bulkTaggingRef.current}`);
+    
     if (bulkTaggingRef.current) {
-      console.log('Bulk tagging already in progress, skipping...');
+      console.log('[DEBUG] Bulk tagging already in progress, skipping...');
       return;
     }
     
+    console.log('[DEBUG] Setting guard flag to true');
     bulkTaggingRef.current = true;
     
     const wordsInList = getWordsFromList(wordList, wordDatabase);
+    console.log(`[DEBUG] Found ${wordsInList.length} words in list:`, wordsInList.map(w => `${w.id}(${w.ord})`));
     
-    console.log(`Bulk tagging ${wordsInList.length} words to level ${level}`);
+    console.log(`[DEBUG] Starting bulk tagging ${wordsInList.length} words to level ${level}`);
     
     // Batch-uppdatera alla ord samtidigt
     setWordProgress((prev: WordProgressStorage) => {
+      console.log('[DEBUG] setWordProgress callback started');
       const newProgress = { ...prev };
       
       wordsInList.forEach(word => {
-        console.log(`Setting word ${word.id} (${word.ord}) to level ${level}`);
+        console.log(`[DEBUG] Processing word ${word.id} (${word.ord}) to level ${level}`);
         
         // Behåll befintlig data eller skapa ny
         const current = prev[word.id] || {
@@ -101,27 +113,39 @@ const ListorPage: React.FC = () => {
           stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
         };
         
+        console.log(`[DEBUG] Current progress for ${word.id}:`, current);
+        
         newProgress[word.id] = {
           ...current,
           level: level
         };
+        
+        console.log(`[DEBUG] New progress for ${word.id}:`, newProgress[word.id]);
       });
       
+      console.log('[DEBUG] setWordProgress callback completed, returning new progress');
       return newProgress;
     });
     
     // Reset flag efter state-uppdatering
+    console.log('[DEBUG] Setting timeout to reset guard flag');
     setTimeout(() => {
+      console.log('[DEBUG] Timeout executed, resetting guard flag to false');
       bulkTaggingRef.current = false;
     }, 100);
   };
 
   // Funktion som körs när användaren klickar på expandera/kollapsa ordlista
   const handleToggleList = (wordListId: string) => {
-    setExpandedLists(prev => ({
-      ...prev,
-      [wordListId]: !prev[wordListId]
-    }));
+    console.log(`[DEBUG] Toggle list clicked: ${wordListId}, current state: ${expandedLists[wordListId]}`);
+    setExpandedLists(prev => {
+      const newState = {
+        ...prev,
+        [wordListId]: !prev[wordListId]
+      };
+      console.log(`[DEBUG] New expanded state for ${wordListId}: ${newState[wordListId]}`);
+      return newState;
+    });
   };
 
   // Funktion som hämtar progress-nivå för ett ord
@@ -402,9 +426,14 @@ const ListorPage: React.FC = () => {
                         value=""
                         displayEmpty
                         onChange={(e) => {
+                          console.log(`[DEBUG] Dropdown onChange triggered: listId=${wordList.id}, value=${e.target.value}`);
                           const level = parseInt(e.target.value as string);
+                          console.log(`[DEBUG] Parsed level: ${level}, isValid: ${!isNaN(level)}`);
                           if (!isNaN(level)) {
+                            console.log(`[DEBUG] Calling handleBulkTag with level ${level}`);
                             handleBulkTag(wordList, level);
+                          } else {
+                            console.log(`[DEBUG] Invalid level, not calling handleBulkTag`);
                           }
                         }}
                       >
