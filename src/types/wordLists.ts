@@ -136,42 +136,42 @@ export const getDifficultyInfo = (difficulty: DifficultyLevel) => {
       return {
         label: 'Grundläggande',
         icon: '🟢',
-        color: 'success.main',
+        color: 'success' as const,
         description: 'Allra vanligaste orden'
       };
     case 'enkla':
       return {
         label: 'Enkla',
         icon: '🔵',
-        color: 'info.main',
+        color: 'info' as const,
         description: 'Vardagsbegrepp'
       };
     case 'medel':
       return {
         label: 'Medel',
         icon: '🟡',
-        color: 'warning.main',
+        color: 'warning' as const,
         description: 'Abstraktare ord och fler rörelsemoment'
       };
     case 'svåra':
       return {
         label: 'Svåra',
         icon: '🟠',
-        color: 'error.main',
+        color: 'error' as const,
         description: 'Komplexa handformer eller mindre vanliga ord'
       };
     case 'expert':
       return {
         label: 'Expert',
         icon: '🔴',
-        color: 'error.main',
+        color: 'error' as const,
         description: 'Mycket sällsynta eller facktermer'
       };
     default:
       return {
         label: 'Okänd',
         icon: '⚪',
-        color: 'text.secondary',
+        color: 'default' as const,
         description: 'Okänd svårighetsnivå'
       };
   }

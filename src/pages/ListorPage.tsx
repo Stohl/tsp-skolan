@@ -405,7 +405,7 @@ const ListorPage: React.FC = () => {
                       <Chip 
                         label={getDifficultyInfo(wordList.difficulty).label}
                         size="small" 
-                        color={getDifficultyInfo(wordList.difficulty).color as any}
+                        color={getDifficultyInfo(wordList.difficulty).color}
                         variant="filled"
                         icon={<span>{getDifficultyInfo(wordList.difficulty).icon}</span>}
                       />
