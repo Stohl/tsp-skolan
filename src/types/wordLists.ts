@@ -1,5 +1,5 @@
 // Svårighetsnivåer för ordlistor
-export type DifficultyLevel = 'basord' | 'utmaning' | 'mästarnivå';
+export type DifficultyLevel = 'grundläggande' | 'enkla' | 'medel' | 'svåra' | 'expert';
 
 // Förgenererade ordlistor som är hårdkodade i källkoden
 export interface PredefinedWordList {
@@ -32,7 +32,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: 'En testlista med några grundläggande ord',
     wordIds: ['00001', '00002', '00003', '00004', '00005'],
     type: 'predefined',
-    difficulty: 'basord'
+    difficulty: 'grundläggande'
   },
   {
     id: 'grundord',
@@ -40,7 +40,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: 'Viktiga grundord för att komma igång',
     wordIds: ['00010', '00011', '00012', '00013', '00014', '00015'],
     type: 'predefined',
-    difficulty: 'basord'
+    difficulty: 'grundläggande'
   },
   {
     id: 'familj',
@@ -48,7 +48,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: 'Ord relaterade till familj och relationer',
     wordIds: ['00100', '00101', '00102', '00103', '00104'],
     type: 'predefined',
-    difficulty: 'utmaning'
+    difficulty: 'enkla'
   },
   {
     id: 'färger',
@@ -56,7 +56,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: 'Grundläggande färger',
     wordIds: ['00200', '00201', '00202', '00203', '00204', '00205'],
     type: 'predefined',
-    difficulty: 'basord'
+    difficulty: 'enkla'
   }
 ];
 
@@ -69,7 +69,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Handalfabetet"',
       subject: 'Handalfabetet',
       type: 'dynamic',
-      difficulty: 'basord'
+      difficulty: 'grundläggande'
     },
     {
       id: 'siffror',
@@ -77,7 +77,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Siffror"',
       subject: 'Siffror',
       type: 'dynamic',
-      difficulty: 'basord'
+      difficulty: 'grundläggande'
     },
     {
       id: 'bildelar',
@@ -85,7 +85,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Bildelar"',
       subject: 'Bildelar',
       type: 'dynamic',
-      difficulty: 'utmaning'
+      difficulty: 'medel'
     },
     {
       id: 'kläder',
@@ -93,7 +93,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Kläder"',
       subject: 'Kläder',
       type: 'dynamic',
-      difficulty: 'utmaning'
+      difficulty: 'enkla'
     },
     {
       id: 'mat',
@@ -101,7 +101,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Mat"',
       subject: 'Mat',
       type: 'dynamic',
-      difficulty: 'mästarnivå'
+      difficulty: 'svåra'
     }
   ];
 
@@ -132,26 +132,40 @@ export const getWordListById = (id: string, database: any): WordList | null => {
 // Funktion för att få svårighetsnivåns visuella representation
 export const getDifficultyInfo = (difficulty: DifficultyLevel) => {
   switch (difficulty) {
-    case 'basord':
+    case 'grundläggande':
       return {
-        label: 'Basord',
+        label: 'Grundläggande',
         icon: '🟢',
         color: 'success.main',
-        description: 'Det man måste kunna tidigt'
+        description: 'Allra vanligaste orden'
       };
-    case 'utmaning':
+    case 'enkla':
       return {
-        label: 'Utmaning',
+        label: 'Enkla',
+        icon: '🔵',
+        color: 'info.main',
+        description: 'Vardagsbegrepp'
+      };
+    case 'medel':
+      return {
+        label: 'Medel',
         icon: '🟡',
         color: 'warning.main',
-        description: 'Ord som kräver lite mer träning'
+        description: 'Abstraktare ord och fler rörelsemoment'
       };
-    case 'mästarnivå':
+    case 'svåra':
       return {
-        label: 'Mästarnivå',
-        icon: '🔴',
+        label: 'Svåra',
+        icon: '🟠',
         color: 'error.main',
-        description: 'De mest avancerade tecknen'
+        description: 'Komplexa handformer eller mindre vanliga ord'
+      };
+    case 'expert':
+      return {
+        label: 'Expert',
+        icon: '🔴',
+        color: 'error.dark',
+        description: 'Mycket sällsynta eller facktermer'
       };
     default:
       return {
