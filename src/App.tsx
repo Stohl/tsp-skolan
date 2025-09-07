@@ -3,10 +3,7 @@ import {
   Box, 
   BottomNavigation, 
   BottomNavigationAction, 
-  Paper,
-  ThemeProvider,
-  createTheme,
-  CssBaseline
+  Paper
 } from '@mui/material';
 import { 
   FitnessCenter, 
@@ -21,30 +18,9 @@ import ListorPage from './pages/ListorPage';
 import LexikonPage from './pages/LexikonPage';
 import InstallningarPage from './pages/InstallningarPage';
 
-// Importera DatabaseProvider
+// Importera Providers
 import { DatabaseProvider } from './contexts/DatabaseContext';
-
-// Skapar ett Material UI tema som är optimerat för mobil
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2', // Blå färg för primär
-    },
-    secondary: {
-      main: '#dc004e', // Rosa färg för sekundär
-    },
-  },
-  // Anpassar komponenter för mobil
-  components: {
-    MuiBottomNavigation: {
-      styleOverrides: {
-        root: {
-          height: 70, // Högre höjd för bättre touch-target
-        },
-      },
-    },
-  },
-});
+import { CustomThemeProvider } from './contexts/ThemeContext';
 
 // Huvudkomponenten som hanterar navigation och rendering av sidor
 function App() {
@@ -65,11 +41,8 @@ function App() {
   };
 
     return (
-    // ThemeProvider ger Material UI tema till hela appen
-    <ThemeProvider theme={theme}>
-      {/* CssBaseline ger konsistent styling över olika webbläsare */}
-      <CssBaseline />
-      
+    // CustomThemeProvider ger Material UI tema med mörkt/ljust läge till hela appen
+    <CustomThemeProvider>
       {/* DatabaseProvider ger tillgång till ord- och frasdatabaserna */}
       <DatabaseProvider>
         {/* Huvudcontainer som tar upp hela skärmen */}
@@ -133,7 +106,7 @@ function App() {
           </Paper>
         </Box>
       </DatabaseProvider>
-    </ThemeProvider>
+    </CustomThemeProvider>
   );
 }
 

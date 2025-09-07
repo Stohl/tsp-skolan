@@ -21,9 +21,13 @@ import {
   Help,
   Info
 } from '@mui/icons-material';
+import { useTheme } from '../contexts/ThemeContext';
 
 // Inställningar-sidan - här kommer användare att kunna anpassa appen
 const InstallningarPage: React.FC = () => {
+  // Hämta tema-funktionalitet från Theme Context
+  const { mode, toggleTheme } = useTheme();
+
   return (
     // Container som centrerar innehållet och ger padding
     <Container maxWidth="sm" sx={{ py: 3 }}>
@@ -86,9 +90,13 @@ const InstallningarPage: React.FC = () => {
             </ListItemIcon>
             <ListItemText 
               primary="Mörkt tema" 
-              secondary="Använd mörk bakgrund"
+              secondary={mode === 'dark' ? 'Mörkt tema aktiverat' : 'Använd mörk bakgrund'}
             />
-            <Switch edge="end" />
+            <Switch 
+              edge="end" 
+              checked={mode === 'dark'}
+              onChange={toggleTheme}
+            />
           </ListItem>
           
           <Divider />
