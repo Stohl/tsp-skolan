@@ -137,14 +137,24 @@ const FlashcardsExercise: React.FC<{
               <Box sx={{ mb: 3 }}>
                 <video
                   key={word.id} // Tvingar React att skapa ny video när ordet ändras
-                  controls
                   autoPlay
                   muted
+                  playsInline // Förhindrar helskärm på mobil
+                  loop // Spelar videon i loop
+                  onClick={() => {
+                    // Spela videon igen när man klickar på den
+                    const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
+                    if (video) {
+                      video.currentTime = 0;
+                      video.play();
+                    }
+                  }}
                   style={{ 
                     width: '100%', 
                     maxWidth: '400px',
                     borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                    cursor: 'pointer' // Visa att videon är klickbar
                   }}
                 >
                   <source src={word.video_url} type="video/mp4" />
@@ -238,11 +248,16 @@ const QuizExercise: React.FC<{
   const handleAnswerSelect = (answerId: string) => {
     if (selectedAnswer || showResult) return;
     
-    setClickedAnswer(answerId); // Sätt omedelbart för visuell feedback
+    console.log(`[DEBUG] Answer selected: ${answerId}, word.id: ${word.id}`);
+    
+    // Sätt omedelbart för visuell feedback
+    setClickedAnswer(answerId);
     setSelectedAnswer(answerId);
     setShowResult(true);
     
     const isCorrect = answerId === word.id;
+    console.log(`[DEBUG] Answer is correct: ${isCorrect}`);
+    
     const timeout = setTimeout(() => onResult(isCorrect), 2000);
     timeoutRef.current = timeout;
   };
@@ -258,14 +273,24 @@ const QuizExercise: React.FC<{
             <Box sx={{ mb: 3 }}>
               <video
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
-                controls
                 autoPlay
                 muted
+                playsInline // Förhindrar helskärm på mobil
+                loop // Spelar videon i loop
+                onClick={() => {
+                  // Spela videon igen när man klickar på den
+                  const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
+                  if (video) {
+                    video.currentTime = 0;
+                    video.play();
+                  }
+                }}
                 style={{ 
                   width: '100%', 
                   maxWidth: '400px',
                   borderRadius: '8px',
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  cursor: 'pointer' // Visa att videon är klickbar
                 }}
               >
                 <source src={word.video_url} type="video/mp4" />
@@ -406,14 +431,24 @@ const SignExercise: React.FC<{
               <Box sx={{ mb: 3 }}>
                 <video
                   key={word.id} // Tvingar React att skapa ny video när ordet ändras
-                  controls
                   autoPlay
                   muted
+                  playsInline // Förhindrar helskärm på mobil
+                  loop // Spelar videon i loop
+                  onClick={() => {
+                    // Spela videon igen när man klickar på den
+                    const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
+                    if (video) {
+                      video.currentTime = 0;
+                      video.play();
+                    }
+                  }}
                   style={{ 
                     width: '100%', 
                     maxWidth: '400px',
                     borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                    cursor: 'pointer' // Visa att videon är klickbar
                   }}
                 >
                   <source src={word.video_url} type="video/mp4" />
