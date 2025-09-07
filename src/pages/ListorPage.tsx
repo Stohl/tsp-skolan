@@ -412,11 +412,11 @@ const ListorPage: React.FC = () => {
                     </Box>
                   }
                   secondary={
-                    <Box sx={{ mt: 0.5 }}>
-                      <Typography variant="body2" color="text.secondary">
+                    <Box component="span" sx={{ mt: 0.5, display: 'block' }}>
+                      <Typography component="span" variant="body2" color="text.secondary">
                         {wordList.description} ({wordsInList.length} ord)
                       </Typography>
-                      <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                      <Typography component="span" variant="caption" color="text.secondary" sx={{ fontStyle: 'italic', display: 'block' }}>
                         {getDifficultyInfo(wordList.difficulty).description}
                       </Typography>
                     </Box>

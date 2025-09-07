@@ -164,7 +164,7 @@ export const getDifficultyInfo = (difficulty: DifficultyLevel) => {
       return {
         label: 'Expert',
         icon: '🔴',
-        color: 'error.dark',
+        color: 'error.main',
         description: 'Mycket sällsynta eller facktermer'
       };
     default:
