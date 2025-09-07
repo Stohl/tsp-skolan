@@ -43,7 +43,7 @@ const ListorPage: React.FC = () => {
   const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect'>('name');
 
   // Använd persistent word progress hook
-  const { wordProgress, setWordLevel, markWordResult, setWordProgress } = useWordProgress();
+  const { wordProgress, setWordLevel, markWordResult, setWordProgress, getPointsDisplay } = useWordProgress();
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
@@ -313,10 +313,13 @@ const ListorPage: React.FC = () => {
                           <Typography component="span" variant="body2" color="text.secondary">
                             {word.beskrivning || 'Ingen beskrivning tillgänglig'}
                           </Typography>
-                          {wordProgress[word.id]?.stats && (
+                          {wordProgress[word.id] && (
                             <Typography component="span" variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                              ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel
-                              {wordProgress[word.id].stats.lastPracticed ? (
+                              {getPointsDisplay(wordProgress[word.id].points || 0)} ({wordProgress[word.id].points || 0}/5)
+                              {wordProgress[word.id].stats && (
+                                <span> • ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel</span>
+                              )}
+                              {wordProgress[word.id].stats?.lastPracticed ? (
                                 <span> • Senast: {new Date(wordProgress[word.id].stats.lastPracticed).toLocaleDateString('sv-SE')}</span>
                               ) : (
                                 <span> • Aldrig övat</span>
@@ -518,7 +521,21 @@ const ListorPage: React.FC = () => {
                   <ListItemButton onClick={() => handleWordClick(word)}>
                     <ListItemText
                       primary={word.ord}
-                      secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
+                      secondary={
+                        <Box component="span">
+                          <Typography component="span" variant="body2" color="text.secondary">
+                            {word.beskrivning || 'Ingen beskrivning tillgänglig'}
+                          </Typography>
+                          {wordProgress[word.id] && (
+                            <Typography component="span" variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                              {getPointsDisplay(wordProgress[word.id].points || 0)} ({wordProgress[word.id].points || 0}/5) ✅ Lärd!
+                              {wordProgress[word.id].stats && (
+                                <span> • ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel</span>
+                              )}
+                            </Typography>
+                          )}
+                        </Box>
+                      }
                     />
                     {renderProgressCircle(word.id)}
                     <PlayArrow color="primary" />

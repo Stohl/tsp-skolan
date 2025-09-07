@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 // Interface för ord-progress data
 export interface WordProgressData {
   level: number; // 0 = Ej markerad, 1 = Att lära mig, 2 = Lärd
+  points: number; // Poäng för att markera som lärd (0-5)
   stats: {
     correct: number;
     incorrect: number;
@@ -58,6 +59,7 @@ export const useWordProgress = () => {
     setWordProgress((prev: WordProgressStorage) => {
       const current = prev[wordId] || {
         level: 0,
+        points: 0,
         stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
       };
       
@@ -65,6 +67,7 @@ export const useWordProgress = () => {
         ...prev,
         [wordId]: {
           level: updates.level !== undefined ? updates.level : current.level,
+          points: updates.points !== undefined ? updates.points : current.points,
           stats: {
             ...current.stats,
             ...(updates.stats || {})
@@ -95,8 +98,15 @@ export const useWordProgress = () => {
   const markWordResult = (wordId: string, isCorrect: boolean) => {
     const current = wordProgress[wordId] || {
       level: 0,
+      points: 0,
       stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
     };
+
+    // Beräkna nya poäng: +1 för rätt, -1 för fel (men aldrig under 0)
+    const newPoints = Math.max(0, current.points + (isCorrect ? 1 : -1));
+    
+    // Om poängen når 5, markera ordet som lärt (nivå 2)
+    const newLevel = newPoints >= 5 ? 2 : current.level;
 
     const newStats = {
       correct: current.stats.correct + (isCorrect ? 1 : 0),
@@ -109,7 +119,11 @@ export const useWordProgress = () => {
       )
     };
 
-    updateWordProgress(wordId, { stats: newStats });
+    updateWordProgress(wordId, { 
+      level: newLevel,
+      points: newPoints,
+      stats: newStats 
+    });
   };
 
   // Funktion för att ändra nivå för ett ord
@@ -123,6 +137,7 @@ export const useWordProgress = () => {
       ...word,
       progress: wordProgress[wordId] || {
         level: 0,
+        points: 0,
         stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
       }
     }));
@@ -153,12 +168,24 @@ export const useWordProgress = () => {
       .slice(0, count);
   };
 
+  // Funktion för att få visuell representation av poäng
+  const getPointsDisplay = (points: number): string => {
+    const filled = '●';
+    const empty = '○';
+    const maxPoints = 5;
+    
+    return Array.from({ length: maxPoints }, (_, i) => 
+      i < points ? filled : empty
+    ).join('');
+  };
+
   return {
     wordProgress,
     setWordProgress,
     updateWordProgress,
     markWordResult,
     setWordLevel,
-    getWordsForPractice
+    getWordsForPractice,
+    getPointsDisplay
   };
 };
