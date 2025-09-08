@@ -20,7 +20,8 @@ import {
   Divider,
   IconButton,
   Fab,
-  Paper
+  Paper,
+  Slider
 } from '@mui/material';
 import {
   PlayArrow,
@@ -722,6 +723,8 @@ const OvningPage: React.FC = () => {
   const [spellingWordLength, setSpellingWordLength] = useState<number>(3);
   const [spellingWords, setSpellingWords] = useState<any[]>([]);
   const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.0);
+  const [minLength, setMinLength] = useState<number>(1);
+  const [maxLength, setMaxLength] = useState<number>(10);
 
   // Hämta bokstaveringsord baserat på ämne "Bokstavering - Bokstaverade ord"
   const getAllSpellingWords = useMemo(() => {
@@ -856,23 +859,25 @@ const OvningPage: React.FC = () => {
   };
 
   // Funktion för att starta bokstavering-övning
-  const startSpellingExercise = (wordLength: number) => {
-    console.log(`[DEBUG] startSpellingExercise called with length: ${wordLength}`);
-    const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === wordLength);
-    console.log(`[DEBUG] Found ${wordsForLength.length} words for length ${wordLength}`);
+  const startSpellingExercise = (minLen: number, maxLen: number) => {
+    console.log(`[DEBUG] startSpellingExercise called with range: ${minLen}-${maxLen}`);
+    const wordsForRange = getAllSpellingWords.filter((word: any) => 
+      word.ord.length >= minLen && word.ord.length <= maxLen
+    );
+    console.log(`[DEBUG] Found ${wordsForRange.length} words for range ${minLen}-${maxLen}`);
     
-    if (wordsForLength.length >= 4) { // Behöver minst 4 ord för att skapa alternativ
-      console.log(`[DEBUG] Starting spelling exercise with ${wordsForLength.length} words`);
+    if (wordsForRange.length >= 4) { // Behöver minst 4 ord för alternativ
+      console.log(`[DEBUG] Starting spelling exercise with ${wordsForRange.length} words`);
       // Slumpa orden för att få variation
-      const shuffledWords = [...wordsForLength].sort(() => Math.random() - 0.5);
+      const shuffledWords = [...wordsForRange].sort(() => Math.random() - 0.5);
       setSpellingWords(shuffledWords.slice(0, 10)); // Ta max 10 slumpade ord
-      setSpellingWordLength(wordLength);
+      setSpellingWordLength(maxLen); // Spara max-längden för display
       // Starta övningen direkt istället för att anropa handleExerciseTypeSelect igen
       setCurrentWordIndex(0);
       setResults([]);
       setShowResults(false);
     } else {
-      console.log(`[DEBUG] Not enough words (${wordsForLength.length}) for length ${wordLength}`);
+      console.log(`[DEBUG] Not enough words (${wordsForRange.length}) for range ${minLen}-${maxLen}`);
     }
   };
 
@@ -910,10 +915,6 @@ const OvningPage: React.FC = () => {
 
   // Visa val för bokstavering-ordlängd
   if (selectedExerciseType === ExerciseType.SPELLING && spellingWords.length === 0) {
-    const availableLengths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(length => {
-      const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === length);
-      return wordsForLength.length >= 4; // Behöver minst 4 ord för alternativ
-    });
 
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
@@ -935,8 +936,6 @@ const OvningPage: React.FC = () => {
               { speed: 0.5, label: 'Nybörjare', description: 'Halv hastighet' },
               { speed: 0.75, label: 'Lätt', description: 'Tre fjärdedelar hastighet' },
               { speed: 1.0, label: 'Normal', description: 'Normal hastighet' },
-              { speed: 1.25, label: 'Snabb', description: 'En fjärdedel snabbare' },
-              { speed: 1.5, label: 'Expert', description: 'Halv gånger snabbare' }
             ].map(({ speed, label, description }) => (
               <Grid item key={speed}>
                 <Card 
@@ -967,42 +966,110 @@ const OvningPage: React.FC = () => {
           </Grid>
         </Paper>
 
-        <Typography variant="h5" gutterBottom align="center">
-          Välj ordlängd
-        </Typography>
-        <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}>
-          Välj hur många bokstäver orden ska ha
-        </Typography>
-
-        <Grid container spacing={3}>
-          {availableLengths.map((length) => {
-            const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === length);
-            return (
-              <Grid item xs={12} sm={6} md={4} key={length}>
-                <Card 
-                  sx={{ 
-                    cursor: 'pointer', 
-                    height: '100%',
-                    '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
-                  }}
-                  onClick={() => startSpellingExercise(length)}
-                >
-                  <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                    <Typography variant="h3" color="warning.main" gutterBottom>
-                      {length}
-                    </Typography>
-                    <Typography variant="h6" gutterBottom>
-                      {length} bokstäver
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {wordsForLength.length} ord tillgängliga
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            );
-          })}
-        </Grid>
+        {/* Ordlängd-slider */}
+        <Paper sx={{ p: 4, mb: 4 }}>
+          <Typography variant="h5" gutterBottom align="center">
+            Välj ordlängd
+          </Typography>
+          <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}>
+            Dra för att välja intervall för antal bokstäver
+          </Typography>
+          
+          <Box sx={{ px: 3 }}>
+            <Typography variant="h6" align="center" sx={{ mb: 3 }}>
+              {minLength === maxLength ? `${minLength} bokstäver` : `${minLength} - ${maxLength} bokstäver`}
+            </Typography>
+            
+            <Slider
+              value={[minLength, maxLength]}
+              onChange={(_, newValue) => {
+                const [newMin, newMax] = newValue as number[];
+                setMinLength(newMin);
+                setMaxLength(newMax);
+              }}
+              valueLabelDisplay="auto"
+              min={1}
+              max={10}
+              step={1}
+              marks={[
+                { value: 1, label: '1' },
+                { value: 2, label: '2' },
+                { value: 3, label: '3' },
+                { value: 4, label: '4' },
+                { value: 5, label: '5' },
+                { value: 6, label: '6' },
+                { value: 7, label: '7' },
+                { value: 8, label: '8' },
+                { value: 9, label: '9' },
+                { value: 10, label: '10' }
+              ]}
+              sx={{
+                '& .MuiSlider-thumb': {
+                  height: 24,
+                  width: 24,
+                  backgroundColor: 'primary.main',
+                  border: '2px solid white',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                },
+                '& .MuiSlider-track': {
+                  height: 8,
+                  backgroundColor: 'primary.main',
+                },
+                '& .MuiSlider-rail': {
+                  height: 8,
+                  backgroundColor: 'grey.300',
+                },
+                '& .MuiSlider-mark': {
+                  backgroundColor: 'grey.400',
+                  height: 12,
+                  width: 2,
+                },
+                '& .MuiSlider-markLabel': {
+                  fontSize: '0.875rem',
+                  fontWeight: 500,
+                }
+              }}
+            />
+            
+            <Box sx={{ mt: 3, textAlign: 'center' }}>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                {(() => {
+                  const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                    word.ord.length >= minLength && word.ord.length <= maxLength
+                  );
+                  return `${wordsInRange.length} ord tillgängliga i detta intervall`;
+                })()}
+              </Typography>
+              
+              <Button
+                variant="contained"
+                size="large"
+                onClick={() => startSpellingExercise(minLength, maxLength)}
+                disabled={(() => {
+                  const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                    word.ord.length >= minLength && word.ord.length <= maxLength
+                  );
+                  return wordsInRange.length < 4;
+                })()}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '1.1rem',
+                  fontWeight: 'bold',
+                  borderRadius: 3,
+                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                  },
+                  transition: 'all 0.2s ease-in-out'
+                }}
+              >
+                Starta övning
+              </Button>
+            </Box>
+          </Box>
+        </Paper>
 
         <Box sx={{ mt: 4, textAlign: 'center' }}>
           <Button 
