@@ -293,7 +293,9 @@ const QuizExercise: React.FC<{
                   objectFit: 'cover',
                   borderRadius: '8px',
                   boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                  cursor: 'pointer'
+                  cursor: 'pointer',
+                  backgroundColor: '#f5f5f5', // Bakgrundsfärg när videon inte spelar
+                  display: 'block' // Säkerställ att videon alltid är synlig
                 }}
               >
                 <source src={word.video_url} type="video/mp4" />
