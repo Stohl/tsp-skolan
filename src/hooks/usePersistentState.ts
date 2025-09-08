@@ -35,13 +35,18 @@ export const usePersistentState = <T>(
 
   // Funktion för att sätta state och spara till localStorage
   const setPersistentState = (value: T | ((prev: T) => T)) => {
-    setState(value);
-    try {
-      const newValue = typeof value === 'function' ? (value as (prev: T) => T)(state) : value;
-      localStorage.setItem(key, JSON.stringify(newValue));
-    } catch (error) {
-      console.error(`Kunde inte spara data till localStorage för nyckel "${key}":`, error);
-    }
+    setState((prevState) => {
+      const newState = typeof value === 'function' ? (value as (prev: T) => T)(prevState) : value;
+      
+      // Spara till localStorage
+      try {
+        localStorage.setItem(key, JSON.stringify(newState));
+      } catch (error) {
+        console.error(`Kunde inte spara data till localStorage för nyckel "${key}":`, error);
+      }
+      
+      return newState;
+    });
   };
 
   return [state, setPersistentState];
@@ -56,8 +61,6 @@ export const useWordProgress = () => {
 
   // Funktion för att uppdatera progress för ett specifikt ord
   const updateWordProgress = (wordId: string, updates: Partial<WordProgressData>) => {
-    console.log(`[DEBUG] updateWordProgress: wordId=${wordId}, updates=`, updates);
-    
     setWordProgress((prev: WordProgressStorage) => {
       const current = prev[wordId] || {
         level: 0,
@@ -73,8 +76,6 @@ export const useWordProgress = () => {
           ...(updates.stats || {})
         }
       };
-      
-      console.log(`[DEBUG] updateWordProgress result:`, newData);
       
       return {
         ...prev,
