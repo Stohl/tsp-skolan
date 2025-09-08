@@ -848,7 +848,10 @@ const OvningPage: React.FC = () => {
       console.log(`[DEBUG] Starting spelling exercise with ${wordsForLength.length} words`);
       setSpellingWords(wordsForLength.slice(0, 10)); // Ta max 10 ord
       setSpellingWordLength(wordLength);
-      handleExerciseTypeSelect(ExerciseType.SPELLING);
+      // Starta övningen direkt istället för att anropa handleExerciseTypeSelect igen
+      setCurrentWordIndex(0);
+      setResults([]);
+      setShowResults(false);
     } else {
       console.log(`[DEBUG] Not enough words (${wordsForLength.length}) for length ${wordLength}`);
     }
@@ -887,7 +890,7 @@ const OvningPage: React.FC = () => {
   }
 
   // Visa val för bokstavering-ordlängd
-  if (selectedExerciseType === ExerciseType.SPELLING) {
+  if (selectedExerciseType === ExerciseType.SPELLING && spellingWords.length === 0) {
     const availableLengths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(length => {
       const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === length);
       return wordsForLength.length >= 4; // Behöver minst 4 ord för alternativ
