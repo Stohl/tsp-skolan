@@ -517,6 +517,7 @@ const SpellingExercise: React.FC<{
   const [showResult, setShowResult] = useState(false);
   const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Generera felaktiga alternativ med samma längd som det korrekta ordet
   const getWrongAnswers = () => {
@@ -585,16 +586,19 @@ const SpellingExercise: React.FC<{
           {word.video_url && (
             <Box sx={{ mb: 3 }}>
               <video
+                ref={videoRef}
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
                 autoPlay
                 muted
                 playsInline // Förhindrar helskärm på mobil
                 onClick={() => {
-                  // Spela videon igen när man klickar på den
-                  const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
-                  if (video) {
-                    video.currentTime = 0;
-                    video.play();
+                  console.log(`[DEBUG] Video clicked for word: ${word.id}`);
+                  if (videoRef.current) {
+                    console.log(`[DEBUG] Resetting video to start and playing`);
+                    videoRef.current.currentTime = 0;
+                    videoRef.current.play();
+                  } else {
+                    console.log(`[DEBUG] Video ref not found!`);
                   }
                 }}
                 style={{ 
