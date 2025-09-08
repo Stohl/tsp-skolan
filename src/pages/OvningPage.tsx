@@ -20,8 +20,7 @@ import {
   Divider,
   IconButton,
   Fab,
-  Paper,
-  Slider
+  Paper
 } from '@mui/material';
 import {
   PlayArrow,
@@ -722,11 +721,34 @@ const OvningPage: React.FC = () => {
   // State för bokstavering-övning
   const [spellingWordLength, setSpellingWordLength] = useState<number>(3);
   const [spellingWords, setSpellingWords] = useState<any[]>([]);
-  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.0);
-  const [minLength, setMinLength] = useState<number>(1);
-  const [maxLength, setMaxLength] = useState<number>(10);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(() => {
+    const saved = localStorage.getItem('spelling-playback-speed');
+    return saved ? parseFloat(saved) : 1.0;
+  });
+  const [selectedInterval, setSelectedInterval] = useState<number>(() => {
+    const saved = localStorage.getItem('spelling-interval');
+    return saved ? parseInt(saved) : 0; // 0 = 2-3 bokstäver
+  });
 
-  // Hämta bokstaveringsord baserat på ämne "Bokstavering - Bokstaverade ord"
+  // Definiera förbestämda intervall
+  const predefinedIntervals = [
+    { min: 2, max: 3, label: '2-3 bokstäver', description: 'Korta ord' },
+    { min: 3, max: 4, label: '3-4 bokstäver', description: 'Korta till medellånga ord' },
+    { min: 4, max: 5, label: '4-5 bokstäver', description: 'Medellånga ord' },
+    { min: 5, max: 6, label: '5-6 bokstäver', description: 'Medellånga till långa ord' },
+    { min: 6, max: 10, label: '6-7+ bokstäver', description: 'Långa ord' }
+  ];
+
+  // Funktioner för att spara inställningar
+  const savePlaybackSpeed = (speed: number) => {
+    setPlaybackSpeed(speed);
+    localStorage.setItem('spelling-playback-speed', speed.toString());
+  };
+
+  const saveSelectedInterval = (interval: number) => {
+    setSelectedInterval(interval);
+    localStorage.setItem('spelling-interval', interval.toString());
+  };
   const getAllSpellingWords = useMemo(() => {
     const spellingWords = Object.values(wordDatabase).filter((word: any) => 
       word.ämne && word.ämne.includes('Bokstavering - Bokstaverade ord')
@@ -947,7 +969,7 @@ const OvningPage: React.FC = () => {
                     backgroundColor: playbackSpeed === speed ? 'primary.50' : 'background.paper',
                     '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s' }
                   }}
-                  onClick={() => setPlaybackSpeed(speed)}
+                  onClick={() => savePlaybackSpeed(speed)}
                 >
                   <CardContent sx={{ textAlign: 'center', p: 2 }}>
                     <Typography variant="h6" color={playbackSpeed === speed ? 'primary.main' : 'text.primary'}>
@@ -966,108 +988,98 @@ const OvningPage: React.FC = () => {
           </Grid>
         </Paper>
 
-        {/* Ordlängd-slider */}
+        {/* Förbestämda intervall */}
         <Paper sx={{ p: 4, mb: 4 }}>
           <Typography variant="h5" gutterBottom align="center">
             Välj ordlängd
           </Typography>
           <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}>
-            Dra för att välja intervall för antal bokstäver
+            Välj intervall för antal bokstäver
           </Typography>
           
-          <Box sx={{ px: 3 }}>
-            <Typography variant="h6" align="center" sx={{ mb: 3 }}>
-              {minLength === maxLength ? `${minLength} bokstäver` : `${minLength} - ${maxLength} bokstäver`}
+          <Grid container spacing={2} justifyContent="center">
+            {predefinedIntervals.map((interval, index) => {
+              const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                word.ord.length >= interval.min && word.ord.length <= interval.max
+              );
+              const isSelected = selectedInterval === index;
+              const isDisabled = wordsInRange.length < 4;
+              
+              return (
+                <Grid item key={index}>
+                  <Card 
+                    sx={{ 
+                      cursor: isDisabled ? 'not-allowed' : 'pointer', 
+                      minWidth: 140,
+                      border: isSelected ? 2 : 1,
+                      borderColor: isSelected ? 'primary.main' : 'divider',
+                      backgroundColor: isSelected ? 'primary.50' : 'background.paper',
+                      opacity: isDisabled ? 0.5 : 1,
+                      '&:hover': !isDisabled ? { 
+                        transform: 'translateY(-2px)', 
+                        transition: 'transform 0.2s' 
+                      } : {}
+                    }}
+                    onClick={() => !isDisabled && saveSelectedInterval(index)}
+                  >
+                    <CardContent sx={{ textAlign: 'center', p: 2 }}>
+                      <Typography variant="h6" color={isSelected ? 'primary.main' : 'text.primary'}>
+                        {interval.label}
+                      </Typography>
+                      <Typography variant="body2" fontWeight="bold" sx={{ mb: 1 }}>
+                        {interval.description}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {wordsInRange.length} ord
+                      </Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              );
+            })}
+          </Grid>
+          
+          <Box sx={{ mt: 4, textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              {(() => {
+                const currentInterval = predefinedIntervals[selectedInterval];
+                const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                  word.ord.length >= currentInterval.min && word.ord.length <= currentInterval.max
+                );
+                return `${wordsInRange.length} ord tillgängliga i ${currentInterval.label}`;
+              })()}
             </Typography>
             
-            <Slider
-              value={[minLength, maxLength]}
-              onChange={(_, newValue) => {
-                const [newMin, newMax] = newValue as number[];
-                setMinLength(newMin);
-                setMaxLength(newMax);
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => {
+                const currentInterval = predefinedIntervals[selectedInterval];
+                startSpellingExercise(currentInterval.min, currentInterval.max);
               }}
-              valueLabelDisplay="auto"
-              min={1}
-              max={10}
-              step={1}
-              marks={[
-                { value: 1, label: '1' },
-                { value: 2, label: '2' },
-                { value: 3, label: '3' },
-                { value: 4, label: '4' },
-                { value: 5, label: '5' },
-                { value: 6, label: '6' },
-                { value: 7, label: '7' },
-                { value: 8, label: '8' },
-                { value: 9, label: '9' },
-                { value: 10, label: '10' }
-              ]}
+              disabled={(() => {
+                const currentInterval = predefinedIntervals[selectedInterval];
+                const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                  word.ord.length >= currentInterval.min && word.ord.length <= currentInterval.max
+                );
+                return wordsInRange.length < 4;
+              })()}
               sx={{
-                '& .MuiSlider-thumb': {
-                  height: 24,
-                  width: 24,
-                  backgroundColor: 'primary.main',
-                  border: '2px solid white',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                borderRadius: 3,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
                 },
-                '& .MuiSlider-track': {
-                  height: 8,
-                  backgroundColor: 'primary.main',
-                },
-                '& .MuiSlider-rail': {
-                  height: 8,
-                  backgroundColor: 'grey.300',
-                },
-                '& .MuiSlider-mark': {
-                  backgroundColor: 'grey.400',
-                  height: 12,
-                  width: 2,
-                },
-                '& .MuiSlider-markLabel': {
-                  fontSize: '0.875rem',
-                  fontWeight: 500,
-                }
+                transition: 'all 0.2s ease-in-out'
               }}
-            />
-            
-            <Box sx={{ mt: 3, textAlign: 'center' }}>
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                {(() => {
-                  const wordsInRange = getAllSpellingWords.filter((word: any) => 
-                    word.ord.length >= minLength && word.ord.length <= maxLength
-                  );
-                  return `${wordsInRange.length} ord tillgängliga i detta intervall`;
-                })()}
-              </Typography>
-              
-              <Button
-                variant="contained"
-                size="large"
-                onClick={() => startSpellingExercise(minLength, maxLength)}
-                disabled={(() => {
-                  const wordsInRange = getAllSpellingWords.filter((word: any) => 
-                    word.ord.length >= minLength && word.ord.length <= maxLength
-                  );
-                  return wordsInRange.length < 4;
-                })()}
-                sx={{
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  fontWeight: 'bold',
-                  borderRadius: 3,
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
-                  },
-                  transition: 'all 0.2s ease-in-out'
-                }}
-              >
-                Starta övning
-              </Button>
-            </Box>
+            >
+              Starta övning
+            </Button>
           </Box>
         </Paper>
 
