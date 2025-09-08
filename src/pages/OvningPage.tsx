@@ -323,10 +323,11 @@ const QuizExercise: React.FC<{
                       : (clickedAnswer === answer.id ? 'primary.light' : 'transparent'),
                     // Tvinga omedelbar färguppdatering
                     transition: 'none !important',
+                    // Ta bort hover-effekter
                     '&:hover': {
                       backgroundColor: showResult 
                         ? (isCorrectAnswer(answer.id) ? 'success.light' : 'error.light')
-                        : (clickedAnswer === answer.id ? 'primary.light' : 'action.hover')
+                        : (clickedAnswer === answer.id ? 'primary.light' : 'transparent')
                     }
                   }}
                 >
@@ -523,6 +524,7 @@ const OvningPage: React.FC = () => {
       ...word,
       progress: wordProgress[wordId] || {
         level: 0,
+        points: 0,
         stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
       }
     }));
