@@ -708,9 +708,11 @@ const OvningPage: React.FC = () => {
 
   // Hämta bokstaveringsord baserat på ämne "Bokstavering*"
   const getAllSpellingWords = useMemo(() => {
-    return Object.values(wordDatabase).filter((word: any) => 
+    const spellingWords = Object.values(wordDatabase).filter((word: any) => 
       word.ämne && word.ämne.some((subject: string) => subject.startsWith('Bokstavering'))
     );
+    console.log(`[DEBUG] Found ${spellingWords.length} spelling words in database`);
+    return spellingWords;
   }, [wordDatabase]);
 
   // Beräkna ord för övning med useMemo för att undvika oändlig loop
@@ -838,11 +840,17 @@ const OvningPage: React.FC = () => {
 
   // Funktion för att starta bokstavering-övning
   const startSpellingExercise = (wordLength: number) => {
+    console.log(`[DEBUG] startSpellingExercise called with length: ${wordLength}`);
     const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === wordLength);
+    console.log(`[DEBUG] Found ${wordsForLength.length} words for length ${wordLength}`);
+    
     if (wordsForLength.length >= 4) { // Behöver minst 4 ord för att skapa alternativ
+      console.log(`[DEBUG] Starting spelling exercise with ${wordsForLength.length} words`);
       setSpellingWords(wordsForLength.slice(0, 10)); // Ta max 10 ord
       setSpellingWordLength(wordLength);
       handleExerciseTypeSelect(ExerciseType.SPELLING);
+    } else {
+      console.log(`[DEBUG] Not enough words (${wordsForLength.length}) for length ${wordLength}`);
     }
   };
 
@@ -880,7 +888,7 @@ const OvningPage: React.FC = () => {
 
   // Visa val för bokstavering-ordlängd
   if (selectedExerciseType === ExerciseType.SPELLING) {
-    const availableLengths = [3, 4, 5, 6, 7, 8].filter(length => {
+    const availableLengths = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].filter(length => {
       const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === length);
       return wordsForLength.length >= 4; // Behöver minst 4 ord för alternativ
     });
