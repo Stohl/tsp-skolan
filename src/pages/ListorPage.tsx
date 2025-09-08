@@ -262,7 +262,7 @@ const ListorPage: React.FC = () => {
     return (
       <Box sx={{ p: 2 }}>
         <Typography variant="h6" gutterBottom>
-          Ord att lära mig
+          {`Ord att lära mig (${learningWords.length})`}
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
           Ord som du har markerat som "vill lära sig".

@@ -30,7 +30,8 @@ import {
   Timer,
   School,
   Quiz,
-  Gesture
+  Gesture,
+  Spellcheck
 } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -39,7 +40,8 @@ import { useWordProgress } from '../hooks/usePersistentState';
 enum ExerciseType {
   FLASHCARDS = 'flashcards',
   QUIZ = 'quiz',
-  SIGN = 'sign'
+  SIGN = 'sign',
+  SPELLING = 'spelling'
 }
 
 // Interface för övningsresultat
@@ -504,6 +506,190 @@ const SignExercise: React.FC<{
   );
 };
 
+// Komponent för Bokstavering-övning
+const SpellingExercise: React.FC<{
+  word: any;
+  allSpellingWords: any[];
+  onResult: (isCorrect: boolean) => void;
+  onSkip: () => void;
+}> = ({ word, allSpellingWords, onResult, onSkip }) => {
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [showResult, setShowResult] = useState(false);
+  const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
+  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Generera felaktiga alternativ med samma längd som det korrekta ordet
+  const getWrongAnswers = () => {
+    const correctLength = word.ord.length;
+    const wrongWords = allSpellingWords
+      .filter(w => w.id !== word.id && w.ord.length === correctLength)
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3);
+    return wrongWords.map(w => ({ id: w.id, text: w.ord }));
+  };
+
+  // Använd useMemo för att generera svarsalternativ när ordet ändras
+  const answers = useMemo(() => {
+    const wrongAnswers = getWrongAnswers();
+    const correctAnswer = { id: word.id, text: word.ord };
+    const allAnswers = [...wrongAnswers, correctAnswer];
+    return allAnswers.sort(() => Math.random() - 0.5); // Blanda svaren
+  }, [word.id, allSpellingWords]);
+
+  // Återställ state när ordet ändras
+  useEffect(() => {
+    // Rensa eventuell pågående timeout
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
+    
+    setSelectedAnswer(null);
+    setShowResult(false);
+    setClickedAnswer(null);
+  }, [word.id]);
+
+  // Cleanup timeout när komponenten unmountas
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
+
+  const handleAnswerSelect = (answerId: string) => {
+    if (selectedAnswer || showResult) return;
+    
+    console.log(`[DEBUG] Spelling answer selected: ${answerId}, word.id: ${word.id}`);
+    
+    // Sätt omedelbart för visuell feedback
+    setClickedAnswer(answerId);
+    setSelectedAnswer(answerId);
+    setShowResult(true);
+    
+    const isCorrect = answerId === word.id;
+    console.log(`[DEBUG] Spelling answer is correct: ${isCorrect}`);
+    
+    const timeout = setTimeout(() => onResult(isCorrect), 2000);
+    timeoutRef.current = timeout;
+  };
+
+  const isCorrectAnswer = (answerId: string) => answerId === word.id;
+
+  return (
+    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+      <CardContent sx={{ textAlign: 'center', p: 4 }}>
+        {/* Fråga */}
+        <Box sx={{ mb: 4 }}>
+          {word.video_url && (
+            <Box sx={{ mb: 3 }}>
+              <video
+                key={word.id} // Tvingar React att skapa ny video när ordet ändras
+                autoPlay
+                muted
+                playsInline // Förhindrar helskärm på mobil
+                onClick={() => {
+                  // Spela videon igen när man klickar på den
+                  const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
+                  if (video) {
+                    video.currentTime = 0;
+                    video.play();
+                  }
+                }}
+                style={{ 
+                  width: '100%', 
+                  maxWidth: '400px',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  cursor: 'pointer' // Visa att videon är klickbar
+                }}
+              >
+                <source src={word.video_url} type="video/mp4" />
+                Din webbläsare stöder inte video-elementet.
+              </video>
+            </Box>
+          )}
+          
+          <Typography variant="h5" gutterBottom>
+            Vilket ord bokstaveras i videon?
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            ({word.ord.length} bokstäver)
+          </Typography>
+        </Box>
+
+        {/* Svarsalternativ */}
+        <List>
+          {answers.map((answer, index) => (
+            <React.Fragment key={answer.id}>
+              <ListItem disablePadding>
+                <ListItemButton
+                  onClick={() => handleAnswerSelect(answer.id)}
+                  disabled={selectedAnswer !== null || showResult}
+                  sx={{
+                    border: (selectedAnswer === answer.id || clickedAnswer === answer.id) ? '2px solid' : '1px solid',
+                    borderColor: showResult 
+                      ? (isCorrectAnswer(answer.id) ? 'success.main' : 'error.main')
+                      : (clickedAnswer === answer.id ? 'primary.main' : 'divider'),
+                    borderRadius: 1,
+                    mb: 1,
+                    backgroundColor: showResult 
+                      ? (isCorrectAnswer(answer.id) ? 'success.light' : 'error.light')
+                      : (clickedAnswer === answer.id ? 'primary.light' : 'transparent'),
+                    // Tvinga omedelbar färguppdatering
+                    transition: 'none !important',
+                    '&:hover': {
+                      backgroundColor: showResult 
+                        ? (isCorrectAnswer(answer.id) ? 'success.light' : 'error.light')
+                        : (clickedAnswer === answer.id ? 'primary.light' : 'action.hover')
+                    }
+                  }}
+                >
+                  <ListItemText
+                    primary={
+                      <Typography variant="h6">
+                        {answer.text}
+                      </Typography>
+                    }
+                  />
+                  {showResult && isCorrectAnswer(answer.id) && (
+                    <CheckCircle color="success" />
+                  )}
+                </ListItemButton>
+              </ListItem>
+              {index < answers.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </List>
+
+        {/* Resultat */}
+        {showResult && (
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="h6" color={isCorrectAnswer(selectedAnswer || '') ? 'success.main' : 'error.main'}>
+              {isCorrectAnswer(selectedAnswer || '') ? 'Rätt!' : 'Fel!'}
+            </Typography>
+            <Typography variant="body1" color="text.secondary">
+              Rätt svar: {word.ord}
+            </Typography>
+          </Box>
+        )}
+
+        {/* Hoppa över knapp */}
+        {!showResult && (
+          <Button
+            variant="outlined"
+            onClick={onSkip}
+            sx={{ mt: 2 }}
+          >
+            Hoppa över
+          </Button>
+        )}
+      </CardContent>
+    </Card>
+  );
+};
+
 // Huvudkomponent för övningssidan
 const OvningPage: React.FC = () => {
   const { wordDatabase, isLoading, error } = useDatabase();
@@ -515,6 +701,17 @@ const OvningPage: React.FC = () => {
   const [results, setResults] = useState<ExerciseResult[]>([]);
 
   const [learningWordsOnly, setLearningWordsOnly] = useState(false);
+  
+  // State för bokstavering-övning
+  const [spellingWordLength, setSpellingWordLength] = useState<number>(3);
+  const [spellingWords, setSpellingWords] = useState<any[]>([]);
+
+  // Hämta bokstaveringsord baserat på ämne "Bokstavering*"
+  const getAllSpellingWords = useMemo(() => {
+    return Object.values(wordDatabase).filter((word: any) => 
+      word.ämne && word.ämne.some((subject: string) => subject.startsWith('Bokstavering'))
+    );
+  }, [wordDatabase]);
 
   // Beräkna ord för övning med useMemo för att undvika oändlig loop
   const practiceWords = useMemo(() => {
@@ -585,7 +782,7 @@ const OvningPage: React.FC = () => {
 
   // Funktion som körs när användaren slutför en övning
   const handleExerciseResult = (isCorrect: boolean) => {
-    const currentWord = practiceWords[currentWordIndex];
+    const currentWord = selectedExerciseType === ExerciseType.SPELLING ? spellingWords[currentWordIndex] : practiceWords[currentWordIndex];
     if (!currentWord) return;
 
     console.log(`[DEBUG] handleExerciseResult: currentWordIndex=${currentWordIndex}, practiceWords.length=${practiceWords.length}, isCorrect=${isCorrect}`);
@@ -599,10 +796,15 @@ const OvningPage: React.FC = () => {
     };
     
     setResults(prev => [...prev, result]);
-    markWordResult(currentWord.id, isCorrect);
+    
+    // Spara inte progress för bokstavering-övningar
+    if (selectedExerciseType !== ExerciseType.SPELLING) {
+      markWordResult(currentWord.id, isCorrect);
+    }
 
     // Gå till nästa ord eller visa resultat direkt (utan timeout)
-    if (currentWordIndex < practiceWords.length - 1) {
+    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : practiceWords;
+    if (currentWordIndex < currentWords.length - 1) {
       console.log(`[DEBUG] Moving to next question: ${currentWordIndex + 1}`);
       setCurrentWordIndex(prev => prev + 1);
     } else {
@@ -613,9 +815,10 @@ const OvningPage: React.FC = () => {
 
   // Funktion som körs när användaren hoppar över en övning
   const handleSkip = () => {
-    console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, practiceWords.length=${practiceWords.length}`);
+    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : practiceWords;
+    console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, currentWords.length=${currentWords.length}`);
     
-    if (currentWordIndex < practiceWords.length - 1) {
+    if (currentWordIndex < currentWords.length - 1) {
       console.log(`[DEBUG] Skipping to next question: ${currentWordIndex + 1}`);
       setCurrentWordIndex(prev => prev + 1);
     } else {
@@ -631,6 +834,16 @@ const OvningPage: React.FC = () => {
     setResults([]);
     setShowResults(false);
     setLearningWordsOnly(false);
+  };
+
+  // Funktion för att starta bokstavering-övning
+  const startSpellingExercise = (wordLength: number) => {
+    const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === wordLength);
+    if (wordsForLength.length >= 4) { // Behöver minst 4 ord för att skapa alternativ
+      setSpellingWords(wordsForLength.slice(0, 10)); // Ta max 10 ord
+      setSpellingWordLength(wordLength);
+      handleExerciseTypeSelect(ExerciseType.SPELLING);
+    }
   };
 
   // Funktion som körs när användaren går tillbaka till menyn
@@ -665,6 +878,65 @@ const OvningPage: React.FC = () => {
     );
   }
 
+  // Visa val för bokstavering-ordlängd
+  if (selectedExerciseType === ExerciseType.SPELLING) {
+    const availableLengths = [3, 4, 5, 6, 7, 8].filter(length => {
+      const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === length);
+      return wordsForLength.length >= 4; // Behöver minst 4 ord för alternativ
+    });
+
+    return (
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Typography variant="h4" gutterBottom align="center">
+          Välj ordlängd för bokstavering
+        </Typography>
+        <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}>
+          Välj hur många bokstäver orden ska ha
+        </Typography>
+
+        <Grid container spacing={3}>
+          {availableLengths.map((length) => {
+            const wordsForLength = getAllSpellingWords.filter((word: any) => word.ord.length === length);
+            return (
+              <Grid item xs={12} sm={6} md={4} key={length}>
+                <Card 
+                  sx={{ 
+                    cursor: 'pointer', 
+                    height: '100%',
+                    '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
+                  }}
+                  onClick={() => startSpellingExercise(length)}
+                >
+                  <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                    <Typography variant="h3" color="warning.main" gutterBottom>
+                      {length}
+                    </Typography>
+                    <Typography variant="h6" gutterBottom>
+                      {length} bokstäver
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {wordsForLength.length} ord tillgängliga
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            );
+          })}
+        </Grid>
+
+        <Box sx={{ mt: 4, textAlign: 'center' }}>
+          <Button 
+            variant="outlined" 
+            onClick={() => setSelectedExerciseType(null)}
+            startIcon={<Refresh />}
+          >
+            Tillbaka till övningstyper
+          </Button>
+        </Box>
+      </Container>
+    );
+  }
+
   // Visa övningstyp-val om ingen är vald
   if (!selectedExerciseType) {
     return (
@@ -677,7 +949,7 @@ const OvningPage: React.FC = () => {
         </Typography>
 
         <Grid container spacing={3}>
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6} lg={3}>
             <Card 
               sx={{ 
                 cursor: 'pointer', 
@@ -698,7 +970,7 @@ const OvningPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6} lg={3}>
             <Card 
               sx={{ 
                 cursor: 'pointer', 
@@ -719,7 +991,7 @@ const OvningPage: React.FC = () => {
             </Card>
           </Grid>
 
-          <Grid item xs={12} md={4}>
+          <Grid item xs={12} md={6} lg={3}>
             <Card 
               sx={{ 
                 cursor: 'pointer', 
@@ -739,17 +1011,72 @@ const OvningPage: React.FC = () => {
               </CardContent>
             </Card>
           </Grid>
+
+          <Grid item xs={12} md={6} lg={3}>
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+                '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
+              }}
+              onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+                <Spellcheck sx={{ fontSize: 60, color: 'warning.main', mb: 2 }} />
+                <Typography variant="h6" gutterBottom>
+                  Bokstavering
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Se bokstaveringsvideo och gissa vilket ord som bokstaveras.
+                </Typography>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
 
         {/* Progress-info */}
-        {practiceWords.length > 0 && (
-          <Paper sx={{ mt: 4, p: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Din progress
-            </Typography>
-            <Typography variant="body2" color="text.secondary">
-              {practiceWords.length} ord redo för övning
-            </Typography>
+         {/* Progress-info */}
+         <Paper sx={{ mt: 4, p: 3 }}>
+           <Typography variant="h6" gutterBottom>
+             Din progress
+           </Typography>
+           
+           {/* Statistik över alla ord */}
+           {(() => {
+             const allWords = Object.values(wordDatabase);
+             const totalWords = allWords.length;
+             
+             // Räkna ord per nivå
+             const level0Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 0).length;
+             const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
+             const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;
+             const unmarkedWords = totalWords - level0Words - level1Words - level2Words;
+             
+             return (
+               <Box sx={{ mb: 3 }}>
+                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                   <strong>Totalt {totalWords} ord i databasen</strong>
+                 </Typography>
+                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+                   <Typography variant="body2" color="text.secondary">
+                     ⚪ Ej markerade: {unmarkedWords + level0Words} ord
+                   </Typography>
+                   <Typography variant="body2" color="primary.main">
+                     🟡 Att lära mig: {level1Words} ord
+                   </Typography>
+                   <Typography variant="body2" color="success.main">
+                     🟢 Lärd: {level2Words} ord
+                   </Typography>
+                 </Box>
+               </Box>
+             );
+           })()}
+           
+           {practiceWords.length > 0 && (
+             <>
+               <Typography variant="body2" color="text.secondary">
+                 {practiceWords.length} ord redo för övning
+               </Typography>
             
             {/* Visa hur många ord som är markerade som "vill lära mig" */}
             {(() => {
@@ -764,7 +1091,7 @@ const OvningPage: React.FC = () => {
                 <Box sx={{ mt: 2 }}>
                   {learningWords.length > 0 && (
                     <Typography variant="body2" color="primary.main">
-                      🟡 {learningWords.length} ord markerade som "vill lära mig" (prioriterade)
+                      🟡 {learningWords.length} ord markerade som "vill lära mig" • {practiceWords.length} prioriteras i denna övning
                     </Typography>
                   )}
                   {otherWords.length > 0 && (
@@ -797,10 +1124,11 @@ const OvningPage: React.FC = () => {
                 </Box>
               );
             })()}
-          </Paper>
-        )}
-      </Container>
-    );
+           </>
+           )}
+         </Paper>
+       </Container>
+     );
   }
 
   // Visa resultat-dialog
@@ -829,7 +1157,7 @@ const OvningPage: React.FC = () => {
                 {results.map((result, index) => {
                   const word = practiceWords[index];
                   return (
-                    <ListItem key={result.wordId}>
+                    <ListItem key={`${result.wordId}-${index}`}>
                       <ListItemText
                         primary={word?.ord}
                         secondary={`${result.isCorrect ? 'Rätt' : 'Fel'} - ${result.exerciseType}`}
@@ -859,7 +1187,13 @@ const OvningPage: React.FC = () => {
   }
 
   // Visa aktuell övning
-  const currentWord = practiceWords[currentWordIndex];
+  let currentWord;
+  if ((selectedExerciseType as ExerciseType) === ExerciseType.SPELLING) {
+    currentWord = spellingWords[currentWordIndex];
+  } else {
+    currentWord = practiceWords[currentWordIndex];
+  }
+  
   if (!currentWord) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
@@ -876,17 +1210,18 @@ const OvningPage: React.FC = () => {
           {selectedExerciseType === ExerciseType.FLASHCARDS && 'Flashcards'}
           {selectedExerciseType === ExerciseType.QUIZ && 'Flervalsquiz'}
           {selectedExerciseType === ExerciseType.SIGN && 'Teckna'}
+          {(selectedExerciseType as any) === ExerciseType.SPELLING && 'Bokstavering'}
         </Typography>
         
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
           <Typography variant="body1" color="text.secondary">
-            Ord {currentWordIndex + 1} av {practiceWords.length}
+            Ord {currentWordIndex + 1} av {(selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length : practiceWords.length}
           </Typography>
         </Box>
         
         <LinearProgress 
           variant="determinate" 
-          value={((currentWordIndex + 1) / practiceWords.length) * 100}
+          value={((currentWordIndex + 1) / ((selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length : practiceWords.length)) * 100}
           sx={{ mb: 2 }}
         />
 
@@ -913,6 +1248,15 @@ const OvningPage: React.FC = () => {
       {selectedExerciseType === ExerciseType.SIGN && (
         <SignExercise
           word={currentWord}
+          onResult={handleExerciseResult}
+          onSkip={handleSkip}
+        />
+      )}
+      
+      {(selectedExerciseType as any) === ExerciseType.SPELLING && (
+        <SpellingExercise
+          word={currentWord}
+          allSpellingWords={spellingWords}
           onResult={handleExerciseResult}
           onSkip={handleSkip}
         />
