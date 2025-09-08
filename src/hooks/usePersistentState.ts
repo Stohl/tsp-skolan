@@ -110,8 +110,11 @@ export const useWordProgress = () => {
 
     console.log(`[DEBUG] markWordResult: wordId=${wordId}, isCorrect=${isCorrect}, currentPoints=${current.points}`);
 
+    // Säkerställ att points är ett giltigt nummer (hantera null/undefined)
+    const currentPoints = typeof current.points === 'number' ? current.points : 0;
+    
     // Beräkna nya poäng: +1 för rätt, -1 för fel (men aldrig under 0)
-    const newPoints = Math.max(0, current.points + (isCorrect ? 1 : -1));
+    const newPoints = Math.max(0, currentPoints + (isCorrect ? 1 : -1));
     
     // Om poängen når 5, markera ordet som lärt (nivå 2)
     const newLevel = newPoints >= 5 ? 2 : current.level;

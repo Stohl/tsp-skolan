@@ -587,6 +587,8 @@ const OvningPage: React.FC = () => {
     const currentWord = practiceWords[currentWordIndex];
     if (!currentWord) return;
 
+    console.log(`[DEBUG] handleExerciseResult: currentWordIndex=${currentWordIndex}, practiceWords.length=${practiceWords.length}, isCorrect=${isCorrect}`);
+
     // Spara resultat
     const result: ExerciseResult = {
       wordId: currentWord.id,
@@ -600,17 +602,23 @@ const OvningPage: React.FC = () => {
 
     // Gå till nästa ord eller visa resultat direkt (utan timeout)
     if (currentWordIndex < practiceWords.length - 1) {
+      console.log(`[DEBUG] Moving to next question: ${currentWordIndex + 1}`);
       setCurrentWordIndex(prev => prev + 1);
     } else {
+      console.log(`[DEBUG] Quiz completed! Showing results.`);
       setShowResults(true);
     }
   };
 
   // Funktion som körs när användaren hoppar över en övning
   const handleSkip = () => {
+    console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, practiceWords.length=${practiceWords.length}`);
+    
     if (currentWordIndex < practiceWords.length - 1) {
+      console.log(`[DEBUG] Skipping to next question: ${currentWordIndex + 1}`);
       setCurrentWordIndex(prev => prev + 1);
     } else {
+      console.log(`[DEBUG] Skip completed quiz! Showing results.`);
       setShowResults(true);
     }
   };
