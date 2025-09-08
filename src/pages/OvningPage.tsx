@@ -153,7 +153,8 @@ const FlashcardsExercise: React.FC<{
                   }}
                   style={{ 
                     width: '100%', 
-                    maxWidth: '400px',
+                    height: '300px',
+                    objectFit: 'cover',
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                     cursor: 'pointer' // Visa att videon är klickbar
@@ -275,24 +276,24 @@ const QuizExercise: React.FC<{
           {word.video_url && (
             <Box sx={{ mb: 3 }}>
               <video
+                ref={videoRef}
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
                 autoPlay
                 muted
                 playsInline // Förhindrar helskärm på mobil
                 onClick={() => {
-                  // Spela videon igen när man klickar på den
-                  const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
-                  if (video) {
-                    video.currentTime = 0;
-                    video.play();
+                  if (videoRef.current) {
+                    videoRef.current.currentTime = 0;
+                    videoRef.current.play();
                   }
                 }}
                 style={{ 
                   width: '100%', 
-                  maxWidth: '400px',
+                  height: '300px',
+                  objectFit: 'cover',
                   borderRadius: '8px',
                   boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                  cursor: 'pointer' // Visa att videon är klickbar
+                  cursor: 'pointer'
                 }}
               >
                 <source src={word.video_url} type="video/mp4" />
@@ -454,7 +455,8 @@ const SignExercise: React.FC<{
                   }}
                   style={{ 
                     width: '100%', 
-                    maxWidth: '400px',
+                    height: '300px',
+                    objectFit: 'cover',
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                     cursor: 'pointer' // Visa att videon är klickbar
@@ -851,7 +853,9 @@ const OvningPage: React.FC = () => {
     
     if (wordsForLength.length >= 4) { // Behöver minst 4 ord för att skapa alternativ
       console.log(`[DEBUG] Starting spelling exercise with ${wordsForLength.length} words`);
-      setSpellingWords(wordsForLength.slice(0, 10)); // Ta max 10 ord
+      // Slumpa orden för att få variation
+      const shuffledWords = [...wordsForLength].sort(() => Math.random() - 0.5);
+      setSpellingWords(shuffledWords.slice(0, 10)); // Ta max 10 slumpade ord
       setSpellingWordLength(wordLength);
       // Starta övningen direkt istället för att anropa handleExerciseTypeSelect igen
       setCurrentWordIndex(0);

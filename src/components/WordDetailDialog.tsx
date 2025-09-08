@@ -166,7 +166,8 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
               }}
               style={{ 
                 width: '100%', 
-                maxWidth: '400px',
+                height: '300px',
+                objectFit: 'cover',
                 borderRadius: '8px',
                 boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                 cursor: 'pointer'
