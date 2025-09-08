@@ -274,13 +274,32 @@ const QuizExercise: React.FC<{
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
-            <Box sx={{ mb: 3 }}>
+            <Box sx={{ 
+              mb: 3, 
+              width: '100%', 
+              height: '300px',
+              backgroundColor: '#f5f5f5',
+              borderRadius: '8px',
+              boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              position: 'relative',
+              overflow: 'hidden'
+            }}>
               <video
                 ref={videoRef}
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
                 autoPlay
                 muted
                 playsInline // Förhindrar helskärm på mobil
+                onEnded={() => {
+                  // Säkerställ att videon förblir synlig efter uppspelning
+                  if (videoRef.current) {
+                    videoRef.current.style.display = 'block';
+                    videoRef.current.style.visibility = 'visible';
+                  }
+                }}
                 onClick={() => {
                   if (videoRef.current) {
                     videoRef.current.currentTime = 0;
@@ -289,13 +308,12 @@ const QuizExercise: React.FC<{
                 }}
                 style={{ 
                   width: '100%', 
-                  height: '300px',
+                  height: '100%',
                   objectFit: 'cover',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
                   cursor: 'pointer',
-                  backgroundColor: '#f5f5f5', // Bakgrundsfärg när videon inte spelar
-                  display: 'block' // Säkerställ att videon alltid är synlig
+                  display: 'block',
+                  visibility: 'visible',
+                  opacity: 1
                 }}
               >
                 <source src={word.video_url} type="video/mp4" />
