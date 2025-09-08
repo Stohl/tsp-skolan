@@ -274,32 +274,13 @@ const QuizExercise: React.FC<{
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
-            <Box sx={{ 
-              mb: 3, 
-              width: '100%', 
-              height: '300px',
-              backgroundColor: '#f5f5f5',
-              borderRadius: '8px',
-              boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              position: 'relative',
-              overflow: 'hidden'
-            }}>
+            <Box sx={{ mb: 3 }}>
               <video
                 ref={videoRef}
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
                 autoPlay
                 muted
                 playsInline // Förhindrar helskärm på mobil
-                onEnded={() => {
-                  // Säkerställ att videon förblir synlig efter uppspelning
-                  if (videoRef.current) {
-                    videoRef.current.style.display = 'block';
-                    videoRef.current.style.visibility = 'visible';
-                  }
-                }}
                 onClick={() => {
                   if (videoRef.current) {
                     videoRef.current.currentTime = 0;
@@ -308,12 +289,11 @@ const QuizExercise: React.FC<{
                 }}
                 style={{ 
                   width: '100%', 
-                  height: '100%',
+                  height: '300px',
                   objectFit: 'cover',
-                  cursor: 'pointer',
-                  display: 'block',
-                  visibility: 'visible',
-                  opacity: 1
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  cursor: 'pointer'
                 }}
               >
                 <source src={word.video_url} type="video/mp4" />
@@ -535,12 +515,20 @@ const SpellingExercise: React.FC<{
   allSpellingWords: any[];
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
-}> = ({ word, allSpellingWords, onResult, onSkip }) => {
+  playbackSpeed: number;
+}> = ({ word, allSpellingWords, onResult, onSkip, playbackSpeed }) => {
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Sätt uppspelningshastighet när videon laddas
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.playbackRate = playbackSpeed;
+    }
+  }, [playbackSpeed, word.id]);
 
   // Generera felaktiga alternativ med samma längd som det korrekta ordet
   const getWrongAnswers = () => {
@@ -619,6 +607,7 @@ const SpellingExercise: React.FC<{
                   if (videoRef.current) {
                     console.log(`[DEBUG] Resetting video to start and playing`);
                     videoRef.current.currentTime = 0;
+                    videoRef.current.playbackRate = playbackSpeed;
                     videoRef.current.play();
                   } else {
                     console.log(`[DEBUG] Video ref not found!`);
@@ -732,6 +721,7 @@ const OvningPage: React.FC = () => {
   // State för bokstavering-övning
   const [spellingWordLength, setSpellingWordLength] = useState<number>(3);
   const [spellingWords, setSpellingWords] = useState<any[]>([]);
+  const [playbackSpeed, setPlaybackSpeed] = useState<number>(1.0);
 
   // Hämta bokstaveringsord baserat på ämne "Bokstavering - Bokstaverade ord"
   const getAllSpellingWords = useMemo(() => {
@@ -928,7 +918,57 @@ const OvningPage: React.FC = () => {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Typography variant="h4" gutterBottom align="center">
-          Välj ordlängd för bokstavering
+          Bokstavering-övning
+        </Typography>
+        
+        {/* Uppspelningshastighet */}
+        <Paper sx={{ p: 3, mb: 4 }}>
+          <Typography variant="h6" gutterBottom align="center">
+            Välj uppspelningshastighet
+          </Typography>
+          <Typography variant="body2" color="text.secondary" align="center" sx={{ mb: 3 }}>
+            Välj hur snabbt bokstaveringsvideorna ska spelas upp
+          </Typography>
+          
+          <Grid container spacing={2} justifyContent="center">
+            {[
+              { speed: 0.5, label: 'Nybörjare', description: 'Halv hastighet' },
+              { speed: 0.75, label: 'Lätt', description: 'Tre fjärdedelar hastighet' },
+              { speed: 1.0, label: 'Normal', description: 'Normal hastighet' },
+              { speed: 1.25, label: 'Snabb', description: 'En fjärdedel snabbare' },
+              { speed: 1.5, label: 'Expert', description: 'Halv gånger snabbare' }
+            ].map(({ speed, label, description }) => (
+              <Grid item key={speed}>
+                <Card 
+                  sx={{ 
+                    cursor: 'pointer', 
+                    minWidth: 120,
+                    border: playbackSpeed === speed ? 2 : 1,
+                    borderColor: playbackSpeed === speed ? 'primary.main' : 'divider',
+                    backgroundColor: playbackSpeed === speed ? 'primary.50' : 'background.paper',
+                    '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s' }
+                  }}
+                  onClick={() => setPlaybackSpeed(speed)}
+                >
+                  <CardContent sx={{ textAlign: 'center', p: 2 }}>
+                    <Typography variant="h6" color={playbackSpeed === speed ? 'primary.main' : 'text.primary'}>
+                      {speed}x
+                    </Typography>
+                    <Typography variant="body2" fontWeight="bold">
+                      {label}
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      {description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Paper>
+
+        <Typography variant="h5" gutterBottom align="center">
+          Välj ordlängd
         </Typography>
         <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}>
           Välj hur många bokstäver orden ska ha
@@ -1299,6 +1339,7 @@ const OvningPage: React.FC = () => {
           allSpellingWords={spellingWords}
           onResult={handleExerciseResult}
           onSkip={handleSkip}
+          playbackSpeed={playbackSpeed}
         />
       )}
 
