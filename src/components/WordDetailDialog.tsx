@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import {
   Dialog,
   DialogTitle,
@@ -33,6 +33,8 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
   wordProgress = 0,
   onProgressChange
 }) => {
+  const videoRef = useRef<HTMLVideoElement>(null);
+
   if (!word) return null;
 
   // Funktion som körs när användaren klickar på videolänken
@@ -152,14 +154,22 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
         {word.video_url && (
           <Box sx={{ mb: 3, textAlign: 'center' }}>
             <video
+              ref={videoRef}
               controls
               autoPlay
               muted
+              onClick={() => {
+                if (videoRef.current) {
+                  videoRef.current.currentTime = 0;
+                  videoRef.current.play();
+                }
+              }}
               style={{ 
                 width: '100%', 
                 maxWidth: '400px',
                 borderRadius: '8px',
-                boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                cursor: 'pointer'
               }}
             >
               <source src={word.video_url} type="video/mp4" />

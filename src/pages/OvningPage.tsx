@@ -60,6 +60,7 @@ const FlashcardsExercise: React.FC<{
 }> = ({ word, onResult, onSkip }) => {
   const [showVideo, setShowVideo] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Återställ state när ordet ändras
   useEffect(() => {
@@ -138,17 +139,16 @@ const FlashcardsExercise: React.FC<{
             {word.video_url && (
               <Box sx={{ mb: 3 }}>
                 <video
+                  ref={videoRef}
                   key={word.id} // Tvingar React att skapa ny video när ordet ändras
                   autoPlay
                   muted
                   playsInline // Förhindrar helskärm på mobil
                   loop // Spelar videon i loop
                   onClick={() => {
-                    // Spela videon igen när man klickar på den
-                    const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
-                    if (video) {
-                      video.currentTime = 0;
-                      video.play();
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 0;
+                      videoRef.current.play();
                     }
                   }}
                   style={{ 
@@ -207,6 +207,7 @@ const QuizExercise: React.FC<{
   const [showResult, setShowResult] = useState(false);
   const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
   const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Generera felaktiga alternativ
   const getWrongAnswers = () => {
@@ -385,6 +386,7 @@ const SignExercise: React.FC<{
   const [countdown, setCountdown] = useState(5);
   const [showVideo, setShowVideo] = useState(false);
   const [isCountingDown, setIsCountingDown] = useState(true);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   // Återställ state när ordet ändras
   useEffect(() => {
@@ -438,17 +440,16 @@ const SignExercise: React.FC<{
             {word.video_url && (
               <Box sx={{ mb: 3 }}>
                 <video
+                  ref={videoRef}
                   key={word.id} // Tvingar React att skapa ny video när ordet ändras
                   autoPlay
                   muted
                   playsInline // Förhindrar helskärm på mobil
                   loop // Spelar videon i loop
                   onClick={() => {
-                    // Spela videon igen när man klickar på den
-                    const video = document.querySelector(`video[key="${word.id}"]`) as HTMLVideoElement;
-                    if (video) {
-                      video.currentTime = 0;
-                      video.play();
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 0;
+                      videoRef.current.play();
                     }
                   }}
                   style={{ 
