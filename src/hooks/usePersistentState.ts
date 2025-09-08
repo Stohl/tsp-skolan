@@ -56,6 +56,8 @@ export const useWordProgress = () => {
 
   // Funktion för att uppdatera progress för ett specifikt ord
   const updateWordProgress = (wordId: string, updates: Partial<WordProgressData>) => {
+    console.log(`[DEBUG] updateWordProgress: wordId=${wordId}, updates=`, updates);
+    
     setWordProgress((prev: WordProgressStorage) => {
       const current = prev[wordId] || {
         level: 0,
@@ -63,16 +65,20 @@ export const useWordProgress = () => {
         stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
       };
       
+      const newData = {
+        level: updates.level !== undefined ? updates.level : current.level,
+        points: updates.points !== undefined ? updates.points : current.points,
+        stats: {
+          ...current.stats,
+          ...(updates.stats || {})
+        }
+      };
+      
+      console.log(`[DEBUG] updateWordProgress result:`, newData);
+      
       return {
         ...prev,
-        [wordId]: {
-          level: updates.level !== undefined ? updates.level : current.level,
-          points: updates.points !== undefined ? updates.points : current.points,
-          stats: {
-            ...current.stats,
-            ...(updates.stats || {})
-          }
-        }
+        [wordId]: newData
       };
     });
   };
@@ -102,11 +108,15 @@ export const useWordProgress = () => {
       stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
     };
 
+    console.log(`[DEBUG] markWordResult: wordId=${wordId}, isCorrect=${isCorrect}, currentPoints=${current.points}`);
+
     // Beräkna nya poäng: +1 för rätt, -1 för fel (men aldrig under 0)
     const newPoints = Math.max(0, current.points + (isCorrect ? 1 : -1));
     
     // Om poängen når 5, markera ordet som lärt (nivå 2)
     const newLevel = newPoints >= 5 ? 2 : current.level;
+
+    console.log(`[DEBUG] New points: ${newPoints}, new level: ${newLevel}`);
 
     const newStats = {
       correct: current.stats.correct + (isCorrect ? 1 : 0),
