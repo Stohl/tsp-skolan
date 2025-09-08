@@ -513,6 +513,9 @@ const OvningPage: React.FC = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<ExerciseResult[]>([]);
+
+  // Debug log för att se när komponenten renderas
+  console.log(`[DEBUG] OvningPage render: currentWordIndex=${currentWordIndex}, showResults=${showResults}`);
   const [learningWordsOnly, setLearningWordsOnly] = useState(false);
 
   // Beräkna ord för övning med useMemo för att undvika oändlig loop
@@ -603,7 +606,10 @@ const OvningPage: React.FC = () => {
     // Gå till nästa ord eller visa resultat direkt (utan timeout)
     if (currentWordIndex < practiceWords.length - 1) {
       console.log(`[DEBUG] Moving to next question: ${currentWordIndex + 1}`);
-      setCurrentWordIndex(prev => prev + 1);
+      setCurrentWordIndex(prev => {
+        console.log(`[DEBUG] setCurrentWordIndex called: prev=${prev}, new=${prev + 1}`);
+        return prev + 1;
+      });
     } else {
       console.log(`[DEBUG] Quiz completed! Showing results.`);
       setShowResults(true);
