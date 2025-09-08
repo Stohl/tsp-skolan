@@ -706,10 +706,10 @@ const OvningPage: React.FC = () => {
   const [spellingWordLength, setSpellingWordLength] = useState<number>(3);
   const [spellingWords, setSpellingWords] = useState<any[]>([]);
 
-  // Hämta bokstaveringsord baserat på ämne "Bokstavering*"
+  // Hämta bokstaveringsord baserat på ämne "Bokstavering - Bokstaverade ord"
   const getAllSpellingWords = useMemo(() => {
     const spellingWords = Object.values(wordDatabase).filter((word: any) => 
-      word.ämne && word.ämne.some((subject: string) => subject.startsWith('Bokstavering'))
+      word.ämne && word.ämne.includes('Bokstavering - Bokstaverade ord')
     );
     console.log(`[DEBUG] Found ${spellingWords.length} spelling words in database`);
     return spellingWords;
