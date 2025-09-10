@@ -47,8 +47,11 @@ const ListorPage: React.FC = () => {
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
+    console.log('[DEBUG] useEffect triggered, wordDatabase keys:', Object.keys(wordDatabase).length);
     if (Object.keys(wordDatabase).length > 0) {
       const allLists = getAllWordLists(wordDatabase);
+      console.log('[DEBUG] getAllWordLists returned:', allLists.length, 'lists');
+      console.log('[DEBUG] First few lists:', allLists.slice(0, 3));
       setWordLists(allLists);
     }
   }, [wordDatabase]);
