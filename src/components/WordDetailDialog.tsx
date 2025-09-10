@@ -46,8 +46,10 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
 
   // Funktion som körs när användaren klickar på lexikonlänken
   const handleLexikonClick = () => {
-    if (word.url) {
-      window.open(getVideoUrl(word.url), '_blank');
+    // Lexikonlänken har tagits bort från databasen
+    // Öppna istället videon direkt
+    if (word.video_url) {
+      window.open(getVideoUrl(word.video_url), '_blank');
     }
   };
 

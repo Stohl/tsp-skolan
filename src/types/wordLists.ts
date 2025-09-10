@@ -27,36 +27,12 @@ export type WordList = PredefinedWordList | DynamicWordList;
 // Förgenererade ordlistor
 export const predefinedWordLists: PredefinedWordList[] = [
   {
-    id: 'testlista',
-    name: 'Testlista',
-    description: 'En testlista med några grundläggande ord',
-    wordIds: ['00001', '00002', '00003', '00004', '00005'],
+    id: 'handalfabetet',
+    name: 'Handalfabetet',
+    description: 'Alla ord med ämnet "Handalfabetet"',
+    wordIds: ['handalfabetet'],
     type: 'predefined',
     difficulty: 'grundläggande'
-  },
-  {
-    id: 'grundord',
-    name: 'Grundord',
-    description: 'Viktiga grundord för att komma igång',
-    wordIds: ['00010', '00011', '00012', '00013', '00014', '00015'],
-    type: 'predefined',
-    difficulty: 'grundläggande'
-  },
-  {
-    id: 'familj',
-    name: 'Familj',
-    description: 'Ord relaterade till familj och relationer',
-    wordIds: ['00100', '00101', '00102', '00103', '00104'],
-    type: 'predefined',
-    difficulty: 'enkla'
-  },
-  {
-    id: 'färger',
-    name: 'Färger',
-    description: 'Grundläggande färger',
-    wordIds: ['00200', '00201', '00202', '00203', '00204', '00205'],
-    type: 'predefined',
-    difficulty: 'enkla'
   }
 ];
 

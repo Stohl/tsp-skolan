@@ -27,7 +27,6 @@ export interface Word {
     sekundära: string[];
   };
   video_url: string;
-  url: string;
   last_updated: string;
   ämne?: string[]; // Valfritt fält
 }
@@ -37,7 +36,6 @@ export interface Phrase {
   fras: string;
   ord_id: string;
   video_url: string;
-  url: string;
   last_updated: string;
 }
 
