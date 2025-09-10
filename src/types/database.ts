@@ -1,3 +1,16 @@
+// Konstanter för databasen
+const BASE_URL = 'https://teckensprakslexikon.su.se';
+
+// Hjälpfunktion för att hantera video-URLs
+export const getVideoUrl = (videoUrl: string): string => {
+  // Om URL:en redan är komplett, returnera den som den är
+  if (videoUrl.startsWith('http://') || videoUrl.startsWith('https://')) {
+    return videoUrl;
+  }
+  // Annars lägg till bas-URL:en
+  return `${BASE_URL}${videoUrl.startsWith('/') ? '' : '/'}${videoUrl}`;
+};
+
 // TypeScript interfaces för databasstrukturen
 export interface Word {
   id: string;

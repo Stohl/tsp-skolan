@@ -12,7 +12,7 @@ import {
   Link
 } from '@mui/material';
 import { PlayArrow, OpenInNew } from '@mui/icons-material';
-import { Word, Phrase } from '../types/database';
+import { Word, Phrase, getVideoUrl } from '../types/database';
 
 // Interface för props
 interface WordDetailDialogProps {
@@ -40,14 +40,14 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
   // Funktion som körs när användaren klickar på videolänken
   const handleVideoClick = () => {
     if (word.video_url) {
-      window.open(word.video_url, '_blank');
+      window.open(getVideoUrl(word.video_url), '_blank');
     }
   };
 
   // Funktion som körs när användaren klickar på lexikonlänken
   const handleLexikonClick = () => {
     if (word.url) {
-      window.open(word.url, '_blank');
+      window.open(getVideoUrl(word.url), '_blank');
     }
   };
 
@@ -173,7 +173,7 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
                 cursor: 'pointer'
               }}
             >
-              <source src={word.video_url} type="video/mp4" />
+              <source src={getVideoUrl(word.video_url)} type="video/mp4" />
               Din webbläsare stöder inte video-elementet.
             </video>
           </Box>
@@ -259,7 +259,7 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
                   {phrase.fras}
                 </Typography>
                 <Link
-                  href={phrase.video_url}
+                  href={getVideoUrl(phrase.video_url)}
                   target="_blank"
                   rel="noopener noreferrer"
                   sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}

@@ -35,6 +35,7 @@ import {
 } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
+import { getVideoUrl } from '../types/database';
 
 // Enum för övningstyper
 enum ExerciseType {
@@ -160,7 +161,7 @@ const FlashcardsExercise: React.FC<{
                     cursor: 'pointer' // Visa att videon är klickbar
                   }}
                 >
-                  <source src={word.video_url} type="video/mp4" />
+                  <source src={getVideoUrl(word.video_url)} type="video/mp4" />
                   Din webbläsare stöder inte video-elementet.
                 </video>
               </Box>
@@ -462,7 +463,7 @@ const SignExercise: React.FC<{
                     cursor: 'pointer' // Visa att videon är klickbar
                   }}
                 >
-                  <source src={word.video_url} type="video/mp4" />
+                  <source src={getVideoUrl(word.video_url)} type="video/mp4" />
                   Din webbläsare stöder inte video-elementet.
                 </video>
               </Box>
