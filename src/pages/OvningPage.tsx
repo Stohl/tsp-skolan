@@ -1104,9 +1104,6 @@ const OvningPage: React.FC = () => {
         <Typography variant="h4" gutterBottom align="center">
           Välj övningstyp
         </Typography>
-        <Typography variant="body1" color="text.secondary" align="center" sx={{ mb: 4 }}>
-          Välj hur du vill öva på orden
-        </Typography>
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>
@@ -1225,7 +1222,7 @@ const OvningPage: React.FC = () => {
                      🟡 Att lära mig: {level1Words} ord
                    </Typography>
                    <Typography variant="body2" color="success.main">
-                     🟢 Lärd: {level2Words} ord
+                     🟢 Lärda: {level2Words} ord
                    </Typography>
                  </Box>
                </Box>
