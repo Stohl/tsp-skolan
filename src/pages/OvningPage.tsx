@@ -941,9 +941,6 @@ const OvningPage: React.FC = () => {
 
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Typography variant="h4" gutterBottom align="center">
-          Bokstavering-övning
-        </Typography>
         
         {/* Uppspelningshastighet */}
         <Paper sx={{ p: 3, mb: 4 }}>
@@ -1101,9 +1098,6 @@ const OvningPage: React.FC = () => {
   if (!selectedExerciseType) {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Typography variant="h4" gutterBottom align="center">
-          Välj övningstyp
-        </Typography>
 
         <Grid container spacing={3}>
           <Grid item xs={12} md={6} lg={3}>

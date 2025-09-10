@@ -87,7 +87,7 @@ function App() {
               
               {/* Listor - andra fliken */}
               <BottomNavigationAction 
-                label="Listor" 
+                label="Ordlistor" 
                 icon={<List />} 
               />
               

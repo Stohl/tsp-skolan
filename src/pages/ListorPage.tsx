@@ -564,21 +564,6 @@ const ListorPage: React.FC = () => {
 
   return (
     <Container maxWidth="sm" sx={{ py: 3 }}>
-      
-      {/* Huvudrubrik för sidan */}
-      <Typography 
-        variant="h4" 
-        component="h1" 
-        gutterBottom 
-        sx={{ 
-          textAlign: 'center',
-          mb: 4,
-          color: 'primary.main',
-          fontWeight: 'bold'
-        }}
-      >
-        Listor
-      </Typography>
 
       {/* Ikon för sidan */}
       <Box sx={{ textAlign: 'center', mb: 4 }}>

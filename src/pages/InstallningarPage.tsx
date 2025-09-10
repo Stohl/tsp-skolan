@@ -31,21 +31,6 @@ const InstallningarPage: React.FC = () => {
   return (
     // Container som centrerar innehållet och ger padding
     <Container maxWidth="sm" sx={{ py: 3 }}>
-      
-      {/* Huvudrubrik för sidan */}
-      <Typography 
-        variant="h4" 
-        component="h1" 
-        gutterBottom 
-        sx={{ 
-          textAlign: 'center',
-          mb: 4,
-          color: 'primary.main',
-          fontWeight: 'bold'
-        }}
-      >
-        Inställningar
-      </Typography>
 
       {/* Ikon för sidan */}
       <Box sx={{ textAlign: 'center', mb: 4 }}>
