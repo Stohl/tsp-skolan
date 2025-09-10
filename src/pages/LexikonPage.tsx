@@ -81,11 +81,6 @@ const LexikonPage: React.FC = () => {
     // Container som centrerar innehållet och ger padding
     <Container maxWidth="sm" sx={{ py: 3 }}>
 
-      {/* Ikon för sidan */}
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Book sx={{ fontSize: 60, color: 'primary.main' }} />
-      </Box>
-
       {/* Sökfält för att söka efter ord */}
       <Card sx={{ mb: 4 }}>
         <CardContent>

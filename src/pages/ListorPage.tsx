@@ -565,11 +565,6 @@ const ListorPage: React.FC = () => {
   return (
     <Container maxWidth="sm" sx={{ py: 3 }}>
 
-      {/* Ikon för sidan */}
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <ListIcon sx={{ fontSize: 60, color: 'primary.main' }} />
-      </Box>
-
       {/* Sub-tabs för olika kategorier */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs 
