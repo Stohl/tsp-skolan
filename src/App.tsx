@@ -35,8 +35,11 @@ function App() {
 
   // Kontrollera om användaren är ny (ingen sparad data)
   React.useEffect(() => {
-    const hasUserData = localStorage.getItem('wordProgress');
+    const wordProgressData = localStorage.getItem('wordProgress');
     const hasSeenGuide = localStorage.getItem('hasSeenStartGuide');
+    
+    // Kontrollera om wordProgress är tom eller saknas
+    const hasUserData = wordProgressData && wordProgressData !== '{}' && wordProgressData !== 'null';
     
     // Visa start-guiden om användaren inte har någon data och inte har sett guiden
     if (!hasUserData && !hasSeenGuide) {

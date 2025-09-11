@@ -48,8 +48,15 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     );
     
     if (confirmed) {
-      // Rensa localStorage
+      // Rensa localStorage helt
       localStorage.clear();
+      
+      // Ta bort specifika nycklar för att vara säker
+      localStorage.removeItem('wordProgress');
+      localStorage.removeItem('hasSeenStartGuide');
+      localStorage.removeItem('theme');
+      localStorage.removeItem('spelling-playback-speed');
+      localStorage.removeItem('spelling-interval');
       
       // Nollställ wordProgress
       setWordProgress({});
