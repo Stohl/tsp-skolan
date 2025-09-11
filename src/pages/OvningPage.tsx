@@ -77,6 +77,8 @@ const FlashcardsExercise: React.FC<{
         setCountdown(prev => {
           if (prev === null || prev <= 1) {
             clearInterval(timer);
+            // Visa videon automatiskt när countdown är slut
+            setShowVideo(true);
             return null;
           }
           return prev - 1;
@@ -113,16 +115,11 @@ const FlashcardsExercise: React.FC<{
               </Typography>
             )}
             
-            <Button
-              variant="contained"
-              size="large"
-              onClick={handleFlipCard}
-              disabled={countdown !== null && countdown > 0}
-              startIcon={<PlayArrow />}
-              sx={{ mb: 2 }}
-            >
-              Visa tecknet
-            </Button>
+            {countdown === null && (
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                Tecknet visas om 3 sekunder...
+              </Typography>
+            )}
             
             <Box sx={{ mt: 2 }}>
               <Button
