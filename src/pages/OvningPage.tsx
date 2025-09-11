@@ -297,7 +297,7 @@ const QuizExercise: React.FC<{
                   cursor: 'pointer'
                 }}
               >
-                <source src={word.video_url} type="video/mp4" />
+                <source src={getVideoUrl(word.video_url)} type="video/mp4" />
                 Din webbläsare stöder inte video-elementet.
               </video>
             </Box>
@@ -622,7 +622,7 @@ const SpellingExercise: React.FC<{
                   cursor: 'pointer' // Visa att videon är klickbar
                 }}
               >
-                <source src={word.video_url} type="video/mp4" />
+                <source src={getVideoUrl(word.video_url)} type="video/mp4" />
                 Din webbläsare stöder inte video-elementet.
               </video>
             </Box>
