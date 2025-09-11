@@ -144,6 +144,8 @@ function App() {
           onComplete={() => {
             setShowStartGuide(false);
             localStorage.setItem('hasSeenStartGuide', 'true');
+            // Trigga en uppdatering av alla komponenter som visar progress
+            window.dispatchEvent(new Event('storage'));
           }}
         />
       </DatabaseProvider>

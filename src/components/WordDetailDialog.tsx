@@ -133,6 +133,7 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
       onClose={onClose}
       maxWidth="sm"
       fullWidth
+      fullScreen={false}
       PaperProps={{
         sx: { borderRadius: 2 }
       }}
