@@ -143,16 +143,33 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
           '@media (max-width: 600px)': {
             margin: '16px',
             maxHeight: 'calc(100vh - 32px)',
-            width: 'calc(100% - 32px)'
+            width: 'calc(100% - 32px)',
+            position: 'relative !important',
+            transform: 'none !important',
+            top: 'auto !important',
+            left: 'auto !important',
+            right: 'auto !important',
+            bottom: 'auto !important'
           }
         }
       }}
       sx={{
         '@media (max-width: 600px)': {
           '& .MuiDialog-paper': {
-            margin: '16px',
-            maxHeight: 'calc(100vh - 32px)',
-            width: 'calc(100% - 32px)'
+            margin: '16px !important',
+            maxHeight: 'calc(100vh - 32px) !important',
+            width: 'calc(100% - 32px) !important',
+            position: 'relative !important',
+            transform: 'none !important',
+            top: 'auto !important',
+            left: 'auto !important',
+            right: 'auto !important',
+            bottom: 'auto !important'
+          },
+          '& .MuiDialog-container': {
+            alignItems: 'flex-start !important',
+            justifyContent: 'center !important',
+            paddingTop: '20px !important'
           }
         }
       }}
