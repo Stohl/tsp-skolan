@@ -43,7 +43,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
   return (
     <>
       {/* Header med tillbaka-knapp */}
-      <AppBar position="static" color="primary">
+      <AppBar position="static" color="primary" sx={{ zIndex: 999 }}>
         <Toolbar>
           <IconButton 
             edge="start" 

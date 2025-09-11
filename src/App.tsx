@@ -76,7 +76,7 @@ function App() {
               bottom: 0, 
               left: 0, 
               right: 0,
-              zIndex: 1000, // Säkerställer att navigation alltid är ovanpå innehåll
+              zIndex: 1100, // Säkerställer att navigation alltid är ovanpå innehåll
               elevation: 8 // Ger skugga för att skilja från innehåll
             }} 
             elevation={3}
