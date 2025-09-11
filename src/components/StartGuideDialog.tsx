@@ -227,20 +227,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 <Typography variant="h6" gutterBottom>
                   {currentQuestion?.question}
                 </Typography>
-                <Box sx={{ display: 'flex', gap: 1, mb: 2 }}>
-                  <Chip 
-                    label={currentQuestion?.wordListName} 
-                    size="small" 
-                    color="primary" 
-                    variant="outlined" 
-                  />
-                  <Chip 
-                    label={currentQuestion?.difficulty} 
-                    size="small" 
-                    color="secondary" 
-                    variant="outlined" 
-                  />
-                </Box>
                 <Typography variant="body2" color="text.secondary">
                   Välj det svar som bäst beskriver din kunskap:
                 </Typography>
@@ -252,7 +238,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                       Ord i denna lista:
                     </Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {currentQuestion.words.slice(0, 10).map((word: any, index: number) => (
+                      {currentQuestion.words.slice(0, 20).map((word: any, index: number) => (
                         <Chip
                           key={word.id || index}
                           label={word.ord}
@@ -261,9 +247,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           sx={{ fontSize: '0.75rem' }}
                         />
                       ))}
-                      {currentQuestion.words.length > 10 && (
+                      {currentQuestion.words.length > 20 && (
                         <Chip
-                          label={`+${currentQuestion.words.length - 10} fler`}
+                          label={`+${currentQuestion.words.length - 20} fler`}
                           size="small"
                           variant="outlined"
                           color="secondary"
@@ -285,14 +271,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 startIcon={<CheckCircle color="success" />}
                 sx={{ justifyContent: 'flex-start', p: 2 }}
               >
-                <Box>
-                  <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                    Ja, jag kan det
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Ordlistan läggs till som "lärd"
-                  </Typography>
-                </Box>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  Ja, jag kan det
+                </Typography>
               </Button>
 
               <Button
@@ -302,14 +283,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 startIcon={<TrendingUp color="warning" />}
                 sx={{ justifyContent: 'flex-start', p: 2 }}
               >
-                <Box>
-                  <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                    Delvis
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Ordlistan läggs till som "att lära mig" med 2/5 poäng
-                  </Typography>
-                </Box>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  Delvis
+                </Typography>
               </Button>
 
               <Button
@@ -319,14 +295,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 startIcon={<Help color="error" />}
                 sx={{ justifyContent: 'flex-start', p: 2 }}
               >
-                <Box>
-                  <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                    Nej, jag behöver lära mig det
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Ordlistan läggs till som "att lära mig"
-                  </Typography>
-                </Box>
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  Nej, jag behöver lära mig det
+                </Typography>
               </Button>
             </Box>
           </>

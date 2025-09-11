@@ -51,7 +51,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
     difficulty: 'handstart',
     showInStartGuide: true,
     startGuidePosition: 3,
-    showWordsInStartGuide: false
+    showWordsInStartGuide: true
   },
   {
     id: 'adjektiv_002',
@@ -431,7 +431,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       difficulty: 'handstart',
       showInStartGuide: true,
       startGuidePosition: 1,
-      showWordsInStartGuide: true
+      showWordsInStartGuide: false
     },
     {
       id: 'siffror',
