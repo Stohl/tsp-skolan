@@ -134,8 +134,27 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
       maxWidth="sm"
       fullWidth
       fullScreen={false}
+      disableEscapeKeyDown={false}
       PaperProps={{
-        sx: { borderRadius: 2 }
+        sx: { 
+          borderRadius: 2,
+          maxHeight: '90vh',
+          margin: 'auto',
+          '@media (max-width: 600px)': {
+            margin: '16px',
+            maxHeight: 'calc(100vh - 32px)',
+            width: 'calc(100% - 32px)'
+          }
+        }
+      }}
+      sx={{
+        '@media (max-width: 600px)': {
+          '& .MuiDialog-paper': {
+            margin: '16px',
+            maxHeight: 'calc(100vh - 32px)',
+            width: 'calc(100% - 32px)'
+          }
+        }
       }}
     >
       <DialogTitle>

@@ -291,7 +291,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 sx={{ justifyContent: 'flex-start', p: 2 }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Ja, jag kan det
+                  Ja
                 </Typography>
               </Button>
 
@@ -315,7 +315,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 sx={{ justifyContent: 'flex-start', p: 2 }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Nej, jag behöver lära mig det
+                  Nej
                 </Typography>
               </Button>
 
