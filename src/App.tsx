@@ -18,6 +18,7 @@ import ListorPage from './pages/ListorPage';
 import LexikonPage from './pages/LexikonPage';
 import InstallningarPage from './pages/InstallningarPage';
 import HjalpPage from './pages/HjalpPage';
+import StartGuideDialog from './components/StartGuideDialog';
 
 // Importera Providers
 import { DatabaseProvider } from './contexts/DatabaseContext';
@@ -29,6 +30,19 @@ function App() {
   const [currentPage, setCurrentPage] = useState(0);
   // State för att hantera om hjälpsidan ska visas
   const [showHelp, setShowHelp] = useState(false);
+  // State för att hantera start-guiden
+  const [showStartGuide, setShowStartGuide] = useState(false);
+
+  // Kontrollera om användaren är ny (ingen sparad data)
+  React.useEffect(() => {
+    const hasUserData = localStorage.getItem('wordProgress');
+    const hasSeenGuide = localStorage.getItem('hasSeenStartGuide');
+    
+    // Visa start-guiden om användaren inte har någon data och inte har sett guiden
+    if (!hasUserData && !hasSeenGuide) {
+      setShowStartGuide(true);
+    }
+  }, []);
 
   // Array med alla sidor för enkel rendering
   const pages = [
@@ -116,6 +130,19 @@ function App() {
             </BottomNavigation>
           </Paper>
         </Box>
+
+        {/* Start-guide dialog */}
+        <StartGuideDialog
+          open={showStartGuide}
+          onClose={() => {
+            setShowStartGuide(false);
+            localStorage.setItem('hasSeenStartGuide', 'true');
+          }}
+          onComplete={() => {
+            setShowStartGuide(false);
+            localStorage.setItem('hasSeenStartGuide', 'true');
+          }}
+        />
       </DatabaseProvider>
     </CustomThemeProvider>
   );

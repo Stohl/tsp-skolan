@@ -4,7 +4,6 @@ import {
   Typography, 
   Card, 
   CardContent, 
-  Grid,
   Container,
   TextField,
   InputAdornment,
@@ -15,7 +14,8 @@ import {
   CircularProgress,
   Alert,
   Chip,
-  Divider
+  Divider,
+  Paper
 } from '@mui/material';
 import { Book, Search, PlayArrow } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
@@ -78,149 +78,84 @@ const LexikonPage: React.FC = () => {
     return getPhrasesForWord(phraseDatabase, selectedWord.id);
   };
   return (
-    // Container som centrerar innehållet och ger padding
-    <Container maxWidth="sm" sx={{ py: 3 }}>
+    <Container maxWidth="md" sx={{ py: 3 }}>
+      {/* Header med titel och ikon */}
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <Book sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+        <Typography variant="h4" gutterBottom>
+          Teckenspråkslexikon
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Sök efter ord och lär dig hur de tecknas
+        </Typography>
+      </Box>
 
       {/* Sökfält för att söka efter ord */}
-      <Card sx={{ mb: 4 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Sök efter ord
-          </Typography>
-          <TextField
-            fullWidth
-            placeholder="Skriv ett ord för att söka..."
-            variant="outlined"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 2 }}
-          />
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Söker efter ord i ordlistan. Skriv minst 2 bokstäver för att få resultat.
-          </Typography>
-          {isLoading && (
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <CircularProgress size={20} />
-              <Typography variant="body2" color="text.secondary">
-                Laddar databasen...
-              </Typography>
-            </Box>
-          )}
-          {error && (
-            <Alert severity="error" sx={{ mt: 2 }}>
-              {error}
-            </Alert>
-          )}
-        </CardContent>
-      </Card>
-
-      {/* Kort som förklarar vad sidan är för */}
-      <Card sx={{ mb: 4 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            Teckenspråkslexikon
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Här kan du söka efter ord och se hur de tecknas. 
-            Du kan också bläddra genom olika kategorier av ord.
-          </Typography>
-        </CardContent>
-      </Card>
+      <Paper sx={{ mb: 4, p: 3, borderRadius: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          Sök efter ord
+        </Typography>
+        <TextField
+          fullWidth
+          placeholder="Skriv ett ord för att söka..."
+          variant="outlined"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search />
+              </InputAdornment>
+            ),
+          }}
+          sx={{ mb: 2 }}
+        />
+        <Typography variant="body2" color="text.secondary">
+          Söker efter ord i ordlistan. Skriv minst 2 bokstäver för att få resultat.
+        </Typography>
+        {isLoading && (
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+            <CircularProgress size={20} />
+            <Typography variant="body2" color="text.secondary">
+              Laddar databasen...
+            </Typography>
+          </Box>
+        )}
+        {error && (
+          <Alert severity="error" sx={{ mt: 2 }}>
+            {error}
+          </Alert>
+        )}
+      </Paper>
 
       {/* Ämneskategorier */}
       {subjects.length > 0 && (
-        <Card sx={{ mb: 4 }}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              Kategorier
-            </Typography>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-              {subjects.slice(0, 10).map((subject) => (
-                <Chip
-                  key={subject}
-                  label={subject}
-                  onClick={() => handleSubjectClick(subject)}
-                  color={selectedSubject === subject ? 'primary' : 'default'}
-                  variant={selectedSubject === subject ? 'filled' : 'outlined'}
-                  clickable
-                />
-              ))}
-            </Box>
-          </CardContent>
-        </Card>
+        <Paper sx={{ mb: 4, p: 3, borderRadius: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            Kategorier
+          </Typography>
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+            {subjects.slice(0, 12).map((subject) => (
+              <Chip
+                key={subject}
+                label={subject}
+                onClick={() => handleSubjectClick(subject)}
+                color={selectedSubject === subject ? 'primary' : 'default'}
+                variant={selectedSubject === subject ? 'filled' : 'outlined'}
+                clickable
+              />
+            ))}
+          </Box>
+        </Paper>
       )}
 
-      {/* Grid med platshållare för framtida funktioner */}
-      <Grid container spacing={2}>
-        <Grid item xs={12} sm={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Populära ord
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                De mest sökta orden
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        
-        <Grid item xs={12} sm={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Kategorier
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Bläddra efter kategori
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        
-        <Grid item xs={12} sm={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Senast visade
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Dina senaste sökningar
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-        
-        <Grid item xs={12} sm={6}>
-          <Card sx={{ height: '100%' }}>
-            <CardContent>
-              <Typography variant="h6" gutterBottom>
-                Favoriter
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Dina sparade ord
-              </Typography>
-            </CardContent>
-          </Card>
-        </Grid>
-      </Grid>
-
       {/* Sökresultat eller ord från valt ämne */}
-      <Box sx={{ mt: 4 }}>
-        <Card>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              {searchTerm ? `Sökresultat för "${searchTerm}"` : 
-               selectedSubject ? `Ord i kategorin "${selectedSubject}"` : 
-               'Sökresultat'}
-            </Typography>
+      <Paper sx={{ p: 3, borderRadius: 2 }}>
+        <Typography variant="h6" gutterBottom>
+          {searchTerm ? `Sökresultat för "${searchTerm}"` : 
+           selectedSubject ? `Ord i kategorin "${selectedSubject}"` : 
+           'Sökresultat'}
+        </Typography>
             
             {searchResults.length > 0 && (
               <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
@@ -290,9 +225,7 @@ const LexikonPage: React.FC = () => {
                 Inga ord hittades som innehåller "{searchTerm}". Prova att skriva ett annat ord.
               </Typography>
             )}
-          </CardContent>
-        </Card>
-      </Box>
+      </Paper>
 
       {/* Dialog för orddetaljer */}
       <WordDetailDialog

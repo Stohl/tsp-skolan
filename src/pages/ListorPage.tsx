@@ -16,12 +16,11 @@ import {
   Button,
   Alert,
   Chip,
-  Select,
-  MenuItem,
-  FormControl,
-  Collapse
+  Collapse,
+  Grid,
+  Paper
 } from '@mui/material';
-import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess } from '@mui/icons-material';
+import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList, getDifficultyInfo } from '../types/wordLists';
 import { getPhrasesForWord } from '../types/database';
@@ -646,18 +645,29 @@ const ListorPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="sm" sx={{ py: 3 }}>
+    <Container maxWidth="md" sx={{ py: 3 }}>
+      {/* Header med titel och ikon */}
+      <Box sx={{ textAlign: 'center', mb: 4 }}>
+        <School sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
+        <Typography variant="h4" gutterBottom>
+          Ordlistor & Progress
+        </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Hantera dina ordlistor och följ din utveckling
+        </Typography>
+      </Box>
 
       {/* Sub-tabs för olika kategorier */}
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
+      <Paper sx={{ mb: 3, borderRadius: 2 }}>
         <Tabs 
           value={activeTab} 
           onChange={handleTabChange}
-          variant="fullWidth" // Tabs tar upp hela bredden
+          variant="fullWidth"
           sx={{
             '& .MuiTab-root': {
-              minHeight: 48, // Högre höjd för bättre touch-target
-              fontSize: '0.875rem' // Mindre text för att passa på mobil
+              minHeight: 56,
+              fontSize: '1rem',
+              fontWeight: 500
             }
           }}
         >
@@ -665,7 +675,7 @@ const ListorPage: React.FC = () => {
           <Tab label="Ordlistor" />
           <Tab label="Lärda" />
         </Tabs>
-      </Box>
+      </Paper>
 
       {/* Innehåll för den aktiva taben */}
       <Box sx={{ minHeight: 400 }}>
