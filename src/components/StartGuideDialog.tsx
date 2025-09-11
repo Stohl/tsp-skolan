@@ -51,13 +51,25 @@ interface StartGuideDialogProps {
 // Start-guide dialog för nya användare
 const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onComplete }) => {
   const { wordDatabase } = useDatabase();
-  const { setWordLevel, setWordProgress } = useWordProgress();
+  const { wordProgress, setWordLevel, setWordProgress } = useWordProgress();
   
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<GuideQuestion[]>([]);
   const [answers, setAnswers] = useState<{ [questionId: string]: 'ja' | 'delvis' | 'nej' | 'hoppa' }>({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [totalWordsAdded, setTotalWordsAdded] = useState(0);
+
+  // Räkna antal ord i varje kategori
+  const getWordCounts = () => {
+    const counts = { attLaraMig: 0, larda: 0 };
+    Object.values(wordProgress).forEach((progress: any) => {
+      if (progress.level === 1) counts.attLaraMig++;
+      else if (progress.level === 2) counts.larda++;
+    });
+    return counts;
+  };
+
+  const wordCounts = getWordCounts();
 
   // Generera frågor baserat på ordlistor
   useEffect(() => {
@@ -98,53 +110,50 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       [currentQuestion.id]: answer
     }));
 
-    // Lägg till ord baserat på svar
-    const wordList = getAllWordLists(wordDatabase).find(list => list.id === currentQuestion.wordListId);
-    if (wordList) {
-      const wordsInList = getWordsFromList(wordList, wordDatabase);
-      
-      if (answer === 'hoppa') {
-        // Hoppa över - lägg inte till orden i någon lista
-        return;
-      }
+    // Lägg till ord baserat på svar (om inte hoppa över)
+    if (answer !== 'hoppa') {
+      const wordList = getAllWordLists(wordDatabase).find(list => list.id === currentQuestion.wordListId);
+      if (wordList) {
+        const wordsInList = getWordsFromList(wordList, wordDatabase);
+        
+        wordsInList.forEach(word => {
+          let level = 0;
+          let points = 0;
 
-      wordsInList.forEach(word => {
-        let level = 0;
-        let points = 0;
-
-        switch (answer) {
-          case 'ja':
-            level = 2; // Lärd
-            points = 5;
-            break;
-          case 'delvis':
-            level = 1; // Att lära mig
-            points = 2; // 2 av 5 poäng
-            break;
-          case 'nej':
-            level = 1; // Att lära mig
-            points = 0;
-            break;
-        }
-
-        setWordLevel(word.id, level);
-        setWordProgress(prev => ({
-          ...prev,
-          [word.id]: {
-            ...prev[word.id],
-            level,
-            points,
-            stats: {
-              correct: 0,
-              incorrect: 0,
-              lastPracticed: new Date().toISOString(),
-              difficulty: 50
-            }
+          switch (answer) {
+            case 'ja':
+              level = 2; // Lärd
+              points = 5;
+              break;
+            case 'delvis':
+              level = 1; // Att lära mig
+              points = 2; // 2 av 5 poäng
+              break;
+            case 'nej':
+              level = 1; // Att lära mig
+              points = 0;
+              break;
           }
-        }));
-      });
 
-      setTotalWordsAdded(prev => prev + wordsInList.length);
+          setWordLevel(word.id, level);
+          setWordProgress(prev => ({
+            ...prev,
+            [word.id]: {
+              ...prev[word.id],
+              level,
+              points,
+              stats: {
+                correct: 0,
+                incorrect: 0,
+                lastPracticed: new Date().toISOString(),
+                difficulty: 50
+              }
+            }
+          }));
+        });
+
+        setTotalWordsAdded(prev => prev + wordsInList.length);
+      }
     }
 
     // Gå till nästa fråga eller avsluta
@@ -173,6 +182,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const handleFinish = () => {
     onComplete();
     handleReset();
+    // Trigger storage event för att uppdatera progress i andra komponenter
+    window.dispatchEvent(new Event('storage'));
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -215,6 +226,14 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 </Typography>
               </Box>
               <LinearProgress variant="determinate" value={progress} />
+              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
+                <Typography variant="caption" color="text.secondary">
+                  Att lära mig: {wordCounts.attLaraMig} ord
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  Lärda: {wordCounts.larda} ord
+                </Typography>
+              </Box>
             </Box>
 
             {/* Introduktion för första frågan */}
