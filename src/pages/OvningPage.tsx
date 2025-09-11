@@ -752,7 +752,7 @@ const OvningPage: React.FC = () => {
   };
   const getAllSpellingWords = useMemo(() => {
     const spellingWords = Object.values(wordDatabase).filter((word: any) => 
-      word.ämne && word.ämne.includes('Bokstavering - Bokstaverade ord')
+      word.ämne && word.ämne.includes('Verktyg - Bokstavering')
     );
     console.log(`[DEBUG] Found ${spellingWords.length} spelling words in database`);
     return spellingWords;
