@@ -62,14 +62,29 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       const allLists = getAllWordLists(wordDatabase);
       
       // Välj ut representativa ordlistor för start-guiden
-      const guideLists = allLists.filter(list => 
+      // Prioritera viktiga grundordlistor först
+      const priorityLists = allLists.filter(list => 
+        list.type === 'dynamic' && 
+        (list.name.includes('Handalfabetet') || 
+         list.name.includes('Siffror'))
+      );
+      
+      // Lägg till några adjektiv-listor (men inte alla)
+      const adjectiveLists = allLists.filter(list => 
         list.type === 'predefined' && 
-        (list.name.includes('handalfabet') || 
-         list.name.includes('grundläggande') || 
-         list.name.includes('vanligaste') ||
-         list.name.includes('adjektiv') ||
+        list.name.includes('adjektiv') &&
+        list.name.includes('vanligaste')
+      ).slice(0, 3); // Ta bara de första 3 adjektiv-listerna
+      
+      // Lägg till några andra viktiga listor
+      const otherLists = allLists.filter(list => 
+        list.type === 'predefined' && 
+        (list.name.includes('substantiv') ||
          list.name.includes('verb'))
-      ).slice(0, 8); // Max 8 frågor
+      ).slice(0, 3); // Ta några substantiv/verb-listor
+      
+      // Kombinera och begränsa till max 8
+      const guideLists = [...priorityLists, ...adjectiveLists, ...otherLists].slice(0, 8);
 
       const generatedQuestions: GuideQuestion[] = guideLists.map((list, index) => ({
         id: `q${index + 1}`,
