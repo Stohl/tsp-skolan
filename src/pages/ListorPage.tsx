@@ -363,8 +363,8 @@ const ListorPage: React.FC = () => {
   // Funktion som renderar innehållet för "Ordlistor"-taben
   const renderOrdlistor = () => {
     // Definiera svårighetsgrader i ordning
-    const difficulties: Array<'grundläggande' | 'enkla' | 'medel' | 'svåra' | 'expert'> = 
-      ['grundläggande', 'enkla', 'medel', 'svåra', 'expert'];
+    const difficulties: Array<'handstart' | 'fingervana' | 'tecknare' | 'samspelare'> = 
+      ['handstart', 'fingervana', 'tecknare', 'samspelare'];
     
     // Filtrera ordlistor baserat på vald svårighetsgrad
     const filteredLists = wordLists.filter(list => list.difficulty === difficulties[difficultyTab]);
@@ -509,7 +509,7 @@ const ListorPage: React.FC = () => {
                       {/* Ordlista */}
                       <List dense>
                         {wordsInList.map((word, index) => {
-                          const wordProgressData = wordProgress[word.id] || { level: 0, stats: { correct: 0, incorrect: 0 }, lastPracticed: '', points: 0 };
+                          const wordProgressData = wordProgress[word.id] || { level: 0, stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }, points: 0 };
                           const progressLevel = wordProgressData.level;
                           const progressColor = progressLevel === 0 ? 'default' : progressLevel === 1 ? 'warning' : 'success';
                           const progressIcon = progressLevel === 0 ? '⚪' : progressLevel === 1 ? '🟡' : '🟢';
@@ -535,7 +535,7 @@ const ListorPage: React.FC = () => {
                                           Rätt: {wordProgressData.stats.correct} | Fel: {wordProgressData.stats.incorrect}
                                         </Typography>
                                         <Typography variant="caption" color="text.secondary">
-                                          Senast övat: {wordProgressData.lastPracticed ? new Date(wordProgressData.lastPracticed).toLocaleDateString('sv-SE') : 'Aldrig övat'}
+                                          Senast övat: {wordProgressData.stats.lastPracticed ? new Date(wordProgressData.stats.lastPracticed).toLocaleDateString('sv-SE') : 'Aldrig övat'}
                                         </Typography>
                                         <Typography variant="caption" color="text.secondary">
                                           {getPointsDisplay(wordProgressData.points)}
@@ -580,148 +580,6 @@ const ListorPage: React.FC = () => {
       </Box>
     );
   };
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6" gutterBottom>
-        Ordlistor
-      </Typography>
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Klicka på ordlistan för att expandera och se orden. Klicka på progress-cirklarna för att markera ord. ⚪ Ej markerad → 🟡 Vill lära sig → 🟢 Lärt sig
-      </Typography>
-      
-      {isLoading && (
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-          <CircularProgress size={20} />
-          <Typography variant="body2" color="text.secondary">
-            Laddar databasen...
-          </Typography>
-        </Box>
-      )}
-      
-      {error && (
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-      )}
-      
-      {wordLists.length > 0 && wordLists.map((wordList) => {
-        const wordsInList = getWordsFromList(wordList, wordDatabase)
-          .sort((a, b) => a.ord.localeCompare(b.ord, 'sv')); // Sortera i bokstavsordning
-        const isExpanded = expandedLists[wordList.id] || false;
-        
-        return (
-          <Card key={wordList.id} sx={{ mb: 2 }}>
-            <CardContent sx={{ p: 0 }}>
-              {/* Ordlista header - klickbar för att expandera */}
-              <ListItemButton 
-                onClick={() => handleToggleList(wordList.id)}
-                sx={{ 
-                  borderBottom: isExpanded ? '1px solid' : 'none',
-                  borderColor: 'divider',
-                  p: 2
-                }}
-              >
-                <ListItemText
-                  primary={
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                      <Typography variant="h6">
-                        {wordList.name}
-                      </Typography>
-                      <Chip 
-                        label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
-                        size="small" 
-                        color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
-                        variant="outlined"
-                      />
-                      <Chip 
-                        label={getDifficultyInfo(wordList.difficulty).label}
-                        size="small" 
-                        color={getDifficultyInfo(wordList.difficulty).color}
-                        variant="filled"
-                        icon={<span>{getDifficultyInfo(wordList.difficulty).icon}</span>}
-                      />
-                    </Box>
-                  }
-                  secondary={
-                    <Box component="span" sx={{ mt: 0.5, display: 'block' }}>
-                      <Typography component="span" variant="body2" color="text.secondary">
-                        {wordList.description} ({wordsInList.length} ord)
-                      </Typography>
-                      <Typography component="span" variant="caption" color="text.secondary" sx={{ fontStyle: 'italic', display: 'block' }}>
-                        {getDifficultyInfo(wordList.difficulty).description}
-                      </Typography>
-                    </Box>
-                  }
-                />
-                {isExpanded ? <ExpandLess /> : <ExpandMore />}
-              </ListItemButton>
-              
-              {/* Expandera/kollapsa innehåll */}
-              <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                <Box sx={{ p: 2, pt: 1 }}>
-                  {/* Bulk-tagging kontroller */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2, p: 1, bgcolor: 'grey.50', borderRadius: 1 }}>
-                    <Typography variant="body2" color="text.secondary">
-                      Markera alla som:
-                    </Typography>
-                    <FormControl size="small" sx={{ minWidth: 200 }}>
-                      <Select
-                        value=""
-                        displayEmpty
-                        onChange={(e) => {
-                          console.log(`[DEBUG] Dropdown onChange triggered: listId=${wordList.id}, value=${e.target.value}`);
-                          const level = parseInt(e.target.value as string);
-                          console.log(`[DEBUG] Parsed level: ${level}, isValid: ${!isNaN(level)}`);
-                          if (!isNaN(level)) {
-                            console.log(`[DEBUG] Calling handleBulkTag with level ${level}`);
-                            handleBulkTag(wordList, level);
-                          } else {
-                            console.log(`[DEBUG] Invalid level, not calling handleBulkTag`);
-                          }
-                        }}
-                      >
-                        <MenuItem value="" disabled>
-                          Välj nivå...
-                        </MenuItem>
-                        <MenuItem value={0}>⚪ Ej markerad</MenuItem>
-                        <MenuItem value={1}>🟡 Vill lära sig</MenuItem>
-                        <MenuItem value={2}>🟢 Lärt sig</MenuItem>
-                      </Select>
-                    </FormControl>
-                  </Box>
-                  
-                  {/* Ordlista */}
-                  {wordsInList.length > 0 ? (
-                    <List dense>
-                      {wordsInList.map((word, index) => (
-                        <React.Fragment key={word.id}>
-                          <ListItem disablePadding>
-                            <ListItemButton onClick={() => handleWordClick(word)}>
-                              <ListItemText
-                                primary={word.ord}
-                                secondary={word.beskrivning || 'Ingen beskrivning tillgänglig'}
-                              />
-                              {renderProgressCircle(word.id)}
-                              <PlayArrow color="primary" />
-                            </ListItemButton>
-                          </ListItem>
-                          {index < wordsInList.length - 1 && <Divider />}
-                        </React.Fragment>
-                      ))}
-                    </List>
-                  ) : (
-                    <Typography variant="body2" color="text.secondary">
-                      Inga ord hittades i denna ordlista.
-                    </Typography>
-                  )}
-                </Box>
-              </Collapse>
-            </CardContent>
-          </Card>
-        );
-      })}
-    </Box>
-  );
-};
 
   // Funktion som renderar innehållet för "Lärda"-taben
   const renderLarda = () => {

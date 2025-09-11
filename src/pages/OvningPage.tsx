@@ -809,6 +809,66 @@ const OvningPage: React.FC = () => {
     return sortedWords;
   }, [wordDatabase, wordProgress, learningWordsOnly]); // Lägg till learningWordsOnly som dependency
 
+  // Beräkna ord för quiz med minst 10 ord (inklusive fallback till lärda ord)
+  const quizWords = useMemo(() => {
+    if (Object.keys(wordDatabase).length === 0) return [];
+    
+    const wordsWithProgress = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
+      ...word,
+      progress: wordProgress[wordId] || {
+        level: 0,
+        points: 0,
+        stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
+      }
+    }));
+
+    // Hämta ord som användaren vill lära sig (nivå 1)
+    const learningWords = wordsWithProgress.filter(word => word.progress.level === 1);
+    
+    // Hämta ord som användaren har lärt sig (nivå 2)
+    const learnedWords = wordsWithProgress.filter(word => word.progress.level === 2);
+    
+    // Om vi har minst 10 ord från "att lära mig", använd bara dem
+    if (learningWords.length >= 10) {
+      return learningWords
+        .sort((a, b) => {
+          const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
+          if (difficultyDiff !== 0) return difficultyDiff;
+          const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
+          const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
+          return lastPracticedA - lastPracticedB;
+        })
+        .slice(0, 10);
+    }
+    
+    // Om vi inte har tillräckligt många "att lära mig", lägg till "lärda" ord
+    const combinedWords = [...learningWords, ...learnedWords];
+    
+    if (combinedWords.length >= 10) {
+      return combinedWords
+        .sort((a, b) => {
+          // Prioritera "att lära mig" över "lärda"
+          const levelA = a.progress.level;
+          const levelB = b.progress.level;
+          if (levelA === 1 && levelB !== 1) return -1;
+          if (levelA !== 1 && levelB === 1) return 1;
+          
+          // Sedan efter svårighetsgrad
+          const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
+          if (difficultyDiff !== 0) return difficultyDiff;
+          
+          // Sedan efter senast övade
+          const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
+          const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
+          return lastPracticedA - lastPracticedB;
+        })
+        .slice(0, 10);
+    }
+    
+    // Om vi fortfarande inte har tillräckligt många ord, använd alla ord
+    return wordsWithProgress.slice(0, 10);
+  }, [wordDatabase, wordProgress]);
+
   // Funktion för att ladda bara ord som användaren vill lära sig
   const loadLearningWordsOnly = () => {
     setLearningWordsOnly(true);
@@ -827,10 +887,12 @@ const OvningPage: React.FC = () => {
 
   // Funktion som körs när användaren slutför en övning
   const handleExerciseResult = (isCorrect: boolean) => {
-    const currentWord = selectedExerciseType === ExerciseType.SPELLING ? spellingWords[currentWordIndex] : practiceWords[currentWordIndex];
+    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : practiceWords;
+    const currentWord = currentWords[currentWordIndex];
     if (!currentWord) return;
 
-    console.log(`[DEBUG] handleExerciseResult: currentWordIndex=${currentWordIndex}, practiceWords.length=${practiceWords.length}, isCorrect=${isCorrect}`);
+    console.log(`[DEBUG] handleExerciseResult: currentWordIndex=${currentWordIndex}, currentWords.length=${currentWords.length}, isCorrect=${isCorrect}`);
 
     // Spara resultat
     const result: ExerciseResult = {
@@ -848,7 +910,6 @@ const OvningPage: React.FC = () => {
     }
 
     // Gå till nästa ord eller visa resultat direkt (utan timeout)
-    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : practiceWords;
     if (currentWordIndex < currentWords.length - 1) {
       console.log(`[DEBUG] Moving to next question: ${currentWordIndex + 1}`);
       setCurrentWordIndex(prev => prev + 1);
@@ -860,7 +921,8 @@ const OvningPage: React.FC = () => {
 
   // Funktion som körs när användaren hoppar över en övning
   const handleSkip = () => {
-    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : practiceWords;
+    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : practiceWords;
     console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, currentWords.length=${currentWords.length}`);
     
     if (currentWordIndex < currentWords.length - 1) {
@@ -1128,7 +1190,13 @@ const OvningPage: React.FC = () => {
                 height: '100%',
                 '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
               }}
-              onClick={() => handleExerciseTypeSelect(ExerciseType.QUIZ)}
+              onClick={() => {
+                if (quizWords.length < 10) {
+                  alert(`Du behöver minst 10 ord för att kunna göra flervalsquiz. Du har för närvarande ${quizWords.length} ord tillgängliga (från "att lära mig" och "lärda").\n\nMarkera fler ord som "vill lära mig" eller "lärda" för att kunna göra quizet.`);
+                  return;
+                }
+                handleExerciseTypeSelect(ExerciseType.QUIZ);
+              }}
             >
               <CardContent sx={{ textAlign: 'center', p: 3 }}>
                 <Quiz sx={{ fontSize: 60, color: 'secondary.main', mb: 2 }} />
@@ -1341,6 +1409,8 @@ const OvningPage: React.FC = () => {
   let currentWord;
   if ((selectedExerciseType as ExerciseType) === ExerciseType.SPELLING) {
     currentWord = spellingWords[currentWordIndex];
+  } else if ((selectedExerciseType as ExerciseType) === ExerciseType.QUIZ) {
+    currentWord = quizWords[currentWordIndex];
   } else {
     currentWord = practiceWords[currentWordIndex];
   }
@@ -1366,13 +1436,21 @@ const OvningPage: React.FC = () => {
         
         <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 2 }}>
           <Typography variant="body1" color="text.secondary">
-            Ord {currentWordIndex + 1} av {(selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length : practiceWords.length}
+            Ord {currentWordIndex + 1} av {
+              (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+              (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
+              practiceWords.length
+            }
           </Typography>
         </Box>
         
         <LinearProgress 
           variant="determinate" 
-          value={((currentWordIndex + 1) / ((selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length : practiceWords.length)) * 100}
+          value={((currentWordIndex + 1) / (
+            (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+            (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
+            practiceWords.length
+          )) * 100}
           sx={{ mb: 2 }}
         />
 
@@ -1390,7 +1468,7 @@ const OvningPage: React.FC = () => {
       {selectedExerciseType === ExerciseType.QUIZ && (
         <QuizExercise
           word={currentWord}
-          allWords={practiceWords}
+          allWords={quizWords}
           onResult={handleExerciseResult}
           onSkip={handleSkip}
         />

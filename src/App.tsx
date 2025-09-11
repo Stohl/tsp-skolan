@@ -17,6 +17,7 @@ import OvningPage from './pages/OvningPage';
 import ListorPage from './pages/ListorPage';
 import LexikonPage from './pages/LexikonPage';
 import InstallningarPage from './pages/InstallningarPage';
+import HjalpPage from './pages/HjalpPage';
 
 // Importera Providers
 import { DatabaseProvider } from './contexts/DatabaseContext';
@@ -26,13 +27,15 @@ import { CustomThemeProvider } from './contexts/ThemeContext';
 function App() {
   // State för att hålla reda på vilken sida som är aktiv
   const [currentPage, setCurrentPage] = useState(0);
+  // State för att hantera om hjälpsidan ska visas
+  const [showHelp, setShowHelp] = useState(false);
 
   // Array med alla sidor för enkel rendering
   const pages = [
     <OvningPage key="ovning" />,
     <ListorPage key="listor" />,
     <LexikonPage key="lexikon" />,
-    <InstallningarPage key="installningar" />
+    <InstallningarPage key="installningar" onShowHelp={() => setShowHelp(true)} />
   ];
 
   // Funktion som körs när användaren klickar på en navigation-knapp
@@ -57,9 +60,13 @@ function App() {
           <Box sx={{ 
             flex: 1, 
             overflow: 'auto',
-            pb: 7 // Padding bottom för att undvika att innehåll döljs av navigation
+            pb: showHelp ? 0 : 7 // Ingen padding när hjälpsidan visas eftersom den har egen header
           }}>
-            {pages[currentPage]}
+            {showHelp ? (
+              <HjalpPage onBack={() => setShowHelp(false)} />
+            ) : (
+              pages[currentPage]
+            )}
           </Box>
 
           {/* Bottom navigation som alltid syns längst ner */}

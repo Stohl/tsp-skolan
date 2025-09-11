@@ -15,18 +15,52 @@ import {
 import { 
   Settings,
   Notifications,
-  VolumeUp,
   Brightness4,
   Language,
   Help,
-  Info
+  Info,
+  Refresh
 } from '@mui/icons-material';
 import { useTheme } from '../contexts/ThemeContext';
+import { useWordProgress } from '../hooks/usePersistentState';
+
+// Props interface för InstallningarPage
+interface InstallningarPageProps {
+  onShowHelp: () => void;
+}
 
 // Inställningar-sidan - här kommer användare att kunna anpassa appen
-const InstallningarPage: React.FC = () => {
+const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => {
   // Hämta tema-funktionalitet från Theme Context
   const { mode, toggleTheme } = useTheme();
+  // Hämta wordProgress för att kunna nollställa
+  const { setWordProgress } = useWordProgress();
+
+  // Funktion för att nollställa alla inställningar och progress
+  const handleReset = () => {
+    const confirmed = window.confirm(
+      'Är du säker på att du vill nollställa alla inställningar och progress?\n\n' +
+      'Detta kommer att:\n' +
+      '• Rensa alla ordlistor och progress\n' +
+      '• Återställa alla inställningar\n' +
+      '• Ta bort all sparad data\n\n' +
+      'Denna åtgärd kan inte ångras!'
+    );
+    
+    if (confirmed) {
+      // Rensa localStorage
+      localStorage.clear();
+      
+      // Nollställ wordProgress
+      setWordProgress({});
+      
+      // Visa bekräftelse
+      alert('Alla inställningar och progress har nollställts! Appen kommer att starta om från början.');
+      
+      // Ladda om sidan för att säkerställa att allt är nollställt
+      window.location.reload();
+    }
+  };
 
   return (
     // Container som centrerar innehållet och ger padding
@@ -45,20 +79,6 @@ const InstallningarPage: React.FC = () => {
               secondary="Få påminnelser om att öva"
             />
             <Switch edge="end" />
-          </ListItem>
-          
-          <Divider />
-          
-          {/* Ljud */}
-          <ListItem>
-            <ListItemIcon>
-              <VolumeUp />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Ljud" 
-              secondary="Spela ljud vid rätt svar"
-            />
-            <Switch edge="end" defaultChecked />
           </ListItem>
           
           <Divider />
@@ -99,13 +119,26 @@ const InstallningarPage: React.FC = () => {
         <Card>
           <List>
             {/* Hjälp */}
-            <ListItem button>
+            <ListItem button onClick={onShowHelp}>
               <ListItemIcon>
                 <Help />
               </ListItemIcon>
               <ListItemText 
                 primary="Hjälp" 
                 secondary="Få hjälp med att använda appen"
+              />
+            </ListItem>
+            
+            <Divider />
+            
+            {/* Nollställ */}
+            <ListItem button onClick={handleReset}>
+              <ListItemIcon>
+                <Refresh />
+              </ListItemIcon>
+              <ListItemText 
+                primary="Nollställ allt" 
+                secondary="Rensa alla inställningar och progress"
               />
             </ListItem>
             
