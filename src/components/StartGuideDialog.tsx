@@ -36,6 +36,8 @@ interface GuideQuestion {
   wordListId: string;
   wordListName: string;
   difficulty: string;
+  words: any[];
+  showWords: boolean;
 }
 
 // Props för StartGuideDialog
@@ -61,38 +63,25 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     if (Object.keys(wordDatabase).length > 0) {
       const allLists = getAllWordLists(wordDatabase);
       
-      // Välj ut representativa ordlistor för start-guiden
-      // Prioritera viktiga grundordlistor först
-      const priorityLists = allLists.filter(list => 
-        list.type === 'dynamic' && 
-        (list.name.includes('Handalfabetet') || 
-         list.name.includes('Siffror'))
-      );
-      
-      // Lägg till några adjektiv-listor (men inte alla)
-      const adjectiveLists = allLists.filter(list => 
-        list.type === 'predefined' && 
-        list.name.includes('adjektiv') &&
-        list.name.includes('vanligaste')
-      ).slice(0, 3); // Ta bara de första 3 adjektiv-listerna
-      
-      // Lägg till några andra viktiga listor
-      const otherLists = allLists.filter(list => 
-        list.type === 'predefined' && 
-        (list.name.includes('substantiv') ||
-         list.name.includes('verb'))
-      ).slice(0, 3); // Ta några substantiv/verb-listor
-      
-      // Kombinera och begränsa till max 8
-      const guideLists = [...priorityLists, ...adjectiveLists, ...otherLists].slice(0, 8);
+      // Välj ut ordlistor som är markerade för start-guiden
+      const guideLists = allLists
+        .filter(list => list.showInStartGuide === true)
+        .sort((a, b) => (a.startGuidePosition || 999) - (b.startGuidePosition || 999));
 
-      const generatedQuestions: GuideQuestion[] = guideLists.map((list, index) => ({
-        id: `q${index + 1}`,
-        question: `Kan du ${list.name.toLowerCase()}?`,
-        wordListId: list.id,
-        wordListName: list.name,
-        difficulty: list.difficulty
-      }));
+      const generatedQuestions: GuideQuestion[] = guideLists.map((list, index) => {
+        // Hämta orden från ordlistan
+        const wordsInList = getWordsFromList(list, wordDatabase);
+        
+        return {
+          id: `q${index + 1}`,
+          question: `Kan du ${list.name.toLowerCase()}?`,
+          wordListId: list.id,
+          wordListName: list.name,
+          difficulty: list.difficulty,
+          words: wordsInList,
+          showWords: list.showWordsInStartGuide || false
+        };
+      });
 
       setQuestions(generatedQuestions);
     }
@@ -255,6 +244,35 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 <Typography variant="body2" color="text.secondary">
                   Välj det svar som bäst beskriver din kunskap:
                 </Typography>
+                
+                {/* Visa orden om showWords är true */}
+                {currentQuestion?.showWords && currentQuestion?.words && currentQuestion.words.length > 0 && (
+                  <Box sx={{ mt: 2 }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      Ord i denna lista:
+                    </Typography>
+                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                      {currentQuestion.words.slice(0, 10).map((word: any, index: number) => (
+                        <Chip
+                          key={word.id || index}
+                          label={word.ord}
+                          size="small"
+                          variant="outlined"
+                          sx={{ fontSize: '0.75rem' }}
+                        />
+                      ))}
+                      {currentQuestion.words.length > 10 && (
+                        <Chip
+                          label={`+${currentQuestion.words.length - 10} fler`}
+                          size="small"
+                          variant="outlined"
+                          color="secondary"
+                          sx={{ fontSize: '0.75rem' }}
+                        />
+                      )}
+                    </Box>
+                  </Box>
+                )}
               </CardContent>
             </Card>
 

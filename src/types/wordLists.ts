@@ -9,6 +9,10 @@ export interface PredefinedWordList {
   wordIds: string[]; // Array med ord-ID:n som ska vara i listan
   type: 'predefined'; // För att skilja från dynamiska listor
   difficulty: DifficultyLevel; // Svårighetsnivå för ordlistan
+  // Start-guide parametrar
+  showInStartGuide?: boolean; // Om ordlistan ska visas i start-guiden
+  startGuidePosition?: number; // Position i start-guiden (1, 2, 3, etc.)
+  showWordsInStartGuide?: boolean; // Om orden ska visas eller bara beskrivning
 }
 
 // Dynamiska ordlistor som genereras från databasen
@@ -19,6 +23,10 @@ export interface DynamicWordList {
   subject: string; // Ämne att filtrera på
   type: 'dynamic'; // För att skilja från förgenererade listor
   difficulty: DifficultyLevel; // Svårighetsnivå för ordlistan
+  // Start-guide parametrar
+  showInStartGuide?: boolean; // Om ordlistan ska visas i start-guiden
+  startGuidePosition?: number; // Position i start-guiden (1, 2, 3, etc.)
+  showWordsInStartGuide?: boolean; // Om orden ska visas eller bara beskrivning
 }
 
 // Union type för alla ordlistor
@@ -40,7 +48,10 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: '20 vanligaste adjektiv (rank 1-20)',
     wordIds: ['02801', '01061', '06767', '00086', '00310', '00074', '02375', '09120', '02850', '00789', '02365', '00193', '02354', '02847', '04606', '08479', '05158', '00469', '02293', '00256'],
     type: 'predefined',
-    difficulty: 'handstart'
+    difficulty: 'handstart',
+    showInStartGuide: true,
+    startGuidePosition: 3,
+    showWordsInStartGuide: false
   },
   {
     id: 'adjektiv_002',
@@ -96,7 +107,10 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: '20 vanligaste adverb (rank 1-20)',
     wordIds: ['03955', '05133', '02711', '00060', '00167', '00646', '08979', '04485', '11274', '03965', '02381', '04569', '02966', '04724', '02688', '02690', '02845', '05114', '00561', '02866'],
     type: 'predefined',
-    difficulty: 'handstart'
+    difficulty: 'handstart',
+    showInStartGuide: true,
+    startGuidePosition: 4,
+    showWordsInStartGuide: false
   },
   {
     id: 'adverb_009',
@@ -414,7 +428,10 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Handalfabetet"',
       subject: 'Handalfabetet',
       type: 'dynamic',
-      difficulty: 'handstart'
+      difficulty: 'handstart',
+      showInStartGuide: true,
+      startGuidePosition: 1,
+      showWordsInStartGuide: true
     },
     {
       id: 'siffror',
@@ -422,7 +439,10 @@ export const getAllWordLists = (database: any): WordList[] => {
       description: 'Alla ord med ämnet "Siffror"',
       subject: 'Siffror',
       type: 'dynamic',
-      difficulty: 'handstart'
+      difficulty: 'handstart',
+      showInStartGuide: true,
+      startGuidePosition: 2,
+      showWordsInStartGuide: true
     },
     {
       id: 'bildelar',
