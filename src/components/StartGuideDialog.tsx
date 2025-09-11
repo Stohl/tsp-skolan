@@ -184,6 +184,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     handleReset();
     // Trigger storage event för att uppdatera progress i andra komponenter
     window.dispatchEvent(new Event('storage'));
+    // Ladda om sidan för att säkerställa att all progress uppdateras
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -282,13 +286,23 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
             </Card>
 
             {/* Svarsalternativ */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: { xs: 'column', sm: 'row' }, 
+              gap: 2,
+              flexWrap: 'wrap',
+              justifyContent: 'center'
+            }}>
               <Button
                 variant="outlined"
                 size="large"
                 onClick={() => handleAnswer('ja')}
                 startIcon={<CheckCircle color="success" />}
-                sx={{ justifyContent: 'flex-start', p: 2 }}
+                sx={{ 
+                  flex: { xs: 1, sm: '0 1 auto' },
+                  minWidth: { xs: '100%', sm: '120px' },
+                  p: 2 
+                }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                   Ja
@@ -300,7 +314,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 size="large"
                 onClick={() => handleAnswer('delvis')}
                 startIcon={<TrendingUp color="warning" />}
-                sx={{ justifyContent: 'flex-start', p: 2 }}
+                sx={{ 
+                  flex: { xs: 1, sm: '0 1 auto' },
+                  minWidth: { xs: '100%', sm: '120px' },
+                  p: 2 
+                }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                   Delvis
@@ -312,7 +330,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 size="large"
                 onClick={() => handleAnswer('nej')}
                 startIcon={<Help color="error" />}
-                sx={{ justifyContent: 'flex-start', p: 2 }}
+                sx={{ 
+                  flex: { xs: 1, sm: '0 1 auto' },
+                  minWidth: { xs: '100%', sm: '120px' },
+                  p: 2 
+                }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                   Nej
@@ -324,10 +346,14 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 size="large"
                 onClick={() => handleAnswer('hoppa')}
                 startIcon={<SkipNext color="action" />}
-                sx={{ justifyContent: 'flex-start', p: 2 }}
+                sx={{ 
+                  flex: { xs: 1, sm: '0 1 auto' },
+                  minWidth: { xs: '100%', sm: '140px' },
+                  p: 2 
+                }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Hoppa över denna fråga
+                  Hoppa över
                 </Typography>
               </Button>
             </Box>
