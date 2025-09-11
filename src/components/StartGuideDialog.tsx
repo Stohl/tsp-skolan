@@ -23,7 +23,8 @@ import {
   Help,
   TrendingUp,
   PlayArrow,
-  Close
+  Close,
+  SkipNext
 } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
@@ -54,7 +55,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<GuideQuestion[]>([]);
-  const [answers, setAnswers] = useState<{ [questionId: string]: 'ja' | 'delvis' | 'nej' }>({});
+  const [answers, setAnswers] = useState<{ [questionId: string]: 'ja' | 'delvis' | 'nej' | 'hoppa' }>({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [totalWordsAdded, setTotalWordsAdded] = useState(0);
 
@@ -88,7 +89,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   }, [wordDatabase]);
 
   // Hantera svar på frågor
-  const handleAnswer = (answer: 'ja' | 'delvis' | 'nej') => {
+  const handleAnswer = (answer: 'ja' | 'delvis' | 'nej' | 'hoppa') => {
     const currentQuestion = questions[currentQuestionIndex];
     if (!currentQuestion) return;
 
@@ -102,6 +103,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     if (wordList) {
       const wordsInList = getWordsFromList(wordList, wordDatabase);
       
+      if (answer === 'hoppa') {
+        // Hoppa över - lägg inte till orden i någon lista
+        return;
+      }
+
       wordsInList.forEach(word => {
         let level = 0;
         let points = 0;
@@ -227,16 +233,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 <Typography variant="h6" gutterBottom>
                   {currentQuestion?.question}
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Välj det svar som bäst beskriver din kunskap:
-                </Typography>
                 
                 {/* Visa orden om showWords är true */}
                 {currentQuestion?.showWords && currentQuestion?.words && currentQuestion.words.length > 0 && (
                   <Box sx={{ mt: 2 }}>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                      Ord i denna lista:
-                    </Typography>
                     <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                       {currentQuestion.words.slice(0, 20).map((word: any, index: number) => (
                         <Chip
@@ -297,6 +297,18 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
                   Nej, jag behöver lära mig det
+                </Typography>
+              </Button>
+
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={() => handleAnswer('hoppa')}
+                startIcon={<SkipNext color="action" />}
+                sx={{ justifyContent: 'flex-start', p: 2 }}
+              >
+                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+                  Hoppa över denna fråga
                 </Typography>
               </Button>
             </Box>
