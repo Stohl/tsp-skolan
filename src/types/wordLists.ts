@@ -32,6 +32,34 @@ export interface DynamicWordList {
 // Union type för alla ordlistor
 export type WordList = PredefinedWordList | DynamicWordList;
 
+// Map för snabb lookup av svårighetsgrad från ord-ID
+let wordDifficultyMap: Map<string, DifficultyLevel> | null = null;
+
+// Funktion för att skapa wordDifficultyMap från predefinedWordLists
+export const createWordDifficultyMap = (): Map<string, DifficultyLevel> => {
+  if (wordDifficultyMap) return wordDifficultyMap;
+  
+  wordDifficultyMap = new Map<string, DifficultyLevel>();
+  
+  // Fyll map:en från predefinedWordLists
+  predefinedWordLists.forEach(list => {
+    list.wordIds.forEach(wordId => {
+      wordDifficultyMap!.set(wordId, list.difficulty);
+    });
+  });
+  
+  return wordDifficultyMap;
+};
+
+// Funktion för att hämta svårighetsgrad för ett ord
+export const getWordListDifficulty = (wordId: string): DifficultyLevel => {
+  if (!wordDifficultyMap) {
+    createWordDifficultyMap();
+  }
+  
+  return wordDifficultyMap?.get(wordId) || 'samspelare'; // Default till högsta svårighetsgrad
+};
+
 // Förgenererade ordlistor
 export const predefinedWordLists: PredefinedWordList[] = [
   {

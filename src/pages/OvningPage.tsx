@@ -20,7 +20,8 @@ import {
   Divider,
   IconButton,
   Fab,
-  Paper
+  Paper,
+  Alert
 } from '@mui/material';
 import {
   PlayArrow,
@@ -36,6 +37,7 @@ import {
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
 import { getVideoUrl } from '../types/database';
+import { getWordListDifficulty } from '../types/wordLists';
 
 // Enum för övningstyper
 enum ExerciseType {
@@ -59,6 +61,9 @@ const FlashcardsExercise: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ word, onResult, onSkip }) => {
+  // Bestäm vilken typ av ord detta är baserat på progress level
+  const isLearnedWord = word.progress?.level === 2;
+  const isLearningWord = word.progress?.level === 1;
   const [showVideo, setShowVideo] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -102,6 +107,33 @@ const FlashcardsExercise: React.FC<{
         {!showVideo ? (
           // Visa ordet
           <Box>
+            {/* Indikator för ordtyp */}
+            <Box sx={{ mb: 2 }}>
+              {isLearnedWord && (
+                <Chip 
+                  label="✅ Lärd" 
+                  color="success" 
+                  size="small"
+                  sx={{ mr: 1 }}
+                />
+              )}
+              {isLearningWord && (
+                <Chip 
+                  label="🆕 Att lära mig" 
+                  color="primary" 
+                  size="small"
+                  sx={{ mr: 1 }}
+                />
+              )}
+              {word.listDifficulty && (
+                <Chip 
+                  label={`${word.listDifficulty.charAt(0).toUpperCase() + word.listDifficulty.slice(1)}`}
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            </Box>
+            
             <Typography variant="h4" gutterBottom>
               {word.ord}
             </Typography>
@@ -202,6 +234,10 @@ const QuizExercise: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ word, allWords, onResult, onSkip }) => {
+  // Bestäm vilken typ av ord detta är baserat på progress level
+  const isLearnedWord = word.progress?.level === 2;
+  const isLearningWord = word.progress?.level === 1;
+  
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
@@ -269,6 +305,33 @@ const QuizExercise: React.FC<{
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
       <CardContent sx={{ textAlign: 'center', p: 4 }}>
+        {/* Indikator för ordtyp */}
+        <Box sx={{ mb: 2 }}>
+          {isLearnedWord && (
+            <Chip 
+              label="✅ Lärd" 
+              color="success" 
+              size="small"
+              sx={{ mr: 1 }}
+            />
+          )}
+          {isLearningWord && (
+            <Chip 
+              label="🆕 Att lära mig" 
+              color="primary" 
+              size="small"
+              sx={{ mr: 1 }}
+            />
+          )}
+          {word.listDifficulty && (
+            <Chip 
+              label={`${word.listDifficulty.charAt(0).toUpperCase() + word.listDifficulty.slice(1)}`}
+              variant="outlined"
+              size="small"
+            />
+          )}
+        </Box>
+        
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
@@ -382,6 +445,10 @@ const SignExercise: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ word, onResult, onSkip }) => {
+  // Bestäm vilken typ av ord detta är baserat på progress level
+  const isLearnedWord = word.progress?.level === 2;
+  const isLearningWord = word.progress?.level === 1;
+  
   const [countdown, setCountdown] = useState(5);
   const [showVideo, setShowVideo] = useState(false);
   const [isCountingDown, setIsCountingDown] = useState(true);
@@ -415,6 +482,33 @@ const SignExercise: React.FC<{
         {isCountingDown ? (
           // Countdown-fas
           <Box>
+            {/* Indikator för ordtyp */}
+            <Box sx={{ mb: 2 }}>
+              {isLearnedWord && (
+                <Chip 
+                  label="✅ Lärd" 
+                  color="success" 
+                  size="small"
+                  sx={{ mr: 1 }}
+                />
+              )}
+              {isLearningWord && (
+                <Chip 
+                  label="🆕 Att lära mig" 
+                  color="primary" 
+                  size="small"
+                  sx={{ mr: 1 }}
+                />
+              )}
+              {word.listDifficulty && (
+                <Chip 
+                  label={`${word.listDifficulty.charAt(0).toUpperCase() + word.listDifficulty.slice(1)}`}
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            </Box>
+            
             <Typography variant="h4" gutterBottom>
               {word.ord}
             </Typography>
@@ -436,6 +530,33 @@ const SignExercise: React.FC<{
         ) : showVideo ? (
           // Visa videon och resultat-knappar
           <Box>
+            {/* Indikator för ordtyp */}
+            <Box sx={{ mb: 2 }}>
+              {isLearnedWord && (
+                <Chip 
+                  label="✅ Lärd" 
+                  color="success" 
+                  size="small"
+                  sx={{ mr: 1 }}
+                />
+              )}
+              {isLearningWord && (
+                <Chip 
+                  label="🆕 Att lära mig" 
+                  color="primary" 
+                  size="small"
+                  sx={{ mr: 1 }}
+                />
+              )}
+              {word.listDifficulty && (
+                <Chip 
+                  label={`${word.listDifficulty.charAt(0).toUpperCase() + word.listDifficulty.slice(1)}`}
+                  variant="outlined"
+                  size="small"
+                />
+              )}
+            </Box>
+            
             {word.video_url && (
               <Box sx={{ mb: 3 }}>
                 <video
@@ -515,6 +636,10 @@ const SpellingExercise: React.FC<{
   onSkip: () => void;
   playbackSpeed: number;
 }> = ({ word, allSpellingWords, onResult, onSkip, playbackSpeed }) => {
+  // Bestäm vilken typ av ord detta är baserat på progress level
+  const isLearnedWord = word.progress?.level === 2;
+  const isLearningWord = word.progress?.level === 1;
+  
   const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [clickedAnswer, setClickedAnswer] = useState<string | null>(null);
@@ -590,6 +715,33 @@ const SpellingExercise: React.FC<{
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
       <CardContent sx={{ textAlign: 'center', p: 4 }}>
+        {/* Indikator för ordtyp */}
+        <Box sx={{ mb: 2 }}>
+          {isLearnedWord && (
+            <Chip 
+              label="✅ Lärd" 
+              color="success" 
+              size="small"
+              sx={{ mr: 1 }}
+            />
+          )}
+          {isLearningWord && (
+            <Chip 
+              label="🆕 Att lära mig" 
+              color="primary" 
+              size="small"
+              sx={{ mr: 1 }}
+            />
+          )}
+          {word.listDifficulty && (
+            <Chip 
+              label={`${word.listDifficulty.charAt(0).toUpperCase() + word.listDifficulty.slice(1)}`}
+              variant="outlined"
+              size="small"
+            />
+          )}
+        </Box>
+        
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
@@ -755,16 +907,21 @@ const OvningPage: React.FC = () => {
     return spellingWords;
   }, [wordDatabase]);
 
-  // Beräkna ord för övning med useMemo för att undvika oändlig loop
+  // Beräkna ord för övning med ny logik: svårighetsgrad-prioritering + slumpning + lärda ord-repetition
   const practiceWords = useMemo(() => {
     if (Object.keys(wordDatabase).length === 0) return [];
+    
+    // Hämta inställning för antal lärda ord att repetera
+    const reviewCount = parseInt(localStorage.getItem('reviewLearnedWords') || '2');
+    const minLearningWordsNeeded = 10 - reviewCount;
     
     const wordsWithProgress = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
       ...word,
       progress: wordProgress[wordId] || {
         level: 0,
         stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
-      }
+      },
+      listDifficulty: getWordListDifficulty(wordId) // Lägg till svårighetsgrad från wordLists.ts
     }));
 
     // Om learningWordsOnly är aktiverat, filtrera bara ord som användaren vill lära sig
@@ -773,37 +930,58 @@ const OvningPage: React.FC = () => {
       filteredWords = wordsWithProgress.filter(word => word.progress.level === 1);
     }
 
-    // Sortera ord för övning:
-    // 1. Ord markerade som "vill lära mig" (nivå 1) först
-    // 2. Sedan efter svårighetsgrad (högst först)
-    // 3. Sedan efter senast övade (längst tillbaka först)
-    const sortedWords = filteredWords
-      .sort((a, b) => {
-        // Prioritera ord som användaren vill lära sig (nivå 1)
-        const levelA = a.progress.level;
-        const levelB = b.progress.level;
-        
-        // Om ena är nivå 1 och andra inte, prioritera nivå 1
-        if (levelA === 1 && levelB !== 1) return -1;
-        if (levelA !== 1 && levelB === 1) return 1;
-        
-        // Om båda är nivå 1 eller båda inte är nivå 1, sortera efter svårighetsgrad
-        const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
-        if (difficultyDiff !== 0) return difficultyDiff;
-        
-        // Om svårighetsgrad är samma, sortera efter senast övade
-        const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
-        const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
-        return lastPracticedA - lastPracticedB;
-      })
-      .slice(0, 10);
+    // Validera att det finns tillräckligt många ord
+    const availableLearningWords = filteredWords.filter(word => word.progress.level === 1);
+    const availableLearnedWords = filteredWords.filter(word => word.progress.level === 2);
+    
+    // Om det inte finns tillräckligt många "att lära mig" ord
+    if (availableLearningWords.length < minLearningWordsNeeded) {
+      console.warn(`[VALIDATION] Inte tillräckligt många "att lära mig" ord: ${availableLearningWords.length} < ${minLearningWordsNeeded}`);
+      // Returnera tom array för att triggra felmeddelande i UI
+      return [];
+    }
+    
+    // Om användaren vill repetera lärda ord men inte har några
+    if (reviewCount > 0 && availableLearnedWords.length === 0) {
+      console.warn(`[VALIDATION] Användaren vill repetera ${reviewCount} lärda ord men har inga lärda ord`);
+      // Returnera tom array för att triggra felmeddelande i UI
+      return [];
+    }
 
+    // Hämta ord från "att lära mig" (nivå 1) sorterade efter svårighetsgrad från wordLists.ts
+    const learningWords = filteredWords.filter(word => word.progress.level === 1);
+    
+    // Sortera efter svårighetsgrad från wordLists.ts: handstart -> fingervana -> tecknare -> samspelare
+    const difficultyOrder = ['handstart', 'fingervana', 'tecknare', 'samspelare'];
+    const sortedLearningWords = learningWords.sort((a, b) => {
+      const difficultyA = difficultyOrder.indexOf(a.listDifficulty);
+      const difficultyB = difficultyOrder.indexOf(b.listDifficulty);
+      
+      if (difficultyA !== difficultyB) {
+        return difficultyA - difficultyB; // Lägre index = lägre svårighetsgrad först
+      }
+      
+      // Om samma svårighetsgrad, slumpa ordningen
+      return Math.random() - 0.5;
+    });
+
+    // Välj ord från lägsta svårighetsgrad uppåt tills vi har tillräckligt många
+    const selectedLearningWords = sortedLearningWords.slice(0, minLearningWordsNeeded);
+    
+    // Hämta slumpade ord från "lärda" (nivå 2) för repetition
+    const learnedWords = filteredWords.filter(word => word.progress.level === 2);
+    const shuffledLearnedWords = learnedWords.sort(() => Math.random() - 0.5);
+    const selectedLearnedWords = shuffledLearnedWords.slice(0, reviewCount);
+    
+    // Kombinera och returnera
+    const combinedWords = [...selectedLearningWords, ...selectedLearnedWords];
+    
     // Om inga ord hittas för övning, använd alla ord
-    if (sortedWords.length === 0) {
+    if (combinedWords.length === 0) {
       return Object.values(wordDatabase).slice(0, 10);
     }
     
-    return sortedWords;
+    return combinedWords;
   }, [wordDatabase, wordProgress, learningWordsOnly]); // Lägg till learningWordsOnly som dependency
 
   // Beräkna ord för quiz med minst 10 ord (inklusive fallback till lärda ord)
@@ -1412,10 +1590,60 @@ const OvningPage: React.FC = () => {
     currentWord = practiceWords[currentWordIndex];
   }
   
+  // Funktion för att validera tillgängliga ord och returnera felmeddelande
+  const validateAvailableWords = () => {
+    const reviewCount = parseInt(localStorage.getItem('reviewLearnedWords') || '2');
+    const minLearningWordsNeeded = 10 - reviewCount;
+    
+    const availableLearningWords = practiceWords.filter(word => word.progress.level === 1);
+    const availableLearnedWords = practiceWords.filter(word => word.progress.level === 2);
+    
+    if (availableLearningWords.length < minLearningWordsNeeded) {
+      return {
+        isValid: false,
+        message: `Du behöver minst ${minLearningWordsNeeded} ord i "att lära mig" för att öva. Du har ${availableLearningWords.length} ord.`,
+        suggestion: 'Lägg till fler ord från startguiden eller lexikonet.'
+      };
+    }
+    
+    if (reviewCount > 0 && availableLearnedWords.length === 0) {
+      return {
+        isValid: false,
+        message: `Du har valt att repetera ${reviewCount} lärda ord, men du har inga lärda ord än.`,
+        suggestion: 'Gå till Inställningar och ändra antal lärda ord att repetera till 0, eller öva tills du har lärda ord.'
+      };
+    }
+    
+    return { isValid: true };
+  };
+
   if (!currentWord) {
+    const validation = validateAvailableWords();
+    
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
-        <Typography variant="h6">Inga ord tillgängliga för övning</Typography>
+        <Box sx={{ textAlign: 'center' }}>
+          <Typography variant="h5" gutterBottom color="error">
+            Kan inte starta övning
+          </Typography>
+          
+          <Alert severity="warning" sx={{ mb: 3, textAlign: 'left' }}>
+            <Typography variant="h6" gutterBottom>
+              {validation.message}
+            </Typography>
+            <Typography variant="body2">
+              {validation.suggestion}
+            </Typography>
+          </Alert>
+          
+          <Button 
+            variant="contained" 
+            onClick={() => window.location.reload()}
+            startIcon={<Refresh />}
+          >
+            Uppdatera sidan
+          </Button>
+        </Box>
       </Container>
     );
   }

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -10,7 +10,8 @@ import {
   ListItemIcon,
   Divider,
   Switch,
-  Container
+  Container,
+  Slider
 } from '@mui/material';
 import { 
   Settings,
@@ -35,6 +36,24 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
   const { mode, toggleTheme } = useTheme();
   // Hämta wordProgress för att kunna nollställa
   const { setWordProgress } = useWordProgress();
+  
+  // State för antal lärda ord att repetera
+  const [reviewLearnedWords, setReviewLearnedWords] = useState<number>(2);
+  
+  // Ladda inställning från localStorage vid komponentens mount
+  useEffect(() => {
+    const saved = localStorage.getItem('reviewLearnedWords');
+    if (saved !== null) {
+      setReviewLearnedWords(parseInt(saved));
+    }
+  }, []);
+  
+  // Spara inställning till localStorage när den ändras
+  const handleReviewLearnedWordsChange = (event: Event, newValue: number | number[]) => {
+    const value = Array.isArray(newValue) ? newValue[0] : newValue;
+    setReviewLearnedWords(value);
+    localStorage.setItem('reviewLearnedWords', value.toString());
+  };
 
   // Funktion för att nollställa alla inställningar och progress
   const handleReset = () => {
@@ -57,6 +76,7 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
       localStorage.removeItem('theme');
       localStorage.removeItem('spelling-playback-speed');
       localStorage.removeItem('spelling-interval');
+      localStorage.removeItem('reviewLearnedWords');
       
       // Nollställ wordProgress
       setWordProgress({});
@@ -117,6 +137,51 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
               primary="Språk" 
               secondary="Svenska"
             />
+          </ListItem>
+          
+          <Divider />
+          
+          {/* Repetition av lärda ord */}
+          <ListItem>
+            <ListItemIcon>
+              <Refresh />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Repetition av lärda ord" 
+              secondary={`${reviewLearnedWords} ord repeteras vid varje övning`}
+            />
+          </ListItem>
+          
+          {/* Slider för antal lärda ord att repetera */}
+          <ListItem>
+            <Box sx={{ width: '100%', px: 2, pb: 2 }}>
+              <Typography variant="body2" color="text.secondary" gutterBottom>
+                Antal lärda ord som ska repeteras (0-5)
+              </Typography>
+              <Slider
+                value={reviewLearnedWords}
+                onChange={handleReviewLearnedWordsChange}
+                min={0}
+                max={5}
+                step={1}
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' },
+                  { value: 4, label: '4' },
+                  { value: 5, label: '5' }
+                ]}
+                valueLabelDisplay="auto"
+                sx={{ mt: 1 }}
+              />
+              <Typography variant="caption" color="text.secondary">
+                {reviewLearnedWords === 0 
+                  ? 'Inga lärda ord repeteras - fokus på nya ord' 
+                  : `${reviewLearnedWords} lärda ord repeteras för att förhindra glömska`
+                }
+              </Typography>
+            </Box>
           </ListItem>
         </List>
       </Card>
