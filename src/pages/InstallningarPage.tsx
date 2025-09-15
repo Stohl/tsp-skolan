@@ -17,7 +17,6 @@ import {
   Settings,
   Notifications,
   Brightness4,
-  Language,
   Help,
   Info,
   Refresh
@@ -123,19 +122,6 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
               edge="end" 
               checked={mode === 'dark'}
               onChange={toggleTheme}
-            />
-          </ListItem>
-          
-          <Divider />
-          
-          {/* Språk */}
-          <ListItem>
-            <ListItemIcon>
-              <Language />
-            </ListItemIcon>
-            <ListItemText 
-              primary="Språk" 
-              secondary="Svenska"
             />
           </ListItem>
           

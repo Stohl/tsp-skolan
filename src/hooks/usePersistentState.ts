@@ -125,6 +125,7 @@ export const useWordProgress = () => {
     const newStats = {
       correct: current.stats.correct + (isCorrect ? 1 : 0),
       incorrect: current.stats.incorrect + (isCorrect ? 0 : 1),
+      // Uppdatera lastPracticed vid varje övning
       lastPracticed: new Date().toISOString(),
       difficulty: calculateDifficulty(
         current.stats.correct + (isCorrect ? 1 : 0),
@@ -142,7 +143,19 @@ export const useWordProgress = () => {
 
   // Funktion för att ändra nivå för ett ord
   const setWordLevel = (wordId: string, level: number) => {
-    updateWordProgress(wordId, { level });
+    const current = wordProgress[wordId] || {
+      level: 0,
+      points: 0,
+      stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
+    };
+    
+    updateWordProgress(wordId, { 
+      level,
+      stats: {
+        ...current.stats,
+        lastPracticed: new Date().toISOString() // Sätt nuvarande tid när nivå ändras
+      }
+    });
   };
 
   // Funktion för att hämta ord för övning (prioritera ord som användaren vill lära sig)

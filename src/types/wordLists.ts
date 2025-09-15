@@ -63,12 +63,15 @@ export const getWordListDifficulty = (wordId: string): DifficultyLevel => {
 // Förgenererade ordlistor
 export const predefinedWordLists: PredefinedWordList[] = [
   {
-    id: 'testlista',
-    name: 'Testlista',
-    description: 'En testlista med några grundläggande ord',
-    wordIds: ['00001', '00002', '00003', '00004', '00005'],
+    id: 'siffror_0_10',
+    name: 'Siffror 0-10',
+    description: 'Siffrorna 0 - 10',
+    wordIds: ['24273', '02852', '11879', '11880', '11881', '11882', '11950', '11884', '11885', '11886', '04475'],
     type: 'predefined',
-    difficulty: 'handstart'
+    difficulty: 'handstart',
+    showInStartGuide: true,
+    startGuidePosition: 5,
+    showWordsInStartGuide: true
   },
   {
     id: 'adjektiv_001',
@@ -202,7 +205,10 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: '20 vanligaste pronomen (rank 1-20)',
     wordIds: ['02798', '00187', '02817', '00479', '00275', '15856', '01807', '00483', '07844', '03622', '00124', '03639', '04864', '02828', '04333', '04153', '00123', '15855', '04264', '02370'],
     type: 'predefined',
-    difficulty: 'handstart'
+    difficulty: 'handstart',
+    showInStartGuide: true,
+    startGuidePosition: 6,
+    showWordsInStartGuide: true
   },
   {
     id: 'pronomen_017',
@@ -234,7 +240,10 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: '20 vanligaste substantiv (rank 1-20)',
     wordIds: ['01816', '02237', '00644', '02158', '02531', '00257', '04357', '09291', '01366', '01266', '03640', '04919', '01944', '03194', '02557', '08045', '05428', '02831', '08135', '00696'],
     type: 'predefined',
-    difficulty: 'handstart'
+    difficulty: 'handstart',
+    showInStartGuide: true,
+    startGuidePosition: 7,
+    showWordsInStartGuide: true
   },
   {
     id: 'substantiv_021',
@@ -242,7 +251,10 @@ export const predefinedWordLists: PredefinedWordList[] = [
     description: '20 vanligaste substantiv (rank 21-40)',
     wordIds: ['00954', '00609', '03563', '00773', '00617', '00304', '05870', '01909', '00912', '01302', '00222', '00770', '01377', '03700', '02117', '08116', '00708', '05382', '00623', '03552'],
     type: 'predefined',
-    difficulty: 'fingervana'
+    difficulty: 'fingervana',
+    showInStartGuide: true,
+    startGuidePosition: 8,
+    showWordsInStartGuide: true
   },
   {
     id: 'substantiv_022',

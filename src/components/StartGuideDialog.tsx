@@ -81,20 +81,30 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
         .filter(list => list.showInStartGuide === true)
         .sort((a, b) => (a.startGuidePosition || 999) - (b.startGuidePosition || 999));
 
-      const generatedQuestions: GuideQuestion[] = guideLists.map((list, index) => {
-        // Hämta orden från ordlistan
-        const wordsInList = getWordsFromList(list, wordDatabase);
-        
-        return {
-          id: `q${index + 1}`,
-          question: `Kan du ${list.name.toLowerCase()}?`,
-          wordListId: list.id,
-          wordListName: list.name,
-          difficulty: list.difficulty,
-          words: wordsInList,
-          showWords: list.showWordsInStartGuide || false
-        };
-      });
+      const generatedQuestions: GuideQuestion[] = guideLists
+        .filter(list => {
+          // Hoppa över ordlistor där alla ord redan är markerade som "att lära mig" eller "lärda"
+          const wordsInList = getWordsFromList(list, wordDatabase);
+          const hasUnmarkedWords = wordsInList.some(word => {
+            const progress = wordProgress[word.id];
+            return !progress || progress.level === 0;
+          });
+          return hasUnmarkedWords;
+        })
+        .map((list, index) => {
+          // Hämta orden från ordlistan
+          const wordsInList = getWordsFromList(list, wordDatabase);
+          
+          return {
+            id: `q${index + 1}`,
+            question: `Vill du lära dig ${list.name.toLowerCase()}?`,
+            wordListId: list.id,
+            wordListName: list.name,
+            difficulty: list.difficulty,
+            words: wordsInList,
+            showWords: list.showWordsInStartGuide || false
+          };
+        });
 
       setQuestions(generatedQuestions);
     }
@@ -116,24 +126,24 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       if (wordList) {
         const wordsInList = getWordsFromList(wordList, wordDatabase);
         
-        wordsInList.forEach(word => {
+        wordsInList.forEach((word, index) => {
           let level = 0;
           let points = 0;
 
           switch (answer) {
             case 'ja':
-              level = 2; // Lärd
-              points = 5;
-              break;
-            case 'delvis':
-              level = 1; // Att lära mig
-              points = 2; // 2 av 5 poäng
-              break;
-            case 'nej':
               level = 1; // Att lära mig
               points = 0;
               break;
+            case 'nej':
+              level = 2; // Lärd
+              points = 5;
+              break;
           }
+
+          // Sätt lastPracticed till tom sträng så att orden hamnar sist i prioritetslistan
+          // (de har ju inte övats ännu, bara lagts till från startguiden)
+          const neverPracticedTime = '';
 
           setWordLevel(word.id, level);
           setWordProgress(prev => ({
@@ -145,7 +155,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               stats: {
                 correct: 0,
                 incorrect: 0,
-                lastPracticed: new Date().toISOString(),
+                lastPracticed: neverPracticedTime,
                 difficulty: 50
               }
             }
@@ -156,11 +166,61 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       }
     }
 
+    // Kontrollera om användaren har tillräckligt många ord i "att lära mig" (50-150)
+    const currentWordCounts = getWordCounts();
+    const attLaraMigCount = currentWordCounts.attLaraMig;
+    
     // Gå till nästa fråga eller avsluta
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(prev => prev + 1);
-    } else {
+    } else if (attLaraMigCount >= 50) {
+      // Avsluta om användaren har minst 50 ord i "att lära mig"
       setIsCompleted(true);
+    } else {
+      // Fortsätt med fler frågor om användaren inte har tillräckligt många ord
+      // Generera fler frågor från ordlistor som inte redan har frågats om
+      const allLists = getAllWordLists(wordDatabase);
+      const guideLists = allLists
+        .filter(list => list.showInStartGuide === true)
+        .sort((a, b) => (a.startGuidePosition || 999) - (b.startGuidePosition || 999));
+      
+      const askedListIds = questions.map(q => q.wordListId);
+      const remainingLists = guideLists.filter(list => !askedListIds.includes(list.id));
+      
+      if (remainingLists.length > 0) {
+        // Lägg till fler frågor från återstående ordlistor
+        const additionalQuestions: GuideQuestion[] = remainingLists
+          .filter(list => {
+            const wordsInList = getWordsFromList(list, wordDatabase);
+            const hasUnmarkedWords = wordsInList.some(word => {
+              const progress = wordProgress[word.id];
+              return !progress || progress.level === 0;
+            });
+            return hasUnmarkedWords;
+          })
+          .slice(0, 5) // Lägg till max 5 fler frågor åt gången
+          .map((list, index) => {
+            const wordsInList = getWordsFromList(list, wordDatabase);
+            return {
+              id: `q${questions.length + index + 1}`,
+              question: `Vill du lära dig ${list.name.toLowerCase()}?`,
+              wordListId: list.id,
+              wordListName: list.name,
+              difficulty: list.difficulty,
+              words: wordsInList,
+              showWords: list.showWordsInStartGuide || false
+            };
+          });
+        
+        if (additionalQuestions.length > 0) {
+          setQuestions(prev => [...prev, ...additionalQuestions]);
+          setCurrentQuestionIndex(prev => prev + 1);
+        } else {
+          setIsCompleted(true);
+        }
+      } else {
+        setIsCompleted(true);
+      }
     }
   };
 
@@ -219,17 +279,62 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       <DialogContent>
         {!isCompleted ? (
           <>
-            {/* Progress bar */}
+            {/* Progress bar för antal ord i "att lära mig" */}
             <Box sx={{ mb: 3 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
                 <Typography variant="body2" color="text.secondary">
                   Fråga {currentQuestionIndex + 1} av {questions.length}
                 </Typography>
                 <Typography variant="body2" color="text.secondary">
-                  {Math.round(progress)}%
+                  {wordCounts.attLaraMig} ord i "att lära mig"
                 </Typography>
               </Box>
-              <LinearProgress variant="determinate" value={progress} />
+              
+              {/* Progress bar med färgkodning baserat på antal ord */}
+              {(() => {
+                const targetMin = 50;
+                const targetMax = 150;
+                const currentCount = wordCounts.attLaraMig;
+                
+                // Beräkna progress som procent av 0-200 intervallet
+                let progressPercent = (currentCount / 200) * 100;
+                let progressColor;
+                
+                if (currentCount < targetMin) {
+                  // Under 50: gult
+                  progressColor = 'warning';
+                } else if (currentCount <= targetMax) {
+                  // 50-150: grönt
+                  progressColor = 'success';
+                } else {
+                  // Över 150: rött
+                  progressColor = 'error';
+                }
+                
+                return (
+                  <>
+                    <LinearProgress 
+                      variant="determinate" 
+                      value={Math.min(progressPercent, 100)}
+                      sx={{
+                        height: 8,
+                        borderRadius: 4,
+                        backgroundColor: 'grey.200',
+                        '& .MuiLinearProgress-bar': {
+                          backgroundColor: progressColor === 'warning' ? '#ff9800' : 
+                                         progressColor === 'success' ? '#4caf50' : '#f44336'
+                        }
+                      }}
+                    />
+                    <Box sx={{ mt: 1 }}>
+                      <Typography variant="caption" color="text.secondary">
+                        Rekommenderat: 50-150 ord i "att lära mig"
+                      </Typography>
+                    </Box>
+                  </>
+                );
+              })()}
+              
               <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
                 <Typography variant="caption" color="text.secondary">
                   Att lära mig: {wordCounts.attLaraMig} ord
@@ -300,28 +405,12 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 startIcon={<CheckCircle color="success" />}
                 sx={{ 
                   flex: { xs: 1, sm: '0 1 auto' },
-                  minWidth: { xs: '100%', sm: '120px' },
+                  minWidth: { xs: '100%', sm: '140px' },
                   p: 2 
                 }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Ja
-                </Typography>
-              </Button>
-
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={() => handleAnswer('delvis')}
-                startIcon={<TrendingUp color="warning" />}
-                sx={{ 
-                  flex: { xs: 1, sm: '0 1 auto' },
-                  minWidth: { xs: '100%', sm: '120px' },
-                  p: 2 
-                }}
-              >
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Delvis
+                  Ja, vill lära mig
                 </Typography>
               </Button>
 
@@ -329,17 +418,18 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 variant="outlined"
                 size="large"
                 onClick={() => handleAnswer('nej')}
-                startIcon={<Help color="error" />}
+                startIcon={<TrendingUp color="warning" />}
                 sx={{ 
                   flex: { xs: 1, sm: '0 1 auto' },
-                  minWidth: { xs: '100%', sm: '120px' },
+                  minWidth: { xs: '100%', sm: '140px' },
                   p: 2 
                 }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Nej
+                  Kan redan
                 </Typography>
               </Button>
+
 
               <Button
                 variant="outlined"
@@ -353,7 +443,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 }}
               >
                 <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Hoppa över
+                  Avvakta
                 </Typography>
               </Button>
             </Box>
@@ -403,7 +493,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       <DialogActions>
         {!isCompleted ? (
           <Button onClick={handleClose} startIcon={<Close />}>
-            Hoppa över guide
+            Stäng guiden
           </Button>
         ) : (
           <Button onClick={handleFinish} variant="contained" startIcon={<PlayArrow />}>

@@ -19,6 +19,7 @@ import {
 } from '@mui/material';
 import { Book, Search, PlayArrow } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
+import { useWordProgress } from '../hooks/usePersistentState';
 import { searchWords, getAllSubjects, getWordsBySubject, getPhrasesForWord } from '../types/database';
 import WordDetailDialog from '../components/WordDetailDialog';
 import { Word } from '../types/database';
@@ -27,6 +28,7 @@ import { Word } from '../types/database';
 const LexikonPage: React.FC = () => {
   // Använder databasen context för att få tillgång till orddatabasen
   const { wordDatabase, phraseDatabase, isLoading, error } = useDatabase();
+  const { wordProgress, setWordLevel } = useWordProgress();
   
   // State för sökterm och sökresultat
   const [searchTerm, setSearchTerm] = useState('');
@@ -76,6 +78,17 @@ const LexikonPage: React.FC = () => {
   const getPhrasesForSelectedWord = () => {
     if (!selectedWord) return [];
     return getPhrasesForWord(phraseDatabase, selectedWord.id);
+  };
+
+  // Funktion som körs när användaren ändrar progress för ett ord
+  const handleProgressChange = (wordId: string, newLevel: number) => {
+    setWordLevel(wordId, newLevel);
+  };
+
+  // Hämtar progress för det valda ordet
+  const getWordProgress = () => {
+    if (!selectedWord) return 0;
+    return wordProgress[selectedWord.id]?.level || 0;
   };
   return (
     <Container maxWidth="md" sx={{ py: 3 }}>
@@ -233,6 +246,8 @@ const LexikonPage: React.FC = () => {
         phrases={getPhrasesForSelectedWord()}
         open={dialogOpen}
         onClose={() => setDialogOpen(false)}
+        wordProgress={getWordProgress()}
+        onProgressChange={handleProgressChange}
       />
     </Container>
   );
