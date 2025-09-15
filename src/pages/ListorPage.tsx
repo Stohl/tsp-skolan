@@ -39,7 +39,7 @@ const ListorPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [expandedLists, setExpandedLists] = useState<{ [key: string]: boolean }>({});
-  const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect'>('name');
+  const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect' | 'points'>('name');
   const [difficultyTab, setDifficultyTab] = useState(0); // State för svårighetsgrad-tabs
 
   // Använd persistent word progress hook
@@ -262,6 +262,10 @@ const ListorPage: React.FC = () => {
             const incorrectA = progressA?.stats?.incorrect || 0;
             const incorrectB = progressB?.stats?.incorrect || 0;
             return incorrectB - incorrectA; // Flest fel först
+          case 'points':
+            const pointsA = progressA?.points || 0;
+            const pointsB = progressB?.points || 0;
+            return pointsB - pointsA; // Högst poäng först
           default:
             return a.ord.localeCompare(b.ord, 'sv');
         }
@@ -305,6 +309,13 @@ const ListorPage: React.FC = () => {
             onClick={() => setSortBy('incorrect')}
           >
             Antal fel
+          </Button>
+          <Button
+            variant={sortBy === 'points' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setSortBy('points')}
+          >
+            Poäng
           </Button>
         </Box>
         

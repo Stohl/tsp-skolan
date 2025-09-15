@@ -156,12 +156,16 @@ function AppContent() {
         onClose={() => {
           setShowStartGuide(false);
           localStorage.setItem('hasSeenStartGuide', 'true');
+          // Ladda om sidan för att uppdatera alla komponenter med nya ord
+          window.location.reload();
         }}
         onComplete={() => {
           setShowStartGuide(false);
           localStorage.setItem('hasSeenStartGuide', 'true');
           // Trigga en uppdatering av alla komponenter som visar progress
           window.dispatchEvent(new Event('storage'));
+          // Ladda om sidan för att uppdatera alla komponenter med nya ord
+          window.location.reload();
         }}
       />
     </>

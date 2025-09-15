@@ -879,26 +879,10 @@ const SentencesExercise: React.FC<{
       }
     });
     
-    // Filtrera fraser som har ord_id som matchar lärda ord ELLER är länkade via exempel ELLER innehåller flera lärda ord
+    // Filtrera fraser BARA baserat på ID-nummer från exempel-fältet
     const relevantPhrases = phrases.filter(([phraseId, phrase]: [string, any]) => {
-      // Direkt matchning med ord_id
-      if (learnedWordIds.includes(phrase.ord_id)) {
-        return true;
-      }
-      
-      // Matchning via exempel-fältet
-      if (examplePhraseIds.has(phraseId)) {
-        return true;
-      }
-      
-      // Kontrollera om frasen innehåller flera lärda ord i texten
-      const phraseText = phrase.fras?.toLowerCase() || '';
-      const containsMultipleLearnedWords = learnedWords.some(word => {
-        const wordText = word.ord.toLowerCase();
-        return phraseText.includes(wordText);
-      });
-      
-      return containsMultipleLearnedWords;
+      // Bara matchning via exempel-fältet (ID-nummer)
+      return examplePhraseIds.has(phraseId);
     });
     
     const primaryPhrases: any[] = [];
@@ -906,14 +890,8 @@ const SentencesExercise: React.FC<{
     const sharedPhrases: any[] = []; // Nya kategori för gemensamma fraser
     
     relevantPhrases.forEach(([phraseId, phrase]: [string, any]) => {
-      // Hitta vilka ord som är relaterade till denna fras
+      // Hitta vilka ord som är relaterade till denna fras via exempel-fältet
       const relatedWords: any[] = [];
-      
-      // Lägg till ordet som frasen direkt länkar till (via ord_id)
-      const directWord = wordDatabase[phrase.ord_id];
-      if (directWord && learnedWordIds.includes(phrase.ord_id)) {
-        relatedWords.push(directWord);
-      }
       
       // Hitta ord som är länkade via exempel-fältet
       learnedWords.forEach(word => {
@@ -933,15 +911,6 @@ const SentencesExercise: React.FC<{
           if (isLinkedViaExample && !relatedWords.some(rw => rw.id === word.id)) {
             relatedWords.push(word);
           }
-        }
-      });
-      
-      // Hitta andra lärda ord som finns i frastexten
-      const phraseText = phrase.fras?.toLowerCase() || '';
-      learnedWords.forEach(word => {
-        const wordText = word.ord.toLowerCase();
-        if (phraseText.includes(wordText) && !relatedWords.some(rw => rw.id === word.id)) {
-          relatedWords.push(word);
         }
       });
       
@@ -966,12 +935,8 @@ const SentencesExercise: React.FC<{
         // URL-format: "fras/055741" där sista siffran indikerar meningsnivå
         phraseWithWord.meningsnivå = lastDigit;
         
-        // Kategorisera frasen
-        if (relatedWords.length > 1) {
-          // Gemensam fras som innehåller flera lärda ord
-          phraseWithWord.type = 'gemensam';
-          sharedPhrases.push(phraseWithWord);
-        } else if (lastDigit === 1) {
+        // Kategorisera frasen baserat på URL-mönster
+        if (lastDigit === 1) {
           phraseWithWord.type = 'primär';
           primaryPhrases.push(phraseWithWord);
         } else {
@@ -1074,8 +1039,7 @@ const SentencesExercise: React.FC<{
           Här visas alla fraser som är länkade till dina lärda ord från fras_database.json
         </Typography>
 
-        {/* Gemensamma fraser tabell (visas först om de finns) */}
-        {sharedPhrases.length > 0 && renderPhraseTable(sharedPhrases, 'Gemensamma fraser', 'success')}
+        {/* Gemensamma fraser är borttagna för att undvika för många resultat */}
 
         {/* Primära fraser tabell */}
         {renderPhraseTable(primaryPhrases, 'Primära fraser', 'primary')}
@@ -1086,17 +1050,12 @@ const SentencesExercise: React.FC<{
         {/* Sammanfattning */}
         <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
           <Typography variant="body2" color="text.secondary">
-            <strong>Sammanfattning:</strong> Totalt {primaryPhrases.length + secondaryPhrases.length + sharedPhrases.length} fraser 
+            <strong>Sammanfattning:</strong> Totalt {primaryPhrases.length + secondaryPhrases.length} fraser 
             från {learnedWords.length} lärda ord
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            <strong>Gemensamma:</strong> {sharedPhrases.length} fraser | <strong>Primära:</strong> {primaryPhrases.length} fraser | <strong>Sekundära:</strong> {secondaryPhrases.length} fraser
+            <strong>Primära:</strong> {primaryPhrases.length} fraser | <strong>Sekundära:</strong> {secondaryPhrases.length} fraser
           </Typography>
-          {sharedPhrases.length > 0 && (
-            <Typography variant="body2" color="success.main" sx={{ mt: 1, fontWeight: 'bold' }}>
-              🎉 Hittade {sharedPhrases.length} fras(er) som innehåller flera av dina lärda ord!
-            </Typography>
-          )}
         </Box>
 
         {/* Test-knappar */}
@@ -1340,6 +1299,14 @@ const OvningPage: React.FC = () => {
 
   // Funktion som körs när användaren väljer övningstyp
   const handleExerciseTypeSelect = (exerciseType: ExerciseType) => {
+    // Validera att det finns tillräckligt många ord innan övningen startas
+    const validation = validateAvailableWords();
+    if (!validation.isValid) {
+      // Visa felmeddelande istället för att starta övningen
+      alert(`${validation.message}\n\n${validation.suggestion}`);
+      return;
+    }
+    
     setSelectedExerciseType(exerciseType);
     setCurrentWordIndex(0);
     setResults([]);
@@ -1411,6 +1378,7 @@ const OvningPage: React.FC = () => {
   // Funktion för att starta bokstavering-övning
   const startSpellingExercise = (minLen: number, maxLen: number) => {
     console.log(`[DEBUG] startSpellingExercise called with range: ${minLen}-${maxLen}`);
+    
     const wordsForRange = getAllSpellingWords.filter((word: any) => 
       word.ord.length >= minLen && word.ord.length <= maxLen
     );
@@ -1457,6 +1425,34 @@ const OvningPage: React.FC = () => {
       return practiceWords[currentWordIndex];
     }
   }, [selectedExerciseType, currentWordIndex, spellingWords, quizWords, practiceWords]);
+
+  // Funktion för att validera tillgängliga ord och returnera felmeddelande
+  const validateAvailableWords = () => {
+    const reviewCount = parseInt(localStorage.getItem('reviewLearnedWords') || '2');
+    const minLearningWordsNeeded = 10 - reviewCount;
+    
+    // Räkna ord direkt från wordProgress istället för från practiceWords
+    const availableLearningWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1);
+    const availableLearnedWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2);
+    
+    if (availableLearningWords.length < minLearningWordsNeeded) {
+      return {
+        isValid: false,
+        message: `Du behöver minst ${minLearningWordsNeeded} ord i "att lära mig" för att öva. Du har ${availableLearningWords.length} ord.`,
+        suggestion: 'Lägg till fler ord från startguiden eller lexikonet.'
+      };
+    }
+    
+    if (reviewCount > 0 && availableLearnedWords.length === 0) {
+      return {
+        isValid: false,
+        message: `Du har valt att repetera ${reviewCount} lärda ord, men du har inga lärda ord än.`,
+        suggestion: 'Gå till Inställningar och ändra antal lärda ord att repetera till 0, eller öva tills du har lärda ord.'
+      };
+    }
+    
+    return { isValid: true };
+  };
 
   if (isLoading) {
     return (
@@ -1578,6 +1574,7 @@ const OvningPage: React.FC = () => {
       </Container>
     );
   }
+
 
   // Visa val för bokstavering-ordlängd
   if (selectedExerciseType === ExerciseType.SPELLING && spellingWords.length === 0) {
@@ -2030,63 +2027,38 @@ const OvningPage: React.FC = () => {
     );
   }
 
-  // Funktion för att validera tillgängliga ord och returnera felmeddelande
-  const validateAvailableWords = () => {
-    const reviewCount = parseInt(localStorage.getItem('reviewLearnedWords') || '2');
-    const minLearningWordsNeeded = 10 - reviewCount;
-    
-    // Räkna ord direkt från wordProgress istället för från practiceWords
-    const availableLearningWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1);
-    const availableLearnedWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2);
-    
-    if (availableLearningWords.length < minLearningWordsNeeded) {
-      return {
-        isValid: false,
-        message: `Du behöver minst ${minLearningWordsNeeded} ord i "att lära mig" för att öva. Du har ${availableLearningWords.length} ord.`,
-        suggestion: 'Lägg till fler ord från startguiden eller lexikonet.'
-      };
-    }
-    
-    if (reviewCount > 0 && availableLearnedWords.length === 0) {
-      return {
-        isValid: false,
-        message: `Du har valt att repetera ${reviewCount} lärda ord, men du har inga lärda ord än.`,
-        suggestion: 'Gå till Inställningar och ändra antal lärda ord att repetera till 0, eller öva tills du har lärda ord.'
-      };
-    }
-    
-    return { isValid: true };
-  };
 
-  if (!currentWord) {
+  // Om en övning är vald men currentWord är undefined, visa valideringsmeddelande
+  if (selectedExerciseType && !currentWord) {
     const validation = validateAvailableWords();
-    
-    return (
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        <Box sx={{ textAlign: 'center' }}>
-          <Typography variant="h5" gutterBottom color="error">
-            Kan inte starta övning
-          </Typography>
-          
-          <Alert severity="warning" sx={{ mb: 3, textAlign: 'left' }}>
-            <Typography variant="h6" gutterBottom>
-              {validation.message}
+    if (!validation.isValid) {
+      return (
+        <Container maxWidth="md" sx={{ py: 4 }}>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography variant="h5" gutterBottom color="error">
+              Kan inte starta övning
             </Typography>
-            <Typography variant="body2">
-              {validation.suggestion}
-            </Typography>
-          </Alert>
-          
-          <Button 
-            variant="contained" 
-            onClick={() => window.location.reload()}
-            startIcon={<Refresh />}
-          >
-            Uppdatera sidan
-          </Button>
-        </Box>
-      </Container>
-    );
+            
+            <Alert severity="warning" sx={{ mb: 3, textAlign: 'left' }}>
+              <Typography variant="h6" gutterBottom>
+                {validation.message}
+              </Typography>
+              <Typography variant="body2">
+                {validation.suggestion}
+              </Typography>
+            </Alert>
+            
+            <Button 
+              variant="contained" 
+              onClick={() => window.location.reload()}
+              startIcon={<Refresh />}
+            >
+              Uppdatera sidan
+            </Button>
+          </Box>
+        </Container>
+      );
+    }
   }
 
   return (

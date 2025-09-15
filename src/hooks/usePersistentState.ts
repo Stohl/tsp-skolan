@@ -149,8 +149,12 @@ export const useWordProgress = () => {
       stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
     };
     
+    // Om ordet markeras som "lärd" (nivå 2), ge automatiskt 5 poäng
+    const newPoints = level === 2 ? 5 : current.points;
+    
     updateWordProgress(wordId, { 
       level,
+      points: newPoints,
       stats: {
         ...current.stats,
         lastPracticed: new Date().toISOString() // Sätt nuvarande tid när nivå ändras
