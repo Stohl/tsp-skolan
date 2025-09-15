@@ -1299,12 +1299,14 @@ const OvningPage: React.FC = () => {
 
   // Funktion som körs när användaren väljer övningstyp
   const handleExerciseTypeSelect = (exerciseType: ExerciseType) => {
-    // Validera att det finns tillräckligt många ord innan övningen startas
-    const validation = validateAvailableWords();
-    if (!validation.isValid) {
-      // Visa felmeddelande istället för att starta övningen
-      alert(`${validation.message}\n\n${validation.suggestion}`);
-      return;
+    // Validera bara för övningar som behöver lärda ord (inte bokstavering eller meningar)
+    if (exerciseType !== ExerciseType.SPELLING && exerciseType !== ExerciseType.SENTENCES) {
+      const validation = validateAvailableWords();
+      if (!validation.isValid) {
+        // Visa felmeddelande istället för att starta övningen
+        alert(`${validation.message}\n\n${validation.suggestion}`);
+        return;
+      }
     }
     
     setSelectedExerciseType(exerciseType);
