@@ -463,9 +463,11 @@ const ListorPage: React.FC = () => {
                       }
                     />
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="body2" color="text.secondary">
-                        {isExpanded ? '▼' : '▶'}
-                      </Typography>
+                      {isExpanded ? (
+                        <ExpandLess sx={{ color: 'text.secondary' }} />
+                      ) : (
+                        <ExpandMore sx={{ color: 'text.secondary' }} />
+                      )}
                     </Box>
                   </ListItemButton>
                   
@@ -596,15 +598,9 @@ const ListorPage: React.FC = () => {
                                       </Box>
                                     }
                                     secondary={
-                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mt: 0.5 }}>
+                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
                                         <Typography variant="caption" color="text.secondary">
-                                          Rätt: {wordProgressData.stats.correct} | Fel: {wordProgressData.stats.incorrect}
-                                        </Typography>
-                                        <Typography variant="caption" color="text.secondary">
-                                          Senast övat: {wordProgressData.stats.lastPracticed ? new Date(wordProgressData.stats.lastPracticed).toLocaleDateString('sv-SE') : 'Aldrig övat'}
-                                        </Typography>
-                                        <Typography variant="caption" color="text.secondary">
-                                          {getPointsDisplay(wordProgressData.points)}
+                                          {progressIcon} {progressLevel === 0 ? 'Ej markerad' : progressLevel === 1 ? 'Att lära mig' : 'Lärd'}
                                         </Typography>
                                       </Box>
                                     }
