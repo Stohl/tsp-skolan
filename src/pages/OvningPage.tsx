@@ -1150,6 +1150,12 @@ const OvningPage: React.FC = () => {
     setShowResults(false);
     setResults([]);
   }, []);
+
+  // Återställ även när komponenten åter-mountas (när användaren klickar på samma sida igen)
+  useEffect(() => {
+    // Scrolla till toppen när komponenten mountas
+    window.scrollTo(0, 0);
+  }, []);
   const getAllSpellingWords = useMemo(() => {
     const spellingWords = Object.values(wordDatabase).filter((word: any) => 
       word.ämne && word.ämne.includes('Verktyg - Bokstavering - Bokstaverade ord')

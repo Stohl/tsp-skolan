@@ -56,6 +56,11 @@ const ListorPage: React.FC = () => {
     }
   }, [wordDatabase]);
 
+  // Scrolla till toppen när komponenten mountas
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   // Funktion som körs när användaren klickar på en sub-tab
   const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
     console.log(`[DEBUG] Tab changed from ${activeTab} to ${newValue}`);

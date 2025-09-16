@@ -76,7 +76,15 @@ function AppContent() {
 
   // Funktion som körs när användaren klickar på en navigation-knapp
   const handlePageChange = (event: React.SyntheticEvent, newValue: number) => {
-    setCurrentPage(newValue);
+    // Om användaren klickar på samma sida (t.ex. övning när man redan är på övning),
+    // tvinga en återställning genom att sätta till -1 först, sedan till rätt värde
+    if (newValue === currentPage) {
+      setCurrentPage(-1);
+      setTimeout(() => setCurrentPage(newValue), 0);
+    } else {
+      setCurrentPage(newValue);
+    }
+    
     // Stäng hjälpsidan om den är öppen när användaren navigerar
     if (showHelp) {
       setShowHelp(false);
