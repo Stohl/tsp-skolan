@@ -1992,10 +1992,12 @@ const OvningPage: React.FC = () => {
                     <ListItem key={`${result.wordId}-${index}`}>
                       <ListItemText
                         primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
-                        secondary={`${wordProgress[result.wordId]?.points || 0}/5 poäng`}
+                        secondary={wordProgress[result.wordId]?.level === 2 ? "Flyttad till lärda ord!" : "Fortfarande att lära mig"}
                       />
-                      {result.isCorrect ? (
+                      {wordProgress[result.wordId]?.level === 2 ? (
                         <CheckCircle color="success" />
+                      ) : result.isCorrect ? (
+                        <CheckCircle color="primary" />
                       ) : (
                         <Cancel color="error" />
                       )}
