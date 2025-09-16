@@ -24,7 +24,8 @@ import {
   TrendingUp,
   PlayArrow,
   Close,
-  SkipNext
+  SkipNext,
+  HourglassEmpty
 } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
@@ -45,7 +46,7 @@ interface KnowledgeLevelQuestion {
 interface WordListQuestion {
   id: string;
   wordList: WordList;
-  selectedAnswer: 'ja' | 'behover_repetera' | 'nej' | null;
+  selectedAnswer: 'ja' | 'behover_repetera' | 'nej' | 'vanta' | null;
 }
 
 // Interface för start-guide frågor (bakåtkompatibilitet)
@@ -224,7 +225,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   };
 
   // Hantera svar på ordlistor-frågor
-  const handleWordListAnswer = (questionId: string, answer: 'ja' | 'behover_repetera' | 'nej') => {
+  const handleWordListAnswer = (questionId: string, answer: 'ja' | 'behover_repetera' | 'nej' | 'vanta') => {
     setWordListQuestions(prev => 
       prev.map(question => 
         question.id === questionId 
@@ -371,6 +372,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               break;
             case 'nej':
               level = 1; // Att lära mig
+              points = 0;
+              break;
+            case 'vanta':
+              level = 0; // Ingen progress - väntar
               points = 0;
               break;
           }
@@ -665,6 +670,32 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                         }}
                       >
                         Nej
+                      </Button>
+                      <Button
+                        variant={question.selectedAnswer === 'vanta' ? 'contained' : 'outlined'}
+                        size="medium"
+                        onClick={() => handleWordListAnswer(question.id, 'vanta')}
+                        disableRipple
+                        disableTouchRipple
+                        disableElevation
+                        startIcon={<HourglassEmpty />}
+                        sx={{ 
+                          flex: { xs: 1, sm: '0 1 auto' },
+                          minWidth: { xs: '100%', sm: '120px' },
+                          py: 1.5,
+                          borderRadius: 2,
+                          fontWeight: question.selectedAnswer === 'vanta' ? 'bold' : 'normal',
+                          backgroundColor: question.selectedAnswer === 'vanta' ? 'grey.500' : 'transparent',
+                          color: question.selectedAnswer === 'vanta' ? 'white' : 'grey.600',
+                          borderColor: 'grey.500',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'vanta' ? 'grey.500' : 'transparent',
+                            color: question.selectedAnswer === 'vanta' ? 'white' : 'grey.600',
+                            borderColor: 'grey.500'
+                          }
+                        }}
+                      >
+                        Vänta
                       </Button>
                     </Box>
                   </CardContent>
