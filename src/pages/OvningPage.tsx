@@ -933,7 +933,8 @@ const SentencesExercise: React.FC<{
         
         // Bestäm meningsnivå baserat på URL-mönster
         // URL-format: "fras/055741" där sista siffran indikerar meningsnivå
-        phraseWithWord.meningsnivå = lastDigit;
+        // Om URL saknas eller är ogiltig, sätt meningsnivå till tomt
+        phraseWithWord.meningsnivå = urlMatch ? lastDigit : null;
         
         // Kategorisera frasen baserat på URL-mönster
         if (lastDigit === 1) {
@@ -987,12 +988,18 @@ const SentencesExercise: React.FC<{
                     />
                   </TableCell>
                   <TableCell>
-                    <Chip 
-                      label={`Nivå ${phrase.meningsnivå}`} 
-                      color={phrase.meningsnivå === 1 ? 'success' : phrase.meningsnivå === 2 ? 'warning' : 'error'}
-                      size="small"
-                      variant="filled"
-                    />
+                    {phrase.meningsnivå !== null ? (
+                      <Chip 
+                        label={`Nivå ${phrase.meningsnivå}`} 
+                        color={phrase.meningsnivå === 1 ? 'success' : phrase.meningsnivå === 2 ? 'warning' : 'error'}
+                        size="small"
+                        variant="filled"
+                      />
+                    ) : (
+                      <Typography variant="body2" color="text.secondary">
+                        -
+                      </Typography>
+                    )}
                   </TableCell>
                   <TableCell>
                     <Box>

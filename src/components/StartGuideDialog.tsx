@@ -458,11 +458,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                   key={question.id}
                   sx={{ 
                     cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: 3
-                    }
+                    transition: 'all 0.2s'
                   }}
                   onClick={() => handleKnowledgeLevelSelect(question.level)}
                 >
@@ -511,11 +507,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                     mb: 2,
                     border: question.selectedAnswer ? '2px solid' : '1px solid',
                     borderColor: question.selectedAnswer ? 'primary.main' : 'divider',
-                    transition: 'all 0.2s ease-in-out',
-                    '&:hover': {
-                      boxShadow: 3,
-                      transform: 'translateY(-1px)'
-                    }
+                    transition: 'all 0.2s ease-in-out'
                   }}
                 >
                   <CardContent sx={{ p: 3 }}>
@@ -587,11 +579,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           fontWeight: question.selectedAnswer === 'ja' ? 'bold' : 'normal',
                           backgroundColor: question.selectedAnswer === 'ja' ? 'success.main' : 'transparent',
                           color: question.selectedAnswer === 'ja' ? 'white' : 'success.main',
-                          borderColor: 'success.main',
-                          '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'ja' ? 'success.dark' : 'success.light',
-                            color: 'white'
-                          }
+                          borderColor: 'success.main'
                         }}
                       >
                         Ja
@@ -608,11 +596,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           fontWeight: question.selectedAnswer === 'behover_repetera' ? 'bold' : 'normal',
                           backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'transparent',
                           color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
-                          borderColor: 'warning.main',
-                          '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.dark' : 'warning.light',
-                            color: 'white'
-                          }
+                          borderColor: 'warning.main'
                         }}
                       >
                         Behöver repetera
@@ -629,11 +613,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           fontWeight: question.selectedAnswer === 'nej' ? 'bold' : 'normal',
                           backgroundColor: question.selectedAnswer === 'nej' ? '#2196F3' : 'transparent',
                           color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3',
-                          borderColor: '#2196F3',
-                          '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'nej' ? '#1976D2' : '#E3F2FD',
-                            color: 'white'
-                          }
+                          borderColor: '#2196F3'
                         }}
                       >
                         Nej
@@ -659,11 +639,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                   fontWeight: 'bold',
                   background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
                   boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
-                  '&:hover': {
-                    background: 'linear-gradient(45deg, #1976D2 30%, #1CB5E0 90%)',
-                    boxShadow: '0 5px 8px 3px rgba(33, 203, 243, .4)',
-                    transform: 'translateY(-2px)'
-                  },
                   transition: 'all 0.3s ease-in-out'
                 }}
               >
