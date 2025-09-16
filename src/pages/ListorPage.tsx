@@ -474,11 +474,34 @@ const ListorPage: React.FC = () => {
                   {/* Expandable content */}
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <Box sx={{ p: 2, pt: 0 }}>
+                      {/* Ordlista - Enkel lista */}
+                      <Box sx={{ mb: 3 }}>
+                        {wordsInList.map((word, index) => (
+                          <Box 
+                            key={word.id}
+                            sx={{ 
+                              py: 1.5,
+                              px: 2,
+                              borderBottom: index < wordsInList.length - 1 ? '1px solid' : 'none',
+                              borderColor: 'divider',
+                              '&:hover': {
+                                backgroundColor: 'action.hover'
+                              }
+                            }}
+                          >
+                            <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                              {word.ord} <Typography component="span" variant="body2" color="text.secondary" sx={{ fontWeight: 400 }}>
+                                ({word.beskrivning})
+                              </Typography>
+                            </Typography>
+                          </Box>
+                        ))}
+                      </Box>
+                      
                       {/* Bulk-tagging knappar med samma design som startguiden */}
                       <Box sx={{ 
                         display: 'flex', 
                         gap: 2, 
-                        mb: 3, 
                         flexWrap: 'wrap',
                         justifyContent: 'center'
                       }}>
@@ -572,31 +595,6 @@ const ListorPage: React.FC = () => {
                         >
                           Vänta
                         </Button>
-                      </Box>
-                      
-                      {/* Ordlista - Enkel lista */}
-                      <Box sx={{ mt: 2 }}>
-                        {wordsInList.map((word, index) => (
-                          <Box 
-                            key={word.id}
-                            sx={{ 
-                              py: 1.5,
-                              px: 2,
-                              borderBottom: index < wordsInList.length - 1 ? '1px solid' : 'none',
-                              borderColor: 'divider',
-                              '&:hover': {
-                                backgroundColor: 'action.hover'
-                              }
-                            }}
-                          >
-                            <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                              {word.ord}
-                            </Typography>
-                            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
-                              {word.beskrivning}
-                            </Typography>
-                          </Box>
-                        ))}
                       </Box>
                     </Box>
                   </Collapse>
