@@ -158,7 +158,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       const userLevelIndex = difficultyLevels.indexOf(selectedKnowledgeLevel);
       
       const guideLists = allLists
-        .filter(list => list.showInStartGuide === true)
         .filter(list => {
           const listLevelIndex = difficultyLevels.indexOf(list.difficulty);
           return listLevelIndex <= userLevelIndex; // Samma eller lägre svårighetsgrad
