@@ -476,6 +476,35 @@ const ListorPage: React.FC = () => {
                   {/* Expandable content */}
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <Box sx={{ p: 2, pt: 0 }}>
+                      {/* Status-visning */}
+                      <Box sx={{ mb: 2, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                          Status för orden i denna ordlista:
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                          {(() => {
+                            const wordsInList = getWordsFromList(wordList, wordDatabase);
+                            const unmarked = wordsInList.filter(word => !wordProgress[word.id] || wordProgress[word.id].level === 0).length;
+                            const learning = wordsInList.filter(word => wordProgress[word.id] && wordProgress[word.id].level === 1).length;
+                            const learned = wordsInList.filter(word => wordProgress[word.id] && wordProgress[word.id].level === 2).length;
+                            
+                            return (
+                              <>
+                                <Typography variant="body2" sx={{ color: 'grey.600' }}>
+                                  ⚪ Omarkerade: {unmarked}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'warning.main' }}>
+                                  🟡 Att lära mig: {learning}
+                                </Typography>
+                                <Typography variant="body2" sx={{ color: 'success.main' }}>
+                                  🟢 Lärda: {learned}
+                                </Typography>
+                              </>
+                            );
+                          })()}
+                        </Box>
+                      </Box>
+                      
                       {/* Ordlista - Inline lista */}
                       <Box sx={{ mb: 3, p: 2 }}>
                         <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
@@ -505,7 +534,7 @@ const ListorPage: React.FC = () => {
                         <Button
                           variant="outlined"
                           size="medium"
-                          onClick={() => handleBulkTag(wordList, 2)}
+                          onClick={() => handleBulkTag(wordList, 2, 5)}
                           startIcon={<CheckCircle />}
                           sx={{ 
                             flex: { xs: 1, sm: '0 1 auto' },
