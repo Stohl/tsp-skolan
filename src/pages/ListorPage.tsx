@@ -369,7 +369,7 @@ const ListorPage: React.FC = () => {
           Ordlistor
         </Typography>
         <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-          Klicka på ordlistan för att expandera och se orden. Klicka på progress-cirklarna för att markera ord. ⚪ Ej markerad → 🟡 Vill lära sig → 🟢 Lärt sig
+          Klicka på ordlistan för att expandera och se orden. Använd knapparna för att markera alla ord i ordlistan samtidigt.
         </Typography>
         
         {/* Svårighetsgrad-tabs */}

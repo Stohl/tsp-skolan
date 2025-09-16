@@ -236,7 +236,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   {
     id: 'konjunktion_001',
     name: 'konjunktion (1-7)',
-    description: '1-7 vanligaste konjunktion - 514 träffar i lexikonet',
+    description: '1-7 vanligaste konjunktion - 514 träffar i lexikonet. Wiktionary: ord som binder samman två satsdelar eller satser och samtidigt anger ett förhållande mellan dessa, såsom att båda är sanna eller att den ena satsens sanning leder till den andra satsens sanning; vanliga exempel är och, eller, om, eftersom, medan, att etc.',
     wordIds: ['02173', '04151', '03954', '01456', '08042', '05748', '04289'],
     type: 'predefined',
     difficulty: 'nyborjare'
@@ -244,7 +244,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   {
     id: 'preposition_001',
     name: 'preposition (1-9)',
-    description: '1-9 vanligaste preposition - 515 träffar i lexikonet',
+    description: '1-9 vanligaste preposition - 515 träffar i lexikonet. Wiktionary: ord som ställs framför ett substantiv eller substantivfras och anger dess förhållande till resten av meningen, ofta positioner i rum och tid; ord såsom på, runt, före, efter, till, med etcetera',
     wordIds: ['00328', '05055', '00320', '00464', '04473', '00299', '15485', '16274', '00335'],
     type: 'predefined',
     difficulty: 'nyborjare'
