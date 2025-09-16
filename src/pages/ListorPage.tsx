@@ -96,8 +96,8 @@ const ListorPage: React.FC = () => {
   const bulkTaggingRef = useRef(false);
 
   // Funktion som körs när användaren klickar på bulk-tagging knappen
-  const handleBulkTag = (wordList: WordList, level: number) => {
-    console.log(`[DEBUG] handleBulkTag called: listId=${wordList.id}, level=${level}, guard=${bulkTaggingRef.current}`);
+  const handleBulkTag = (wordList: WordList, level: number, points?: number) => {
+    console.log(`[DEBUG] handleBulkTag called: listId=${wordList.id}, level=${level}, points=${points}, guard=${bulkTaggingRef.current}`);
     
     if (bulkTaggingRef.current) {
       console.log('[DEBUG] Bulk tagging already in progress, skipping...');
@@ -110,7 +110,7 @@ const ListorPage: React.FC = () => {
     const wordsInList = getWordsFromList(wordList, wordDatabase);
     console.log(`[DEBUG] Found ${wordsInList.length} words in list:`, wordsInList.map(w => `${w.id}(${w.ord})`));
     
-    console.log(`[DEBUG] Starting bulk tagging ${wordsInList.length} words to level ${level}`);
+    console.log(`[DEBUG] Starting bulk tagging ${wordsInList.length} words to level ${level}, points ${points}`);
     
     // Batch-uppdatera alla ord samtidigt
     setWordProgress((prev: WordProgressStorage) => {
@@ -118,19 +118,21 @@ const ListorPage: React.FC = () => {
       const newProgress = { ...prev };
       
       wordsInList.forEach(word => {
-        console.log(`[DEBUG] Processing word ${word.id} (${word.ord}) to level ${level}`);
+        console.log(`[DEBUG] Processing word ${word.id} (${word.ord}) to level ${level}, points ${points}`);
         
         // Behåll befintlig data eller skapa ny
         const current = prev[word.id] || {
           level: 0,
-          stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
+          stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 },
+          points: 0
         };
         
         console.log(`[DEBUG] Current progress for ${word.id}:`, current);
         
         newProgress[word.id] = {
           ...current,
-          level: level
+          level: level,
+          points: points !== undefined ? points : current.points
         };
         
         console.log(`[DEBUG] New progress for ${word.id}:`, newProgress[word.id]);
@@ -521,12 +523,12 @@ const ListorPage: React.FC = () => {
                             }
                           }}
                         >
-                          Ja
+                          Kan dessa
                         </Button>
                         <Button
                           variant="outlined"
                           size="medium"
-                          onClick={() => handleBulkTag(wordList, 1)}
+                          onClick={() => handleBulkTag(wordList, 1, 3)}
                           sx={{ 
                             flex: { xs: 1, sm: '0 1 auto' },
                             minWidth: { xs: '100%', sm: '140px' },
@@ -548,7 +550,7 @@ const ListorPage: React.FC = () => {
                         <Button
                           variant="outlined"
                           size="medium"
-                          onClick={() => handleBulkTag(wordList, 1)}
+                          onClick={() => handleBulkTag(wordList, 1, 0)}
                           sx={{ 
                             flex: { xs: 1, sm: '0 1 auto' },
                             minWidth: { xs: '100%', sm: '140px' },
@@ -565,7 +567,7 @@ const ListorPage: React.FC = () => {
                             }
                           }}
                         >
-                          Nej
+                          Vill lära mig
                         </Button>
                         <Button
                           variant="outlined"
