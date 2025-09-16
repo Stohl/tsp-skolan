@@ -541,12 +541,29 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                         return a.ord.localeCompare(b.ord, 'sv');
                       });
                       
-                      const firstWords = sortedWords.slice(0, 5).map(word => word.ord).join(', ');
-                      const hasMoreWords = sortedWords.length > 5;
+                      // Visa så många ord som möjligt utan att göra rutan större
+                      let wordsToShow = [];
+                      let currentLength = 0;
+                      const maxLength = 80; // Max längd för att hålla rutan kompakt
+                      
+                      for (let i = 0; i < sortedWords.length; i++) {
+                        const word = sortedWords[i].ord;
+                        const testLength = currentLength + (i > 0 ? 2 : 0) + word.length; // +2 för ', '
+                        
+                        if (testLength <= maxLength) {
+                          wordsToShow.push(word);
+                          currentLength = testLength;
+                        } else {
+                          break;
+                        }
+                      }
+                      
+                      const hasMoreWords = wordsToShow.length < sortedWords.length;
+                      const displayText = wordsToShow.join(', ') + (hasMoreWords ? '...' : '');
                       
                       return (
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                          {firstWords}{hasMoreWords ? '...' : ''}
+                          {displayText}
                         </Typography>
                       );
                     })()}
