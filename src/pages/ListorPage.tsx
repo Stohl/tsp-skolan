@@ -574,60 +574,30 @@ const ListorPage: React.FC = () => {
                         </Button>
                       </Box>
                       
-                      {/* Ordlista */}
-                      <List dense>
-                        {wordsInList.map((word, index) => {
-                          const wordProgressData = wordProgress[word.id] || { level: 0, stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }, points: 0 };
-                          const progressLevel = wordProgressData.level;
-                          const progressColor = progressLevel === 0 ? 'default' : progressLevel === 1 ? 'warning' : 'success';
-                          const progressIcon = progressLevel === 0 ? '⚪' : progressLevel === 1 ? '🟡' : '🟢';
-                          
-                          return (
-                            <React.Fragment key={word.id}>
-                              <ListItem disablePadding>
-                                <ListItemButton onClick={() => handleWordClick(word)}>
-                                  <ListItemText
-                                    primary={
-                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                                        <Typography variant="body1">
-                                          {word.ord}
-                                        </Typography>
-                                        <Typography variant="body2" color="text.secondary">
-                                          ({word.beskrivning})
-                                        </Typography>
-                                      </Box>
-                                    }
-                                    secondary={
-                                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 0.5 }}>
-                                        <Typography variant="caption" color="text.secondary">
-                                          {progressIcon} {progressLevel === 0 ? 'Ej markerad' : progressLevel === 1 ? 'Att lära mig' : 'Lärd'}
-                                        </Typography>
-                                      </Box>
-                                    }
-                                  />
-                                  <Box 
-                                    sx={{ 
-                                      width: 24, 
-                                      height: 24, 
-                                      borderRadius: '50%', 
-                                      backgroundColor: progressColor === 'default' ? 'grey.300' : progressColor === 'warning' ? 'warning.main' : 'success.main',
-                                      display: 'flex',
-                                      alignItems: 'center',
-                                      justifyContent: 'center',
-                                      cursor: 'pointer',
-                                      fontSize: '12px'
-                                    }}
-                                    onClick={(e) => handleProgressClick(word.id, e)}
-                                  >
-                                    {progressIcon}
-                                  </Box>
-                                </ListItemButton>
-                              </ListItem>
-                              {index < wordsInList.length - 1 && <Divider />}
-                            </React.Fragment>
-                          );
-                        })}
-                      </List>
+                      {/* Ordlista - Enkel lista */}
+                      <Box sx={{ mt: 2 }}>
+                        {wordsInList.map((word, index) => (
+                          <Box 
+                            key={word.id}
+                            sx={{ 
+                              py: 1.5,
+                              px: 2,
+                              borderBottom: index < wordsInList.length - 1 ? '1px solid' : 'none',
+                              borderColor: 'divider',
+                              '&:hover': {
+                                backgroundColor: 'action.hover'
+                              }
+                            }}
+                          >
+                            <Typography variant="body1" sx={{ fontWeight: 500 }}>
+                              {word.ord}
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary" sx={{ mt: 0.5 }}>
+                              {word.beskrivning}
+                            </Typography>
+                          </Box>
+                        ))}
+                      </Box>
                     </Box>
                   </Collapse>
                 </CardContent>
