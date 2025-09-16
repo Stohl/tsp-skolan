@@ -2031,7 +2031,10 @@ const OvningPage: React.FC = () => {
 
 
   // Om en övning är vald men currentWord är undefined, visa valideringsmeddelande
-  if (selectedExerciseType && !currentWord) {
+  // Men bara för övningar som behöver lärda ord (inte bokstavering eller meningar)
+  if (selectedExerciseType && !currentWord && 
+      selectedExerciseType !== ExerciseType.SPELLING && 
+      selectedExerciseType !== ExerciseType.SENTENCES) {
     const validation = validateAvailableWords();
     if (!validation.isValid) {
       return (
