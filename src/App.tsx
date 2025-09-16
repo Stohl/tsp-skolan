@@ -81,6 +81,8 @@ function AppContent() {
     if (showHelp) {
       setShowHelp(false);
     }
+    // Scrolla till toppen av sidan
+    window.scrollTo(0, 0);
   };
 
   return (

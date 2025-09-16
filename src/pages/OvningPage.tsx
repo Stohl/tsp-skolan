@@ -1142,6 +1142,14 @@ const OvningPage: React.FC = () => {
     setSelectedInterval(interval);
     localStorage.setItem('spelling-interval', interval.toString());
   };
+
+  // Återställ övningssidan när komponenten mountas (när användaren navigerar tillbaka)
+  useEffect(() => {
+    setSelectedExerciseType(null);
+    setCurrentWordIndex(0);
+    setShowResults(false);
+    setResults([]);
+  }, []);
   const getAllSpellingWords = useMemo(() => {
     const spellingWords = Object.values(wordDatabase).filter((word: any) => 
       word.ämne && word.ämne.includes('Verktyg - Bokstavering - Bokstaverade ord')
@@ -1992,7 +2000,7 @@ const OvningPage: React.FC = () => {
                     <ListItem key={`${result.wordId}-${index}`}>
                       <ListItemText
                         primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
-                        secondary={wordProgress[result.wordId]?.level === 2 ? "Flyttad till lärda ord!" : "Fortfarande att lära mig"}
+                        secondary={wordProgress[result.wordId]?.level === 2 ? "Flyttad till lärda ord!" : ""}
                       />
                       {wordProgress[result.wordId]?.level === 2 ? (
                         <CheckCircle color="success" />
@@ -2139,15 +2147,6 @@ const OvningPage: React.FC = () => {
         />
       )}
 
-      {/* Floating Action Button för att avbryta */}
-      <Fab
-        color="secondary"
-        aria-label="avbryt"
-        onClick={handleBackToMenu}
-        sx={{ position: 'fixed', bottom: 16, right: 16 }}
-      >
-        <Refresh />
-      </Fab>
 
     </Container>
   );
