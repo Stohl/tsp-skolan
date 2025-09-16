@@ -41,12 +41,10 @@ interface KnowledgeLevelQuestion {
   description: string;
 }
 
-// Interface för kategori-baserade frågor
-interface CategoryQuestion {
+// Interface för individuella ordlistor-frågor
+interface WordListQuestion {
   id: string;
-  category: string;
-  categoryName: string;
-  wordLists: WordList[];
+  wordList: WordList;
   selectedAnswer: 'ja' | 'behover_repetera' | 'nej' | null;
 }
 
@@ -74,9 +72,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const { wordProgress, setWordLevel, setWordProgress } = useWordProgress();
   
   // Ny struktur för startguiden
-  const [currentStep, setCurrentStep] = useState<'knowledge_level' | 'categories' | 'completed'>('knowledge_level');
+  const [currentStep, setCurrentStep] = useState<'knowledge_level' | 'wordlists' | 'completed'>('knowledge_level');
   const [selectedKnowledgeLevel, setSelectedKnowledgeLevel] = useState<KnowledgeLevel | null>(null);
-  const [categoryQuestions, setCategoryQuestions] = useState<CategoryQuestion[]>([]);
+  const [wordListQuestions, setWordListQuestions] = useState<WordListQuestion[]>([]);
   
   // Bakåtkompatibilitet - gamla state
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -141,30 +139,23 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     }
   };
 
-  // Generera kategori-frågor när kunskapsnivå är vald
+  // Generera individuella ordlistor-frågor när kunskapsnivå är vald
   useEffect(() => {
     if (selectedKnowledgeLevel && Object.keys(wordDatabase).length > 0) {
       const allLists = getAllWordLists(wordDatabase);
       
-      // Gruppera ordlistor efter kategori (difficulty)
-      const categories = ['handstart', 'fingervana', 'tecknare', 'samspelare'];
+      // Välj ut ordlistor som är markerade för start-guiden
+      const guideLists = allLists
+        .filter(list => list.showInStartGuide === true)
+        .sort((a, b) => (a.startGuidePosition || 999) - (b.startGuidePosition || 999));
       
-      const generatedCategoryQuestions: CategoryQuestion[] = categories.map(category => {
-        const categoryLists = allLists.filter(list => 
-          list.difficulty === category && 
-          list.showInStartGuide === true
-        );
-        
-        return {
-          id: category,
-          category: category,
-          categoryName: category.charAt(0).toUpperCase() + category.slice(1),
-          wordLists: categoryLists,
-          selectedAnswer: getDefaultPlacement(selectedKnowledgeLevel, category)
-        };
-      }).filter(category => category.wordLists.length > 0); // Bara kategorier som har ordlistor
+      const generatedWordListQuestions: WordListQuestion[] = guideLists.map((wordList, index) => ({
+        id: `wordlist_${index}`,
+        wordList: wordList,
+        selectedAnswer: getDefaultPlacement(selectedKnowledgeLevel, wordList.difficulty)
+      }));
       
-      setCategoryQuestions(generatedCategoryQuestions);
+      setWordListQuestions(generatedWordListQuestions);
     }
   }, [selectedKnowledgeLevel, wordDatabase]);
 
@@ -210,16 +201,16 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   // Hantera val av kunskapsnivå
   const handleKnowledgeLevelSelect = (level: KnowledgeLevel) => {
     setSelectedKnowledgeLevel(level);
-    setCurrentStep('categories');
+    setCurrentStep('wordlists');
   };
 
-  // Hantera svar på kategori-frågor
-  const handleCategoryAnswer = (categoryId: string, answer: 'ja' | 'behover_repetera' | 'nej') => {
-    setCategoryQuestions(prev => 
-      prev.map(category => 
-        category.id === categoryId 
-          ? { ...category, selectedAnswer: answer }
-          : category
+  // Hantera svar på ordlistor-frågor
+  const handleWordListAnswer = (questionId: string, answer: 'ja' | 'behover_repetera' | 'nej') => {
+    setWordListQuestions(prev => 
+      prev.map(question => 
+        question.id === questionId 
+          ? { ...question, selectedAnswer: answer }
+          : question
       )
     );
   };
@@ -342,51 +333,49 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const handleFinishNewGuide = () => {
     let totalAdded = 0;
     
-    categoryQuestions.forEach(category => {
-      if (category.selectedAnswer) {
-        category.wordLists.forEach(wordList => {
-          const wordsInList = getWordsFromList(wordList, wordDatabase);
-          
-          wordsInList.forEach(word => {
-            let level = 0;
-            let points = 0;
+    wordListQuestions.forEach(question => {
+      if (question.selectedAnswer) {
+        const wordsInList = getWordsFromList(question.wordList, wordDatabase);
+        
+        wordsInList.forEach(word => {
+          let level = 0;
+          let points = 0;
 
-            switch (category.selectedAnswer) {
-              case 'ja':
-                level = 2; // Lärd
-                points = 5;
-                break;
-              case 'behover_repetera':
-                level = 1; // Att lära mig
-                points = 0;
-                break;
-              case 'nej':
-                level = 1; // Att lära mig
-                points = 0;
-                break;
-            }
+          switch (question.selectedAnswer) {
+            case 'ja':
+              level = 2; // Lärd
+              points = 5;
+              break;
+            case 'behover_repetera':
+              level = 1; // Att lära mig
+              points = 0;
+              break;
+            case 'nej':
+              level = 1; // Att lära mig
+              points = 0;
+              break;
+          }
 
-            // Sätt lastPracticed till tom sträng så att orden hamnar sist i prioritetslistan
-            const neverPracticedTime = '';
+          // Sätt lastPracticed till tom sträng så att orden hamnar sist i prioritetslistan
+          const neverPracticedTime = '';
 
-            setWordLevel(word.id, level);
-            setWordProgress(prev => ({
-              ...prev,
-              [word.id]: {
-                ...prev[word.id],
-                level,
-                points,
-                stats: {
-                  correct: 0,
-                  incorrect: 0,
-                  lastPracticed: neverPracticedTime,
-                  difficulty: 50
-                }
+          setWordLevel(word.id, level);
+          setWordProgress(prev => ({
+            ...prev,
+            [word.id]: {
+              ...prev[word.id],
+              level,
+              points,
+              stats: {
+                correct: 0,
+                incorrect: 0,
+                lastPracticed: neverPracticedTime,
+                difficulty: 50
               }
-            }));
-            
-            totalAdded++;
-          });
+            }
+          }));
+          
+          totalAdded++;
         });
       }
     });
@@ -399,7 +388,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const handleReset = () => {
     setCurrentStep('knowledge_level');
     setSelectedKnowledgeLevel(null);
-    setCategoryQuestions([]);
+    setWordListQuestions([]);
     setCurrentQuestionIndex(0);
     setAnswers({});
     setIsCompleted(false);
@@ -443,7 +432,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
           <School color="primary" />
           <Typography variant="h6">
             {currentStep === 'knowledge_level' && 'Välkommen till TSP Skolan'}
-            {currentStep === 'categories' && 'Anpassa dina ordlistor'}
+            {currentStep === 'wordlists' && 'Anpassa dina ordlistor'}
             {currentStep === 'completed' && 'Start-guide slutförd!'}
           </Typography>
         </Box>
@@ -491,9 +480,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
           </>
         )}
 
-        {currentStep === 'categories' && (
+        {currentStep === 'wordlists' && (
           <>
-            {/* Kategori-baserade frågor */}
+            {/* Individuella ordlistor-frågor */}
             <Alert severity="info" sx={{ mb: 3 }}>
               <Typography variant="body2">
                 Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
@@ -502,65 +491,105 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
             </Alert>
 
             <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-              Ordlistor per kategori
+              Ordlistor
             </Typography>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
-              {categoryQuestions.map((category) => (
-                <Card key={category.id} sx={{ mb: 2 }}>
-                  <CardContent>
-                    <Typography variant="h6" gutterBottom>
-                      Kan du {category.categoryName.toLowerCase()}-ordlistorna?
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {wordListQuestions.map((question) => (
+                <Card 
+                  key={question.id} 
+                  sx={{ 
+                    mb: 2,
+                    border: question.selectedAnswer ? '2px solid' : '1px solid',
+                    borderColor: question.selectedAnswer ? 'primary.main' : 'divider',
+                    transition: 'all 0.2s ease-in-out',
+                    '&:hover': {
+                      boxShadow: 3,
+                      transform: 'translateY(-1px)'
+                    }
+                  }}
+                >
+                  <CardContent sx={{ p: 3 }}>
+                    <Typography variant="h6" gutterBottom sx={{ mb: 2 }}>
+                      Kan du {question.wordList.name.toLowerCase()}?
                     </Typography>
                     
-                    {/* Visa ordlistor i kategorin */}
-                    <Box sx={{ mb: 2 }}>
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                        Ordlistor i denna kategori:
+                    {/* Beskrivning av ordlistan */}
+                    {question.wordList.description && (
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                        {question.wordList.description}
                       </Typography>
-                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                        {category.wordLists.map((wordList) => (
-                          <Chip
-                            key={wordList.id}
-                            label={wordList.name}
-                            size="small"
-                            variant="outlined"
-                            sx={{ fontSize: '0.75rem' }}
-                          />
-                        ))}
-                      </Box>
-                    </Box>
+                    )}
 
-                    {/* Svarsalternativ */}
+                    {/* Svarsalternativ med modern design */}
                     <Box sx={{ 
                       display: 'flex', 
                       flexDirection: { xs: 'column', sm: 'row' }, 
-                      gap: 1,
+                      gap: 1.5,
                       flexWrap: 'wrap'
                     }}>
                       <Button
-                        variant={category.selectedAnswer === 'ja' ? 'contained' : 'outlined'}
-                        size="small"
-                        onClick={() => handleCategoryAnswer(category.id, 'ja')}
-                        sx={{ flex: { xs: 1, sm: '0 1 auto' } }}
+                        variant={question.selectedAnswer === 'ja' ? 'contained' : 'outlined'}
+                        size="medium"
+                        onClick={() => handleWordListAnswer(question.id, 'ja')}
+                        sx={{ 
+                          flex: { xs: 1, sm: '0 1 auto' },
+                          minWidth: { xs: '100%', sm: '120px' },
+                          py: 1.5,
+                          borderRadius: 2,
+                          fontWeight: question.selectedAnswer === 'ja' ? 'bold' : 'normal',
+                          backgroundColor: question.selectedAnswer === 'ja' ? 'success.main' : 'transparent',
+                          color: question.selectedAnswer === 'ja' ? 'white' : 'success.main',
+                          borderColor: 'success.main',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'ja' ? 'success.dark' : 'success.light',
+                            color: 'white'
+                          }
+                        }}
                       >
-                        Ja - Jag kan alla dessa tecken
+                        Ja
                       </Button>
                       <Button
-                        variant={category.selectedAnswer === 'behover_repetera' ? 'contained' : 'outlined'}
-                        size="small"
-                        onClick={() => handleCategoryAnswer(category.id, 'behover_repetera')}
-                        sx={{ flex: { xs: 1, sm: '0 1 auto' } }}
+                        variant={question.selectedAnswer === 'behover_repetera' ? 'contained' : 'outlined'}
+                        size="medium"
+                        onClick={() => handleWordListAnswer(question.id, 'behover_repetera')}
+                        sx={{ 
+                          flex: { xs: 1, sm: '0 1 auto' },
+                          minWidth: { xs: '100%', sm: '120px' },
+                          py: 1.5,
+                          borderRadius: 2,
+                          fontWeight: question.selectedAnswer === 'behover_repetera' ? 'bold' : 'normal',
+                          backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'transparent',
+                          color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
+                          borderColor: 'warning.main',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.dark' : 'warning.light',
+                            color: 'white'
+                          }
+                        }}
                       >
                         Behöver repetera
                       </Button>
                       <Button
-                        variant={category.selectedAnswer === 'nej' ? 'contained' : 'outlined'}
-                        size="small"
-                        onClick={() => handleCategoryAnswer(category.id, 'nej')}
-                        sx={{ flex: { xs: 1, sm: '0 1 auto' } }}
+                        variant={question.selectedAnswer === 'nej' ? 'contained' : 'outlined'}
+                        size="medium"
+                        onClick={() => handleWordListAnswer(question.id, 'nej')}
+                        sx={{ 
+                          flex: { xs: 1, sm: '0 1 auto' },
+                          minWidth: { xs: '100%', sm: '120px' },
+                          py: 1.5,
+                          borderRadius: 2,
+                          fontWeight: question.selectedAnswer === 'nej' ? 'bold' : 'normal',
+                          backgroundColor: question.selectedAnswer === 'nej' ? 'error.main' : 'transparent',
+                          color: question.selectedAnswer === 'nej' ? 'white' : 'error.main',
+                          borderColor: 'error.main',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'nej' ? 'error.dark' : 'error.light',
+                            color: 'white'
+                          }
+                        }}
                       >
-                        Nej - Jag behöver lära mig dessa
+                        Nej
                       </Button>
                     </Box>
                   </CardContent>
@@ -568,14 +597,28 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               ))}
             </Box>
 
-            {/* Slutför-knapp */}
-            <Box sx={{ mt: 3, textAlign: 'center' }}>
+            {/* Slutför-knapp med modern design */}
+            <Box sx={{ mt: 4, textAlign: 'center' }}>
               <Button
                 variant="contained"
                 size="large"
                 onClick={handleFinishNewGuide}
                 startIcon={<CheckCircle />}
-                sx={{ px: 4, py: 1.5 }}
+                sx={{ 
+                  px: 6, 
+                  py: 2,
+                  borderRadius: 3,
+                  fontSize: '1.1rem',
+                  fontWeight: 'bold',
+                  background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+                  boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+                  '&:hover': {
+                    background: 'linear-gradient(45deg, #1976D2 30%, #1CB5E0 90%)',
+                    boxShadow: '0 5px 8px 3px rgba(33, 203, 243, .4)',
+                    transform: 'translateY(-2px)'
+                  },
+                  transition: 'all 0.3s ease-in-out'
+                }}
               >
                 Slutför startguiden
               </Button>
@@ -632,7 +675,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
           </Button>
         )}
         
-        {currentStep === 'categories' && (
+        {currentStep === 'wordlists' && (
           <Button onClick={handleClose} startIcon={<Close />}>
             Stäng guiden
           </Button>
