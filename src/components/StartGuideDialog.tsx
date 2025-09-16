@@ -576,6 +576,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                         variant={question.selectedAnswer === 'ja' ? 'contained' : 'outlined'}
                         size="medium"
                         onClick={() => handleWordListAnswer(question.id, 'ja')}
+                        disableRipple
+                        disableTouchRipple
                         sx={{ 
                           flex: { xs: 1, sm: '0 1 auto' },
                           minWidth: { xs: '100%', sm: '120px' },
@@ -586,8 +588,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           color: question.selectedAnswer === 'ja' ? 'white' : 'success.main',
                           borderColor: 'success.main',
                           '&:hover': {
-                            backgroundColor: 'transparent',
-                            color: 'inherit'
+                            backgroundColor: question.selectedAnswer === 'ja' ? 'success.main' : 'transparent',
+                            color: question.selectedAnswer === 'ja' ? 'white' : 'success.main'
                           }
                         }}
                       >
@@ -597,6 +599,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                         variant={question.selectedAnswer === 'behover_repetera' ? 'contained' : 'outlined'}
                         size="medium"
                         onClick={() => handleWordListAnswer(question.id, 'behover_repetera')}
+                        disableRipple
+                        disableTouchRipple
                         sx={{ 
                           flex: { xs: 1, sm: '0 1 auto' },
                           minWidth: { xs: '100%', sm: '120px' },
@@ -607,8 +611,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
                           borderColor: 'warning.main',
                           '&:hover': {
-                            backgroundColor: 'transparent',
-                            color: 'inherit'
+                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'transparent',
+                            color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main'
                           }
                         }}
                       >
@@ -618,6 +622,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                         variant={question.selectedAnswer === 'nej' ? 'contained' : 'outlined'}
                         size="medium"
                         onClick={() => handleWordListAnswer(question.id, 'nej')}
+                        disableRipple
+                        disableTouchRipple
                         sx={{ 
                           flex: { xs: 1, sm: '0 1 auto' },
                           minWidth: { xs: '100%', sm: '120px' },
@@ -628,8 +634,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3',
                           borderColor: '#2196F3',
                           '&:hover': {
-                            backgroundColor: 'transparent',
-                            color: 'inherit'
+                            backgroundColor: question.selectedAnswer === 'nej' ? '#2196F3' : 'transparent',
+                            color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3'
                           }
                         }}
                       >
