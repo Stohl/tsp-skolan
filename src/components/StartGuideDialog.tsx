@@ -586,8 +586,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           color: question.selectedAnswer === 'ja' ? 'white' : 'success.main',
                           borderColor: 'success.main',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'ja' ? 'success.main' : 'success.light',
-                            color: question.selectedAnswer === 'ja' ? 'white' : 'success.main'
+                            backgroundColor: 'transparent',
+                            color: 'inherit'
                           }
                         }}
                       >
@@ -607,8 +607,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
                           borderColor: 'warning.main',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'warning.light',
-                            color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main'
+                            backgroundColor: 'transparent',
+                            color: 'inherit'
                           }
                         }}
                       >
@@ -628,8 +628,8 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3',
                           borderColor: '#2196F3',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'nej' ? '#2196F3' : '#E3F2FD',
-                            color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3'
+                            backgroundColor: 'transparent',
+                            color: 'inherit'
                           }
                         }}
                       >
