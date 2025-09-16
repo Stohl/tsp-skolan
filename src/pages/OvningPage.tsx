@@ -1173,6 +1173,9 @@ const OvningPage: React.FC = () => {
     return wordsWithProgress.filter(word => word.progress.level === 2);
   }, [wordDatabase, wordProgress]);
 
+  // State för att hålla statisk lista av ord under hela övningen
+  const [staticPracticeWords, setStaticPracticeWords] = useState<any[]>([]);
+
   // Beräkna ord för övning med ny logik: svårighetsgrad-prioritering + slumpning + lärda ord-repetition
   const practiceWords = useMemo(() => {
     if (Object.keys(wordDatabase).length === 0) return [];
@@ -1286,6 +1289,14 @@ const OvningPage: React.FC = () => {
     return shuffledCombinedWords;
   }, [wordDatabase, wordProgress, learningWordsOnly]); // Lägg till learningWordsOnly som dependency
 
+  // Uppdatera staticPracticeWords när practiceWords ändras och vi inte är mitt i en övning
+  useEffect(() => {
+    if (practiceWords.length > 0 && currentWordIndex === 0 && !showResults) {
+      console.log(`[DEBUG] Setting static practice words:`, practiceWords.map(w => `${w.ord} (ID: ${w.id})`));
+      setStaticPracticeWords(practiceWords);
+    }
+  }, [practiceWords, currentWordIndex, showResults]);
+
   // Beräkna ord för quiz med minst 10 ord (inklusive fallback till lärda ord)
   const quizWords = useMemo(() => {
     if (Object.keys(wordDatabase).length === 0) return [];
@@ -1372,12 +1383,15 @@ const OvningPage: React.FC = () => {
     setCurrentWordIndex(0);
     setResults([]);
     setShowResults(false);
+    
+    // Reset staticPracticeWords för att tvinga en ny beräkning
+    setStaticPracticeWords([]);
   };
 
   // Funktion som körs när användaren slutför en övning
   const handleExerciseResult = (isCorrect: boolean) => {
     const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : practiceWords;
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : staticPracticeWords;
     const currentWord = currentWords[currentWordIndex];
     if (!currentWord) return;
 
@@ -1415,7 +1429,7 @@ const OvningPage: React.FC = () => {
   // Funktion som körs när användaren hoppar över en övning
   const handleSkip = () => {
     const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : practiceWords;
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : staticPracticeWords;
     console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, currentWords.length=${currentWords.length}`);
     
     if (currentWordIndex < currentWords.length - 1) {
@@ -1483,9 +1497,9 @@ const OvningPage: React.FC = () => {
     } else if ((selectedExerciseType as ExerciseType) === ExerciseType.QUIZ) {
       return quizWords[currentWordIndex];
     } else {
-      return practiceWords[currentWordIndex];
+      return staticPracticeWords[currentWordIndex];
     }
-  }, [selectedExerciseType, currentWordIndex, spellingWords, quizWords, practiceWords]);
+  }, [selectedExerciseType, currentWordIndex, spellingWords, quizWords, staticPracticeWords]);
 
   // Funktion för att validera tillgängliga ord och returnera felmeddelande
   const validateAvailableWords = () => {
