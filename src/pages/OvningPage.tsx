@@ -1810,118 +1810,238 @@ const OvningPage: React.FC = () => {
     return (
       <Container maxWidth="md" sx={{ py: 4 }}>
 
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={6} lg={3}>
-            <Card 
-              sx={{ 
-                cursor: 'pointer', 
-                height: '100%',
-                '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
-              }}
-              onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
-            >
-              <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <School sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom>
-                  Teckna
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Se ordet och vänd kortet för att se tecknet. Markera om du kunde ordet eller inte.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { 
+            xs: '1fr', 
+            sm: 'repeat(2, 1fr)', 
+            md: 'repeat(3, 1fr)', 
+            lg: 'repeat(4, 1fr)' 
+          },
+          gap: 3,
+          mb: 4
+        }}>
+          {/* Teckna */}
+          <Card 
+            sx={{ 
+              cursor: 'pointer', 
+              height: '100%',
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-8px)', 
+                transition: 'all 0.3s ease',
+                boxShadow: '0 20px 40px rgba(102, 126, 234, 0.3)'
+              },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.1)',
+                opacity: 0,
+                transition: 'opacity 0.3s ease'
+              },
+              '&:hover::before': {
+                opacity: 1
+              }
+            }}
+            onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
+          >
+            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
+              <School sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
+              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+                Teckna
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+                Se ordet och vänd kortet för att se tecknet. Markera om du kunde ordet eller inte.
+              </Typography>
+            </CardContent>
+          </Card>
 
-          <Grid item xs={12} md={6} lg={3}>
-            <Card 
-              sx={{ 
-                cursor: 'pointer', 
-                height: '100%',
-                '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
-              }}
-              onClick={() => {
-                if (quizWords.length < 10) {
-                  alert(`Du behöver minst 10 ord för att kunna göra flervalsquiz. Du har för närvarande ${quizWords.length} ord tillgängliga (från "att lära mig" och "lärda").\n\nMarkera fler ord som "vill lära mig" eller "lärda" för att kunna göra quizet.`);
-                  return;
-                }
-                handleExerciseTypeSelect(ExerciseType.QUIZ);
-              }}
-            >
-              <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <Quiz sx={{ fontSize: 60, color: 'secondary.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom>
-                  Flervalsquiz
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Se videon och välj rätt ord från flera alternativ.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {/* Flervalsquiz */}
+          <Card 
+            sx={{ 
+              cursor: 'pointer', 
+              height: '100%',
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-8px)', 
+                transition: 'all 0.3s ease',
+                boxShadow: '0 20px 40px rgba(240, 147, 251, 0.3)'
+              },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.1)',
+                opacity: 0,
+                transition: 'opacity 0.3s ease'
+              },
+              '&:hover::before': {
+                opacity: 1
+              }
+            }}
+            onClick={() => {
+              if (quizWords.length < 10) {
+                alert(`Du behöver minst 10 ord för att kunna göra flervalsquiz. Du har för närvarande ${quizWords.length} ord tillgängliga (från "att lära mig" och "lärda").\n\nMarkera fler ord som "vill lära mig" eller "lärda" för att kunna göra quizet.`);
+                return;
+              }
+              handleExerciseTypeSelect(ExerciseType.QUIZ);
+            }}
+          >
+            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
+              <Quiz sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
+              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+                Flervalsquiz
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+                Se videon och välj rätt ord från flera alternativ.
+              </Typography>
+            </CardContent>
+          </Card>
 
-          <Grid item xs={12} md={6} lg={3}>
-            <Card 
-              sx={{ 
-                cursor: 'pointer', 
-                height: '100%',
-                '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
-              }}
-              onClick={() => handleExerciseTypeSelect(ExerciseType.SIGN)}
-            >
-              <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <Gesture sx={{ fontSize: 60, color: 'success.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom>
-                  Övningstest
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Se ordet, teckna själv, och jämför med videon.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {/* Övningstest */}
+          <Card 
+            sx={{ 
+              cursor: 'pointer', 
+              height: '100%',
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-8px)', 
+                transition: 'all 0.3s ease',
+                boxShadow: '0 20px 40px rgba(79, 172, 254, 0.3)'
+              },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.1)',
+                opacity: 0,
+                transition: 'opacity 0.3s ease'
+              },
+              '&:hover::before': {
+                opacity: 1
+              }
+            }}
+            onClick={() => handleExerciseTypeSelect(ExerciseType.SIGN)}
+          >
+            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
+              <Gesture sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
+              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+                Övningstest
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+                Se ordet, teckna själv, och jämför med videon.
+              </Typography>
+            </CardContent>
+          </Card>
 
-          <Grid item xs={12} md={6} lg={3}>
-            <Card 
-              sx={{ 
-                cursor: 'pointer', 
-                height: '100%',
-                '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
-              }}
-              onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
-            >
-              <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <Spellcheck sx={{ fontSize: 60, color: 'warning.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom>
-                  Bokstavering
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Se bokstaveringsvideo och gissa vilket ord som bokstaveras.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
+          {/* Bokstavering */}
+          <Card 
+            sx={{ 
+              cursor: 'pointer', 
+              height: '100%',
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-8px)', 
+                transition: 'all 0.3s ease',
+                boxShadow: '0 20px 40px rgba(67, 233, 123, 0.3)'
+              },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.1)',
+                opacity: 0,
+                transition: 'opacity 0.3s ease'
+              },
+              '&:hover::before': {
+                opacity: 1
+              }
+            }}
+            onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
+          >
+            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
+              <Spellcheck sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
+              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+                Bokstavering
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+                Se bokstaveringsvideo och gissa vilket ord som bokstaveras.
+              </Typography>
+            </CardContent>
+          </Card>
 
-          <Grid item xs={12} md={6} lg={3}>
-            <Card 
-              sx={{ 
-                cursor: 'pointer', 
-                height: '100%',
-                '&:hover': { transform: 'translateY(-4px)', transition: 'transform 0.2s' }
-              }}
-              onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
-            >
-              <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <ChatBubbleOutline sx={{ fontSize: 60, color: 'info.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom>
-                  Meningar
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Öva med meningar och fraser från dina lärda ord.
-                </Typography>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
+          {/* Meningar */}
+          <Card 
+            sx={{ 
+              cursor: 'pointer', 
+              height: '100%',
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
+              color: 'white',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-8px)', 
+                transition: 'all 0.3s ease',
+                boxShadow: '0 20px 40px rgba(250, 112, 154, 0.3)'
+              },
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'rgba(255, 255, 255, 0.1)',
+                opacity: 0,
+                transition: 'opacity 0.3s ease'
+              },
+              '&:hover::before': {
+                opacity: 1
+              }
+            }}
+            onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
+          >
+            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
+              <ChatBubbleOutline sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
+              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+                Meningar
+              </Typography>
+              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+                Öva med meningar och fraser från dina lärda ord.
+              </Typography>
+            </CardContent>
+          </Card>
+        </Box>
 
         {/* Progress-info */}
          {/* Progress-info */}
