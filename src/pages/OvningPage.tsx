@@ -1435,7 +1435,6 @@ const OvningPage: React.FC = () => {
     
     // Räkna ord direkt från wordProgress istället för från practiceWords
     const availableLearningWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1);
-    const availableLearnedWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2);
     
     if (availableLearningWords.length < minLearningWordsNeeded) {
       return {
@@ -1445,14 +1444,7 @@ const OvningPage: React.FC = () => {
       };
     }
     
-    if (reviewCount > 0 && availableLearnedWords.length === 0) {
-      return {
-        isValid: false,
-        message: `Du har valt att repetera ${reviewCount} lärda ord, men du har inga lärda ord än.`,
-        suggestion: 'Gå till Inställningar och ändra antal lärda ord att repetera till 0, eller öva tills du har lärda ord.'
-      };
-    }
-    
+    // Ta bort validering för lärda ord - om man har 0 så får det vara 0
     return { isValid: true };
   };
 

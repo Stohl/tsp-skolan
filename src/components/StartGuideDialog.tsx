@@ -30,7 +30,27 @@ import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
 import { useWordProgress } from '../hooks/usePersistentState';
 
-// Interface för start-guide frågor
+// Kunskapsnivåer för startguiden
+export type KnowledgeLevel = 'nyborjare' | 'lite_erfaren' | 'erfaren' | 'avancerad';
+
+// Interface för kunskapsnivå-fråga
+interface KnowledgeLevelQuestion {
+  id: string;
+  level: KnowledgeLevel;
+  title: string;
+  description: string;
+}
+
+// Interface för kategori-baserade frågor
+interface CategoryQuestion {
+  id: string;
+  category: string;
+  categoryName: string;
+  wordLists: WordList[];
+  selectedAnswer: 'ja' | 'behover_repetera' | 'nej' | null;
+}
+
+// Interface för start-guide frågor (bakåtkompatibilitet)
 interface GuideQuestion {
   id: string;
   question: string;
@@ -53,6 +73,12 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const { wordDatabase } = useDatabase();
   const { wordProgress, setWordLevel, setWordProgress } = useWordProgress();
   
+  // Ny struktur för startguiden
+  const [currentStep, setCurrentStep] = useState<'knowledge_level' | 'categories' | 'completed'>('knowledge_level');
+  const [selectedKnowledgeLevel, setSelectedKnowledgeLevel] = useState<KnowledgeLevel | null>(null);
+  const [categoryQuestions, setCategoryQuestions] = useState<CategoryQuestion[]>([]);
+  
+  // Bakåtkompatibilitet - gamla state
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [questions, setQuestions] = useState<GuideQuestion[]>([]);
   const [answers, setAnswers] = useState<{ [questionId: string]: 'ja' | 'delvis' | 'nej' | 'hoppa' }>({});
@@ -71,7 +97,78 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
 
   const wordCounts = getWordCounts();
 
-  // Generera frågor baserat på ordlistor
+  // Kunskapsnivå-frågor
+  const knowledgeLevelQuestions: KnowledgeLevelQuestion[] = [
+    {
+      id: 'nyborjare',
+      level: 'nyborjare',
+      title: 'Nybörjare',
+      description: 'Jag har aldrig tecknat förut'
+    },
+    {
+      id: 'lite_erfaren',
+      level: 'lite_erfaren',
+      title: 'Lite erfaren',
+      description: 'Jag kan några grundläggande tecken'
+    },
+    {
+      id: 'erfaren',
+      level: 'erfaren',
+      title: 'Erfaren',
+      description: 'Jag kan många tecken och några fraser'
+    },
+    {
+      id: 'avancerad',
+      level: 'avancerad',
+      title: 'Avancerad',
+      description: 'Jag kan teckna flytande'
+    }
+  ];
+
+  // Logik för automatisk placering baserat på kunskapsnivå
+  const getDefaultPlacement = (knowledgeLevel: KnowledgeLevel, difficulty: string): 'ja' | 'behover_repetera' | 'nej' => {
+    switch (knowledgeLevel) {
+      case 'nyborjare':
+        return 'nej'; // Alla ordlistor i "nej" (behöver lära mig)
+      case 'lite_erfaren':
+        return difficulty === 'handstart' ? 'nej' : 'behover_repetera';
+      case 'erfaren':
+        return difficulty === 'handstart' || difficulty === 'fingervana' ? 'behover_repetera' : 'ja';
+      case 'avancerad':
+        return 'ja'; // Alla ordlistor i "ja" (kan redan)
+      default:
+        return 'nej';
+    }
+  };
+
+  // Generera kategori-frågor när kunskapsnivå är vald
+  useEffect(() => {
+    if (selectedKnowledgeLevel && Object.keys(wordDatabase).length > 0) {
+      const allLists = getAllWordLists(wordDatabase);
+      
+      // Gruppera ordlistor efter kategori (difficulty)
+      const categories = ['handstart', 'fingervana', 'tecknare', 'samspelare'];
+      
+      const generatedCategoryQuestions: CategoryQuestion[] = categories.map(category => {
+        const categoryLists = allLists.filter(list => 
+          list.difficulty === category && 
+          list.showInStartGuide === true
+        );
+        
+        return {
+          id: category,
+          category: category,
+          categoryName: category.charAt(0).toUpperCase() + category.slice(1),
+          wordLists: categoryLists,
+          selectedAnswer: getDefaultPlacement(selectedKnowledgeLevel, category)
+        };
+      }).filter(category => category.wordLists.length > 0); // Bara kategorier som har ordlistor
+      
+      setCategoryQuestions(generatedCategoryQuestions);
+    }
+  }, [selectedKnowledgeLevel, wordDatabase]);
+
+  // Generera frågor baserat på ordlistor (bakåtkompatibilitet)
   useEffect(() => {
     if (Object.keys(wordDatabase).length > 0) {
       const allLists = getAllWordLists(wordDatabase);
@@ -110,7 +207,24 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     }
   }, [wordDatabase]);
 
-  // Hantera svar på frågor
+  // Hantera val av kunskapsnivå
+  const handleKnowledgeLevelSelect = (level: KnowledgeLevel) => {
+    setSelectedKnowledgeLevel(level);
+    setCurrentStep('categories');
+  };
+
+  // Hantera svar på kategori-frågor
+  const handleCategoryAnswer = (categoryId: string, answer: 'ja' | 'behover_repetera' | 'nej') => {
+    setCategoryQuestions(prev => 
+      prev.map(category => 
+        category.id === categoryId 
+          ? { ...category, selectedAnswer: answer }
+          : category
+      )
+    );
+  };
+
+  // Hantera svar på frågor (bakåtkompatibilitet)
   const handleAnswer = (answer: 'ja' | 'delvis' | 'nej' | 'hoppa') => {
     const currentQuestion = questions[currentQuestionIndex];
     if (!currentQuestion) return;
@@ -224,8 +338,68 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     }
   };
 
+  // Slutför startguiden med nya strukturen
+  const handleFinishNewGuide = () => {
+    let totalAdded = 0;
+    
+    categoryQuestions.forEach(category => {
+      if (category.selectedAnswer) {
+        category.wordLists.forEach(wordList => {
+          const wordsInList = getWordsFromList(wordList, wordDatabase);
+          
+          wordsInList.forEach(word => {
+            let level = 0;
+            let points = 0;
+
+            switch (category.selectedAnswer) {
+              case 'ja':
+                level = 2; // Lärd
+                points = 5;
+                break;
+              case 'behover_repetera':
+                level = 1; // Att lära mig
+                points = 0;
+                break;
+              case 'nej':
+                level = 1; // Att lära mig
+                points = 0;
+                break;
+            }
+
+            // Sätt lastPracticed till tom sträng så att orden hamnar sist i prioritetslistan
+            const neverPracticedTime = '';
+
+            setWordLevel(word.id, level);
+            setWordProgress(prev => ({
+              ...prev,
+              [word.id]: {
+                ...prev[word.id],
+                level,
+                points,
+                stats: {
+                  correct: 0,
+                  incorrect: 0,
+                  lastPracticed: neverPracticedTime,
+                  difficulty: 50
+                }
+              }
+            }));
+            
+            totalAdded++;
+          });
+        });
+      }
+    });
+    
+    setTotalWordsAdded(totalAdded);
+    setCurrentStep('completed');
+  };
+
   // Återställ guide
   const handleReset = () => {
+    setCurrentStep('knowledge_level');
+    setSelectedKnowledgeLevel(null);
+    setCategoryQuestions([]);
     setCurrentQuestionIndex(0);
     setAnswers({});
     setIsCompleted(false);
@@ -250,12 +424,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     }, 500);
   };
 
+  // Bakåtkompatibilitet - gamla variabler
   const currentQuestion = questions[currentQuestionIndex];
   const progress = questions.length > 0 ? ((currentQuestionIndex + 1) / questions.length) * 100 : 0;
-
-  if (!currentQuestion && !isCompleted) {
-    return null;
-  }
 
   return (
     <Dialog 
@@ -271,184 +442,148 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
           <School color="primary" />
           <Typography variant="h6">
-            {isCompleted ? 'Start-guide slutförd!' : 'Välkommen till TSP Skolan'}
+            {currentStep === 'knowledge_level' && 'Välkommen till TSP Skolan'}
+            {currentStep === 'categories' && 'Anpassa dina ordlistor'}
+            {currentStep === 'completed' && 'Start-guide slutförd!'}
           </Typography>
         </Box>
       </DialogTitle>
 
       <DialogContent>
-        {!isCompleted ? (
+        {currentStep === 'knowledge_level' && (
           <>
-            {/* Progress bar för antal ord i "att lära mig" */}
-            <Box sx={{ mb: 3 }}>
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="body2" color="text.secondary">
-                  Fråga {currentQuestionIndex + 1} av {questions.length}
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {wordCounts.attLaraMig} ord i "att lära mig"
-                </Typography>
-              </Box>
-              
-              {/* Progress bar med färgkodning baserat på antal ord */}
-              {(() => {
-                const targetMin = 50;
-                const targetMax = 150;
-                const currentCount = wordCounts.attLaraMig;
-                
-                // Beräkna progress som procent av 0-200 intervallet
-                let progressPercent = (currentCount / 200) * 100;
-                let progressColor;
-                
-                if (currentCount < targetMin) {
-                  // Under 50: gult
-                  progressColor = 'warning';
-                } else if (currentCount <= targetMax) {
-                  // 50-150: grönt
-                  progressColor = 'success';
-                } else {
-                  // Över 150: rött
-                  progressColor = 'error';
-                }
-                
-                return (
-                  <>
-                    <LinearProgress 
-                      variant="determinate" 
-                      value={Math.min(progressPercent, 100)}
-                      sx={{
-                        height: 8,
-                        borderRadius: 4,
-                        backgroundColor: 'grey.200',
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: progressColor === 'warning' ? '#ff9800' : 
-                                         progressColor === 'success' ? '#4caf50' : '#f44336'
-                        }
-                      }}
-                    />
-                    <Box sx={{ mt: 1 }}>
-                      <Typography variant="caption" color="text.secondary">
-                        Rekommenderat: 50-150 ord i "att lära mig"
+            {/* Kunskapsnivå-fråga */}
+            <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body2">
+                Vi vill veta din nuvarande kunskapsnivå för att anpassa appen efter dig.
+              </Typography>
+            </Alert>
+
+            <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+              Vilken kunskapsnivå har du i dagsläget?
+            </Typography>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+              {knowledgeLevelQuestions.map((question) => (
+                <Card 
+                  key={question.id}
+                  sx={{ 
+                    cursor: 'pointer',
+                    transition: 'all 0.2s',
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: 3
+                    }
+                  }}
+                  onClick={() => handleKnowledgeLevelSelect(question.level)}
+                >
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      {question.title}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                      {question.description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+              ))}
+            </Box>
+          </>
+        )}
+
+        {currentStep === 'categories' && (
+          <>
+            {/* Kategori-baserade frågor */}
+            <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body2">
+                Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
+                Du kan ändra dessa om du vill.
+              </Typography>
+            </Alert>
+
+            <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
+              Ordlistor per kategori
+            </Typography>
+
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+              {categoryQuestions.map((category) => (
+                <Card key={category.id} sx={{ mb: 2 }}>
+                  <CardContent>
+                    <Typography variant="h6" gutterBottom>
+                      Kan du {category.categoryName.toLowerCase()}-ordlistorna?
+                    </Typography>
+                    
+                    {/* Visa ordlistor i kategorin */}
+                    <Box sx={{ mb: 2 }}>
+                      <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                        Ordlistor i denna kategori:
                       </Typography>
+                      <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+                        {category.wordLists.map((wordList) => (
+                          <Chip
+                            key={wordList.id}
+                            label={wordList.name}
+                            size="small"
+                            variant="outlined"
+                            sx={{ fontSize: '0.75rem' }}
+                          />
+                        ))}
+                      </Box>
                     </Box>
-                  </>
-                );
-              })()}
-              
-              <Box sx={{ display: 'flex', justifyContent: 'space-between', mt: 1 }}>
-                <Typography variant="caption" color="text.secondary">
-                  Att lära mig: {wordCounts.attLaraMig} ord
-                </Typography>
-                <Typography variant="caption" color="text.secondary">
-                  Lärda: {wordCounts.larda} ord
-                </Typography>
-              </Box>
+
+                    {/* Svarsalternativ */}
+                    <Box sx={{ 
+                      display: 'flex', 
+                      flexDirection: { xs: 'column', sm: 'row' }, 
+                      gap: 1,
+                      flexWrap: 'wrap'
+                    }}>
+                      <Button
+                        variant={category.selectedAnswer === 'ja' ? 'contained' : 'outlined'}
+                        size="small"
+                        onClick={() => handleCategoryAnswer(category.id, 'ja')}
+                        sx={{ flex: { xs: 1, sm: '0 1 auto' } }}
+                      >
+                        Ja - Jag kan alla dessa tecken
+                      </Button>
+                      <Button
+                        variant={category.selectedAnswer === 'behover_repetera' ? 'contained' : 'outlined'}
+                        size="small"
+                        onClick={() => handleCategoryAnswer(category.id, 'behover_repetera')}
+                        sx={{ flex: { xs: 1, sm: '0 1 auto' } }}
+                      >
+                        Behöver repetera
+                      </Button>
+                      <Button
+                        variant={category.selectedAnswer === 'nej' ? 'contained' : 'outlined'}
+                        size="small"
+                        onClick={() => handleCategoryAnswer(category.id, 'nej')}
+                        sx={{ flex: { xs: 1, sm: '0 1 auto' } }}
+                      >
+                        Nej - Jag behöver lära mig dessa
+                      </Button>
+                    </Box>
+                  </CardContent>
+                </Card>
+              ))}
             </Box>
 
-            {/* Introduktion för första frågan */}
-            {currentQuestionIndex === 0 && (
-              <Alert severity="info" sx={{ mb: 3 }}>
-                <Typography variant="body2">
-                  Vi kommer att ställa några enkla frågor för att anpassa appen efter din nivå. 
-                  Baserat på dina svar kommer vi att lägga till ord i dina listor.
-                </Typography>
-              </Alert>
-            )}
-
-            {/* Aktuell fråga */}
-            <Card sx={{ mb: 3 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  {currentQuestion?.question}
-                </Typography>
-                
-                {/* Visa orden om showWords är true */}
-                {currentQuestion?.showWords && currentQuestion?.words && currentQuestion.words.length > 0 && (
-                  <Box sx={{ mt: 2 }}>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-                      {currentQuestion.words.slice(0, 20).map((word: any, index: number) => (
-                        <Chip
-                          key={word.id || index}
-                          label={word.ord}
-                          size="small"
-                          variant="outlined"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
-                      ))}
-                      {currentQuestion.words.length > 20 && (
-                        <Chip
-                          label={`+${currentQuestion.words.length - 20} fler`}
-                          size="small"
-                          variant="outlined"
-                          color="secondary"
-                          sx={{ fontSize: '0.75rem' }}
-                        />
-                      )}
-                    </Box>
-                  </Box>
-                )}
-              </CardContent>
-            </Card>
-
-            {/* Svarsalternativ */}
-            <Box sx={{ 
-              display: 'flex', 
-              flexDirection: { xs: 'column', sm: 'row' }, 
-              gap: 2,
-              flexWrap: 'wrap',
-              justifyContent: 'center'
-            }}>
+            {/* Slutför-knapp */}
+            <Box sx={{ mt: 3, textAlign: 'center' }}>
               <Button
-                variant="outlined"
+                variant="contained"
                 size="large"
-                onClick={() => handleAnswer('ja')}
-                startIcon={<CheckCircle color="success" />}
-                sx={{ 
-                  flex: { xs: 1, sm: '0 1 auto' },
-                  minWidth: { xs: '100%', sm: '140px' },
-                  p: 2 
-                }}
+                onClick={handleFinishNewGuide}
+                startIcon={<CheckCircle />}
+                sx={{ px: 4, py: 1.5 }}
               >
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Ja, vill lära mig
-                </Typography>
-              </Button>
-
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={() => handleAnswer('nej')}
-                startIcon={<TrendingUp color="warning" />}
-                sx={{ 
-                  flex: { xs: 1, sm: '0 1 auto' },
-                  minWidth: { xs: '100%', sm: '140px' },
-                  p: 2 
-                }}
-              >
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Kan redan
-                </Typography>
-              </Button>
-
-
-              <Button
-                variant="outlined"
-                size="large"
-                onClick={() => handleAnswer('hoppa')}
-                startIcon={<SkipNext color="action" />}
-                sx={{ 
-                  flex: { xs: 1, sm: '0 1 auto' },
-                  minWidth: { xs: '100%', sm: '140px' },
-                  p: 2 
-                }}
-              >
-                <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
-                  Avvakta
-                </Typography>
+                Slutför startguiden
               </Button>
             </Box>
           </>
-        ) : (
+        )}
+
+        {currentStep === 'completed' && (
           /* Slutskärm */
           <Box sx={{ textAlign: 'center' }}>
             <CheckCircle sx={{ fontSize: 80, color: 'success.main', mb: 2 }} />
@@ -491,11 +626,19 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       </DialogContent>
 
       <DialogActions>
-        {!isCompleted ? (
+        {currentStep === 'knowledge_level' && (
           <Button onClick={handleClose} startIcon={<Close />}>
             Stäng guiden
           </Button>
-        ) : (
+        )}
+        
+        {currentStep === 'categories' && (
+          <Button onClick={handleClose} startIcon={<Close />}>
+            Stäng guiden
+          </Button>
+        )}
+        
+        {currentStep === 'completed' && (
           <Button onClick={handleFinish} variant="contained" startIcon={<PlayArrow />}>
             Börja öva!
           </Button>
