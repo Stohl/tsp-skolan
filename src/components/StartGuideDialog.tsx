@@ -482,8 +482,12 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
 
         {currentStep === 'wordlists' && (
           <>
-            {/* Kort beskrivning av vad alternativen betyder */}
+            {/* Beskrivning av vad alternativen betyder */}
             <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body2" sx={{ mb: 2 }}>
+                Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
+                Du kan ändra dessa om du vill.
+              </Typography>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 <strong>Ja</strong> = Ordlistan läggs till i "Lärda" (kan redan)
               </Typography>
@@ -522,12 +526,27 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                     {/* Visa första orden i ordlistan */}
                     {(() => {
                       const wordsInList = getWordsFromList(question.wordList, wordDatabase);
-                      const firstWords = wordsInList.slice(0, 5).map(word => word.ord).join(', ');
-                      const hasMoreWords = wordsInList.length > 5;
+                      
+                      // Sortera orden - försök först numeriskt, sedan alfabetiskt
+                      const sortedWords = wordsInList.sort((a, b) => {
+                        const aNum = parseFloat(a.ord);
+                        const bNum = parseFloat(b.ord);
+                        
+                        // Om båda är nummer, sortera numeriskt
+                        if (!isNaN(aNum) && !isNaN(bNum)) {
+                          return aNum - bNum;
+                        }
+                        
+                        // Annars sortera alfabetiskt
+                        return a.ord.localeCompare(b.ord, 'sv');
+                      });
+                      
+                      const firstWords = sortedWords.slice(0, 5).map(word => word.ord).join(', ');
+                      const hasMoreWords = sortedWords.length > 5;
                       
                       return (
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                          Till exempel: {firstWords}{hasMoreWords ? '...' : ''}
+                          {firstWords}{hasMoreWords ? '...' : ''}
                         </Typography>
                       );
                     })()}
@@ -570,11 +589,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           py: 1.5,
                           borderRadius: 2,
                           fontWeight: question.selectedAnswer === 'behover_repetera' ? 'bold' : 'normal',
-                          backgroundColor: question.selectedAnswer === 'behover_repetera' ? '#FFA726' : 'transparent',
-                          color: question.selectedAnswer === 'behover_repetera' ? 'white' : '#FFA726',
-                          borderColor: '#FFA726',
+                          backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'transparent',
+                          color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
+                          borderColor: 'warning.main',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? '#FF9800' : '#FFF3E0',
+                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.dark' : 'warning.light',
                             color: 'white'
                           }
                         }}
@@ -591,11 +610,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           py: 1.5,
                           borderRadius: 2,
                           fontWeight: question.selectedAnswer === 'nej' ? 'bold' : 'normal',
-                          backgroundColor: question.selectedAnswer === 'nej' ? '#FFC107' : 'transparent',
-                          color: question.selectedAnswer === 'nej' ? 'white' : '#FFC107',
-                          borderColor: '#FFC107',
+                          backgroundColor: question.selectedAnswer === 'nej' ? '#2196F3' : 'transparent',
+                          color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3',
+                          borderColor: '#2196F3',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'nej' ? '#FFB300' : '#FFFDE7',
+                            backgroundColor: question.selectedAnswer === 'nej' ? '#1976D2' : '#E3F2FD',
                             color: 'white'
                           }
                         }}
