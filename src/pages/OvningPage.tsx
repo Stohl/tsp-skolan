@@ -1234,8 +1234,10 @@ const OvningPage: React.FC = () => {
       const additionalLearnedWords = shuffledLearnedWords.slice(reviewCount, reviewCount + neededFromLearned);
       selectedLearningWords = [...selectedLearningWords, ...additionalLearnedWords];
       
-      // Uppdatera antalet lärda ord för repetition
-      selectedLearnedWords = shuffledLearnedWords.slice(0, Math.max(0, reviewCount - neededFromLearned));
+      // Uppdatera antalet lärda ord för repetition - exkludera de som redan är i selectedLearningWords
+      const learningWordIds = new Set(selectedLearningWords.map(w => w.id));
+      const availableLearnedWords = shuffledLearnedWords.filter(w => !learningWordIds.has(w.id));
+      selectedLearnedWords = availableLearnedWords.slice(0, Math.max(0, reviewCount - neededFromLearned));
     }
     
     // Om vi fortfarande har för få ord totalt, ta från den andra listan
@@ -1244,12 +1246,16 @@ const OvningPage: React.FC = () => {
       const stillNeeded = 10 - totalWords;
       
       if (selectedLearningWords.length < minLearningWordsNeeded) {
-        // Ta fler från lärda ord
-        const moreLearnedWords = shuffledLearnedWords.slice(selectedLearnedWords.length, selectedLearnedWords.length + stillNeeded);
+        // Ta fler från lärda ord - exkludera de som redan är valda
+        const allSelectedIds = new Set([...selectedLearningWords, ...selectedLearnedWords].map(w => w.id));
+        const availableLearnedWords = shuffledLearnedWords.filter(w => !allSelectedIds.has(w.id));
+        const moreLearnedWords = availableLearnedWords.slice(0, stillNeeded);
         selectedLearningWords = [...selectedLearningWords, ...moreLearnedWords];
       } else {
-        // Ta fler från att lära mig ord
-        const moreLearningWords = sortedLearningWords.slice(selectedLearningWords.length, selectedLearningWords.length + stillNeeded);
+        // Ta fler från att lära mig ord - exkludera de som redan är valda
+        const allSelectedIds = new Set([...selectedLearningWords, ...selectedLearnedWords].map(w => w.id));
+        const availableLearningWords = sortedLearningWords.filter(w => !allSelectedIds.has(w.id));
+        const moreLearningWords = availableLearningWords.slice(0, stillNeeded);
         selectedLearningWords = [...selectedLearningWords, ...moreLearningWords];
       }
     }
@@ -1257,10 +1263,18 @@ const OvningPage: React.FC = () => {
     // Kombinera och slumpa ordningen för flashcards
     const combinedWords = [...selectedLearningWords, ...selectedLearnedWords];
     
+    // Debug: Logga antal ord i varje kategori
+    console.log(`[DEBUG] Selected learning words: ${selectedLearningWords.length}`);
+    console.log(`[DEBUG] Selected learned words: ${selectedLearnedWords.length}`);
+    console.log(`[DEBUG] Combined words before deduplication: ${combinedWords.length}`);
+    
     // Ta bort duplicerade ord baserat på ID
     const uniqueWords = combinedWords.filter((word, index, self) => 
       index === self.findIndex(w => w.id === word.id)
     );
+    
+    console.log(`[DEBUG] Unique words after deduplication: ${uniqueWords.length}`);
+    console.log(`[DEBUG] Words for exercise:`, uniqueWords.map(w => `${w.ord} (ID: ${w.id})`));
     
     const shuffledCombinedWords = shuffleArray(uniqueWords);
     
