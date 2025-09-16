@@ -1220,13 +1220,39 @@ const OvningPage: React.FC = () => {
       return timeB - timeA; // Nyligen övade först (högre timestamp först)
     });
 
-    // Välj ord från lägsta svårighetsgrad uppåt tills vi har tillräckligt många
-    const selectedLearningWords = sortedLearningWords.slice(0, minLearningWordsNeeded);
-    
     // Hämta slumpade ord från "lärda" (nivå 2) för repetition
     const learnedWords = filteredWords.filter(word => word.progress.level === 2);
     const shuffledLearnedWords = shuffleArray(learnedWords);
-    const selectedLearnedWords = shuffledLearnedWords.slice(0, reviewCount);
+    
+    // Mjuk validering: Om för få "att lära mig" ord, komplettera med lärda ord
+    let selectedLearningWords = sortedLearningWords.slice(0, minLearningWordsNeeded);
+    let selectedLearnedWords = shuffledLearnedWords.slice(0, reviewCount);
+    
+    // Om vi har för få "att lära mig" ord, komplettera med lärda ord
+    if (selectedLearningWords.length < minLearningWordsNeeded) {
+      const neededFromLearned = minLearningWordsNeeded - selectedLearningWords.length;
+      const additionalLearnedWords = shuffledLearnedWords.slice(reviewCount, reviewCount + neededFromLearned);
+      selectedLearningWords = [...selectedLearningWords, ...additionalLearnedWords];
+      
+      // Uppdatera antalet lärda ord för repetition
+      selectedLearnedWords = shuffledLearnedWords.slice(0, Math.max(0, reviewCount - neededFromLearned));
+    }
+    
+    // Om vi fortfarande har för få ord totalt, ta från den andra listan
+    const totalWords = selectedLearningWords.length + selectedLearnedWords.length;
+    if (totalWords < 10) {
+      const stillNeeded = 10 - totalWords;
+      
+      if (selectedLearningWords.length < minLearningWordsNeeded) {
+        // Ta fler från lärda ord
+        const moreLearnedWords = shuffledLearnedWords.slice(selectedLearnedWords.length, selectedLearnedWords.length + stillNeeded);
+        selectedLearningWords = [...selectedLearningWords, ...moreLearnedWords];
+      } else {
+        // Ta fler från att lära mig ord
+        const moreLearningWords = sortedLearningWords.slice(selectedLearningWords.length, selectedLearningWords.length + stillNeeded);
+        selectedLearningWords = [...selectedLearningWords, ...moreLearningWords];
+      }
+    }
     
     // Kombinera och slumpa ordningen för flashcards
     const combinedWords = [...selectedLearningWords, ...selectedLearnedWords];
@@ -1319,10 +1345,12 @@ const OvningPage: React.FC = () => {
     // Validera bara för övningar som behöver lärda ord (inte bokstavering eller meningar)
     if (exerciseType !== ExerciseType.SPELLING && exerciseType !== ExerciseType.SENTENCES) {
       const validation = validateAvailableWords();
-      if (!validation.isValid) {
-        // Visa felmeddelande istället för att starta övningen
-        alert(`${validation.message}\n\n${validation.suggestion}`);
-        return;
+      if (validation.showWarning) {
+        // Visa varning men tillåt ändå
+        const proceed = window.confirm(`${validation.message}\n\n${validation.suggestion}\n\nVill du ändå fortsätta med övningen?`);
+        if (!proceed) {
+          return;
+        }
       }
     }
     
@@ -1452,17 +1480,21 @@ const OvningPage: React.FC = () => {
     
     // Räkna ord direkt från wordProgress istället för från practiceWords
     const availableLearningWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1);
+    const availableLearnedWords = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2);
     
-    if (availableLearningWords.length < minLearningWordsNeeded) {
+    const totalAvailableWords = availableLearningWords.length + availableLearnedWords.length;
+    
+    // Om totalt för få ord (mindre än 10), visa varning men tillåt ändå
+    if (totalAvailableWords < 10) {
       return {
-        isValid: false,
-        message: `Du behöver minst ${minLearningWordsNeeded} ord i "att lära mig" för att öva. Du har ${availableLearningWords.length} ord.`,
-        suggestion: 'Lägg till fler ord från startguiden eller lexikonet.'
+        isValid: true, // Tillåt ändå
+        showWarning: true,
+        message: `Du har bara ${totalAvailableWords} ord tillgängliga (${availableLearningWords.length} att lära mig + ${availableLearnedWords.length} lärda).`,
+        suggestion: 'Överväg att köra start-guiden för att lägga till fler ord, eller lägg till ord från lexikonet.'
       };
     }
     
-    // Ta bort validering för lärda ord - om man har 0 så får det vara 0
-    return { isValid: true };
+    return { isValid: true, showWarning: false };
   };
 
   if (isLoading) {
@@ -2038,12 +2070,12 @@ const OvningPage: React.FC = () => {
       selectedExerciseType !== ExerciseType.SPELLING && 
       selectedExerciseType !== ExerciseType.SENTENCES) {
     const validation = validateAvailableWords();
-    if (!validation.isValid) {
+    if (validation.showWarning) {
       return (
         <Container maxWidth="md" sx={{ py: 4 }}>
           <Box sx={{ textAlign: 'center' }}>
-            <Typography variant="h5" gutterBottom color="error">
-              Kan inte starta övning
+            <Typography variant="h5" gutterBottom color="warning.main">
+              Få ord tillgängliga
             </Typography>
             
             <Alert severity="warning" sx={{ mb: 3, textAlign: 'left' }}>
@@ -2055,13 +2087,21 @@ const OvningPage: React.FC = () => {
               </Typography>
             </Alert>
             
-            <Button 
-              variant="contained" 
-              onClick={() => window.location.reload()}
-              startIcon={<Refresh />}
-            >
-              Uppdatera sidan
-            </Button>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+              <Button 
+                variant="outlined" 
+                onClick={() => window.location.reload()}
+                startIcon={<Refresh />}
+              >
+                Uppdatera sidan
+              </Button>
+              <Button 
+                variant="contained" 
+                onClick={() => setSelectedExerciseType(null)}
+              >
+                OK, fortsätt ändå
+              </Button>
+            </Box>
           </Box>
         </Container>
       );
