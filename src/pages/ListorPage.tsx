@@ -20,7 +20,7 @@ import {
   Grid,
   Paper
 } from '@mui/material';
-import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School } from '@mui/icons-material';
+import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School, CheckCircle, HourglassEmpty } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList, getDifficultyInfo } from '../types/wordLists';
 import { getPhrasesForWord } from '../types/database';
@@ -472,31 +472,103 @@ const ListorPage: React.FC = () => {
                   {/* Expandable content */}
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
                     <Box sx={{ p: 2, pt: 0 }}>
-                      {/* Bulk-tagging knappar */}
-                      <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
-                        <Button 
-                          size="small" 
-                          variant="outlined" 
-                          onClick={() => handleBulkTag(wordList, 0)}
-                          sx={{ fontSize: '0.75rem' }}
-                        >
-                          Markera alla som "Ej markerad"
-                        </Button>
-                        <Button 
-                          size="small" 
-                          variant="outlined" 
-                          onClick={() => handleBulkTag(wordList, 1)}
-                          sx={{ fontSize: '0.75rem' }}
-                        >
-                          Markera alla som "Vill lära sig"
-                        </Button>
-                        <Button 
-                          size="small" 
-                          variant="outlined" 
+                      {/* Bulk-tagging knappar med samma design som startguiden */}
+                      <Box sx={{ 
+                        display: 'flex', 
+                        gap: 2, 
+                        mb: 3, 
+                        flexWrap: 'wrap',
+                        justifyContent: 'center'
+                      }}>
+                        <Button
+                          variant="outlined"
+                          size="medium"
                           onClick={() => handleBulkTag(wordList, 2)}
-                          sx={{ fontSize: '0.75rem' }}
+                          startIcon={<CheckCircle />}
+                          sx={{ 
+                            flex: { xs: 1, sm: '0 1 auto' },
+                            minWidth: { xs: '100%', sm: '140px' },
+                            py: 1.5,
+                            borderRadius: 2,
+                            fontWeight: 'normal',
+                            backgroundColor: 'transparent',
+                            color: 'success.main',
+                            borderColor: 'success.main',
+                            '&:hover': {
+                              backgroundColor: 'transparent',
+                              color: 'success.main',
+                              borderColor: 'success.main'
+                            }
+                          }}
                         >
-                          Markera alla som "Lärd"
+                          Ja
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          size="medium"
+                          onClick={() => handleBulkTag(wordList, 1)}
+                          sx={{ 
+                            flex: { xs: 1, sm: '0 1 auto' },
+                            minWidth: { xs: '100%', sm: '140px' },
+                            py: 1.5,
+                            borderRadius: 2,
+                            fontWeight: 'normal',
+                            backgroundColor: 'transparent',
+                            color: 'warning.main',
+                            borderColor: 'warning.main',
+                            '&:hover': {
+                              backgroundColor: 'transparent',
+                              color: 'warning.main',
+                              borderColor: 'warning.main'
+                            }
+                          }}
+                        >
+                          Behöver repetera
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          size="medium"
+                          onClick={() => handleBulkTag(wordList, 1)}
+                          sx={{ 
+                            flex: { xs: 1, sm: '0 1 auto' },
+                            minWidth: { xs: '100%', sm: '140px' },
+                            py: 1.5,
+                            borderRadius: 2,
+                            fontWeight: 'normal',
+                            backgroundColor: 'transparent',
+                            color: '#2196F3',
+                            borderColor: '#2196F3',
+                            '&:hover': {
+                              backgroundColor: 'transparent',
+                              color: '#2196F3',
+                              borderColor: '#2196F3'
+                            }
+                          }}
+                        >
+                          Nej
+                        </Button>
+                        <Button
+                          variant="outlined"
+                          size="medium"
+                          onClick={() => handleBulkTag(wordList, 0)}
+                          startIcon={<HourglassEmpty />}
+                          sx={{ 
+                            flex: { xs: 1, sm: '0 1 auto' },
+                            minWidth: { xs: '100%', sm: '140px' },
+                            py: 1.5,
+                            borderRadius: 2,
+                            fontWeight: 'normal',
+                            backgroundColor: 'transparent',
+                            color: 'grey.600',
+                            borderColor: 'grey.500',
+                            '&:hover': {
+                              backgroundColor: 'transparent',
+                              color: 'grey.600',
+                              borderColor: 'grey.500'
+                            }
+                          }}
+                        >
+                          Vänta
                         </Button>
                       </Box>
                       
