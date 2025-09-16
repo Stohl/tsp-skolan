@@ -142,15 +142,6 @@ const FlashcardsExercise: React.FC<{
               </Typography>
             )}
             
-            <Box sx={{ mt: 2 }}>
-              <Button
-                variant="outlined"
-                onClick={onSkip}
-                sx={{ mr: 1 }}
-              >
-                Hoppa över
-              </Button>
-            </Box>
           </Box>
         ) : (
           // Visa videon och resultat-knappar
@@ -924,25 +915,30 @@ const SentencesExercise: React.FC<{
           type: 'primär' // Default
         };
         
+        // Bestäm meningsnivå från det faktiska fältet i databasen
+        phraseWithWord.meningsnivå = phrase.meningsnivå || null;
+        
         // Bestäm om frasen är primär eller sekundär baserat på URL-mönster
         // URL-format: "fras/055741" där sista siffran indikerar typ
         // 1 = primär, 2+ = sekundär
         const urlMatch = phrase.url?.match(/(\d+)$/);
-        const frasNumber = urlMatch ? parseInt(urlMatch[1]) : 1;
-        const lastDigit = frasNumber % 10;
         
-        // Bestäm meningsnivå baserat på URL-mönster
-        // URL-format: "fras/055741" där sista siffran indikerar meningsnivå
-        // Om URL saknas eller är ogiltig, sätt meningsnivå till tomt
-        phraseWithWord.meningsnivå = phrase.url ? lastDigit : null;
-        
-        // Kategorisera frasen baserat på URL-mönster
-        if (lastDigit === 1) {
+        if (urlMatch) {
+          const frasNumber = parseInt(urlMatch[1]);
+          const lastDigit = frasNumber % 10;
+          
+          // Kategorisera frasen baserat på URL-mönster
+          if (lastDigit === 1) {
+            phraseWithWord.type = 'primär';
+            primaryPhrases.push(phraseWithWord);
+          } else {
+            phraseWithWord.type = 'sekundär';
+            secondaryPhrases.push(phraseWithWord);
+          }
+        } else {
+          // Om URL saknas eller är ogiltig, default till primär
           phraseWithWord.type = 'primär';
           primaryPhrases.push(phraseWithWord);
-        } else {
-          phraseWithWord.type = 'sekundär';
-          secondaryPhrases.push(phraseWithWord);
         }
       }
     });
@@ -988,10 +984,10 @@ const SentencesExercise: React.FC<{
                     />
                   </TableCell>
                   <TableCell>
-                    {phrase.meningsnivå !== null ? (
+                    {phrase.meningsnivå ? (
                       <Chip 
-                        label={`Nivå ${phrase.meningsnivå}`} 
-                        color={phrase.meningsnivå === 1 ? 'success' : phrase.meningsnivå === 2 ? 'warning' : 'error'}
+                        label={phrase.meningsnivå} 
+                        color={phrase.meningsnivå === 'N1' ? 'success' : phrase.meningsnivå === 'N2' ? 'warning' : 'error'}
                         size="small"
                         variant="filled"
                       />
@@ -1976,9 +1972,6 @@ const OvningPage: React.FC = () => {
     return (
       <Dialog open={showResults} maxWidth="sm" fullWidth>
         <DialogTitle>
-          <Typography variant="h5" align="center" component="div">
-            Övning slutförd!
-          </Typography>
         </DialogTitle>
         <DialogContent>
           <Box sx={{ textAlign: 'center', py: 2 }}>
@@ -1990,9 +1983,6 @@ const OvningPage: React.FC = () => {
             </Typography>
             
             <Box sx={{ mt: 3 }}>
-              <Typography variant="h6" gutterBottom>
-                Resultat per ord:
-              </Typography>
               <List>
                 {results.map((result, index) => {
                   // Hämta ordet från wordDatabase baserat på wordId istället för index
@@ -2002,7 +1992,7 @@ const OvningPage: React.FC = () => {
                     <ListItem key={`${result.wordId}-${index}`}>
                       <ListItemText
                         primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
-                        secondary={`${result.isCorrect ? 'Rätt' : 'Fel'} - ${result.exerciseType}`}
+                        secondary={`${wordProgress[result.wordId]?.points || 0}/5 poäng`}
                       />
                       {result.isCorrect ? (
                         <CheckCircle color="success" />
@@ -2017,11 +2007,8 @@ const OvningPage: React.FC = () => {
           </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'center', p: 3 }}>
-          <Button onClick={handleBackToMenu} variant="outlined">
-            Tillbaka till menyn
-          </Button>
-          <Button onClick={handleRestart} variant="contained">
-            Öva igen
+          <Button onClick={handleBackToMenu} variant="contained">
+            OK
           </Button>
         </DialogActions>
       </Dialog>
