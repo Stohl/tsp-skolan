@@ -123,19 +123,28 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     }
   ];
 
-  // Logik för automatisk placering baserat på kunskapsnivå
+  // Logik för automatisk placering baserat på kunskapsnivå och svårighetsgrad
   const getDefaultPlacement = (knowledgeLevel: KnowledgeLevel, difficulty: string): 'ja' | 'behover_repetera' | 'nej' => {
-    switch (knowledgeLevel) {
-      case 'nyborjare':
-        return 'nej'; // Alla ordlistor i "nej" (behöver lära mig)
-      case 'lite_erfaren':
-        return difficulty === 'nyborjare' ? 'nej' : 'behover_repetera';
-      case 'erfaren':
-        return difficulty === 'nyborjare' || difficulty === 'lite_erfaren' ? 'behover_repetera' : 'ja';
-      case 'proffs':
-        return 'ja'; // Alla ordlistor i "ja" (kan redan)
-      default:
-        return 'nej';
+    const difficultyLevels = ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs'];
+    const userLevelIndex = difficultyLevels.indexOf(knowledgeLevel);
+    const wordListLevelIndex = difficultyLevels.indexOf(difficulty as any);
+    
+    if (wordListLevelIndex === -1) return 'nej'; // Okänd svårighetsgrad
+    
+    const levelDifference = userLevelIndex - wordListLevelIndex;
+    
+    if (levelDifference === 0) {
+      // Samma svårighetsgrad - behöver lära mig
+      return 'nej';
+    } else if (levelDifference === 1) {
+      // En nivå lägre - behöver repetera
+      return 'behover_repetera';
+    } else if (levelDifference >= 2) {
+      // Två eller fler nivåer lägre - kan redan
+      return 'ja';
+    } else {
+      // Högre svårighetsgrad än användaren - behöver lära mig
+      return 'nej';
     }
   };
 
@@ -144,10 +153,21 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     if (selectedKnowledgeLevel && Object.keys(wordDatabase).length > 0) {
       const allLists = getAllWordLists(wordDatabase);
       
-      // Välj ut ordlistor som är markerade för start-guiden
+      // Filtrera ordlistor baserat på svårighetsnivå (samma eller lägre än vald nivå)
+      const difficultyLevels = ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs'];
+      const userLevelIndex = difficultyLevels.indexOf(selectedKnowledgeLevel);
+      
       const guideLists = allLists
         .filter(list => list.showInStartGuide === true)
-        .sort((a, b) => (a.startGuidePosition || 999) - (b.startGuidePosition || 999));
+        .filter(list => {
+          const listLevelIndex = difficultyLevels.indexOf(list.difficulty);
+          return listLevelIndex <= userLevelIndex; // Samma eller lägre svårighetsgrad
+        })
+        .sort((a, b) => {
+          const levelA = difficultyLevels.indexOf(a.difficulty);
+          const levelB = difficultyLevels.indexOf(b.difficulty);
+          return levelB - levelA; // Högre svårighetsgrad först
+        });
       
       const generatedWordListQuestions: WordListQuestion[] = guideLists.map((wordList, index) => ({
         id: `wordlist_${index}`,
