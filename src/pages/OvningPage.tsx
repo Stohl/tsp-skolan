@@ -2043,43 +2043,103 @@ const OvningPage: React.FC = () => {
           </Card>
         </Box>
 
-        {/* Progress-info */}
-         {/* Progress-info */}
-         <Paper sx={{ mt: 4, p: 3 }}>
-           <Typography variant="h6" gutterBottom>
-             Din progress
-           </Typography>
-           
-           {/* Statistik över alla ord */}
-           {(() => {
-             const allWords = Object.values(wordDatabase);
-             const totalWords = allWords.length;
-             
-             // Räkna ord per nivå
-             const level0Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 0).length;
-             const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
-             const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;
-             const unmarkedWords = totalWords - level0Words - level1Words - level2Words;
-             
-             return (
-               <Box sx={{ mb: 3 }}>
-                 <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                   <strong>Totalt {totalWords} ord i databasen</strong>
-                 </Typography>
-                 <Box sx={{ display: 'flex', flexDirection: 'column', gap: 0.5 }}>
-                   <Typography variant="body2" color="text.secondary">
-                     ⚪ Ej markerade: {unmarkedWords + level0Words} ord
-                   </Typography>
-                   <Typography variant="body2" color="primary.main">
-                     🟡 Att lära mig: {level1Words} ord
-                   </Typography>
-                   <Typography variant="body2" color="success.main">
-                     🟢 Lärda: {level2Words} ord
-                   </Typography>
-                 </Box>
-               </Box>
-             );
-           })()}
+        {/* Progress-mätare */}
+        <Paper sx={{ 
+          mt: 4, 
+          p: 4, 
+          borderRadius: 3,
+          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+          color: 'white',
+          position: 'relative',
+          overflow: 'hidden'
+        }}>
+          <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
+            Din framsteg
+          </Typography>
+          
+          {(() => {
+            // Räkna ord per nivå
+            const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
+            const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;
+            const totalActiveWords = level1Words + level2Words;
+            
+            if (totalActiveWords === 0) {
+              return (
+                <Box sx={{ textAlign: 'center', py: 2 }}>
+                  <Typography variant="body1" sx={{ opacity: 0.9 }}>
+                    Börja med startguiden för att markera ord!
+                  </Typography>
+                </Box>
+              );
+            }
+            
+            const learningPercentage = totalActiveWords > 0 ? (level1Words / totalActiveWords) * 100 : 0;
+            const learnedPercentage = totalActiveWords > 0 ? (level2Words / totalActiveWords) * 100 : 0;
+            
+            return (
+              <Box>
+                {/* Progress-bar */}
+                <Box sx={{ 
+                  width: '100%', 
+                  height: 24, 
+                  backgroundColor: 'rgba(255, 255, 255, 0.2)', 
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  position: 'relative',
+                  mb: 3
+                }}>
+                  {/* Att lära mig del */}
+                  <Box sx={{
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    height: '100%',
+                    width: `${learningPercentage}%`,
+                    background: 'linear-gradient(90deg, #ffd700 0%, #ffed4e 100%)',
+                    transition: 'width 0.5s ease'
+                  }} />
+                  
+                  {/* Lärda del */}
+                  <Box sx={{
+                    position: 'absolute',
+                    left: `${learningPercentage}%`,
+                    top: 0,
+                    height: '100%',
+                    width: `${learnedPercentage}%`,
+                    background: 'linear-gradient(90deg, #4ade80 0%, #22c55e 100%)',
+                    transition: 'width 0.5s ease'
+                  }} />
+                </Box>
+                
+                {/* Statistik */}
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: 2
+                }}>
+                  <Box sx={{ textAlign: 'center', flex: 1, minWidth: '120px' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
+                      {level1Words}
+                    </Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                      🟡 Att lära mig
+                    </Typography>
+                  </Box>
+                  
+                  <Box sx={{ textAlign: 'center', flex: 1, minWidth: '120px' }}>
+                    <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
+                      {level2Words}
+                    </Typography>
+                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
+                      🟢 Lärda
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            );
+          })()}
            
            {practiceWords.length > 0 && (
              <>
