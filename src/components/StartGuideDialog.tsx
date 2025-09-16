@@ -348,7 +348,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               break;
             case 'behover_repetera':
               level = 1; // Att lära mig
-              points = 0;
+              points = 3;
               break;
             case 'nej':
               level = 1; // Att lära mig
@@ -428,13 +428,21 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       }}
     >
       <DialogTitle>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <School color="primary" />
-          <Typography variant="h6">
-            {currentStep === 'knowledge_level' && 'Välkommen till TSP Skolan'}
-            {currentStep === 'wordlists' && 'Anpassa dina ordlistor'}
-            {currentStep === 'completed' && 'Start-guide slutförd!'}
-          </Typography>
+        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <School color="primary" />
+            <Typography variant="h6">
+              {currentStep === 'knowledge_level' && 'Välkommen till TSP Skolan'}
+              {currentStep === 'wordlists' && 'Lämpliga ordlistor'}
+              {currentStep === 'completed' && 'Start-guide slutförd!'}
+            </Typography>
+          </Box>
+          <Button
+            onClick={handleClose}
+            sx={{ minWidth: 'auto', p: 1 }}
+          >
+            <Close />
+          </Button>
         </Box>
       </DialogTitle>
 
@@ -495,9 +503,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               </Typography>
             </Alert>
 
-            <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-              Ordlistor
-            </Typography>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               {wordListQuestions.map((question) => (
@@ -691,18 +696,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       </DialogContent>
 
       <DialogActions>
-        {currentStep === 'knowledge_level' && (
-          <Button onClick={handleClose} startIcon={<Close />}>
-            Stäng guiden
-          </Button>
-        )}
-        
-        {currentStep === 'wordlists' && (
-          <Button onClick={handleClose} startIcon={<Close />}>
-            Stäng guiden
-          </Button>
-        )}
-        
         {currentStep === 'completed' && (
           <Button onClick={handleFinish} variant="contained" startIcon={<PlayArrow />}>
             Börja öva!
