@@ -482,11 +482,16 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
 
         {currentStep === 'wordlists' && (
           <>
-            {/* Individuella ordlistor-frågor */}
+            {/* Kort beskrivning av vad alternativen betyder */}
             <Alert severity="info" sx={{ mb: 3 }}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                <strong>Ja</strong> = Ordlistan läggs till i "Lärda" (kan redan)
+              </Typography>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                <strong>Behöver repetera</strong> = Ordlistan läggs till i "Att lära mig" (vill öva mer)
+              </Typography>
               <Typography variant="body2">
-                Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
-                Du kan ändra dessa om du vill.
+                <strong>Nej</strong> = Ordlistan läggs till i "Att lära mig" (behöver lära sig)
               </Typography>
             </Alert>
 
@@ -514,12 +519,18 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                       Kan du {question.wordList.name.toLowerCase()}?
                     </Typography>
                     
-                    {/* Beskrivning av ordlistan */}
-                    {question.wordList.description && (
-                      <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                        {question.wordList.description}
-                      </Typography>
-                    )}
+                    {/* Visa första orden i ordlistan */}
+                    {(() => {
+                      const wordsInList = getWordsFromList(question.wordList, wordDatabase);
+                      const firstWords = wordsInList.slice(0, 5).map(word => word.ord).join(', ');
+                      const hasMoreWords = wordsInList.length > 5;
+                      
+                      return (
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                          Till exempel: {firstWords}{hasMoreWords ? '...' : ''}
+                        </Typography>
+                      );
+                    })()}
 
                     {/* Svarsalternativ med modern design */}
                     <Box sx={{ 
@@ -559,11 +570,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           py: 1.5,
                           borderRadius: 2,
                           fontWeight: question.selectedAnswer === 'behover_repetera' ? 'bold' : 'normal',
-                          backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'transparent',
-                          color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
-                          borderColor: 'warning.main',
+                          backgroundColor: question.selectedAnswer === 'behover_repetera' ? '#FFA726' : 'transparent',
+                          color: question.selectedAnswer === 'behover_repetera' ? 'white' : '#FFA726',
+                          borderColor: '#FFA726',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.dark' : 'warning.light',
+                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? '#FF9800' : '#FFF3E0',
                             color: 'white'
                           }
                         }}
@@ -580,11 +591,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           py: 1.5,
                           borderRadius: 2,
                           fontWeight: question.selectedAnswer === 'nej' ? 'bold' : 'normal',
-                          backgroundColor: question.selectedAnswer === 'nej' ? 'error.main' : 'transparent',
-                          color: question.selectedAnswer === 'nej' ? 'white' : 'error.main',
-                          borderColor: 'error.main',
+                          backgroundColor: question.selectedAnswer === 'nej' ? '#FFC107' : 'transparent',
+                          color: question.selectedAnswer === 'nej' ? 'white' : '#FFC107',
+                          borderColor: '#FFC107',
                           '&:hover': {
-                            backgroundColor: question.selectedAnswer === 'nej' ? 'error.dark' : 'error.light',
+                            backgroundColor: question.selectedAnswer === 'nej' ? '#FFB300' : '#FFFDE7',
                             color: 'white'
                           }
                         }}
