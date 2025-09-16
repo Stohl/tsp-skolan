@@ -31,7 +31,7 @@ import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists'
 import { useWordProgress } from '../hooks/usePersistentState';
 
 // Kunskapsnivåer för startguiden
-export type KnowledgeLevel = 'nyborjare' | 'lite_erfaren' | 'erfaren' | 'avancerad';
+export type KnowledgeLevel = 'nyborjare' | 'lite_erfaren' | 'erfaren' | 'proffs';
 
 // Interface för kunskapsnivå-fråga
 interface KnowledgeLevelQuestion {
@@ -116,9 +116,9 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       description: 'Jag kan många tecken och några fraser'
     },
     {
-      id: 'avancerad',
-      level: 'avancerad',
-      title: 'Avancerad',
+      id: 'proffs',
+      level: 'proffs',
+      title: 'Proffs',
       description: 'Jag kan teckna flytande'
     }
   ];
@@ -129,10 +129,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       case 'nyborjare':
         return 'nej'; // Alla ordlistor i "nej" (behöver lära mig)
       case 'lite_erfaren':
-        return difficulty === 'handstart' ? 'nej' : 'behover_repetera';
+        return difficulty === 'nyborjare' ? 'nej' : 'behover_repetera';
       case 'erfaren':
-        return difficulty === 'handstart' || difficulty === 'fingervana' ? 'behover_repetera' : 'ja';
-      case 'avancerad':
+        return difficulty === 'nyborjare' || difficulty === 'lite_erfaren' ? 'behover_repetera' : 'ja';
+      case 'proffs':
         return 'ja'; // Alla ordlistor i "ja" (kan redan)
       default:
         return 'nej';
@@ -584,7 +584,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           fontWeight: question.selectedAnswer === 'ja' ? 'bold' : 'normal',
                           backgroundColor: question.selectedAnswer === 'ja' ? 'success.main' : 'transparent',
                           color: question.selectedAnswer === 'ja' ? 'white' : 'success.main',
-                          borderColor: 'success.main'
+                          borderColor: 'success.main',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'ja' ? 'success.main' : 'success.light',
+                            color: question.selectedAnswer === 'ja' ? 'white' : 'success.main'
+                          }
                         }}
                       >
                         Ja
@@ -601,7 +605,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           fontWeight: question.selectedAnswer === 'behover_repetera' ? 'bold' : 'normal',
                           backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'transparent',
                           color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main',
-                          borderColor: 'warning.main'
+                          borderColor: 'warning.main',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'behover_repetera' ? 'warning.main' : 'warning.light',
+                            color: question.selectedAnswer === 'behover_repetera' ? 'white' : 'warning.main'
+                          }
                         }}
                       >
                         Behöver repetera
@@ -618,7 +626,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           fontWeight: question.selectedAnswer === 'nej' ? 'bold' : 'normal',
                           backgroundColor: question.selectedAnswer === 'nej' ? '#2196F3' : 'transparent',
                           color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3',
-                          borderColor: '#2196F3'
+                          borderColor: '#2196F3',
+                          '&:hover': {
+                            backgroundColor: question.selectedAnswer === 'nej' ? '#2196F3' : '#E3F2FD',
+                            color: question.selectedAnswer === 'nej' ? 'white' : '#2196F3'
+                          }
                         }}
                       >
                         Nej

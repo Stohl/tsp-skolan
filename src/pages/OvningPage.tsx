@@ -1199,8 +1199,8 @@ const OvningPage: React.FC = () => {
     // Hämta ord från "att lära mig" (nivå 1) sorterade efter svårighetsgrad från wordLists.ts
     const learningWords = filteredWords.filter(word => word.progress.level === 1);
     
-    // Sortera efter svårighetsgrad från wordLists.ts: handstart -> fingervana -> tecknare -> samspelare
-    const difficultyOrder = ['handstart', 'fingervana', 'tecknare', 'samspelare'];
+    // Sortera efter svårighetsgrad från wordLists.ts: nyborjare -> lite_erfaren -> erfaren -> proffs
+    const difficultyOrder = ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs'];
     const sortedLearningWords = learningWords.sort((a, b) => {
       const difficultyA = difficultyOrder.indexOf(a.listDifficulty);
       const difficultyB = difficultyOrder.indexOf(b.listDifficulty);

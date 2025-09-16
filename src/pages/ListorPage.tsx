@@ -39,7 +39,7 @@ const ListorPage: React.FC = () => {
   const [selectedWord, setSelectedWord] = useState<Word | null>(null);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [expandedLists, setExpandedLists] = useState<{ [key: string]: boolean }>({});
-  const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect' | 'points'>('name');
+  const [sortBy, setSortBy] = useState<'name' | 'lastPracticed' | 'correct' | 'incorrect' | 'points'>('points');
   const [difficultyTab, setDifficultyTab] = useState(0); // State för svårighetsgrad-tabs
 
   // Använd persistent word progress hook
@@ -288,39 +288,18 @@ const ListorPage: React.FC = () => {
         {/* Sorteringsknappar */}
         <Box sx={{ mb: 3, display: 'flex', gap: 1, flexWrap: 'wrap' }}>
           <Button
-            variant={sortBy === 'name' ? 'contained' : 'outlined'}
-            size="small"
-            onClick={() => setSortBy('name')}
-          >
-            Namn
-          </Button>
-          <Button
-            variant={sortBy === 'lastPracticed' ? 'contained' : 'outlined'}
-            size="small"
-            onClick={() => setSortBy('lastPracticed')}
-          >
-            Senast övat
-          </Button>
-          <Button
-            variant={sortBy === 'correct' ? 'contained' : 'outlined'}
-            size="small"
-            onClick={() => setSortBy('correct')}
-          >
-            Antal rätt
-          </Button>
-          <Button
-            variant={sortBy === 'incorrect' ? 'contained' : 'outlined'}
-            size="small"
-            onClick={() => setSortBy('incorrect')}
-          >
-            Antal fel
-          </Button>
-          <Button
             variant={sortBy === 'points' ? 'contained' : 'outlined'}
             size="small"
             onClick={() => setSortBy('points')}
           >
             Poäng
+          </Button>
+          <Button
+            variant={sortBy === 'name' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => setSortBy('name')}
+          >
+            Namn
           </Button>
         </Box>
         
@@ -378,8 +357,8 @@ const ListorPage: React.FC = () => {
   // Funktion som renderar innehållet för "Ordlistor"-taben
   const renderOrdlistor = () => {
     // Definiera svårighetsgrader i ordning
-    const difficulties: Array<'handstart' | 'fingervana' | 'tecknare' | 'samspelare'> = 
-      ['handstart', 'fingervana', 'tecknare', 'samspelare'];
+    const difficulties: Array<'nyborjare' | 'lite_erfaren' | 'erfaren' | 'proffs'> = 
+      ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs'];
     
     // Filtrera ordlistor baserat på vald svårighetsgrad
     const filteredLists = wordLists.filter(list => list.difficulty === difficulties[difficultyTab]);
