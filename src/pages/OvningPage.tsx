@@ -1175,6 +1175,8 @@ const OvningPage: React.FC = () => {
 
   // State för att hålla statisk lista av ord under hela övningen
   const [staticPracticeWords, setStaticPracticeWords] = useState<any[]>([]);
+  // State för att hålla koll på vilka ord som faktiskt flyttades till level 2
+  const [wordsMovedToLearned, setWordsMovedToLearned] = useState<Set<string>>(new Set());
 
   // Beräkna ord för övning med ny logik: svårighetsgrad-prioritering + slumpning + lärda ord-repetition
   const practiceWords = useMemo(() => {
@@ -1291,11 +1293,12 @@ const OvningPage: React.FC = () => {
 
   // Uppdatera staticPracticeWords när practiceWords ändras och vi inte är mitt i en övning
   useEffect(() => {
-    if (practiceWords.length > 0 && !showResults) {
+    if (practiceWords.length > 0 && !showResults && staticPracticeWords.length === 0) {
       console.log(`[DEBUG] Setting static practice words:`, practiceWords.map(w => `${w.ord} (ID: ${w.id})`));
       setStaticPracticeWords(practiceWords);
+      setWordsMovedToLearned(new Set()); // Återställ när ny övning börjar
     }
-  }, [practiceWords, showResults]);
+  }, [practiceWords, showResults, staticPracticeWords.length]);
 
   // Beräkna ord för quiz med minst 10 ord (inklusive fallback till lärda ord)
   const quizWords = useMemo(() => {
@@ -1383,6 +1386,8 @@ const OvningPage: React.FC = () => {
     setCurrentWordIndex(0);
     setResults([]);
     setShowResults(false);
+    setStaticPracticeWords([]); // Återställ för ny övning
+    setWordsMovedToLearned(new Set()); // Återställ för ny övning
   };
 
   // Funktion som körs när användaren slutför en övning
@@ -1407,7 +1412,17 @@ const OvningPage: React.FC = () => {
     
     // Spara inte progress för bokstavering-övningar
     if (selectedExerciseType !== ExerciseType.SPELLING) {
+      // Kontrollera om ordet kommer att flyttas till level 2
+      const currentProgress = wordProgress[currentWord.id];
+      const currentPoints = currentProgress?.points || 0;
+      const willMoveToLevel2 = isCorrect && currentPoints + 1 >= 5;
+      
       markWordResult(currentWord.id, isCorrect);
+      
+      // Om ordet flyttades till level 2, spåra det
+      if (willMoveToLevel2) {
+        setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
+      }
     }
 
     // Gå till nästa ord eller visa resultat direkt (utan timeout)
@@ -2183,7 +2198,7 @@ const OvningPage: React.FC = () => {
                     <ListItem key={`${result.wordId}-${index}`}>
                       <ListItemText
                         primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
-                        secondary={wordProgress[result.wordId]?.level === 2 ? "Flyttad till lärda ord!" : ""}
+                        secondary={wordsMovedToLearned.has(result.wordId) ? "Flyttad till lärda ord!" : ""}
                       />
                       {wordProgress[result.wordId]?.level === 2 ? (
                         <CheckCircle color="success" />
