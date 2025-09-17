@@ -2450,8 +2450,14 @@ const OvningPage: React.FC = () => {
               return acc;
             }, {});
             
+            // Debug: logga ordlistor
+            console.log('[DEBUG] All word lists:', Object.keys(allWordLists));
+            console.log('[DEBUG] Word lists content:', allWordLists);
+            
             const completedLists = Object.entries(allWordLists).filter(([_, words]: [string, any]) => {
-              return words.every((word: any) => wordProgress[word.id]?.level === 2);
+              const allLearned = words.every((word: any) => wordProgress[word.id]?.level === 2);
+              console.log(`[DEBUG] List ${_[0]}: ${words.length} words, all learned: ${allLearned}`);
+              return allLearned;
             }).length;
             
             // Räkna avklarade bokstavering-rutor
@@ -2460,7 +2466,9 @@ const OvningPage: React.FC = () => {
             // Räkna totalt antal ordlistor
             const totalLists = Object.keys(allWordLists).length;
             
-            return (
+            console.log(`[DEBUG] Completed lists: ${completedLists}, Total lists: ${totalLists}`);
+             
+             return (
               <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: 3 }}>
                 {/* Lärda */}
                 <Box sx={{ 
@@ -2473,10 +2481,10 @@ const OvningPage: React.FC = () => {
                 }}>
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
                     {level2Words}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
+                 </Typography>
+                   <Typography variant="body2" color="text.secondary">
                     Lärda
-                  </Typography>
+                   </Typography>
                 </Box>
                 
                 {/* Avklarade ordlistor */}
@@ -2490,7 +2498,7 @@ const OvningPage: React.FC = () => {
                 }}>
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
                     {completedLists}/{totalLists}
-                  </Typography>
+                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Avklarade ordlistor
                   </Typography>
@@ -2510,10 +2518,10 @@ const OvningPage: React.FC = () => {
                   </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Bokstavering rutor
-                  </Typography>
-                </Box>
-              </Box>
-            );
+                   </Typography>
+                 </Box>
+               </Box>
+             );
            })()}
            
            {practiceWords.length > 0 && (
