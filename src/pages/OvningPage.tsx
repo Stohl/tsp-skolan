@@ -2484,10 +2484,10 @@ const OvningPage: React.FC = () => {
                   textAlign: 'center'
                 }}>
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
-                    {level2Words}
+                    {level1Words}/{level2Words}
                  </Typography>
                    <Typography variant="body2" color="text.secondary">
-                    Lärda ord
+                    Tränar på / Lärt mig
                    </Typography>
                 </Box>
                 
@@ -2495,12 +2495,12 @@ const OvningPage: React.FC = () => {
                 <Box sx={{ 
                   p: 2, 
                   borderRadius: 2, 
-                  backgroundColor: 'info.50',
+                  backgroundColor: 'success.50',
                   border: '1px solid',
-                  borderColor: 'info.200',
+                  borderColor: 'success.200',
                   textAlign: 'center'
                 }}>
-                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
                     {completedLists}/{totalLists}
                    </Typography>
                   <Typography variant="body2" color="text.secondary">
