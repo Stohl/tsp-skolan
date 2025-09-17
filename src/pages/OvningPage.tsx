@@ -792,10 +792,7 @@ const SpellingExercise: React.FC<{
           )}
           
           <Typography variant="h5" gutterBottom>
-            Vilket ord bokstaveras i videon?
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-            ({word.ord.length} bokstäver)
+            Vilket ord?
           </Typography>
         </Box>
 
@@ -1471,6 +1468,7 @@ const OvningPage: React.FC = () => {
       borderColor: isCompleted ? 'success.main' : 'primary.main',
       borderRadius: 2,
       backgroundColor: isCompleted ? 'success.50' : 'primary.50',
+      color: isCompleted ? 'success.main' : 'primary.main', // Lägg till färg för hela rutan
       display: 'flex',
       flexDirection: 'column' as const,
       alignItems: 'center',
@@ -2087,84 +2085,84 @@ const OvningPage: React.FC = () => {
           }}>
             {/* Rad 1: 2-3 bokstäver */}
             <Box sx={getSpellingBoxStyle(0.5, 2, 3)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 2-3 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
-              <Typography variant="body2" color={isSpellingBoxCompleted(0.5, 2, 3) ? 'success.main' : 'primary.main'} sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.5x</Typography>
-              <Typography variant="caption" color={isSpellingBoxCompleted(0.5, 2, 3) ? 'success.main' : 'primary.main'} sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.5x</Typography>
+              <Typography variant="caption" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
           </Box>
             <Box sx={getSpellingBoxStyle(0.75, 2, 3)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 2-3 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
-              <Typography variant="body2" color={isSpellingBoxCompleted(0.75, 2, 3) ? 'success.main' : 'primary.main'} sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.75x</Typography>
-              <Typography variant="caption" color={isSpellingBoxCompleted(0.75, 2, 3) ? 'success.main' : 'primary.main'} sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.75x</Typography>
+              <Typography variant="caption" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
             </Box>
             <Box sx={getSpellingBoxStyle(1.0, 2, 3)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 2-3 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
-              <Typography variant="body2" color={isSpellingBoxCompleted(1.0, 2, 3) ? 'success.main' : 'primary.main'} sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>1.0x</Typography>
-              <Typography variant="caption" color={isSpellingBoxCompleted(1.0, 2, 3) ? 'success.main' : 'primary.main'} sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>1.0x</Typography>
+              <Typography variant="caption" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
             </Box>
             
             {/* Rad 2: 3-4 bokstäver */}
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 3-4 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
+            <Box sx={getSpellingBoxStyle(0.5, 3, 4)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 3-4 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.5x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>3-4</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 3 && word.ord.length <= 4).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 3-4 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
+            <Box sx={getSpellingBoxStyle(0.75, 3, 4)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 3-4 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.75x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>3-4</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 3 && word.ord.length <= 4).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 3-4 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
+            <Box sx={getSpellingBoxStyle(1.0, 3, 4)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 3-4 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>1.0x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>3-4</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 3 && word.ord.length <= 4).length} ord</Typography>
             </Box>
             
             {/* Rad 3: 4-5 bokstäver */}
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 4-5 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
+            <Box sx={getSpellingBoxStyle(0.5, 4, 5)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 4-5 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>4-5</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 4 && word.ord.length <= 5).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 4-5 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
+            <Box sx={getSpellingBoxStyle(0.75, 4, 5)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 4-5 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>4-5</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 4 && word.ord.length <= 5).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 4-5 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
+            <Box sx={getSpellingBoxStyle(1.0, 4, 5)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 4-5 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>4-5</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 4 && word.ord.length <= 5).length} ord</Typography>
             </Box>
             
             {/* Rad 4: 5-6 bokstäver */}
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 5-6 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
+            <Box sx={getSpellingBoxStyle(0.5, 5, 6)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 5-6 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>5-6</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 5 && word.ord.length <= 6).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 5-6 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
+            <Box sx={getSpellingBoxStyle(0.75, 5, 6)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 5-6 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>5-6</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 5 && word.ord.length <= 6).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 5-6 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
+            <Box sx={getSpellingBoxStyle(1.0, 5, 6)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 5-6 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>5-6</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 5 && word.ord.length <= 6).length} ord</Typography>
             </Box>
             
             {/* Rad 5: 6+ bokstäver */}
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 6+ bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
+            <Box sx={getSpellingBoxStyle(0.5, 6, 50)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 6+ bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>6+</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 6).length} ord</Typography>
-            </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 6+ bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
+          </Box>
+            <Box sx={getSpellingBoxStyle(0.75, 6, 50)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 6+ bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>6+</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 6).length} ord</Typography>
             </Box>
-            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: { xs: 50, sm: 60 }, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 6+ bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
+            <Box sx={getSpellingBoxStyle(1.0, 6, 50)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 6+ bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
               <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
               <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>6+</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 6).length} ord</Typography>
