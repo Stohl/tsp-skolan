@@ -2075,9 +2075,6 @@ const OvningPage: React.FC = () => {
         {/* Modern rutnät-layout */}
         {/* Infotext för bokstavering */}
         <Box sx={{ mb: 4, textAlign: 'center' }}>
-          <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
-            Bokstavering
-          </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
             Välj hastighet och ordlängd för att träna bokstavering. Du kommer att se en video och välja rätt ord från fyra alternativ.
           </Typography>
