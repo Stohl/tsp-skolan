@@ -1100,6 +1100,24 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled;
 };
 
+// Hjälpfunktion för slumpning med seed (för mer variation)
+const shuffleArrayWithSeed = <T,>(array: T[], seed: number): T[] => {
+  const shuffled = [...array];
+  let currentSeed = seed;
+  
+  // Enkel pseudo-random generator baserad på seed
+  const seededRandom = () => {
+    currentSeed = (currentSeed * 9301 + 49297) % 233280;
+    return currentSeed / 233280;
+  };
+  
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(seededRandom() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
+
 // Duplicerad komponent för Meningar-övning (test-sida)
 const SentencesExerciseDuplicate: React.FC<{
   learnedWords: any[];
@@ -1473,7 +1491,9 @@ const OvningPage: React.FC = () => {
 
     // Hämta slumpade ord från "lärda" (nivå 2) för repetition
     const learnedWords = filteredWords.filter(word => word.progress.level === 2);
-    const shuffledLearnedWords = shuffleArray(learnedWords);
+    // Använd timestamp som seed för mer variation mellan övningar
+    const seed = Date.now();
+    const shuffledLearnedWords = shuffleArrayWithSeed(learnedWords, seed);
     
     // Mjuk validering: Om för få "att lära mig" ord, komplettera med lärda ord
     let selectedLearningWords = sortedLearningWords.slice(0, minLearningWordsNeeded);
@@ -1527,7 +1547,9 @@ const OvningPage: React.FC = () => {
     console.log(`[DEBUG] Unique words after deduplication: ${uniqueWords.length}`);
     console.log(`[DEBUG] Words for exercise:`, uniqueWords.map(w => `${w.ord} (ID: ${w.id})`));
     
-    const shuffledCombinedWords = shuffleArray(uniqueWords);
+    // Använd timestamp som seed för mer variation mellan övningar
+    const seed = Date.now();
+    const shuffledCombinedWords = shuffleArrayWithSeed(uniqueWords, seed);
     
     // Om inga ord hittas för övning, använd alla ord
     if (shuffledCombinedWords.length === 0) {
@@ -1718,6 +1740,10 @@ const OvningPage: React.FC = () => {
   const startSpellingExercise = (minLen: number, maxLen: number) => {
     console.log(`[DEBUG] startSpellingExercise called with range: ${minLen}-${maxLen}`);
     
+    // Rensa staticPracticeWords för att undvika att öppna gamla övningar
+    setStaticPracticeWords([]);
+    setWordsMovedToLearned(new Set());
+    
     const wordsForRange = getAllSpellingWords.filter((word: any) => 
       word.ord.length >= minLen && word.ord.length <= maxLen
     );
@@ -1725,8 +1751,8 @@ const OvningPage: React.FC = () => {
     
     if (wordsForRange.length >= 4) { // Behöver minst 4 ord för alternativ
       console.log(`[DEBUG] Starting spelling exercise with ${wordsForRange.length} words`);
-      // Bättre slumpning med Fisher-Yates algoritm
-      const shuffledWords = shuffleArray(wordsForRange);
+      // Bättre slumpning med timestamp som seed för mer variation
+      const shuffledWords = shuffleArrayWithSeed(wordsForRange, Date.now());
       const selectedWords = shuffledWords.slice(0, 10); // Ta max 10 slumpade ord
       console.log(`[DEBUG] Selected ${selectedWords.length} words for spelling exercise:`, selectedWords.map(w => w.ord));
       setSpellingWords(selectedWords);
