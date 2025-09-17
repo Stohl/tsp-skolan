@@ -548,14 +548,14 @@ const ListorPage: React.FC = () => {
                             // Några ord är markerade som "att lära mig" eller "lärda" - "Vill lära mig" ska vara markerad
                             activeButton = 'vill_lara_mig';
                           } else {
-                            // Kontrollera om alla ord har mer än 1 poäng (för "Behöver repetera")
-                            const wordsWithHighPoints = wordsInList.filter(word => {
+                            // Kontrollera om alla ord är i "att lära mig" (level 1) OCH har mer än 1 poäng (för "Behöver repetera")
+                            const wordsInLearningWithHighPoints = wordsInList.filter(word => {
                               const progress = wordProgress[word.id];
-                              return progress && progress.points > 1;
+                              return progress && progress.level === 1 && progress.points > 1;
                             }).length;
                             
-                            if (wordsWithHighPoints === totalWords && totalWords > 0) {
-                              // Alla ord har mer än 1 poäng - "Behöver repetera" ska vara markerad
+                            if (wordsInLearningWithHighPoints === totalWords && totalWords > 0) {
+                              // Alla ord är i "att lära mig" och har mer än 1 poäng - "Behöver repetera" ska vara markerad
                               activeButton = 'behover_repetera';
                             } else if (unmarked === totalWords) {
                               // Inga ord är markerade - "Vänta" ska vara markerad
