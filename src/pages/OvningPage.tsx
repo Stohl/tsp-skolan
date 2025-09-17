@@ -1459,6 +1459,17 @@ const OvningPage: React.FC = () => {
     return completedSpellingBoxes.includes(boxId);
   };
 
+  // Funktion för att ta bort avklarad bokstavering-ruta
+  const removeSpellingBoxCompleted = (speed: number, minLength: number, maxLength: number) => {
+    const boxId = `${speed}x-${minLength}-${maxLength}`;
+    if (completedSpellingBoxes.includes(boxId)) {
+      const newCompleted = completedSpellingBoxes.filter(id => id !== boxId);
+      setCompletedSpellingBoxes(newCompleted);
+      localStorage.setItem('spelling-progress', JSON.stringify(newCompleted));
+      console.log(`[DEBUG] Removed spelling box from completed: ${boxId}`);
+    }
+  };
+
   // Hjälpfunktion för att få styling för en bokstavering-ruta
   const getSpellingBoxStyle = (speed: number, minLength: number, maxLength: number) => {
     const isCompleted = isSpellingBoxCompleted(speed, minLength, maxLength);
@@ -1467,8 +1478,8 @@ const OvningPage: React.FC = () => {
       border: '1px solid',
       borderColor: isCompleted ? 'success.main' : 'primary.main',
       borderRadius: 2,
-      backgroundColor: isCompleted ? 'success.50' : 'primary.50',
-      color: isCompleted ? 'success.main' : 'primary.main', // Lägg till färg för hela rutan
+      backgroundColor: isCompleted ? 'success.light' : 'primary.50', // Använd success.light för mer synlig grön färg
+      color: isCompleted ? 'success.main' : 'primary.main',
       display: 'flex',
       flexDirection: 'column' as const,
       alignItems: 'center',
@@ -1479,7 +1490,7 @@ const OvningPage: React.FC = () => {
         transform: 'translateY(-2px)',
         transition: 'transform 0.2s',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        backgroundColor: isCompleted ? 'success.100' : 'primary.100'
+        backgroundColor: isCompleted ? 'success.main' : 'primary.100' // Även hover blir mer grön
       }
     };
   };
@@ -1757,6 +1768,16 @@ const OvningPage: React.FC = () => {
     };
     
     setResults(prev => [...prev, result]);
+
+    // För bokstavering: ta bort grön markering om man svarar fel på första frågan
+    if (selectedExerciseType === ExerciseType.SPELLING && !isCorrect && currentWordIndex === 0) {
+      console.log(`[DEBUG] Wrong answer on first question, removing green marking`);
+      const currentSpeed = playbackSpeed;
+      const currentInterval = predefinedIntervals[selectedInterval];
+      if (currentInterval) {
+        removeSpellingBoxCompleted(currentSpeed, currentInterval.min, currentInterval.max);
+      }
+    }
     
     // Spara inte progress för bokstavering-övningar
     if (selectedExerciseType !== ExerciseType.SPELLING) {
