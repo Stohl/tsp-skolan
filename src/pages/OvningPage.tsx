@@ -1769,15 +1769,6 @@ const OvningPage: React.FC = () => {
     
     setResults(prev => [...prev, result]);
 
-    // För bokstavering: ta bort grön markering om man svarar fel på första frågan
-    if (selectedExerciseType === ExerciseType.SPELLING && !isCorrect && currentWordIndex === 0) {
-      console.log(`[DEBUG] Wrong answer on first question, removing green marking`);
-      const currentSpeed = playbackSpeed;
-      const currentInterval = predefinedIntervals[selectedInterval];
-      if (currentInterval) {
-        removeSpellingBoxCompleted(currentSpeed, currentInterval.min, currentInterval.max);
-      }
-    }
     
     // Spara inte progress för bokstavering-övningar
     if (selectedExerciseType !== ExerciseType.SPELLING) {
@@ -2709,6 +2700,33 @@ const OvningPage: React.FC = () => {
           onResult={handleExerciseResult}
           onSkip={handleSkip}
         />
+        
+        {/* Diskret knapp för att placera ord i lärda */}
+        <Box sx={{ mt: 3, textAlign: 'center' }}>
+          <Button
+            variant="outlined"
+            size="small"
+            onClick={() => {
+              if (currentWord) {
+                markWordResult(currentWord.id, true);
+                console.log(`[DEBUG] Manually moved word ${currentWord.ord} to learned`);
+              }
+            }}
+            sx={{ 
+              fontSize: '0.75rem',
+              py: 0.5,
+              px: 2,
+              borderColor: 'success.main',
+              color: 'success.main',
+              '&:hover': {
+                backgroundColor: 'success.50',
+                borderColor: 'success.main'
+              }
+            }}
+          >
+            Placera i lärda ord
+          </Button>
+        </Box>
           )}
         </>
       )}
