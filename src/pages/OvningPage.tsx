@@ -1826,39 +1826,27 @@ const OvningPage: React.FC = () => {
             sx={{ 
               cursor: 'pointer', 
               height: '100%',
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-              color: 'white',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
               position: 'relative',
               overflow: 'hidden',
               '&:hover': { 
-                transform: 'translateY(-8px)', 
-                transition: 'all 0.3s ease',
-                boxShadow: '0 20px 40px rgba(102, 126, 234, 0.3)'
-              },
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(255, 255, 255, 0.1)',
-                opacity: 0,
-                transition: 'opacity 0.3s ease'
-              },
-              '&:hover::before': {
-                opacity: 1
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'primary.main'
               }
             }}
             onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
           >
-            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
-              <School sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <School sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Teckna
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Se ordet och vänd kortet för att se tecknet. Markera om du kunde ordet eller inte.
               </Typography>
             </CardContent>
@@ -1869,29 +1857,17 @@ const OvningPage: React.FC = () => {
             sx={{ 
               cursor: 'pointer', 
               height: '100%',
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)',
-              color: 'white',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
               position: 'relative',
               overflow: 'hidden',
               '&:hover': { 
-                transform: 'translateY(-8px)', 
-                transition: 'all 0.3s ease',
-                boxShadow: '0 20px 40px rgba(240, 147, 251, 0.3)'
-              },
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(255, 255, 255, 0.1)',
-                opacity: 0,
-                transition: 'opacity 0.3s ease'
-              },
-              '&:hover::before': {
-                opacity: 1
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'secondary.main'
               }
             }}
             onClick={() => {
@@ -1902,12 +1878,12 @@ const OvningPage: React.FC = () => {
               handleExerciseTypeSelect(ExerciseType.QUIZ);
             }}
           >
-            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
-              <Quiz sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Quiz sx={{ fontSize: 40, color: 'secondary.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Flervalsquiz
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Se videon och välj rätt ord från flera alternativ.
               </Typography>
             </CardContent>
@@ -1918,39 +1894,27 @@ const OvningPage: React.FC = () => {
             sx={{ 
               cursor: 'pointer', 
               height: '100%',
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)',
-              color: 'white',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
               position: 'relative',
               overflow: 'hidden',
               '&:hover': { 
-                transform: 'translateY(-8px)', 
-                transition: 'all 0.3s ease',
-                boxShadow: '0 20px 40px rgba(79, 172, 254, 0.3)'
-              },
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(255, 255, 255, 0.1)',
-                opacity: 0,
-                transition: 'opacity 0.3s ease'
-              },
-              '&:hover::before': {
-                opacity: 1
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'success.main'
               }
             }}
             onClick={() => handleExerciseTypeSelect(ExerciseType.SIGN)}
           >
-            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
-              <Gesture sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Gesture sx={{ fontSize: 40, color: 'success.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Övningstest
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Se ordet, teckna själv, och jämför med videon.
               </Typography>
             </CardContent>
@@ -1961,39 +1925,27 @@ const OvningPage: React.FC = () => {
             sx={{ 
               cursor: 'pointer', 
               height: '100%',
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)',
-              color: 'white',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
               position: 'relative',
               overflow: 'hidden',
               '&:hover': { 
-                transform: 'translateY(-8px)', 
-                transition: 'all 0.3s ease',
-                boxShadow: '0 20px 40px rgba(67, 233, 123, 0.3)'
-              },
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(255, 255, 255, 0.1)',
-                opacity: 0,
-                transition: 'opacity 0.3s ease'
-              },
-              '&:hover::before': {
-                opacity: 1
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'warning.main'
               }
             }}
             onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
           >
-            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
-              <Spellcheck sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Spellcheck sx={{ fontSize: 40, color: 'warning.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Bokstavering
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Se bokstaveringsvideo och gissa vilket ord som bokstaveras.
               </Typography>
             </CardContent>
@@ -2004,39 +1956,27 @@ const OvningPage: React.FC = () => {
             sx={{ 
               cursor: 'pointer', 
               height: '100%',
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #fa709a 0%, #fee140 100%)',
-              color: 'white',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
               position: 'relative',
               overflow: 'hidden',
               '&:hover': { 
-                transform: 'translateY(-8px)', 
-                transition: 'all 0.3s ease',
-                boxShadow: '0 20px 40px rgba(250, 112, 154, 0.3)'
-              },
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                bottom: 0,
-                background: 'rgba(255, 255, 255, 0.1)',
-                opacity: 0,
-                transition: 'opacity 0.3s ease'
-              },
-              '&:hover::before': {
-                opacity: 1
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'info.main'
               }
             }}
             onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
           >
-            <CardContent sx={{ textAlign: 'center', p: 4, position: 'relative', zIndex: 1 }}>
-              <ChatBubbleOutline sx={{ fontSize: 48, mb: 2, opacity: 0.9 }} />
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <ChatBubbleOutline sx={{ fontSize: 40, color: 'info.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Meningar
               </Typography>
-              <Typography variant="body2" sx={{ opacity: 0.9, lineHeight: 1.6 }}>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Öva med meningar och fraser från dina lärda ord.
               </Typography>
             </CardContent>
