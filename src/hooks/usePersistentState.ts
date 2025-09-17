@@ -61,6 +61,8 @@ export const useWordProgress = () => {
 
   // Funktion för att uppdatera progress för ett specifikt ord
   const updateWordProgress = (wordId: string, updates: Partial<WordProgressData>) => {
+    console.log(`[DEBUG] updateWordProgress called: wordId=${wordId}, updates=`, updates);
+    
     setWordProgress((prev: WordProgressStorage) => {
       const current = prev[wordId] || {
         level: 0,
@@ -76,6 +78,8 @@ export const useWordProgress = () => {
           ...(updates.stats || {})
         }
       };
+      
+      console.log(`[DEBUG] updateWordProgress: wordId=${wordId}, oldPoints=${current.points}, newPoints=${newData.points}`);
       
       return {
         ...prev,
@@ -139,6 +143,8 @@ export const useWordProgress = () => {
       points: newPoints,
       stats: newStats 
     });
+
+    console.log(`[DEBUG] markWordResult completed for wordId=${wordId}, newPoints=${newPoints}, newLevel=${newLevel}`);
   };
 
   // Funktion för att ändra nivå för ett ord
