@@ -2201,10 +2201,12 @@ const OvningPage: React.FC = () => {
                         primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
                         secondary={wordsMovedToLearned.has(result.wordId) ? "Flyttad till lärda ord!" : ""}
                       />
-                      {wordProgress[result.wordId]?.level === 2 ? (
-                        <CheckCircle color="success" />
-                      ) : result.isCorrect ? (
-                        <CheckCircle color="primary" />
+                      {result.isCorrect ? (
+                        wordProgress[result.wordId]?.level === 2 ? (
+                          <CheckCircle color="success" />
+                        ) : (
+                          <CheckCircle color="primary" />
+                        )
                       ) : (
                         <Cancel color="error" />
                       )}
