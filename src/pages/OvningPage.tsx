@@ -1291,11 +1291,11 @@ const OvningPage: React.FC = () => {
 
   // Uppdatera staticPracticeWords när practiceWords ändras och vi inte är mitt i en övning
   useEffect(() => {
-    if (practiceWords.length > 0 && currentWordIndex === 0 && !showResults) {
+    if (practiceWords.length > 0 && !showResults) {
       console.log(`[DEBUG] Setting static practice words:`, practiceWords.map(w => `${w.ord} (ID: ${w.id})`));
       setStaticPracticeWords(practiceWords);
     }
-  }, [practiceWords, currentWordIndex, showResults]);
+  }, [practiceWords, showResults]);
 
   // Beräkna ord för quiz med minst 10 ord (inklusive fallback till lärda ord)
   const quizWords = useMemo(() => {
@@ -1383,9 +1383,6 @@ const OvningPage: React.FC = () => {
     setCurrentWordIndex(0);
     setResults([]);
     setShowResults(false);
-    
-    // Reset staticPracticeWords för att tvinga en ny beräkning
-    setStaticPracticeWords([]);
   };
 
   // Funktion som körs när användaren slutför en övning
