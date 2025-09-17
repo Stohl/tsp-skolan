@@ -2709,8 +2709,8 @@ const OvningPage: React.FC = () => {
                   size="small"
                   onClick={() => {
                     if (currentWord) {
-                      // Precis som "Ja, jag kunde" - markera som rätt svarat OCH ge 5 poäng
-                      markWordResult(currentWord.id, true); // Markera som rätt svarat (+1 poäng)
+                      // Precis som "Ja, jag kunde" - använd samma funktion
+                      handleExerciseResult(true); // Detta sparar resultatet OCH markerar som rätt
                       // Sedan ge extra poäng för att komma till 5 totalt
                       const current = wordProgress[currentWord.id];
                       if (current && current.points < 5) {
