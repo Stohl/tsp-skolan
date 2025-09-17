@@ -508,19 +508,32 @@ const ListorPage: React.FC = () => {
                       {/* Ordlista - Inline lista */}
                       <Box sx={{ mb: 3, p: 2 }}>
                         <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-                          {wordsInList.map((word, index) => (
-                            <span key={word.id}>
-                              <span style={{ fontWeight: 500 }}>
-                                {word.ord}
-                              </span>
-                              {word.beskrivning && (
-                                <span style={{ color: '#666', fontWeight: 400 }}>
-                                  {' '}({word.beskrivning})
+                          {wordsInList.map((word, index) => {
+                            const progress = wordProgress[word.id];
+                            let wordColor = 'inherit'; // Omarkerade = samma som nu
+                            
+                            if (progress) {
+                              if (progress.level === 1) {
+                                wordColor = '#2196F3'; // Att lära mig = blå
+                              } else if (progress.level === 2) {
+                                wordColor = '#4CAF50'; // Lärda = grön
+                              }
+                            }
+                            
+                            return (
+                              <span key={word.id}>
+                                <span style={{ fontWeight: 500, color: wordColor }}>
+                                  {word.ord}
                                 </span>
-                              )}
-                              {index < wordsInList.length - 1 && ', '}
-                            </span>
-                          ))}
+                                {word.beskrivning && (
+                                  <span style={{ color: '#666', fontWeight: 400 }}>
+                                    {' '}({word.beskrivning})
+                                  </span>
+                                )}
+                                {index < wordsInList.length - 1 && ', '}
+                              </span>
+                            );
+                          })}
                         </Typography>
                       </Box>
                       
@@ -548,14 +561,14 @@ const ListorPage: React.FC = () => {
                             // Några ord är markerade som "att lära mig" eller "lärda" - "Vill lära mig" ska vara markerad
                             activeButton = 'vill_lara_mig';
                           } else {
-                            // Kontrollera om alla ord är i "att lära mig" (level 1) OCH har mer än 1 poäng (för "Behöver repetera")
-                            const wordsInLearningWithHighPoints = wordsInList.filter(word => {
+                            // Kontrollera om alla ord har mer än 1 poäng (för "Behöver repetera")
+                            const wordsWithHighPoints = wordsInList.filter(word => {
                               const progress = wordProgress[word.id];
-                              return progress && progress.level === 1 && progress.points > 1;
+                              return progress && progress.points > 1;
                             }).length;
                             
-                            if (wordsInLearningWithHighPoints === totalWords && totalWords > 0) {
-                              // Alla ord är i "att lära mig" och har mer än 1 poäng - "Behöver repetera" ska vara markerad
+                            if (wordsWithHighPoints === totalWords && totalWords > 0) {
+                              // Alla ord har mer än 1 poäng - "Behöver repetera" ska vara markerad
                               activeButton = 'behover_repetera';
                             } else if (unmarked === totalWords) {
                               // Inga ord är markerade - "Vänta" ska vara markerad

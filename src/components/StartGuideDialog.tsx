@@ -541,24 +541,52 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 return (
                   <Box>
                     {groups.ja.length > 0 && (
-                      <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>🟢 Ordlistor du kan:</strong> {groups.ja.map(q => q.wordList.name).join(', ')}
-                      </Typography>
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                          🟢 Ordlistor du kan:
+                        </Typography>
+                        {groups.ja.map(q => (
+                          <Typography key={q.id} variant="body2" sx={{ ml: 2, mb: 0.5 }}>
+                            {q.wordList.name}
+                          </Typography>
+                        ))}
+                      </Box>
                     )}
                     {groups.behover_repetera.length > 0 && (
-                      <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>🟡 Ordlistor att repetera:</strong> {groups.behover_repetera.map(q => q.wordList.name).join(', ')}
-                      </Typography>
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                          🟡 Ordlistor att repetera:
+                        </Typography>
+                        {groups.behover_repetera.map(q => (
+                          <Typography key={q.id} variant="body2" sx={{ ml: 2, mb: 0.5 }}>
+                            {q.wordList.name}
+                          </Typography>
+                        ))}
+                      </Box>
                     )}
                     {groups.nej.length > 0 && (
-                      <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>🔵 Ordlistor att lära dig:</strong> {groups.nej.map(q => q.wordList.name).join(', ')}
-                      </Typography>
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                          🔵 Ordlistor att lära dig:
+                        </Typography>
+                        {groups.nej.map(q => (
+                          <Typography key={q.id} variant="body2" sx={{ ml: 2, mb: 0.5 }}>
+                            {q.wordList.name}
+                          </Typography>
+                        ))}
+                      </Box>
                     )}
                     {groups.vanta.length > 0 && (
-                      <Typography variant="body2" sx={{ mb: 1 }}>
-                        <strong>⚪ Ordlistor att vänta med:</strong> {groups.vanta.map(q => q.wordList.name).join(', ')}
-                      </Typography>
+                      <Box sx={{ mb: 2 }}>
+                        <Typography variant="body2" sx={{ mb: 1, fontWeight: 'bold' }}>
+                          ⚪ Ordlistor att vänta med:
+                        </Typography>
+                        {groups.vanta.map(q => (
+                          <Typography key={q.id} variant="body2" sx={{ ml: 2, mb: 0.5 }}>
+                            {q.wordList.name}
+                          </Typography>
+                        ))}
+                      </Box>
                     )}
                   </Box>
                 );
