@@ -1376,14 +1376,7 @@ const OvningPage: React.FC = () => {
     return saved ? parseInt(saved) : 0; // 0 = 2-3 bokstäver
   });
 
-  // Definiera förbestämda intervall
-  const predefinedIntervals = [
-    { min: 2, max: 3, label: '2-3 bokstäver', description: 'Korta ord' },
-    { min: 3, max: 4, label: '3-4 bokstäver', description: 'Korta till medellånga ord' },
-    { min: 4, max: 5, label: '4-5 bokstäver', description: 'Medellånga ord' },
-    { min: 5, max: 6, label: '5-6 bokstäver', description: 'Medellånga till långa ord' },
-    { min: 6, max: 10, label: '6-7+ bokstäver', description: 'Långa ord' }
-  ];
+  // Definiera förbestämda intervall (moved to before spelling section)
 
   // Funktioner för att spara inställningar
   const savePlaybackSpeed = (speed: number) => {
@@ -1641,6 +1634,11 @@ const OvningPage: React.FC = () => {
     setShowResults(false);
     setStaticPracticeWords([]); // Återställ för ny övning
     setWordsMovedToLearned(new Set()); // Återställ för ny övning
+    
+    // Rensa spellingWords för att säkerställa att val-sidan visas
+    if (exerciseType === ExerciseType.SPELLING) {
+      setSpellingWords([]);
+    }
   };
 
   // Funktion som körs när användaren slutför en övning
@@ -1913,6 +1911,15 @@ const OvningPage: React.FC = () => {
   }
 
 
+  // Definiera ordlängd-intervaller för bokstavering
+  const predefinedIntervals = [
+    { min: 2, max: 3, label: '2-3', description: '2-3 bokstäver' },
+    { min: 3, max: 4, label: '3-4', description: '3-4 bokstäver' },
+    { min: 4, max: 5, label: '4-5', description: '4-5 bokstäver' },
+    { min: 5, max: 6, label: '5-6', description: '5-6 bokstäver' },
+    { min: 6, max: 50, label: '6+', description: '6+ bokstäver' }
+  ];
+
   // Visa val för bokstavering-ordlängd
   if (selectedExerciseType === ExerciseType.SPELLING && spellingWords.length === 0) {
 
@@ -2028,10 +2035,18 @@ const OvningPage: React.FC = () => {
                 >
                   <CardContent sx={{ textAlign: 'center', p: 2 }}>
                     <Typography variant="h6" color={isSelected ? 'primary.main' : 'text.primary'} sx={{ fontWeight: 600 }}>
-                      {interval.label}
+                      {interval.min === 2 && interval.max === 3 ? '2-3' :
+                       interval.min === 3 && interval.max === 4 ? '3-4' :
+                       interval.min === 4 && interval.max === 5 ? '4-5' :
+                       interval.min === 5 && interval.max === 6 ? '5-6' :
+                       interval.min === 6 && interval.max === 50 ? '6+' : interval.label}
                     </Typography>
                     <Typography variant="body2" fontWeight="bold" sx={{ mb: 1 }}>
-                      {interval.description}
+                      {interval.min === 2 && interval.max === 3 ? '2-3 bokstäver' :
+                       interval.min === 3 && interval.max === 4 ? '3-4 bokstäver' :
+                       interval.min === 4 && interval.max === 5 ? '4-5 bokstäver' :
+                       interval.min === 5 && interval.max === 6 ? '5-6 bokstäver' :
+                       interval.min === 6 && interval.max === 50 ? '6+ bokstäver' : interval.description}
                     </Typography>
                     <Typography variant="caption" color="text.secondary">
                       {wordsInRange.length} ord
@@ -2118,7 +2133,11 @@ const OvningPage: React.FC = () => {
                     {combo.speed}x
                   </Typography>
                   <Typography variant="caption" color={combo.isDisabled ? 'text.secondary' : 'primary.main'} sx={{ textAlign: 'center' }}>
-                    {combo.interval.label}
+                    {combo.interval.min === 2 && combo.interval.max === 3 ? '2-3' :
+                     combo.interval.min === 3 && combo.interval.max === 4 ? '3-4' :
+                     combo.interval.min === 4 && combo.interval.max === 5 ? '4-5' :
+                     combo.interval.min === 5 && combo.interval.max === 6 ? '5-6' :
+                     combo.interval.min === 6 && combo.interval.max === 50 ? '6+' : combo.interval.label}
                   </Typography>
                   <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
                     {combo.wordsInRange.length} ord
