@@ -2695,38 +2695,40 @@ const OvningPage: React.FC = () => {
               </CardContent>
             </Card>
           ) : (
-        <FlashcardsExercise
-          word={currentWord}
-          onResult={handleExerciseResult}
-          onSkip={handleSkip}
-        />
-        
-        {/* Diskret knapp för att placera ord i lärda */}
-        <Box sx={{ mt: 3, textAlign: 'center' }}>
-          <Button
-            variant="outlined"
-            size="small"
-            onClick={() => {
-              if (currentWord) {
-                markWordResult(currentWord.id, true);
-                console.log(`[DEBUG] Manually moved word ${currentWord.ord} to learned`);
-              }
-            }}
-            sx={{ 
-              fontSize: '0.75rem',
-              py: 0.5,
-              px: 2,
-              borderColor: 'success.main',
-              color: 'success.main',
-              '&:hover': {
-                backgroundColor: 'success.50',
-                borderColor: 'success.main'
-              }
-            }}
-          >
-            Placera i lärda ord
-          </Button>
-        </Box>
+            <>
+              <FlashcardsExercise
+                word={currentWord}
+                onResult={handleExerciseResult}
+                onSkip={handleSkip}
+              />
+              
+              {/* Diskret knapp för att placera ord i lärda */}
+              <Box sx={{ mt: 3, textAlign: 'center' }}>
+                <Button
+                  variant="outlined"
+                  size="small"
+                  onClick={() => {
+                    if (currentWord) {
+                      markWordResult(currentWord.id, true);
+                      console.log(`[DEBUG] Manually moved word ${currentWord.ord} to learned`);
+                    }
+                  }}
+                  sx={{ 
+                    fontSize: '0.75rem',
+                    py: 0.5,
+                    px: 2,
+                    borderColor: 'success.main',
+                    color: 'success.main',
+                    '&:hover': {
+                      backgroundColor: 'success.50',
+                      borderColor: 'success.main'
+                    }
+                  }}
+                >
+                  Placera i lärda ord
+                </Button>
+              </Box>
+            </>
           )}
         </>
       )}
