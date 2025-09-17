@@ -1478,7 +1478,7 @@ const OvningPage: React.FC = () => {
       border: '1px solid',
       borderColor: isCompleted ? 'success.main' : 'primary.main',
       borderRadius: 2,
-      backgroundColor: isCompleted ? 'success.light' : 'primary.50', // Använd success.light för mer synlig grön färg
+      backgroundColor: isCompleted ? 'success.100' : 'primary.50', // Använd success.100 för subtilare grön färg
       color: isCompleted ? 'success.main' : 'primary.main',
       display: 'flex',
       flexDirection: 'column' as const,
@@ -1490,7 +1490,7 @@ const OvningPage: React.FC = () => {
         transform: 'translateY(-2px)',
         transition: 'transform 0.2s',
         boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-        backgroundColor: isCompleted ? 'success.main' : 'primary.100' // Även hover blir mer grön
+        backgroundColor: isCompleted ? 'success.200' : 'primary.100' // Subtilare hover-effekt
       }
     };
   };
