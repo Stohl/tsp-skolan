@@ -2709,9 +2709,9 @@ const OvningPage: React.FC = () => {
                   size="small"
                   onClick={() => {
                     if (currentWord) {
-                      // Precis som "Ja, jag kunde" men med +5 poäng istället för +1
-                      markWordResult(currentWord.id, true, 5); // +5 poäng istället för +1
-                      console.log(`[DEBUG] Manually gave word ${currentWord.ord} +5 points`);
+                      // Placera ordet direkt i "Lärda" (level 2) med 5 poäng
+                      setWordLevel(currentWord.id, 2); // Level 2 = Lärda med 5 poäng
+                      console.log(`[DEBUG] Manually moved word ${currentWord.ord} to learned (level 2, 5 points)`);
                       // Gå till nästa ord
                       handleSkip();
                     }
