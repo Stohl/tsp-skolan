@@ -1426,6 +1426,12 @@ const OvningPage: React.FC = () => {
     return saved ? parseInt(saved) : 0; // 0 = 2-3 bokstäver
   });
 
+  // State för att spåra avklarade bokstavering-rutor
+  const [completedSpellingBoxes, setCompletedSpellingBoxes] = useState<string[]>(() => {
+    const saved = localStorage.getItem('spelling-progress');
+    return saved ? JSON.parse(saved) : [];
+  });
+
   // Definiera förbestämda intervall (moved to before spelling section)
 
   // Funktioner för att spara inställningar
@@ -1437,6 +1443,47 @@ const OvningPage: React.FC = () => {
   const saveSelectedInterval = (interval: number) => {
     setSelectedInterval(interval);
     localStorage.setItem('spelling-interval', interval.toString());
+  };
+
+  // Funktion för att spara avklarad bokstavering-ruta
+  const markSpellingBoxCompleted = (speed: number, minLength: number, maxLength: number) => {
+    const boxId = `${speed}x-${minLength}-${maxLength}`;
+    if (!completedSpellingBoxes.includes(boxId)) {
+      const newCompleted = [...completedSpellingBoxes, boxId];
+      setCompletedSpellingBoxes(newCompleted);
+      localStorage.setItem('spelling-progress', JSON.stringify(newCompleted));
+      console.log(`[DEBUG] Marked spelling box as completed: ${boxId}`);
+    }
+  };
+
+  // Funktion för att kontrollera om en ruta är avklarad
+  const isSpellingBoxCompleted = (speed: number, minLength: number, maxLength: number) => {
+    const boxId = `${speed}x-${minLength}-${maxLength}`;
+    return completedSpellingBoxes.includes(boxId);
+  };
+
+  // Hjälpfunktion för att få styling för en bokstavering-ruta
+  const getSpellingBoxStyle = (speed: number, minLength: number, maxLength: number) => {
+    const isCompleted = isSpellingBoxCompleted(speed, minLength, maxLength);
+    return {
+      cursor: 'pointer' as const,
+      border: '1px solid',
+      borderColor: isCompleted ? 'success.main' : 'primary.main',
+      borderRadius: 2,
+      backgroundColor: isCompleted ? 'success.50' : 'primary.50',
+      display: 'flex',
+      flexDirection: 'column' as const,
+      alignItems: 'center',
+      justifyContent: 'center',
+      minHeight: { xs: 50, sm: 60 },
+      p: { xs: 0.5, sm: 1 },
+      '&:hover': {
+        transform: 'translateY(-2px)',
+        transition: 'transform 0.2s',
+        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+        backgroundColor: isCompleted ? 'success.100' : 'primary.100'
+      }
+    };
   };
 
   // Återställ övningssidan när komponenten mountas (när användaren navigerar tillbaka)
@@ -1738,6 +1785,24 @@ const OvningPage: React.FC = () => {
       setCurrentWordIndex(prev => prev + 1);
     } else {
       console.log(`[DEBUG] Quiz completed! Showing results.`);
+      
+      // Kontrollera om det är bokstavering och om alla svar var rätt
+      if (selectedExerciseType === ExerciseType.SPELLING) {
+        const correctAnswers = results.filter(r => r.isCorrect).length;
+        const totalAnswers = results.length;
+        console.log(`[DEBUG] Spelling exercise completed: ${correctAnswers}/${totalAnswers} correct`);
+        
+        // Om alla svar var rätt (10/10), markera rutan som avklarad
+        if (correctAnswers === totalAnswers && totalAnswers === 10) {
+          // Hitta vilken ruta som användes baserat på aktuella inställningar
+          const currentSpeed = playbackSpeed;
+          const currentInterval = predefinedIntervals[selectedInterval];
+          if (currentInterval) {
+            markSpellingBoxCompleted(currentSpeed, currentInterval.min, currentInterval.max);
+          }
+        }
+      }
+      
       setShowResults(true);
     }
   };
@@ -2015,73 +2080,19 @@ const OvningPage: React.FC = () => {
             minHeight: { xs: '400px', sm: '500px' } // Mindre höjd på mobil
           }}>
             {/* Rad 1: 2-3 bokstäver */}
-            <Box sx={{ 
-              cursor: 'pointer', 
-              border: '1px solid', 
-              borderColor: 'primary.main', 
-              borderRadius: 2, 
-              backgroundColor: 'primary.50', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              minHeight: { xs: 50, sm: 60 }, // Mindre höjd på mobil
-              p: { xs: 0.5, sm: 1 }, // Mindre padding på mobil
-                '&:hover': {
-                  transform: 'translateY(-2px)',
-                transition: 'transform 0.2s', 
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
-                backgroundColor: 'primary.100' 
-              } 
-            }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 2-3 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
-              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.5x</Typography>
-              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
+            <Box sx={getSpellingBoxStyle(0.5, 2, 3)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.5x hastighet, 2-3 bokstäver'); savePlaybackSpeed(0.5); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
+              <Typography variant="body2" color={isSpellingBoxCompleted(0.5, 2, 3) ? 'success.main' : 'primary.main'} sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.5x</Typography>
+              <Typography variant="caption" color={isSpellingBoxCompleted(0.5, 2, 3) ? 'success.main' : 'primary.main'} sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
           </Box>
-            <Box sx={{ 
-              cursor: 'pointer', 
-              border: '1px solid', 
-              borderColor: 'primary.main', 
-              borderRadius: 2, 
-              backgroundColor: 'primary.50', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              minHeight: { xs: 50, sm: 60 },
-              p: { xs: 0.5, sm: 1 },
-              '&:hover': { 
-                transform: 'translateY(-2px)', 
-                transition: 'transform 0.2s', 
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
-                backgroundColor: 'primary.100' 
-              } 
-            }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 2-3 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
-              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.75x</Typography>
-              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
+            <Box sx={getSpellingBoxStyle(0.75, 2, 3)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 0.75x hastighet, 2-3 bokstäver'); savePlaybackSpeed(0.75); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
+              <Typography variant="body2" color={isSpellingBoxCompleted(0.75, 2, 3) ? 'success.main' : 'primary.main'} sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>0.75x</Typography>
+              <Typography variant="caption" color={isSpellingBoxCompleted(0.75, 2, 3) ? 'success.main' : 'primary.main'} sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
             </Box>
-            <Box sx={{ 
-              cursor: 'pointer', 
-              border: '1px solid', 
-              borderColor: 'primary.main', 
-              borderRadius: 2, 
-              backgroundColor: 'primary.50', 
-              display: 'flex', 
-              flexDirection: 'column', 
-              alignItems: 'center', 
-              justifyContent: 'center', 
-              minHeight: { xs: 50, sm: 60 },
-              p: { xs: 0.5, sm: 1 },
-              '&:hover': { 
-                transform: 'translateY(-2px)', 
-                transition: 'transform 0.2s', 
-                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', 
-                backgroundColor: 'primary.100' 
-              } 
-            }} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 2-3 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
-              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>1.0x</Typography>
-              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
+            <Box sx={getSpellingBoxStyle(1.0, 2, 3)} onClick={() => { console.log('[DEBUG] Bokstavering valt: 1.0x hastighet, 2-3 bokstäver'); savePlaybackSpeed(1.0); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
+              <Typography variant="body2" color={isSpellingBoxCompleted(1.0, 2, 3) ? 'success.main' : 'primary.main'} sx={{ fontWeight: 600, fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>1.0x</Typography>
+              <Typography variant="caption" color={isSpellingBoxCompleted(1.0, 2, 3) ? 'success.main' : 'primary.main'} sx={{ textAlign: 'center', fontSize: { xs: '0.65rem', sm: '0.75rem' } }}>2-3</Typography>
               <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
             </Box>
             
