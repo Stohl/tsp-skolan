@@ -1792,14 +1792,20 @@ const OvningPage: React.FC = () => {
         const totalAnswers = results.length;
         console.log(`[DEBUG] Spelling exercise completed: ${correctAnswers}/${totalAnswers} correct`);
         
-        // Om alla svar var rätt (10/10), markera rutan som avklarad
-        if (correctAnswers === totalAnswers && totalAnswers === 10) {
+        // Om alla svar var rätt (100%), markera rutan som avklarad
+        if (correctAnswers === totalAnswers && totalAnswers > 0) {
+          console.log(`[DEBUG] Perfect score! Marking spelling box as completed.`);
           // Hitta vilken ruta som användes baserat på aktuella inställningar
           const currentSpeed = playbackSpeed;
           const currentInterval = predefinedIntervals[selectedInterval];
+          console.log(`[DEBUG] Current speed: ${currentSpeed}, interval: ${selectedInterval}, min: ${currentInterval?.min}, max: ${currentInterval?.max}`);
           if (currentInterval) {
             markSpellingBoxCompleted(currentSpeed, currentInterval.min, currentInterval.max);
+          } else {
+            console.log(`[DEBUG] No currentInterval found, cannot mark as completed`);
           }
+        } else {
+          console.log(`[DEBUG] Not perfect score: ${correctAnswers}/${totalAnswers}, not marking as completed`);
         }
       }
       
