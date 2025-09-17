@@ -526,7 +526,7 @@ const ListorPage: React.FC = () => {
                                   {word.ord}
                                 </span>
                                 {word.beskrivning && (
-                                  <span style={{ color: '#666', fontWeight: 400 }}>
+                                  <span style={{ color: wordColor, fontWeight: 400 }}>
                                     {' '}({word.beskrivning})
                                   </span>
                                 )}
@@ -557,23 +557,26 @@ const ListorPage: React.FC = () => {
                           if (learned === totalWords && totalWords > 0) {
                             // Alla ord är lärda - "Kan dessa" ska vara grön
                             activeButton = 'kan_dessa';
-                          } else if (learning > 0 || learned > 0) {
-                            // Några ord är markerade som "att lära mig" eller "lärda" - "Vill lära mig" ska vara markerad
-                            activeButton = 'vill_lara_mig';
-                          } else {
-                            // Kontrollera om alla ord har mer än 1 poäng (för "Behöver repetera")
+                          } else if (learning === totalWords && totalWords > 0) {
+                            // Alla ord är "vill lära mig" - kontrollera poäng för "Behöver repetera"
                             const wordsWithHighPoints = wordsInList.filter(word => {
                               const progress = wordProgress[word.id];
                               return progress && progress.points > 1;
                             }).length;
                             
-                            if (wordsWithHighPoints === totalWords && totalWords > 0) {
+                            if (wordsWithHighPoints === totalWords) {
                               // Alla ord har mer än 1 poäng - "Behöver repetera" ska vara markerad
                               activeButton = 'behover_repetera';
-                            } else if (unmarked === totalWords) {
-                              // Inga ord är markerade - "Vänta" ska vara markerad
-                              activeButton = 'vanta';
+                            } else {
+                              // Alla ord är "vill lära mig" men inte alla har höga poäng
+                              activeButton = 'vill_lara_mig';
                             }
+                          } else if (learning > 0 || learned > 0) {
+                            // Några ord är markerade som "att lära mig" eller "lärda" - "Vill lära mig" ska vara markerad
+                            activeButton = 'vill_lara_mig';
+                          } else {
+                            // Inga ord är markerade - "Vänta" ska vara markerad
+                            activeButton = 'vanta';
                           }
                           
                           return (
