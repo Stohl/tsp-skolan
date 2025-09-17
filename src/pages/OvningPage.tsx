@@ -639,10 +639,37 @@ const SpellingExercise: React.FC<{
   // Generera felaktiga alternativ med samma längd som det korrekta ordet
   const getWrongAnswers = () => {
     const correctLength = word.ord.length;
-    const wrongWords = shuffleArray(allSpellingWords
-      .filter(w => w.id !== word.id && w.ord.length === correctLength))
-      .slice(0, 3);
-    return wrongWords.map(w => ({ id: w.id, text: w.ord }));
+    let wrongWords: any[] = [];
+    
+    // Försök först hitta ord med exakt samma längd
+    const sameLengthWords = allSpellingWords.filter(w => w.id !== word.id && w.ord.length === correctLength);
+    wrongWords = [...sameLengthWords];
+    
+    // Om vi inte har tillräckligt (3 ord), komplettera med ord med liknande längd (±1 bokstav)
+    if (wrongWords.length < 3) {
+      const similarLengthWords = allSpellingWords.filter(w => 
+        w.id !== word.id && 
+        w.ord.length >= correctLength - 1 && 
+        w.ord.length <= correctLength + 1 &&
+        !wrongWords.some(existing => existing.id === w.id)
+      );
+      wrongWords = [...wrongWords, ...similarLengthWords];
+    }
+    
+    // Om vi fortfarande inte har tillräckligt, ta från alla ord (exklusive det korrekta)
+    if (wrongWords.length < 3) {
+      const allOtherWords = allSpellingWords.filter(w => 
+        w.id !== word.id && 
+        !wrongWords.some(existing => existing.id === w.id)
+      );
+      wrongWords = [...wrongWords, ...allOtherWords];
+    }
+    
+    // Blanda och ta max 3 ord
+    const shuffledWords = shuffleArray(wrongWords).slice(0, 3);
+    console.log(`[DEBUG] Spelling alternatives: correct="${word.ord}" (${correctLength} chars), wrong alternatives:`, shuffledWords.map(w => `${w.ord} (${w.ord.length} chars)`));
+    
+    return shuffledWords.map(w => ({ id: w.id, text: w.ord }));
   };
 
   // Använd useMemo för att generera svarsalternativ när ordet ändras
@@ -650,7 +677,12 @@ const SpellingExercise: React.FC<{
     const wrongAnswers = getWrongAnswers();
     const correctAnswer = { id: word.id, text: word.ord };
     const allAnswers = [...wrongAnswers, correctAnswer];
-    return shuffleArray(allAnswers); // Blanda svaren
+    const shuffledAnswers = shuffleArray(allAnswers); // Blanda svaren
+    
+    console.log(`[DEBUG] Spelling exercise answers for "${word.ord}":`, shuffledAnswers.map(a => a.text));
+    console.log(`[DEBUG] Total answers: ${shuffledAnswers.length}`);
+    
+    return shuffledAnswers;
   }, [word.id, allSpellingWords]);
 
   // Återställ state när ordet ändras
