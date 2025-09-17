@@ -2710,15 +2710,14 @@ const OvningPage: React.FC = () => {
                   onClick={() => {
                     if (currentWord) {
                       // Precis som "Ja, jag kunde" - använd samma funktion
-                      handleExerciseResult(true); // Detta sparar resultatet OCH markerar som rätt
+                      handleExerciseResult(true); // Detta sparar resultatet OCH markerar som rätt OCH går till nästa ord
                       // Sedan ge extra poäng för att komma till 5 totalt
                       const current = wordProgress[currentWord.id];
                       if (current && current.points < 5) {
                         setWordLevel(currentWord.id, 2); // Sätt till level 2 (5 poäng)
                       }
                       console.log(`[DEBUG] Manually marked word ${currentWord.ord} as correct and moved to learned`);
-                      // Gå till nästa ord
-                      handleSkip();
+                      // INTE handleSkip() här eftersom handleExerciseResult redan hanterar nästa ord
                     }
                   }}
                   sx={{ 
