@@ -2424,7 +2424,7 @@ const OvningPage: React.FC = () => {
           boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
         }}>
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3, color: 'text.primary' }}>
-            Din framsteg
+            Mitt lärande
           </Typography>
           
           {(() => {
@@ -2487,7 +2487,7 @@ const OvningPage: React.FC = () => {
                     {level2Words}
                  </Typography>
                    <Typography variant="body2" color="text.secondary">
-                    Lärda
+                    Lärda ord
                    </Typography>
                 </Box>
                 
@@ -2505,8 +2505,8 @@ const OvningPage: React.FC = () => {
                    </Typography>
                   <Typography variant="body2" color="text.secondary">
                     Avklarade ordlistor
-                  </Typography>
-                </Box>
+                   </Typography>
+                 </Box>
                 
                 {/* Bokstavering framsteg */}
                 <Box sx={{ 
@@ -2520,79 +2520,24 @@ const OvningPage: React.FC = () => {
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'warning.main', mb: 1 }}>
                     {completedSpellingBoxesCount}/15
                   </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Bokstavering rutor
-                   </Typography>
+               <Typography variant="body2" color="text.secondary">
+                    Bokstavering
+               </Typography>
                  </Box>
                </Box>
              );
            })()}
-           
-           {practiceWords.length > 0 && (
-             <>
-               <Typography variant="body2" color="text.secondary">
-                 {practiceWords.length} ord redo för övning
-               </Typography>
-            
-            {/* Visa hur många ord som är markerade som "vill lära mig" */}
-            {(() => {
-              const learningWords = practiceWords.filter(word => 
-                word.progress?.level === 1
-              );
-              const otherWords = practiceWords.filter(word => 
-                word.progress?.level !== 1
-              );
-              
-              return (
-                <Box sx={{ mt: 2 }}>
-                  {learningWords.length > 0 && (
-                    <Typography variant="body2" color="primary.main">
-                      🟡 {learningWords.length} ord markerade som "vill lära mig" • {practiceWords.length} prioriteras i denna övning
-                    </Typography>
-                  )}
-                  {otherWords.length > 0 && (
-                    <Typography variant="body2" color="text.secondary">
-                      ⚪ {otherWords.length} andra ord baserat på svårighetsgrad
-                    </Typography>
-                  )}
-                  
-                  {/* Knapp för att bara öva på ord som användaren vill lära sig */}
-                  {(() => {
-                    const allLearningWords = Object.entries(wordDatabase).filter(([wordId, word]: [string, any]) => {
-                      const progress = wordProgress[wordId];
-                      return progress?.level === 1;
-                    });
-                    
-                    if (allLearningWords.length > 0) {
-                      return (
-                        <Button
-                          variant="outlined"
-                          size="small"
-                          onClick={loadLearningWordsOnly}
-                          sx={{ mt: 2 }}
-                        >
-                          Öva bara på ord jag vill lära mig ({allLearningWords.length})
-                        </Button>
-                      );
-                    }
-                    return null;
-                  })()}
-                </Box>
-              );
-            })()}
-           </>
-           )}
-         </Paper>
+        </Paper>
 
          {/* Start-guide knapp */}
          <Paper sx={{ mt: 3, p: 3 }}>
            <Typography variant="h6" gutterBottom>
              Lägg till fler ord
-           </Typography>
+                    </Typography>
            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
              Använd startguiden för att lägga till fler ord i "att lära mig" från olika ordlistor.
-           </Typography>
-           <Button
+                    </Typography>
+                        <Button
              variant="contained"
              startIcon={<School />}
              onClick={() => {
@@ -2602,7 +2547,7 @@ const OvningPage: React.FC = () => {
              sx={{ mt: 1 }}
            >
              Öppna start-guide
-           </Button>
+                        </Button>
          </Paper>
        </Container>
      );
