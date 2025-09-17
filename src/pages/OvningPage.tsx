@@ -2075,6 +2075,9 @@ const OvningPage: React.FC = () => {
         {/* Modern rutnät-layout */}
         {/* Infotext för bokstavering */}
         <Box sx={{ mb: 4, textAlign: 'center' }}>
+          <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
+            Bokstavering
+          </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
             Välj hastighet och ordlängd för att träna bokstavering. Du kommer att se en video och välja rätt ord från fyra alternativ.
           </Typography>
@@ -2413,14 +2416,14 @@ const OvningPage: React.FC = () => {
         {/* Progress-mätare */}
         <Paper sx={{ 
           mt: 4, 
-          p: 4, 
-          borderRadius: 3,
-          background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-          color: 'white',
-          position: 'relative',
-          overflow: 'hidden'
+          p: 3, 
+          borderRadius: 2,
+          backgroundColor: 'background.paper',
+          border: '1px solid',
+          borderColor: 'divider',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
         }}>
-          <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3, color: 'text.primary' }}>
             Din framsteg
           </Typography>
           
@@ -2428,84 +2431,89 @@ const OvningPage: React.FC = () => {
              // Räkna ord per nivå
              const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
              const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;
-            const totalActiveWords = level1Words + level2Words;
-             
-            if (totalActiveWords === 0) {
-             return (
-                <Box sx={{ textAlign: 'center', py: 2 }}>
-                  <Typography variant="body1" sx={{ opacity: 0.9 }}>
-                    Börja med startguiden för att markera ord!
-                 </Typography>
-                </Box>
-              );
-            }
             
-            const learningPercentage = totalActiveWords > 0 ? (level1Words / totalActiveWords) * 100 : 0;
-            const learnedPercentage = totalActiveWords > 0 ? (level2Words / totalActiveWords) * 100 : 0;
+            // Räkna omarkerade ord från ordlista-ordlista
+            const unmarkedWords = Object.entries(wordDatabase).filter(([_, word]: [string, any]) => 
+              word.ämne && word.ämne.includes('Ordlista - Ordlista') && 
+              (!wordProgress[word.id] || wordProgress[word.id].level === 0)
+            ).length;
+            
+            // Räkna ordlistor där alla ord är lärda
+            const allWordLists = Object.values(wordDatabase).reduce((acc: any, word: any) => {
+              if (word.ämne && word.ämne.includes('Ordlista - Ordlista')) {
+                const listName = word.ämne.split(' - ')[2] || 'Okänd lista';
+                if (!acc[listName]) {
+                  acc[listName] = [];
+                }
+                acc[listName].push(word);
+              }
+              return acc;
+            }, {});
+            
+            const completedLists = Object.entries(allWordLists).filter(([_, words]: [string, any]) => {
+              return words.every((word: any) => wordProgress[word.id]?.level === 2);
+            }).length;
+            
+            // Räkna avklarade bokstavering-rutor
+            const completedSpellingBoxesCount = completedSpellingBoxes.length;
+             
+            // Räkna totalt antal ordlistor
+            const totalLists = Object.keys(allWordLists).length;
             
             return (
-              <Box>
-                {/* Progress-bar */}
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: 3 }}>
+                {/* Lärda */}
                 <Box sx={{ 
-                  width: '100%', 
-                  height: 24, 
-                  backgroundColor: 'rgba(255, 255, 255, 0.2)', 
-                  borderRadius: 12,
-                  overflow: 'hidden',
-                  position: 'relative',
-                  mb: 3
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'success.50',
+                  border: '1px solid',
+                  borderColor: 'success.200',
+                  textAlign: 'center'
                 }}>
-                  {/* Att lära mig del */}
-                  <Box sx={{
-                    position: 'absolute',
-                    left: 0,
-                    top: 0,
-                    height: '100%',
-                    width: `${learningPercentage}%`,
-                    background: 'linear-gradient(90deg, #ffd700 0%, #ffed4e 100%)',
-                    transition: 'width 0.5s ease'
-                  }} />
-                  
-                  {/* Lärda del */}
-                  <Box sx={{
-                    position: 'absolute',
-                    left: `${learningPercentage}%`,
-                    top: 0,
-                    height: '100%',
-                    width: `${learnedPercentage}%`,
-                    background: 'linear-gradient(90deg, #4ade80 0%, #22c55e 100%)',
-                    transition: 'width 0.5s ease'
-                  }} />
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
+                    {level2Words}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Lärda
+                  </Typography>
                 </Box>
                 
-                {/* Statistik */}
+                {/* Avklarade ordlistor */}
                 <Box sx={{ 
-                  display: 'flex', 
-                  justifyContent: 'space-between',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                  gap: 2
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'info.50',
+                  border: '1px solid',
+                  borderColor: 'info.200',
+                  textAlign: 'center'
                 }}>
-                  <Box sx={{ textAlign: 'center', flex: 1, minWidth: '120px' }}>
-                    <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
-                      {level1Words}
-                   </Typography>
-                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                      🟡 Att lära mig
-                   </Typography>
-                  </Box>
-                  
-                  <Box sx={{ textAlign: 'center', flex: 1, minWidth: '120px' }}>
-                    <Typography variant="h4" sx={{ fontWeight: 700, mb: 0.5 }}>
-                      {level2Words}
-                    </Typography>
-                    <Typography variant="body2" sx={{ opacity: 0.9 }}>
-                      🟢 Lärda
-                   </Typography>
-                  </Box>
-                 </Box>
-               </Box>
-             );
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
+                    {completedLists}/{totalLists}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Avklarade ordlistor
+                  </Typography>
+                </Box>
+                
+                {/* Bokstavering framsteg */}
+                <Box sx={{ 
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'warning.50',
+                  border: '1px solid',
+                  borderColor: 'warning.200',
+                  textAlign: 'center'
+                }}>
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'warning.main', mb: 1 }}>
+                    {completedSpellingBoxesCount}/15
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Bokstavering rutor
+                  </Typography>
+                </Box>
+              </Box>
+            );
            })()}
            
            {practiceWords.length > 0 && (
@@ -2689,12 +2697,11 @@ const OvningPage: React.FC = () => {
     <Container maxWidth="md" sx={{ py: 4 }}>
       {/* Header med progress */}
       <Box sx={{ mb: 2 }}>
-        {/* Visa rubrik bara för andra övningstyper än flashcards */}
-        {selectedExerciseType !== ExerciseType.FLASHCARDS && (
+        {/* Visa rubrik bara för andra övningstyper än flashcards och bokstavering */}
+        {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && (
         <Typography variant="h4" gutterBottom align="center">
           {selectedExerciseType === ExerciseType.QUIZ && 'Flervalsquiz'}
             {selectedExerciseType === ExerciseType.SIGN && 'Övningstest'}
-          {(selectedExerciseType as any) === ExerciseType.SPELLING && 'Bokstavering'}
             {selectedExerciseType === ExerciseType.SENTENCES && 'Meningar'}
         </Typography>
         )}
