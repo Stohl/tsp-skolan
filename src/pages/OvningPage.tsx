@@ -2439,32 +2439,36 @@ const OvningPage: React.FC = () => {
             ).length;
             
             // Räkna ordlistor där alla ord är lärda
-            const allWordLists = Object.values(wordDatabase).reduce((acc: any, word: any) => {
-              if (word.ämne && word.ämne.includes('Ordlista - Ordlista')) {
-                const listName = word.ämne.split(' - ')[2] || 'Okänd lista';
-                if (!acc[listName]) {
-                  acc[listName] = [];
-                }
-                acc[listName].push(word);
+            // Hämta alla ordlistor från wordLists.ts
+            const { getAllWordLists } = require('../types/wordLists');
+            const allWordLists = getAllWordLists(wordDatabase);
+            
+            // Gruppera ordlistor efter namn för att räkna avklarade
+            const wordListGroups = allWordLists.reduce((acc: any, wordList: any) => {
+              if (!acc[wordList.name]) {
+                acc[wordList.name] = [];
               }
+              acc[wordList.name].push(wordList);
               return acc;
             }, {});
             
             // Debug: logga ordlistor
-            console.log('[DEBUG] All word lists:', Object.keys(allWordLists));
-            console.log('[DEBUG] Word lists content:', allWordLists);
+            console.log('[DEBUG] All word lists:', allWordLists.map((list: any) => list.name));
+            console.log('[DEBUG] Word list groups:', Object.keys(wordListGroups));
             
-            const completedLists = Object.entries(allWordLists).filter(([_, words]: [string, any]) => {
-              const allLearned = words.every((word: any) => wordProgress[word.id]?.level === 2);
-              console.log(`[DEBUG] List ${_[0]}: ${words.length} words, all learned: ${allLearned}`);
+            const completedLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
+              // Kontrollera om alla ord i alla wordLists med detta namn är lärda
+              const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
+              const allLearned = allWordsInList.every((wordId: string) => wordProgress[wordId]?.level === 2);
+              console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}`);
               return allLearned;
             }).length;
             
             // Räkna avklarade bokstavering-rutor
             const completedSpellingBoxesCount = completedSpellingBoxes.length;
              
-            // Räkna totalt antal ordlistor
-            const totalLists = Object.keys(allWordLists).length;
+            // Räkna totalt antal ordlistor (unika namn)
+            const totalLists = Object.keys(wordListGroups).length;
             
             console.log(`[DEBUG] Completed lists: ${completedLists}, Total lists: ${totalLists}`);
              
