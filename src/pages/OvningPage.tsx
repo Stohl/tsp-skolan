@@ -1847,7 +1847,7 @@ const OvningPage: React.FC = () => {
                 Teckna
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                Se ordet och vänd kortet för att se tecknet. Markera om du kunde ordet eller inte.
+                Se ordet, teckna själv, och jämför med videon.
               </Typography>
             </CardContent>
           </Card>
@@ -1915,7 +1915,7 @@ const OvningPage: React.FC = () => {
                 Övningstest
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                Se ordet, teckna själv, och jämför med videon.
+                Testsida?.
               </Typography>
             </CardContent>
           </Card>
@@ -2296,49 +2296,137 @@ const OvningPage: React.FC = () => {
       {selectedExerciseType === ExerciseType.FLASHCARDS && (
         <>
           {console.log(`[DEBUG] Main: Rendering FlashcardsExercise with word: ${currentWord?.ord} (ID: ${currentWord?.id}), currentWordIndex: ${currentWordIndex}`)}
-          <FlashcardsExercise
-            word={currentWord}
-            onResult={handleExerciseResult}
-            onSkip={handleSkip}
-          />
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <FlashcardsExercise
+              word={currentWord}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+            />
+          )}
         </>
       )}
       
       {selectedExerciseType === ExerciseType.QUIZ && (
-        <QuizExercise
-          word={currentWord}
-          allWords={quizWords}
-          onResult={handleExerciseResult}
-          onSkip={handleSkip}
-        />
+        <>
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <QuizExercise
+              word={currentWord}
+              allWords={quizWords}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+            />
+          )}
+        </>
       )}
       
       {selectedExerciseType === ExerciseType.SIGN && (
-        <SignExercise
-          word={currentWord}
-          onResult={handleExerciseResult}
-          onSkip={handleSkip}
-        />
+        <>
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <SignExercise
+              word={currentWord}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+            />
+          )}
+        </>
       )}
       
       {(selectedExerciseType as any) === ExerciseType.SPELLING && (
-        <SpellingExercise
-          word={currentWord}
-          allSpellingWords={spellingWords}
-          onResult={handleExerciseResult}
-          onSkip={handleSkip}
-          playbackSpeed={playbackSpeed}
-        />
+        <>
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <SpellingExercise
+              word={currentWord}
+              allSpellingWords={spellingWords}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+              playbackSpeed={playbackSpeed}
+            />
+          )}
+        </>
       )}
 
       {selectedExerciseType === ExerciseType.SENTENCES && (
-        <SentencesExercise
-          learnedWords={learnedWords}
-          phraseDatabase={phraseDatabase}
-          wordDatabase={wordDatabase}
-          onResult={handleExerciseResult}
-          onSkip={handleSkip}
-        />
+        <>
+          {learnedWords.length === 0 ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "lärda" för att kunna göra meningar-övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <SentencesExercise
+              learnedWords={learnedWords}
+              phraseDatabase={phraseDatabase}
+              wordDatabase={wordDatabase}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+            />
+          )}
+        </>
       )}
 
 
