@@ -164,7 +164,12 @@ const FlashcardsExercise: React.FC<{
                   onClick={() => {
                     if (videoRef.current) {
                       videoRef.current.currentTime = 0;
-                      videoRef.current.play();
+                      videoRef.current.play().catch(error => {
+                        // Ignorera AbortError - detta händer när komponenten unmountas
+                        if (error.name !== 'AbortError') {
+                          console.warn('Video play error:', error);
+                        }
+                      });
                     }
                   }}
                   style={{ 
@@ -552,7 +557,12 @@ const SignExercise: React.FC<{
                   onClick={() => {
                     if (videoRef.current) {
                       videoRef.current.currentTime = 0;
-                      videoRef.current.play();
+                      videoRef.current.play().catch(error => {
+                        // Ignorera AbortError - detta händer när komponenten unmountas
+                        if (error.name !== 'AbortError') {
+                          console.warn('Video play error:', error);
+                        }
+                      });
                     }
                   }}
                   style={{ 
@@ -772,7 +782,12 @@ const SpellingExercise: React.FC<{
                     console.log(`[DEBUG] Resetting video to start and playing`);
                     videoRef.current.currentTime = 0;
                     videoRef.current.playbackRate = playbackSpeed;
-                    videoRef.current.play();
+                    videoRef.current.play().catch(error => {
+                      // Ignorera AbortError - detta händer när komponenten unmountas
+                      if (error.name !== 'AbortError') {
+                        console.warn('Video play error:', error);
+                      }
+                    });
                   } else {
                     console.log(`[DEBUG] Video ref not found!`);
                   }
