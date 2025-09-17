@@ -1952,23 +1952,23 @@ const OvningPage: React.FC = () => {
             }}>
               <Typography variant="h5" gutterBottom align="center" sx={{ fontWeight: 600 }}>
                 Uppspelningshastighet
-              </Typography>
+          </Typography>
               <Typography variant="body2" align="center" sx={{ mb: 3, opacity: 0.9 }}>
-                Välj hur snabbt bokstaveringsvideorna ska spelas upp
-              </Typography>
-              
+            Välj hur snabbt bokstaveringsvideorna ska spelas upp
+          </Typography>
+          
               <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
-                {[
-                  { speed: 0.5, label: 'Nybörjare', description: 'Halv hastighet' },
-                  { speed: 0.75, label: 'Lätt', description: 'Tre fjärdedelar hastighet' },
-                  { speed: 1.0, label: 'Normal', description: 'Normal hastighet' },
-                ].map(({ speed, label, description }) => (
-                  <Card 
+            {[
+              { speed: 0.5, label: 'Nybörjare', description: 'Halv hastighet' },
+              { speed: 0.75, label: 'Lätt', description: 'Tre fjärdedelar hastighet' },
+              { speed: 1.0, label: 'Normal', description: 'Normal hastighet' },
+            ].map(({ speed, label, description }) => (
+                <Card 
                     key={speed}
-                    sx={{ 
-                      cursor: 'pointer', 
-                      minWidth: 120,
-                      border: playbackSpeed === speed ? 2 : 1,
+                  sx={{ 
+                    cursor: 'pointer', 
+                    minWidth: 120,
+                    border: playbackSpeed === speed ? 2 : 1,
                       borderColor: playbackSpeed === speed ? 'white' : 'rgba(255,255,255,0.3)',
                       backgroundColor: playbackSpeed === speed ? 'rgba(255,255,255,0.2)' : 'rgba(255,255,255,0.1)',
                       '&:hover': { 
@@ -1976,24 +1976,24 @@ const OvningPage: React.FC = () => {
                         transition: 'transform 0.2s',
                         backgroundColor: 'rgba(255,255,255,0.2)'
                       }
-                    }}
-                    onClick={() => savePlaybackSpeed(speed)}
-                  >
-                    <CardContent sx={{ textAlign: 'center', p: 2 }}>
+                  }}
+                  onClick={() => savePlaybackSpeed(speed)}
+                >
+                  <CardContent sx={{ textAlign: 'center', p: 2 }}>
                       <Typography variant="h6" color="white" sx={{ fontWeight: 600 }}>
-                        {speed}x
-                      </Typography>
+                      {speed}x
+                    </Typography>
                       <Typography variant="body2" fontWeight="bold" color="white">
-                        {label}
-                      </Typography>
+                      {label}
+                    </Typography>
                       <Typography variant="caption" color="white" sx={{ opacity: 0.8 }}>
-                        {description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                ))}
+                      {description}
+                    </Typography>
+                  </CardContent>
+                </Card>
+            ))}
               </Box>
-            </Paper>
+        </Paper>
           </Box>
 
           {/* Till vänster: Ordlängd */}
@@ -2006,8 +2006,8 @@ const OvningPage: React.FC = () => {
           }}>
             <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, textAlign: 'center' }}>
               Ordlängd
-            </Typography>
-            
+          </Typography>
+          
             {predefinedIntervals.map((interval, index) => {
               const wordsInRange = getAllSpellingWords.filter((word: any) => 
                 word.ord.length >= interval.min && word.ord.length <= interval.max
@@ -2016,48 +2016,40 @@ const OvningPage: React.FC = () => {
               const isDisabled = wordsInRange.length < 4;
               
               return (
-                <Card 
+                  <Card 
                   key={index}
-                  sx={{ 
-                    cursor: isDisabled ? 'not-allowed' : 'pointer', 
-                    border: isSelected ? 2 : 1,
-                    borderColor: isSelected ? 'primary.main' : 'divider',
-                    backgroundColor: isSelected ? 'primary.50' : 'background.paper',
-                    opacity: isDisabled ? 0.5 : 1,
+                    sx={{ 
+                      cursor: isDisabled ? 'not-allowed' : 'pointer', 
+                      border: isSelected ? 2 : 1,
+                      borderColor: isSelected ? 'primary.main' : 'divider',
+                      backgroundColor: isSelected ? 'primary.50' : 'background.paper',
+                      opacity: isDisabled ? 0.5 : 1,
                     borderRadius: 2,
-                    '&:hover': !isDisabled ? { 
-                      transform: 'translateY(-2px)', 
+                      '&:hover': !isDisabled ? { 
+                        transform: 'translateY(-2px)', 
                       transition: 'transform 0.2s',
                       boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)'
-                    } : {}
-                  }}
-                  onClick={() => !isDisabled && saveSelectedInterval(index)}
-                >
-                  <CardContent sx={{ textAlign: 'center', p: 2 }}>
+                      } : {}
+                    }}
+                    onClick={() => !isDisabled && saveSelectedInterval(index)}
+                  >
+                    <CardContent sx={{ textAlign: 'center', p: 2 }}>
                     <Typography variant="h6" color={isSelected ? 'primary.main' : 'text.primary'} sx={{ fontWeight: 600 }}>
-                      {interval.min === 2 && interval.max === 3 ? '2-3' :
-                       interval.min === 3 && interval.max === 4 ? '3-4' :
-                       interval.min === 4 && interval.max === 5 ? '4-5' :
-                       interval.min === 5 && interval.max === 6 ? '5-6' :
-                       interval.min === 6 && interval.max === 50 ? '6+' : interval.label}
-                    </Typography>
-                    <Typography variant="body2" fontWeight="bold" sx={{ mb: 1 }}>
-                      {interval.min === 2 && interval.max === 3 ? '2-3 bokstäver' :
-                       interval.min === 3 && interval.max === 4 ? '3-4 bokstäver' :
-                       interval.min === 4 && interval.max === 5 ? '4-5 bokstäver' :
-                       interval.min === 5 && interval.max === 6 ? '5-6 bokstäver' :
-                       interval.min === 6 && interval.max === 50 ? '6+ bokstäver' : interval.description}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      {wordsInRange.length} ord
-                    </Typography>
-                  </CardContent>
-                </Card>
+                        {interval.label}
+                      </Typography>
+                      <Typography variant="body2" fontWeight="bold" sx={{ mb: 1 }}>
+                        {interval.description}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        {wordsInRange.length} ord
+                      </Typography>
+                    </CardContent>
+                  </Card>
               );
             })}
           </Box>
 
-          {/* Till höger: Klickbart rutnät (3×5) */}
+          {/* Till höger: Klickbart rutnät (3×5) - Hårdkodade rutor */}
           <Box sx={{ 
             gridColumn: '2', 
             gridRow: '2',
@@ -2071,126 +2063,136 @@ const OvningPage: React.FC = () => {
             borderRadius: 3,
             backgroundColor: 'grey.50'
           }}>
-            {(() => {
-              const speeds = [0.5, 0.75, 1.0];
-              const intervals = predefinedIntervals;
-              const combinations = [];
-              
-              // Skapa kombinationer: varje hastighet med varje ordlängd
-              for (let speedIndex = 0; speedIndex < speeds.length; speedIndex++) {
-                for (let intervalIndex = 0; intervalIndex < intervals.length; intervalIndex++) {
-                  const speed = speeds[speedIndex];
-                  const interval = intervals[intervalIndex];
-                  const wordsInRange = getAllSpellingWords.filter((word: any) => 
-                    word.ord.length >= interval.min && word.ord.length <= interval.max
-                  );
-                  
-                  combinations.push({
-                    speed,
-                    interval,
-                    wordsInRange,
-                    isDisabled: wordsInRange.length < 4
-                  });
-                }
-              }
-              
-              return combinations.map((combo, index) => (
-                <Box
-                  key={index}
-                  sx={{
-                    border: '1px solid',
-                    borderColor: combo.isDisabled ? 'divider' : 'primary.main',
-                    borderRadius: 2,
-                    backgroundColor: combo.isDisabled ? 'background.paper' : 'primary.50',
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    minHeight: 60,
-                    opacity: combo.isDisabled ? 0.5 : 1,
-                    cursor: combo.isDisabled ? 'not-allowed' : 'pointer',
-                    '&:hover': !combo.isDisabled ? {
-                      transform: 'translateY(-2px)',
-                      transition: 'transform 0.2s',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                      backgroundColor: 'primary.100'
-                    } : {}
-                  }}
-                  onClick={() => {
-                    if (!combo.isDisabled) {
-                      savePlaybackSpeed(combo.speed);
-                      const intervalIndex = predefinedIntervals.findIndex(i => 
-                        i.min === combo.interval.min && i.max === combo.interval.max
-                      );
-                      if (intervalIndex !== -1) {
-                        saveSelectedInterval(intervalIndex);
-                        startSpellingExercise(combo.interval.min, combo.interval.max);
-                      }
-                    }
-                  }}
-                >
-                  <Typography variant="body2" color={combo.isDisabled ? 'text.secondary' : 'primary.main'} sx={{ fontWeight: 600 }}>
-                    {combo.speed}x
-                  </Typography>
-                  <Typography variant="caption" color={combo.isDisabled ? 'text.secondary' : 'primary.main'} sx={{ textAlign: 'center' }}>
-                    {combo.interval.min === 2 && combo.interval.max === 3 ? '2-3' :
-                     combo.interval.min === 3 && combo.interval.max === 4 ? '3-4' :
-                     combo.interval.min === 4 && combo.interval.max === 5 ? '4-5' :
-                     combo.interval.min === 5 && combo.interval.max === 6 ? '5-6' :
-                     combo.interval.min === 6 && combo.interval.max === 50 ? '6+' : combo.interval.label}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                    {combo.wordsInRange.length} ord
-                  </Typography>
-                </Box>
-              ));
-            })()}
+            {/* Rad 1: 2-3 bokstäver */}
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.5); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>2-3</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.75); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>2-3</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(1.0); saveSelectedInterval(0); startSpellingExercise(2, 3); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>2-3</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 2 && word.ord.length <= 3).length} ord</Typography>
+            </Box>
+            
+            {/* Rad 2: 3-4 bokstäver */}
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.5); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>3-4</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 3 && word.ord.length <= 4).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.75); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>3-4</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 3 && word.ord.length <= 4).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(1.0); saveSelectedInterval(1); startSpellingExercise(3, 4); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>3-4</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 3 && word.ord.length <= 4).length} ord</Typography>
+            </Box>
+            
+            {/* Rad 3: 4-5 bokstäver */}
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.5); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>4-5</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 4 && word.ord.length <= 5).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.75); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>4-5</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 4 && word.ord.length <= 5).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(1.0); saveSelectedInterval(2); startSpellingExercise(4, 5); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>4-5</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 4 && word.ord.length <= 5).length} ord</Typography>
+            </Box>
+            
+            {/* Rad 4: 5-6 bokstäver */}
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.5); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>5-6</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 5 && word.ord.length <= 6).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.75); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>5-6</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 5 && word.ord.length <= 6).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(1.0); saveSelectedInterval(3); startSpellingExercise(5, 6); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>5-6</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 5 && word.ord.length <= 6).length} ord</Typography>
+            </Box>
+            
+            {/* Rad 5: 6+ bokstäver */}
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.5); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.5x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>6+</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 6).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(0.75); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>0.75x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>6+</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 6).length} ord</Typography>
+            </Box>
+            <Box sx={{ cursor: 'pointer', border: '1px solid', borderColor: 'primary.main', borderRadius: 2, backgroundColor: 'primary.50', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: 60, '&:hover': { transform: 'translateY(-2px)', transition: 'transform 0.2s', boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)', backgroundColor: 'primary.100' } }} onClick={() => { savePlaybackSpeed(1.0); saveSelectedInterval(4); startSpellingExercise(6, 50); }}>
+              <Typography variant="body2" color="primary.main" sx={{ fontWeight: 600 }}>1.0x</Typography>
+              <Typography variant="caption" color="primary.main" sx={{ textAlign: 'center' }}>6+</Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>{getAllSpellingWords.filter((word: any) => word.ord.length >= 6).length} ord</Typography>
+            </Box>
           </Box>
         </Box>
 
         {/* Starta övning-knapp */}
-        <Box sx={{ mt: 4, textAlign: 'center' }}>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            {(() => {
-              const currentInterval = predefinedIntervals[selectedInterval];
-              const wordsInRange = getAllSpellingWords.filter((word: any) => 
-                word.ord.length >= currentInterval.min && word.ord.length <= currentInterval.max
-              );
-              return `${wordsInRange.length} ord tillgängliga i ${currentInterval.label}`;
-            })()}
-          </Typography>
-          
-          <Button
-            variant="contained"
-            size="large"
-            onClick={() => {
-              const currentInterval = predefinedIntervals[selectedInterval];
-              startSpellingExercise(currentInterval.min, currentInterval.max);
-            }}
-            disabled={(() => {
-              const currentInterval = predefinedIntervals[selectedInterval];
-              const wordsInRange = getAllSpellingWords.filter((word: any) => 
-                word.ord.length >= currentInterval.min && word.ord.length <= currentInterval.max
-              );
-              return wordsInRange.length < 4;
-            })()}
-            sx={{
-              px: 4,
-              py: 1.5,
-              fontSize: '1.1rem',
-              fontWeight: 'bold',
-              borderRadius: 3,
-              boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
-              },
-              transition: 'all 0.2s ease-in-out'
-            }}
-          >
-            Starta övning
-          </Button>
-        </Box>
+          <Box sx={{ mt: 4, textAlign: 'center' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              {(() => {
+                const currentInterval = predefinedIntervals[selectedInterval];
+                const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                  word.ord.length >= currentInterval.min && word.ord.length <= currentInterval.max
+                );
+                return `${wordsInRange.length} ord tillgängliga i ${currentInterval.label}`;
+              })()}
+            </Typography>
+            
+            <Button
+              variant="contained"
+              size="large"
+              onClick={() => {
+                const currentInterval = predefinedIntervals[selectedInterval];
+                startSpellingExercise(currentInterval.min, currentInterval.max);
+              }}
+              disabled={(() => {
+                const currentInterval = predefinedIntervals[selectedInterval];
+                const wordsInRange = getAllSpellingWords.filter((word: any) => 
+                  word.ord.length >= currentInterval.min && word.ord.length <= currentInterval.max
+                );
+                return wordsInRange.length < 4;
+              })()}
+              sx={{
+                px: 4,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 'bold',
+                borderRadius: 3,
+                boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 16px rgba(0,0,0,0.2)',
+                },
+                transition: 'all 0.2s ease-in-out'
+              }}
+            >
+              Starta övning
+            </Button>
+          </Box>
 
         <Box sx={{ mt: 4, textAlign: 'center' }}>
           <Button 
