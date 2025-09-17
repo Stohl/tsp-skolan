@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import {
   Container,
   Typography,
@@ -882,7 +882,7 @@ const SpellingExercise: React.FC<{
   );
 };
 
-// Komponent för Meningar-övning (test-sida)
+// Komponent för Meningar-övning - visar alla meningar länkade till lärda ord
 const SentencesExercise: React.FC<{
   learnedWords: any[];
   phraseDatabase: any;
@@ -890,245 +890,275 @@ const SentencesExercise: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip }) => {
-  // Filtrera fraser baserat på lärda ord och kategorisera som primära/sekundära
-  const getPhrasesForLearnedWords = () => {
-    const learnedWordIds = learnedWords.map(word => word.id);
-    const learnedWordsMap = new Map(learnedWords.map(word => [word.id, word]));
-    const phrases = Object.entries(phraseDatabase); // Använd Object.entries för att få både key och value
-    
-    // Samla alla fras-ID:n som är länkade till lärda ord via exempel-fältet
-    const examplePhraseIds = new Set<string>();
-    learnedWords.forEach(word => {
-      if (word.exempel) {
-        // Lägg till primära exempel
-        if (word.exempel.primära) {
-          word.exempel.primära.forEach((ex: any) => {
-            if (ex.id) examplePhraseIds.add(ex.id);
-          });
-        }
-        // Lägg till sekundära exempel
-        if (word.exempel.sekundära) {
-          word.exempel.sekundära.forEach((ex: any) => {
-            if (ex.id) examplePhraseIds.add(ex.id);
-          });
-        }
+  // Ladda phrase_index.json för att hitta fraser länkade till lärda ord
+  const [phraseIndex, setPhraseIndex] = useState<any>(null);
+  const [isLoadingPhrases, setIsLoadingPhrases] = useState(true);
+  const [sortBy, setSortBy] = useState<'id' | 'learned' | 'unlearned'>('unlearned');
+  const [sortAscending, setSortAscending] = useState(true);
+
+  useEffect(() => {
+    const loadPhraseIndex = async () => {
+      try {
+        const response = await fetch('/phrase_index.json');
+        const data = await response.json();
+        setPhraseIndex(data);
+      } catch (error) {
+        console.error('Fel vid laddning av phrase_index.json:', error);
+      } finally {
+        setIsLoadingPhrases(false);
+      }
+    };
+
+    loadPhraseIndex();
+  }, []);
+
+  // Hitta alla fraser som är länkade till lärda ord (optimerad version)
+  const getLinkedPhrases = () => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return [];
+    }
+
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const phraseMap = new Map(); // För att undvika duplicerade fraser
+
+    // Gå igenom alla lärda ord och hitta deras fraser
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          if (!phraseMap.has(phraseId)) {
+            const phraseData = phraseDatabase[phraseId];
+            if (phraseData) {
+              // Hitta vilka ord som hänvisar till denna fras (optimerat med phrase_to_words)
+              const referringWords: any[] = [];
+              
+              // Använd phrase_to_words för direkt lookup istället för att gå igenom alla ord
+              const wordIds = phraseIndex.phrase_to_words[phraseId];
+              if (wordIds) {
+                wordIds.forEach((wordId: string) => {
+                  const wordData = wordDatabase[wordId];
+                  if (wordData) {
+                    referringWords.push(wordData);
+                  }
+                });
+              }
+
+              const learnedReferringWords = referringWords.filter(word => learnedWordIds.has(word.id));
+              const unlearnedReferringWords = referringWords.filter(word => !learnedWordIds.has(word.id));
+
+              phraseMap.set(phraseId, {
+                id: phraseId,
+                fras: phraseData.fras,
+                meningsnivå: phraseData.meningsnivå || null,
+                learnedWords: learnedReferringWords,
+                unlearnedWords: unlearnedReferringWords,
+                primaryWord: learnedWord
+              });
+            }
+          }
+        });
       }
     });
+
+    // Konvertera Map till array och sortera
+    const uniquePhrases = Array.from(phraseMap.values());
     
-    // Filtrera fraser BARA baserat på ID-nummer från exempel-fältet
-    const relevantPhrases = phrases.filter(([phraseId, phrase]: [string, any]) => {
-      // Bara matchning via exempel-fältet (ID-nummer)
-      return examplePhraseIds.has(phraseId);
-    });
-    
-    const primaryPhrases: any[] = [];
-    const secondaryPhrases: any[] = [];
-    const sharedPhrases: any[] = []; // Nya kategori för gemensamma fraser
-    
-    relevantPhrases.forEach(([phraseId, phrase]: [string, any]) => {
-      // Hitta vilka ord som är relaterade till denna fras via exempel-fältet
-      const relatedWords: any[] = [];
+    const sortedPhrases = [...uniquePhrases].sort((a, b) => {
+      let comparison = 0;
       
-      // Hitta ord som är länkade via exempel-fältet
-      learnedWords.forEach(word => {
-        if (word.exempel) {
-          let isLinkedViaExample = false;
-          
-          // Kontrollera primära exempel
-          if (word.exempel.primära) {
-            isLinkedViaExample = word.exempel.primära.some((ex: any) => ex.id === phraseId);
-          }
-          
-          // Kontrollera sekundära exempel
-          if (!isLinkedViaExample && word.exempel.sekundära) {
-            isLinkedViaExample = word.exempel.sekundära.some((ex: any) => ex.id === phraseId);
-          }
-          
-          if (isLinkedViaExample && !relatedWords.some(rw => rw.id === word.id)) {
-            relatedWords.push(word);
-          }
-        }
-      });
-      
-      if (relatedWords.length > 0) {
-        const phraseWithWord = {
-          ...phrase,
-          id: phraseId, // Använd huvudnyckeln som ID
-          word: relatedWords[0].ord, // Primärt ord (det som frasen direkt länkar till)
-          wordId: phrase.ord_id,
-          relatedWords: relatedWords, // Alla relaterade ord
-          type: 'primär' // Default
-        };
-        
-        // Bestäm meningsnivå från det faktiska fältet i databasen
-        phraseWithWord.meningsnivå = phrase.meningsnivå || null;
-        
-        // Bestäm om frasen är primär eller sekundär baserat på URL-mönster
-        // URL-format: "fras/055741" där sista siffran indikerar typ
-        // 1 = primär, 2+ = sekundär
-        const urlMatch = phrase.url?.match(/(\d+)$/);
-        
-        if (urlMatch) {
-          const frasNumber = parseInt(urlMatch[1]);
-          const lastDigit = frasNumber % 10;
-          
-          // Kategorisera frasen baserat på URL-mönster
-          if (lastDigit === 1) {
-            phraseWithWord.type = 'primär';
-            primaryPhrases.push(phraseWithWord);
-          } else {
-            phraseWithWord.type = 'sekundär';
-            secondaryPhrases.push(phraseWithWord);
-          }
-        } else {
-          // Om URL saknas eller är ogiltig, default till primär
-          phraseWithWord.type = 'primär';
-          primaryPhrases.push(phraseWithWord);
-        }
+      switch (sortBy) {
+        case 'id':
+          comparison = a.id.localeCompare(b.id);
+          break;
+        case 'learned':
+          comparison = a.learnedWords.length - b.learnedWords.length;
+          break;
+        case 'unlearned':
+          comparison = a.unlearnedWords.length - b.unlearnedWords.length;
+          break;
+        default:
+          return 0;
       }
+      
+      // Växla riktning baserat på sortAscending
+      return sortAscending ? comparison : -comparison;
     });
-    
-    return { primaryPhrases, secondaryPhrases, sharedPhrases };
+
+    return sortedPhrases;
   };
 
-  const { primaryPhrases, secondaryPhrases, sharedPhrases } = getPhrasesForLearnedWords();
+  const linkedPhrases = getLinkedPhrases();
 
-  // Funktion för att rendera en tabell
-  const renderPhraseTable = (phrases: any[], title: string, color: 'primary' | 'secondary' | 'success') => (
-    <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" gutterBottom color={color} sx={{ mb: 2 }}>
-        {title} ({phrases.length} fraser)
-      </Typography>
-      
-      {phrases.length > 0 ? (
-        <TableContainer component={Paper} sx={{ mb: 3 }}>
-          <Table size="small" stickyHeader>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 80 }}>Fras ID</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 100 }}>Typ</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 120 }}>Meningsnivå</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 150 }}>Ord</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 200 }}>Fras-mening</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {phrases.map((phrase, index) => (
-                <TableRow key={phrase.id} hover>
-                  <TableCell>
-                    <Typography variant="body2" color="text.secondary">
-                      {phrase.id}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={phrase.type} 
-                      color={phrase.type === 'primär' ? 'primary' : phrase.type === 'sekundär' ? 'secondary' : 'success'}
-                      size="small"
-                      variant="outlined"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {phrase.meningsnivå ? (
-                      <Chip 
-                        label={phrase.meningsnivå} 
-                        color={phrase.meningsnivå === 'N1' ? 'success' : phrase.meningsnivå === 'N2' ? 'warning' : 'error'}
-                        size="small"
-                        variant="filled"
-                      />
-                    ) : (
-                      <Typography variant="body2" color="text.secondary">
-                        -
-                      </Typography>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <Box>
-                      <Tooltip title={`Ord ID: ${phrase.wordId}`} arrow>
-                        <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                          {phrase.word}
-                        </Typography>
-                      </Tooltip>
-                      {phrase.relatedWords && phrase.relatedWords.length > 1 && (
-                        <Box sx={{ mt: 0.5 }}>
-                          <Typography variant="caption" color="text.secondary">
-                            Innehåller också: {phrase.relatedWords.slice(1).map((w: any) => w.ord).join(', ')}
-                          </Typography>
-                        </Box>
-                      )}
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">
-                      {phrase.fras}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mb: 3 }}>
-          Inga {title.toLowerCase()} hittades.
-        </Typography>
-      )}
-    </Box>
-  );
+  // Uppdatera sortering när sortBy eller sortAscending ändras
+  useEffect(() => {
+    // Trigger re-render när sortering ändras
+  }, [sortBy, sortAscending]);
+
+  if (isLoadingPhrases) {
+    return (
+      <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+        <CardContent sx={{ p: 4, textAlign: 'center' }}>
+          <CircularProgress sx={{ mb: 2 }} />
+          <Typography variant="body1" color="text.secondary">
+            Laddar meningar...
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (linkedPhrases.length === 0) {
+    return (
+      <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+        <CardContent sx={{ p: 4, textAlign: 'center' }}>
+          <Typography variant="h4" gutterBottom color="primary">
+            Meningar
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Inga meningar hittades för dina lärda ord.
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Lär dig fler ord för att se relaterade meningar.
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
 
   return (
     <Card sx={{ maxWidth: 1000, mx: 'auto', mb: 3 }}>
       <CardContent sx={{ p: 4 }}>
         <Typography variant="h4" gutterBottom align="center" color="primary">
-          Meningar - Test-sida
+          Meningar
         </Typography>
         
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
-          Här visas alla fraser som är länkade till dina lärda ord från fras_database.json
+        <Typography variant="h6" color="text.secondary" sx={{ mb: 3, textAlign: 'center', fontWeight: 600 }}>
+          {linkedPhrases.length} meningar/fraser hittades
+        </Typography>
+        
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
+          Länkade till dina {learnedWords.length} lärda ord
         </Typography>
 
-        {/* Gemensamma fraser är borttagna för att undvika för många resultat */}
-
-        {/* Primära fraser tabell */}
-        {renderPhraseTable(primaryPhrases, 'Primära fraser', 'primary')}
-
-        {/* Sekundära fraser tabell */}
-        {renderPhraseTable(secondaryPhrases, 'Sekundära fraser', 'secondary')}
-
-        {/* Sammanfattning */}
-        <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
-          <Typography variant="body2" color="text.secondary">
-            <strong>Sammanfattning:</strong> Totalt {primaryPhrases.length + secondaryPhrases.length} fraser 
-            från {learnedWords.length} lärda ord
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            <strong>Primära:</strong> {primaryPhrases.length} fraser | <strong>Sekundära:</strong> {secondaryPhrases.length} fraser
-          </Typography>
+        {/* Sorteringsknappar */}
+        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
+          <Button
+            variant={sortBy === 'id' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => {
+              if (sortBy === 'id') {
+                setSortAscending(!sortAscending);
+              } else {
+                setSortBy('id');
+                setSortAscending(true);
+              }
+            }}
+            sx={{ minWidth: 100 }}
+          >
+            ID {sortBy === 'id' ? (sortAscending ? '↑' : '↓') : ''}
+          </Button>
+          <Button
+            variant={sortBy === 'learned' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => {
+              if (sortBy === 'learned') {
+                setSortAscending(!sortAscending);
+              } else {
+                setSortBy('learned');
+                setSortAscending(false); // Default: flest först
+              }
+            }}
+            sx={{ minWidth: 120 }}
+          >
+            Lärda ord {sortBy === 'learned' ? (sortAscending ? '↑' : '↓') : ''}
+          </Button>
+          <Button
+            variant={sortBy === 'unlearned' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => {
+              if (sortBy === 'unlearned') {
+                setSortAscending(!sortAscending);
+              } else {
+                setSortBy('unlearned');
+                setSortAscending(false); // Default: flest först
+              }
+            }}
+            sx={{ minWidth: 120 }}
+          >
+            Andra ord {sortBy === 'unlearned' ? (sortAscending ? '↑' : '↓') : ''}
+          </Button>
         </Box>
 
-        {/* Test-knappar */}
-        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 3 }}>
-          <Button
-            variant="contained"
-            onClick={() => onResult(true)}
-            startIcon={<CheckCircle />}
-          >
-            Test: Rätt
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => onResult(false)}
-            startIcon={<Cancel />}
-          >
-            Test: Fel
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={onSkip}
-          >
-            Hoppa över
-          </Button>
-        </Box>
+        <List>
+          {linkedPhrases.map((phrase, index) => (
+            <React.Fragment key={phrase.id}>
+              <ListItem sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 1.5 }}>
+                {/* Rad 1: Fras-ID, meningsnivå och meningen */}
+                <Box sx={{ display: 'flex', gap: 1, mb: 0.5, width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <Chip 
+                    label={`ID: ${phrase.id}`} 
+                    size="small" 
+                    variant="outlined"
+                    color="primary"
+                  />
+                  {phrase.meningsnivå && (
+                    <Chip 
+                      label={`Nivå ${phrase.meningsnivå}`} 
+                      size="small" 
+                      variant="filled"
+                      color={phrase.meningsnivå === '1' ? 'success' : phrase.meningsnivå === '2' ? 'warning' : 'error'}
+                    />
+                  )}
+                  <Typography variant="body1" sx={{ fontWeight: 500, flex: 1, minWidth: 0 }}>
+                    {phrase.fras}
+                  </Typography>
+                </Box>
+
+                {/* Rad 2: Lärda och oinlärda ord */}
+                <Box sx={{ display: 'flex', gap: 2, width: '100%', flexWrap: 'wrap' }}>
+                  {/* Lärda ord */}
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                    <Typography variant="caption" color="success.main" sx={{ fontWeight: 500 }}>
+                      Lärda:
+                    </Typography>
+                    <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                      {phrase.learnedWords.map((word: any) => (
+                        <Chip 
+                          key={word.id}
+                          label={word.ord} 
+                          size="small" 
+                          color="success"
+                          variant="outlined"
+                        />
+                      ))}
+                    </Box>
+                  </Box>
+
+                  {/* Oinlärda ord */}
+                  {phrase.unlearnedWords.length > 0 && (
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
+                        Andra:
+                      </Typography>
+                      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                        {phrase.unlearnedWords.map((word: any) => (
+                          <Chip 
+                            key={word.id}
+                            label={word.ord} 
+                            size="small" 
+                            color="default"
+                            variant="outlined"
+                          />
+                        ))}
+                      </Box>
+                    </Box>
+                  )}
+                </Box>
+              </ListItem>
+              {index < linkedPhrases.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </List>
       </CardContent>
     </Card>
   );
@@ -1162,7 +1192,7 @@ const shuffleArrayWithSeed = <T,>(array: T[], seed: number): T[] => {
   return shuffled;
 };
 
-// Duplicerad komponent för Meningar-övning (test-sida)
+// Duplicerad komponent för Meningar-övning (tom sida för framtida utveckling)
 const SentencesExerciseDuplicate: React.FC<{
   learnedWords: any[];
   phraseDatabase: any;
@@ -1170,245 +1200,18 @@ const SentencesExerciseDuplicate: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip }) => {
-  // Filtrera fraser baserat på lärda ord och kategorisera som primära/sekundära
-  const getPhrasesForLearnedWords = () => {
-    const learnedWordIds = learnedWords.map(word => word.id);
-    const learnedWordsMap = new Map(learnedWords.map(word => [word.id, word]));
-    const phrases = Object.entries(phraseDatabase); // Använd Object.entries för att få både key och value
-    
-    // Samla alla fras-ID:n som är länkade till lärda ord via exempel-fältet
-    const examplePhraseIds = new Set<string>();
-    learnedWords.forEach(word => {
-      if (word.exempel) {
-        // Lägg till primära exempel
-        if (word.exempel.primära) {
-          word.exempel.primära.forEach((ex: any) => {
-            if (ex.id) examplePhraseIds.add(ex.id);
-          });
-        }
-        // Lägg till sekundära exempel
-        if (word.exempel.sekundära) {
-          word.exempel.sekundära.forEach((ex: any) => {
-            if (ex.id) examplePhraseIds.add(ex.id);
-          });
-        }
-      }
-    });
-    
-    // Filtrera fraser BARA baserat på ID-nummer från exempel-fältet
-    const relevantPhrases = phrases.filter(([phraseId, phrase]: [string, any]) => {
-      // Bara matchning via exempel-fältet (ID-nummer)
-      return examplePhraseIds.has(phraseId);
-    });
-    
-    const primaryPhrases: any[] = [];
-    const secondaryPhrases: any[] = [];
-    const sharedPhrases: any[] = []; // Nya kategori för gemensamma fraser
-    
-    relevantPhrases.forEach(([phraseId, phrase]: [string, any]) => {
-      // Hitta vilka ord som är relaterade till denna fras via exempel-fältet
-      const relatedWords: any[] = [];
-      
-      // Hitta ord som är länkade via exempel-fältet
-      learnedWords.forEach(word => {
-        if (word.exempel) {
-          let isLinkedViaExample = false;
-          
-          // Kontrollera primära exempel
-          if (word.exempel.primära) {
-            isLinkedViaExample = word.exempel.primära.some((ex: any) => ex.id === phraseId);
-          }
-          
-          // Kontrollera sekundära exempel
-          if (!isLinkedViaExample && word.exempel.sekundära) {
-            isLinkedViaExample = word.exempel.sekundära.some((ex: any) => ex.id === phraseId);
-          }
-          
-          if (isLinkedViaExample && !relatedWords.some(rw => rw.id === word.id)) {
-            relatedWords.push(word);
-          }
-        }
-      });
-      
-      if (relatedWords.length > 0) {
-        const phraseWithWord = {
-          ...phrase,
-          id: phraseId, // Använd huvudnyckeln som ID
-          word: relatedWords[0].ord, // Primärt ord (det som frasen direkt länkar till)
-          wordId: phrase.ord_id,
-          relatedWords: relatedWords, // Alla relaterade ord
-          type: 'primär' // Default
-        };
-        
-        // Bestäm meningsnivå från det faktiska fältet i databasen
-        phraseWithWord.meningsnivå = phrase.meningsnivå || null;
-        
-        // Bestäm om frasen är primär eller sekundär baserat på URL-mönster
-        // URL-format: "fras/055741" där sista siffran indikerar typ
-        // 1 = primär, 2+ = sekundär
-        const urlMatch = phrase.url?.match(/(\d+)$/);
-        
-        if (urlMatch) {
-          const frasNumber = parseInt(urlMatch[1]);
-          const lastDigit = frasNumber % 10;
-          
-          // Kategorisera frasen baserat på URL-mönster
-          if (lastDigit === 1) {
-            phraseWithWord.type = 'primär';
-            primaryPhrases.push(phraseWithWord);
-          } else {
-            phraseWithWord.type = 'sekundär';
-            secondaryPhrases.push(phraseWithWord);
-          }
-        } else {
-          // Om URL saknas eller är ogiltig, default till primär
-          phraseWithWord.type = 'primär';
-          primaryPhrases.push(phraseWithWord);
-        }
-      }
-    });
-    
-    return { primaryPhrases, secondaryPhrases, sharedPhrases };
-  };
-
-  const { primaryPhrases, secondaryPhrases, sharedPhrases } = getPhrasesForLearnedWords();
-
-  // Funktion för att rendera en tabell
-  const renderPhraseTable = (phrases: any[], title: string, color: 'primary' | 'secondary' | 'success') => (
-    <Box sx={{ mb: 4 }}>
-      <Typography variant="h5" gutterBottom color={color} sx={{ mb: 2 }}>
-        {title} ({phrases.length} fraser)
-      </Typography>
-      
-      {phrases.length > 0 ? (
-        <TableContainer component={Paper} sx={{ mb: 3 }}>
-          <Table size="small" stickyHeader>
-            <TableHead>
-              <TableRow>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 80 }}>Fras ID</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 100 }}>Typ</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 120 }}>Meningsnivå</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 150 }}>Ord</TableCell>
-                <TableCell sx={{ fontWeight: 'bold', minWidth: 200 }}>Fras-mening</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {phrases.map((phrase, index) => (
-                <TableRow key={phrase.id} hover>
-                  <TableCell>
-                    <Typography variant="body2" color="text.secondary">
-                      {phrase.id}
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Chip 
-                      label={phrase.type} 
-                      color={phrase.type === 'primär' ? 'primary' : phrase.type === 'sekundär' ? 'secondary' : 'success'}
-                      size="small"
-                      variant="outlined"
-                    />
-                  </TableCell>
-                  <TableCell>
-                    {phrase.meningsnivå ? (
-                      <Chip 
-                        label={phrase.meningsnivå} 
-                        color={phrase.meningsnivå === 'N1' ? 'success' : phrase.meningsnivå === 'N2' ? 'warning' : 'error'}
-                        size="small"
-                        variant="filled"
-                      />
-                    ) : (
-                      <Typography variant="body2" color="text.secondary">
-                        -
-                      </Typography>
-                    )}
-                  </TableCell>
-                  <TableCell>
-                    <Box>
-                      <Tooltip title={`Ord ID: ${phrase.wordId}`} arrow>
-                        <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
-                          {phrase.word}
-                        </Typography>
-                      </Tooltip>
-                      {phrase.relatedWords && phrase.relatedWords.length > 1 && (
-                        <Box sx={{ mt: 0.5 }}>
-                          <Typography variant="caption" color="text.secondary">
-                            Innehåller också: {phrase.relatedWords.slice(1).map((w: any) => w.ord).join(', ')}
-                          </Typography>
-                        </Box>
-                      )}
-                    </Box>
-                  </TableCell>
-                  <TableCell>
-                    <Typography variant="body2">
-                      {phrase.fras}
-                    </Typography>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      ) : (
-        <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', mb: 3 }}>
-          Inga {title.toLowerCase()} hittades.
-        </Typography>
-      )}
-    </Box>
-  );
-
   return (
-    <Card sx={{ maxWidth: 1000, mx: 'auto', mb: 3 }}>
-      <CardContent sx={{ p: 4 }}>
-        <Typography variant="h4" gutterBottom align="center" color="secondary">
-          Meningar - Test-sida (Duplicerad)
+    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+      <CardContent sx={{ p: 4, textAlign: 'center' }}>
+        <Typography variant="h4" gutterBottom color="secondary">
+          Meningar (Duplicerad)
         </Typography>
-        
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 4, textAlign: 'center' }}>
-          Här visas alla fraser som är länkade till dina lärda ord från fras_database.json (Duplicerad version)
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+          Denna övning kommer att utvecklas i framtiden.
         </Typography>
-
-        {/* Gemensamma fraser är borttagna för att undvika för många resultat */}
-
-        {/* Primära fraser tabell */}
-        {renderPhraseTable(primaryPhrases, 'Primära fraser', 'primary')}
-
-        {/* Sekundära fraser tabell */}
-        {renderPhraseTable(secondaryPhrases, 'Sekundära fraser', 'secondary')}
-
-        {/* Sammanfattning */}
-        <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
-          <Typography variant="body2" color="text.secondary">
-            <strong>Sammanfattning:</strong> Totalt {primaryPhrases.length + secondaryPhrases.length} fraser 
-            från {learnedWords.length} lärda ord
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            <strong>Primära:</strong> {primaryPhrases.length} fraser | <strong>Sekundära:</strong> {secondaryPhrases.length} fraser
-          </Typography>
-        </Box>
-
-        {/* Test-knappar */}
-        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mt: 3 }}>
-          <Button
-            variant="contained"
-            onClick={() => onResult(true)}
-            startIcon={<CheckCircle />}
-          >
-            Test: Rätt
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={() => onResult(false)}
-            startIcon={<Cancel />}
-          >
-            Test: Fel
-          </Button>
-          <Button
-            variant="outlined"
-            onClick={onSkip}
-          >
-            Hoppa över
-          </Button>
-        </Box>
+        <Typography variant="body2" color="text.secondary">
+          Kommer snart med nya funktioner för att öva med meningar och fraser.
+        </Typography>
       </CardContent>
     </Card>
   );
