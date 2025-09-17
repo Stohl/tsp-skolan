@@ -1547,8 +1547,6 @@ const OvningPage: React.FC = () => {
     console.log(`[DEBUG] Unique words after deduplication: ${uniqueWords.length}`);
     console.log(`[DEBUG] Words for exercise:`, uniqueWords.map(w => `${w.ord} (ID: ${w.id})`));
     
-    // Använd timestamp som seed för mer variation mellan övningar
-    const seed = Date.now();
     const shuffledCombinedWords = shuffleArrayWithSeed(uniqueWords, seed);
     
     // Om inga ord hittas för övning, använd alla ord
