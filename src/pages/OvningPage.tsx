@@ -2709,8 +2709,31 @@ const OvningPage: React.FC = () => {
                   size="small"
                   onClick={() => {
                     if (currentWord) {
-                      markWordResult(currentWord.id, true);
-                      console.log(`[DEBUG] Manually moved word ${currentWord.ord} to learned`);
+                      // Precis som "Ja, jag kunde" men med +5 poäng istället för +1
+                      const current = wordProgress[currentWord.id] || {
+                        level: 0,
+                        points: 0,
+                        stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
+                      };
+                      
+                      const currentPoints = typeof current.points === 'number' ? current.points : 0;
+                      const newPoints = Math.max(0, currentPoints + 5); // +5 istället för +1
+                      const newLevel = newPoints >= 5 ? 2 : current.level;
+                      
+                      updateWordProgress(currentWord.id, {
+                        level: newLevel,
+                        points: newPoints,
+                        stats: {
+                          correct: current.stats.correct + 1,
+                          incorrect: current.stats.incorrect,
+                          lastPracticed: new Date().toISOString(),
+                          difficulty: calculateDifficulty(current.stats.correct + 1, current.stats.incorrect)
+                        }
+                      });
+                      
+                      console.log(`[DEBUG] Manually gave word ${currentWord.ord} +5 points, new total: ${newPoints}`);
+                      // Gå till nästa ord
+                      handleSkip();
                     }
                   }}
                   sx={{ 
