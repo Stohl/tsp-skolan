@@ -2709,9 +2709,14 @@ const OvningPage: React.FC = () => {
                   size="small"
                   onClick={() => {
                     if (currentWord) {
-                      // Placera ordet direkt i "Lärda" (level 2) med 5 poäng
-                      setWordLevel(currentWord.id, 2); // Level 2 = Lärda med 5 poäng
-                      console.log(`[DEBUG] Manually moved word ${currentWord.ord} to learned (level 2, 5 points)`);
+                      // Precis som "Ja, jag kunde" - markera som rätt svarat OCH ge 5 poäng
+                      markWordResult(currentWord.id, true); // Markera som rätt svarat (+1 poäng)
+                      // Sedan ge extra poäng för att komma till 5 totalt
+                      const current = wordProgress[currentWord.id];
+                      if (current && current.points < 5) {
+                        setWordLevel(currentWord.id, 2); // Sätt till level 2 (5 poäng)
+                      }
+                      console.log(`[DEBUG] Manually marked word ${currentWord.ord} as correct and moved to learned`);
                       // Gå till nästa ord
                       handleSkip();
                     }
