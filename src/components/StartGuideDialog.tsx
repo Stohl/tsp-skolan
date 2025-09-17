@@ -612,16 +612,16 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                       Du kan ändra dessa om du vill.
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                      <strong>Ja</strong> = Ordlistan läggs till i "Lärda" (kan redan)
+                      <strong>Ja (kan redan)</strong> = Ordlistan läggs till i "Lärda"
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                      <strong>Behöver repetera</strong> = Ordlistan läggs till i "Att lära mig" (vill öva mer)
+                      <strong>Behöver repetera (vill öva mer)</strong> = Ordlistan läggs till i "Att lära mig"
                     </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                      <strong>Nej</strong> = Ordlistan läggs till i "Att lära mig" (behöver lära sig)
+                      <strong>Nej (vill lära mig)</strong> = Ordlistan läggs till i "Att lära mig"
                     </Typography>
                     <Typography variant="body2">
-                      <strong>Vänta</strong> = Ordlistan läggs inte till ännu
+                      <strong>Vänta (inte ännu)</strong> = Ordlistan läggs inte till ännu
                     </Typography>
                   </Alert>
 
@@ -717,7 +717,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           }
                         }}
                       >
-                        Ja
+                        <Box sx={{ textAlign: 'center' }}>
+                          <Box sx={{ fontWeight: 'bold' }}>Ja</Box>
+                          <Box sx={{ fontSize: '0.75rem', opacity: 0.8 }}>(kan redan)</Box>
+                        </Box>
                       </Button>
                       <Button
                         variant={question.selectedAnswer === 'behover_repetera' ? 'contained' : 'outlined'}
@@ -742,7 +745,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           }
                         }}
                       >
-                        Behöver repetera
+                        <Box sx={{ textAlign: 'center' }}>
+                          <Box sx={{ fontWeight: 'bold' }}>Behöver repetera</Box>
+                          <Box sx={{ fontSize: '0.75rem', opacity: 0.8 }}>(vill öva mer)</Box>
+                        </Box>
                       </Button>
                       <Button
                         variant={question.selectedAnswer === 'nej' ? 'contained' : 'outlined'}
@@ -767,7 +773,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           }
                         }}
                       >
-                        Nej
+                        <Box sx={{ textAlign: 'center' }}>
+                          <Box sx={{ fontWeight: 'bold' }}>Nej</Box>
+                          <Box sx={{ fontSize: '0.75rem', opacity: 0.8 }}>(vill lära mig)</Box>
+                        </Box>
                       </Button>
                       <Button
                         variant={question.selectedAnswer === 'vanta' ? 'contained' : 'outlined'}
@@ -793,7 +802,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                           }
                         }}
                       >
-                        Vänta
+                        <Box sx={{ textAlign: 'center' }}>
+                          <Box sx={{ fontWeight: 'bold' }}>Vänta</Box>
+                          <Box sx={{ fontSize: '0.75rem', opacity: 0.8 }}>(inte ännu)</Box>
+                        </Box>
                       </Button>
                     </Box>
                   </CardContent>
