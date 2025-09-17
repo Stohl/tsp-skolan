@@ -1415,7 +1415,8 @@ const OvningPage: React.FC = () => {
       // Kontrollera om ordet kommer att flyttas till level 2
       const currentProgress = wordProgress[currentWord.id];
       const currentPoints = currentProgress?.points || 0;
-      const willMoveToLevel2 = isCorrect && currentPoints + 1 >= 5;
+      const currentLevel = currentProgress?.level || 0;
+      const willMoveToLevel2 = isCorrect && currentPoints + 1 >= 5 && currentLevel < 2;
       
       markWordResult(currentWord.id, isCorrect);
       
