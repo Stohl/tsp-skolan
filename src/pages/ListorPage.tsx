@@ -524,103 +524,140 @@ const ListorPage: React.FC = () => {
                         </Typography>
                       </Box>
                       
-                      {/* Bulk-tagging knappar med samma design som startguiden */}
+                      {/* Bulk-tagging knappar med dynamisk färgkodning */}
                       <Box sx={{ 
                         display: 'flex', 
                         gap: 2, 
                         flexWrap: 'wrap',
                         justifyContent: 'center'
                       }}>
-                        <Button
-                          variant="outlined"
-                          size="medium"
-                          onClick={() => handleBulkTag(wordList, 2, 5)}
-                          startIcon={<CheckCircle />}
-                          sx={{ 
-                            flex: { xs: 1, sm: '0 1 auto' },
-                            minWidth: { xs: '100%', sm: '140px' },
-                            py: 1.5,
-                            borderRadius: 2,
-                            fontWeight: 'normal',
-                            backgroundColor: 'transparent',
-                            color: 'success.main',
-                            borderColor: 'success.main',
-                            '&:hover': {
-                              backgroundColor: 'transparent',
-                              color: 'success.main',
-                              borderColor: 'success.main'
+                        {(() => {
+                          const wordsInList = getWordsFromList(wordList, wordDatabase);
+                          const unmarked = wordsInList.filter(word => !wordProgress[word.id] || wordProgress[word.id].level === 0).length;
+                          const learning = wordsInList.filter(word => wordProgress[word.id] && wordProgress[word.id].level === 1).length;
+                          const learned = wordsInList.filter(word => wordProgress[word.id] && wordProgress[word.id].level === 2).length;
+                          const totalWords = wordsInList.length;
+                          
+                          // Logik för att bestämma vilken knapp som ska vara markerad
+                          let activeButton = 'vanta'; // Default
+                          
+                          if (learned === totalWords && totalWords > 0) {
+                            // Alla ord är lärda - "Kan dessa" ska vara grön
+                            activeButton = 'kan_dessa';
+                          } else if (learning > 0 || learned > 0) {
+                            // Några ord är markerade som "att lära mig" eller "lärda" - "Vill lära mig" ska vara markerad
+                            activeButton = 'vill_lara_mig';
+                          } else {
+                            // Kontrollera om alla ord har mer än 1 poäng (för "Behöver repetera")
+                            const wordsWithHighPoints = wordsInList.filter(word => {
+                              const progress = wordProgress[word.id];
+                              return progress && progress.points > 1;
+                            }).length;
+                            
+                            if (wordsWithHighPoints === totalWords && totalWords > 0) {
+                              // Alla ord har mer än 1 poäng - "Behöver repetera" ska vara markerad
+                              activeButton = 'behover_repetera';
+                            } else if (unmarked === totalWords) {
+                              // Inga ord är markerade - "Vänta" ska vara markerad
+                              activeButton = 'vanta';
                             }
-                          }}
-                        >
-                          Kan dessa
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          size="medium"
-                          onClick={() => handleBulkTag(wordList, 1, 3)}
-                          sx={{ 
-                            flex: { xs: 1, sm: '0 1 auto' },
-                            minWidth: { xs: '100%', sm: '140px' },
-                            py: 1.5,
-                            borderRadius: 2,
-                            fontWeight: 'normal',
-                            backgroundColor: 'transparent',
-                            color: 'warning.main',
-                            borderColor: 'warning.main',
-                            '&:hover': {
-                              backgroundColor: 'transparent',
-                              color: 'warning.main',
-                              borderColor: 'warning.main'
-                            }
-                          }}
-                        >
-                          Behöver repetera
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          size="medium"
-                          onClick={() => handleBulkTag(wordList, 1, 0)}
-                          sx={{ 
-                            flex: { xs: 1, sm: '0 1 auto' },
-                            minWidth: { xs: '100%', sm: '140px' },
-                            py: 1.5,
-                            borderRadius: 2,
-                            fontWeight: 'normal',
-                            backgroundColor: 'transparent',
-                            color: '#2196F3',
-                            borderColor: '#2196F3',
-                            '&:hover': {
-                              backgroundColor: 'transparent',
-                              color: '#2196F3',
-                              borderColor: '#2196F3'
-                            }
-                          }}
-                        >
-                          Vill lära mig
-                        </Button>
-                        <Button
-                          variant="outlined"
-                          size="medium"
-                          onClick={() => handleBulkTag(wordList, 0)}
-                          startIcon={<HourglassEmpty />}
-                          sx={{ 
-                            flex: { xs: 1, sm: '0 1 auto' },
-                            minWidth: { xs: '100%', sm: '140px' },
-                            py: 1.5,
-                            borderRadius: 2,
-                            fontWeight: 'normal',
-                            backgroundColor: 'transparent',
-                            color: 'grey.600',
-                            borderColor: 'grey.500',
-                            '&:hover': {
-                              backgroundColor: 'transparent',
-                              color: 'grey.600',
-                              borderColor: 'grey.500'
-                            }
-                          }}
-                        >
-                          Vänta
-                        </Button>
+                          }
+                          
+                          return (
+                            <>
+                              <Button
+                                variant={activeButton === 'kan_dessa' ? 'contained' : 'outlined'}
+                                size="medium"
+                                onClick={() => handleBulkTag(wordList, 2, 5)}
+                                startIcon={<CheckCircle />}
+                                sx={{ 
+                                  flex: { xs: 1, sm: '0 1 auto' },
+                                  minWidth: { xs: '100%', sm: '140px' },
+                                  py: 1.5,
+                                  borderRadius: 2,
+                                  fontWeight: activeButton === 'kan_dessa' ? 'bold' : 'normal',
+                                  backgroundColor: activeButton === 'kan_dessa' ? 'success.main' : 'transparent',
+                                  color: activeButton === 'kan_dessa' ? 'white' : 'success.main',
+                                  borderColor: 'success.main',
+                                  '&:hover': {
+                                    backgroundColor: activeButton === 'kan_dessa' ? 'success.main' : 'transparent',
+                                    color: activeButton === 'kan_dessa' ? 'white' : 'success.main',
+                                    borderColor: 'success.main'
+                                  }
+                                }}
+                              >
+                                Kan dessa
+                              </Button>
+                              <Button
+                                variant={activeButton === 'behover_repetera' ? 'contained' : 'outlined'}
+                                size="medium"
+                                onClick={() => handleBulkTag(wordList, 1, 3)}
+                                sx={{ 
+                                  flex: { xs: 1, sm: '0 1 auto' },
+                                  minWidth: { xs: '100%', sm: '140px' },
+                                  py: 1.5,
+                                  borderRadius: 2,
+                                  fontWeight: activeButton === 'behover_repetera' ? 'bold' : 'normal',
+                                  backgroundColor: activeButton === 'behover_repetera' ? 'warning.main' : 'transparent',
+                                  color: activeButton === 'behover_repetera' ? 'white' : 'warning.main',
+                                  borderColor: 'warning.main',
+                                  '&:hover': {
+                                    backgroundColor: activeButton === 'behover_repetera' ? 'warning.main' : 'transparent',
+                                    color: activeButton === 'behover_repetera' ? 'white' : 'warning.main',
+                                    borderColor: 'warning.main'
+                                  }
+                                }}
+                              >
+                                Behöver repetera
+                              </Button>
+                              <Button
+                                variant={activeButton === 'vill_lara_mig' ? 'contained' : 'outlined'}
+                                size="medium"
+                                onClick={() => handleBulkTag(wordList, 1, 0)}
+                                sx={{ 
+                                  flex: { xs: 1, sm: '0 1 auto' },
+                                  minWidth: { xs: '100%', sm: '140px' },
+                                  py: 1.5,
+                                  borderRadius: 2,
+                                  fontWeight: activeButton === 'vill_lara_mig' ? 'bold' : 'normal',
+                                  backgroundColor: activeButton === 'vill_lara_mig' ? '#2196F3' : 'transparent',
+                                  color: activeButton === 'vill_lara_mig' ? 'white' : '#2196F3',
+                                  borderColor: '#2196F3',
+                                  '&:hover': {
+                                    backgroundColor: activeButton === 'vill_lara_mig' ? '#2196F3' : 'transparent',
+                                    color: activeButton === 'vill_lara_mig' ? 'white' : '#2196F3',
+                                    borderColor: '#2196F3'
+                                  }
+                                }}
+                              >
+                                Vill lära mig
+                              </Button>
+                              <Button
+                                variant={activeButton === 'vanta' ? 'contained' : 'outlined'}
+                                size="medium"
+                                onClick={() => handleBulkTag(wordList, 0)}
+                                startIcon={<HourglassEmpty />}
+                                    sx={{ 
+                                  flex: { xs: 1, sm: '0 1 auto' },
+                                  minWidth: { xs: '100%', sm: '140px' },
+                                  py: 1.5,
+                                  borderRadius: 2,
+                                  fontWeight: activeButton === 'vanta' ? 'bold' : 'normal',
+                                  backgroundColor: activeButton === 'vanta' ? 'grey.500' : 'transparent',
+                                  color: activeButton === 'vanta' ? 'white' : 'grey.600',
+                                  borderColor: 'grey.500',
+                                  '&:hover': {
+                                    backgroundColor: activeButton === 'vanta' ? 'grey.500' : 'transparent',
+                                    color: activeButton === 'vanta' ? 'white' : 'grey.600',
+                                    borderColor: 'grey.500'
+                                  }
+                                }}
+                              >
+                                Vänta
+                              </Button>
+                            </>
+                          );
+                        })()}
                       </Box>
                     </Box>
                   </Collapse>
