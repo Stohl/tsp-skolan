@@ -25,7 +25,9 @@ import {
   PlayArrow,
   Close,
   SkipNext,
-  HourglassEmpty
+  HourglassEmpty,
+  ExpandMore,
+  ExpandLess
 } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList } from '../types/wordLists';
@@ -83,6 +85,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const [answers, setAnswers] = useState<{ [questionId: string]: 'ja' | 'delvis' | 'nej' | 'hoppa' }>({});
   const [isCompleted, setIsCompleted] = useState(false);
   const [totalWordsAdded, setTotalWordsAdded] = useState(0);
+  const [showDetailedList, setShowDetailedList] = useState(false);
 
   // Räkna antal ord i varje kategori
   const getWordCounts = () => {
@@ -95,6 +98,24 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   };
 
   const wordCounts = getWordCounts();
+
+  // Gruppera ordlistor baserat på valt svar
+  const getGroupedWordLists = () => {
+    const groups = {
+      ja: [] as WordListQuestion[],
+      behover_repetera: [] as WordListQuestion[],
+      nej: [] as WordListQuestion[],
+      vanta: [] as WordListQuestion[]
+    };
+
+    wordListQuestions.forEach(question => {
+      if (question.selectedAnswer && groups[question.selectedAnswer]) {
+        groups[question.selectedAnswer].push(question);
+      }
+    });
+
+    return groups;
+  };
 
   // Kunskapsnivå-frågor
   const knowledgeLevelQuestions: KnowledgeLevelQuestion[] = [
@@ -510,26 +531,75 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
 
         {currentStep === 'wordlists' && (
           <>
-            {/* Beskrivning av vad alternativen betyder */}
-            <Alert severity="info" sx={{ mb: 3 }}>
-              <Typography variant="body2" sx={{ mb: 2 }}>
-                Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
-                Du kan ändra dessa om du vill.
+            {/* Sammanfattning högst upp */}
+            <Alert severity="success" sx={{ mb: 3 }}>
+              <Typography variant="h6" gutterBottom>
+                Sammanfattning av ordlistor
               </Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                <strong>Ja</strong> = Ordlistan läggs till i "Lärda" (kan redan)
-              </Typography>
-              <Typography variant="body2" sx={{ mb: 1 }}>
-                <strong>Behöver repetera</strong> = Ordlistan läggs till i "Att lära mig" (vill öva mer)
-              </Typography>
-              <Typography variant="body2">
-                <strong>Nej</strong> = Ordlistan läggs till i "Att lära mig" (behöver lära sig)
-              </Typography>
+              {(() => {
+                const groups = getGroupedWordLists();
+                return (
+                  <Box>
+                    {groups.ja.length > 0 && (
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        <strong>🟢 Ordlistor du kan:</strong> {groups.ja.map(q => q.wordList.name).join(', ')}
+                      </Typography>
+                    )}
+                    {groups.behover_repetera.length > 0 && (
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        <strong>🟡 Ordlistor att repetera:</strong> {groups.behover_repetera.map(q => q.wordList.name).join(', ')}
+                      </Typography>
+                    )}
+                    {groups.nej.length > 0 && (
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        <strong>🔵 Ordlistor att lära dig:</strong> {groups.nej.map(q => q.wordList.name).join(', ')}
+                      </Typography>
+                    )}
+                    {groups.vanta.length > 0 && (
+                      <Typography variant="body2" sx={{ mb: 1 }}>
+                        <strong>⚪ Ordlistor att vänta med:</strong> {groups.vanta.map(q => q.wordList.name).join(', ')}
+                      </Typography>
+                    )}
+                  </Box>
+                );
+              })()}
             </Alert>
 
+            {/* Dropdown för detaljerad hantering */}
+            <Box sx={{ mb: 3 }}>
+              <Button
+                variant="outlined"
+                onClick={() => setShowDetailedList(!showDetailedList)}
+                endIcon={showDetailedList ? <ExpandLess /> : <ExpandMore />}
+                sx={{ mb: 2 }}
+              >
+                {showDetailedList ? 'Dölj detaljerad lista' : 'Visa detaljerad lista för ändringar'}
+              </Button>
 
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-              {wordListQuestions.map((question) => (
+              {showDetailedList && (
+                <>
+                  <Alert severity="info" sx={{ mb: 3 }}>
+                    <Typography variant="body2" sx={{ mb: 2 }}>
+                      Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
+                      Du kan ändra dessa om du vill.
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
+                      <strong>Ja</strong> = Ordlistan läggs till i "Lärda" (kan redan)
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
+                      <strong>Behöver repetera</strong> = Ordlistan läggs till i "Att lära mig" (vill öva mer)
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
+                      <strong>Nej</strong> = Ordlistan läggs till i "Att lära mig" (behöver lära sig)
+                    </Typography>
+                    <Typography variant="body2">
+                      <strong>Vänta</strong> = Ordlistan läggs inte till ännu
+                    </Typography>
+                  </Alert>
+
+
+                  <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {wordListQuestions.map((question) => (
                 <Card 
                   key={question.id} 
                   sx={{ 
@@ -700,7 +770,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                     </Box>
                   </CardContent>
                 </Card>
-              ))}
+                    ))}
+                  </Box>
+                </>
+              )}
             </Box>
 
             {/* Slutför-knapp med modern design */}
