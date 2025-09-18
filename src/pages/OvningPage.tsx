@@ -46,7 +46,7 @@ import {
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
 import { getVideoUrl } from '../types/database';
-import { getWordListDifficulty } from '../types/wordLists';
+import { getWordListDifficulty, getAllWordLists } from '../types/wordLists';
 
 // Enum för övningstyper
 enum ExerciseType {
@@ -2246,7 +2246,18 @@ const OvningPage: React.FC = () => {
   // State för att hålla koll på vilka ord som faktiskt flyttades till level 2
   const [wordsMovedToLearned, setWordsMovedToLearned] = useState<Set<string>>(new Set());
 
-  // Beräkna ord för övning med ny logik: svårighetsgrad-prioritering + slumpning + lärda ord-repetition
+  // Hjälpfunktion för att hämta prioritet för ett ord från wordLists
+  const getWordPriority = (wordId: string): number => {
+    const allWordLists = getAllWordLists(wordDatabase);
+    for (const list of allWordLists) {
+      if (list.type === 'predefined' && list.wordIds.includes(wordId)) {
+        return list.priority;
+      }
+    }
+    return 999; // Default hög prioritet för ord som inte finns i någon lista
+  };
+
+  // Beräkna ord för övning med ny logik: senast övade först, sedan prioritet från wordLists
   const practiceWords = useMemo(() => {
     if (Object.keys(wordDatabase).length === 0) return [];
     
@@ -2260,7 +2271,8 @@ const OvningPage: React.FC = () => {
         level: 0,
         stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
       },
-      listDifficulty: getWordListDifficulty(wordId) // Lägg till svårighetsgrad från wordLists.ts
+      listDifficulty: getWordListDifficulty(wordId), // Lägg till svårighetsgrad från wordLists.ts
+      priority: getWordPriority(wordId) // Lägg till prioritet från wordLists.ts
     }));
 
     // Om learningWordsOnly är aktiverat, filtrera bara ord som användaren vill lära sig
@@ -2269,20 +2281,12 @@ const OvningPage: React.FC = () => {
       filteredWords = wordsWithProgress.filter(word => word.progress.level === 1);
     }
 
-    // Hämta ord från "att lära mig" (nivå 1) sorterade efter svårighetsgrad från wordLists.ts
+    // Hämta ord från "att lära mig" (nivå 1) sorterade efter senast övade först, sedan prioritet
     const learningWords = filteredWords.filter(word => word.progress.level === 1);
     
-    // Sortera efter svårighetsgrad från wordLists.ts: nyborjare -> lite_erfaren -> erfaren -> proffs
-    const difficultyOrder = ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs'];
+    // Sortera först efter senast övade (nyligen övade först), sedan efter prioritet från wordLists
     const sortedLearningWords = learningWords.sort((a, b) => {
-      const difficultyA = difficultyOrder.indexOf(a.listDifficulty);
-      const difficultyB = difficultyOrder.indexOf(b.listDifficulty);
-      
-      if (difficultyA !== difficultyB) {
-        return difficultyA - difficultyB; // Lägre index = lägre svårighetsgrad först
-      }
-      
-      // Om samma svårighetsgrad, sortera efter senast övade (nyligen övade först)
+      // Först: Sortera efter senast övade (nyligen övade först)
       const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
       const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
       
@@ -2290,7 +2294,12 @@ const OvningPage: React.FC = () => {
       const timeA = isNaN(lastPracticedA) ? 0 : lastPracticedA;
       const timeB = isNaN(lastPracticedB) ? 0 : lastPracticedB;
       
-      return timeB - timeA; // Nyligen övade först (högre timestamp först)
+      if (timeA !== timeB) {
+        return timeB - timeA; // Nyligen övade först (högre timestamp först)
+      }
+      
+      // Om samma övningstid, sortera efter prioritet från wordLists (lägre prioritet = högre prioritet)
+      return a.priority - b.priority;
     });
 
     // Hämta slumpade ord från "lärda" (nivå 2) för repetition
@@ -2380,7 +2389,8 @@ const OvningPage: React.FC = () => {
         level: 0,
         points: 0,
         stats: { correct: 0, incorrect: 0, lastPracticed: new Date().toISOString(), difficulty: 50 }
-      }
+      },
+      priority: getWordPriority(wordId) // Lägg till prioritet från wordLists.ts
     }));
 
     // Hämta ord som användaren vill lära sig (nivå 1)
@@ -2393,11 +2403,20 @@ const OvningPage: React.FC = () => {
     if (learningWords.length >= 10) {
       return learningWords
       .sort((a, b) => {
-          const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
-          if (difficultyDiff !== 0) return difficultyDiff;
+          // Först: Sortera efter senast övade (nyligen övade först)
           const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
           const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
-          return lastPracticedA - lastPracticedB;
+          
+          // Hantera NaN (tom sträng) genom att sätta dem till 0 (aldrig övade)
+          const timeA = isNaN(lastPracticedA) ? 0 : lastPracticedA;
+          const timeB = isNaN(lastPracticedB) ? 0 : lastPracticedB;
+          
+          if (timeA !== timeB) {
+            return timeB - timeA; // Nyligen övade först (högre timestamp först)
+          }
+          
+          // Om samma övningstid, sortera efter prioritet från wordLists (lägre prioritet = högre prioritet)
+          return a.priority - b.priority;
         })
         .slice(0, 10);
     }
@@ -2414,14 +2433,20 @@ const OvningPage: React.FC = () => {
         if (levelA === 1 && levelB !== 1) return -1;
         if (levelA !== 1 && levelB === 1) return 1;
         
-          // Sedan efter svårighetsgrad
-        const difficultyDiff = b.progress.stats.difficulty - a.progress.stats.difficulty;
-        if (difficultyDiff !== 0) return difficultyDiff;
-        
-          // Sedan efter senast övade
-        const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
-        const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
-        return lastPracticedA - lastPracticedB;
+          // Sedan efter senast övade (nyligen övade först)
+          const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
+          const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
+          
+          // Hantera NaN (tom sträng) genom att sätta dem till 0 (aldrig övade)
+          const timeA = isNaN(lastPracticedA) ? 0 : lastPracticedA;
+          const timeB = isNaN(lastPracticedB) ? 0 : lastPracticedB;
+          
+          if (timeA !== timeB) {
+            return timeB - timeA; // Nyligen övade först (högre timestamp först)
+          }
+          
+          // Om samma övningstid, sortera efter prioritet från wordLists (lägre prioritet = högre prioritet)
+          return a.priority - b.priority;
       })
       .slice(0, 10);
     }
@@ -3343,19 +3368,19 @@ const OvningPage: React.FC = () => {
                     // Hitta meningen från sentencesWords baserat på wordId (som är phraseId för meningar)
                     const phrase = sentencesWords.find(p => p.id === result.wordId);
                     console.log(`[DEBUG] Result ${index}: phraseId=${result.wordId}, phrase=${phrase?.fras}, isCorrect=${result.isCorrect}`);
-                    return (
-                      <ListItem key={`${result.wordId}-${index}`}>
-                        <ListItemText
+                  return (
+                    <ListItem key={`${result.wordId}-${index}`}>
+                      <ListItemText
                           primary={phrase?.fras || `Okänd mening (ID: ${result.wordId})`}
                           secondary={phrase?.meningsnivå ? `Nivå ${phrase.meningsnivå}` : ""}
-                        />
-                        {result.isCorrect ? (
-                          <CheckCircle color="success" />
-                        ) : (
-                          <Cancel color="error" />
-                        )}
-                      </ListItem>
-                    );
+                      />
+                      {result.isCorrect ? (
+                        <CheckCircle color="success" />
+                      ) : (
+                        <Cancel color="error" />
+                      )}
+                    </ListItem>
+                  );
                   } else {
                     // För andra övningar, visa ordet som vanligt
                     const word = wordDatabase[result.wordId];
@@ -3461,8 +3486,8 @@ const OvningPage: React.FC = () => {
                     (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
                     practiceWords.length
                   }
-                </Typography>
-              </Box>
+          </Typography>
+        </Box>
             )}
             
             {/* Progress-mätare */}
@@ -3491,8 +3516,8 @@ const OvningPage: React.FC = () => {
               </Box>
             ) : (
               // Kontinuerlig progress för andra övningar
-              <LinearProgress 
-                variant="determinate" 
+        <LinearProgress 
+          variant="determinate" 
                 value={((currentWordIndex + 1) / (
                   (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
                   (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
