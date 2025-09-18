@@ -830,7 +830,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       subject: 'Mat',
       type: 'dynamic',
       difficulty: 'proffs',
-      priority: 8.5
+      priority: 0.5
     }
   ];
 

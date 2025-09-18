@@ -2247,8 +2247,12 @@ const OvningPage: React.FC = () => {
   const [wordsMovedToLearned, setWordsMovedToLearned] = useState<Set<string>>(new Set());
 
   // Hjälpfunktion för att hämta prioritet för ett ord från wordLists
+  // Memoize getAllWordLists to prevent infinite loops
+  const allWordLists = useMemo(() => {
+    return getAllWordLists(wordDatabase);
+  }, [wordDatabase]);
+
   const getWordPriority = (wordId: string): number => {
-    const allWordLists = getAllWordLists(wordDatabase);
     for (const list of allWordLists) {
       if (list.type === 'predefined' && list.wordIds.includes(wordId)) {
         return list.priority;
