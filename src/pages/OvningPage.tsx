@@ -1374,7 +1374,203 @@ const shuffleArrayWithSeed = <T,>(array: T[], seed: number): T[] => {
   return shuffled;
 };
 
-// Duplicerad komponent för Meningar-övning (tom sida för framtida utveckling)
+// Komponent för Meningar-övning med video + gissning
+const SentencesPracticeExercise: React.FC<{
+  learnedWords: any[];
+  phraseDatabase: any;
+  wordDatabase: any;
+  onResult: (isCorrect: boolean) => void;
+  onSkip: () => void;
+  selectedLevels: string[];
+  sentencesWords: any[];
+}> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip, selectedLevels, sentencesWords }) => {
+  const [currentPhraseIndex, setCurrentPhraseIndex] = useState(0);
+  const [isRevealed, setIsRevealed] = useState(false);
+  const [sentencesProgress, setSentencesProgress] = useState<Record<string, boolean>>(() => {
+    const saved = localStorage.getItem('sentences-progress');
+    return saved ? JSON.parse(saved) : {};
+  });
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  const currentPhrase = sentencesWords[currentPhraseIndex];
+
+  // Debug: logga video URL när mening ändras
+  useEffect(() => {
+    if (currentPhrase) {
+      console.log('[DEBUG] Current phrase video URL (raw):', currentPhrase.video_url);
+      console.log('[DEBUG] Current phrase video URL (processed):', getVideoUrl(currentPhrase.video_url));
+      console.log('[DEBUG] Current phrase:', currentPhrase.fras);
+    }
+  }, [currentPhrase]);
+
+  // Hantera rätt svar
+  const handleCorrect = () => {
+    if (currentPhrase) {
+      const newProgress = { ...sentencesProgress, [currentPhrase.id]: true };
+      setSentencesProgress(newProgress);
+      localStorage.setItem('sentences-progress', JSON.stringify(newProgress));
+      onResult(true);
+      nextPhrase();
+    }
+  };
+
+  // Hantera fel svar
+  const handleIncorrect = () => {
+    if (currentPhrase) {
+      const newProgress = { ...sentencesProgress, [currentPhrase.id]: false };
+      setSentencesProgress(newProgress);
+      localStorage.setItem('sentences-progress', JSON.stringify(newProgress));
+    }
+    onResult(false);
+    nextPhrase();
+  };
+
+  // Gå till nästa mening
+  const nextPhrase = () => {
+    setIsRevealed(false);
+    if (currentPhraseIndex < sentencesWords.length - 1) {
+      setCurrentPhraseIndex(currentPhraseIndex + 1);
+    } else {
+      // Om vi är på sista meningen, gå tillbaka till första
+      setCurrentPhraseIndex(0);
+    }
+  };
+
+  // Hoppa över mening
+  const handleSkip = () => {
+    onSkip();
+    nextPhrase();
+  };
+
+  if (sentencesWords.length === 0) {
+    return (
+      <Card sx={{ p: 3, textAlign: 'center' }}>
+        <Typography variant="h6" gutterBottom>
+          Inga meningar tillgängliga
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Du behöver lära dig fler ord för att öva på meningar på de valda nivåerna.
+        </Typography>
+      </Card>
+    );
+  }
+
+  if (!currentPhrase) {
+    return (
+      <Card sx={{ p: 3, textAlign: 'center' }}>
+        <CircularProgress />
+        <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+          Laddar meningar...
+        </Typography>
+      </Card>
+    );
+  }
+
+  return (
+    <Card sx={{ p: 3 }}>
+      {/* Progress indikator */}
+      <Box sx={{ mb: 3, textAlign: 'center' }}>
+        <Typography variant="h6" gutterBottom>
+          Meningar-övning
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Mening {currentPhraseIndex + 1} av {sentencesWords.length}
+        </Typography>
+        <LinearProgress 
+          variant="determinate" 
+          value={(currentPhraseIndex + 1) / sentencesWords.length * 100}
+          sx={{ mt: 1 }}
+        />
+      </Box>
+
+      {/* Video */}
+      <Box sx={{ mb: 3, textAlign: 'center' }}>
+        <video
+          ref={videoRef}
+          key={currentPhrase.id} // Tvingar React att skapa ny video när meningen ändras
+          src={getVideoUrl(currentPhrase.video_url)}
+          autoPlay
+          muted
+          playsInline // Förhindrar helskärm på mobil
+          onClick={() => {
+            if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.play().catch(error => {
+                // Ignorera AbortError - detta händer när komponenten unmountas
+                if (error.name !== 'AbortError') {
+                  console.warn('Video play error:', error);
+                }
+              });
+            }
+          }}
+          onError={(e) => {
+            console.error('Video load error:', e);
+            alert('Kunde inte ladda videon. Kontrollera internetanslutningen.');
+          }}
+          style={{ 
+            width: '100%', 
+            maxWidth: '400px', 
+            height: '300px',
+            objectFit: 'cover',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            cursor: 'pointer'
+          }}
+        />
+      </Box>
+
+      {/* Avslöja knapp */}
+      {!isRevealed && (
+        <Box sx={{ textAlign: 'center', mb: 3 }}>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => setIsRevealed(true)}
+            sx={{ minWidth: 150 }}
+          >
+            Avslöja mening
+          </Button>
+        </Box>
+      )}
+
+      {/* Mening (visas efter avslöjande) */}
+      {isRevealed && (
+        <Box sx={{ mb: 3, textAlign: 'center' }}>
+          <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+            {currentPhrase.fras}
+          </Typography>
+        </Box>
+      )}
+
+      {/* Rätt/Fel knappar (visas efter avslöjande) */}
+      {isRevealed && (
+        <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', mb: 2 }}>
+          <Button
+            variant="contained"
+            color="success"
+            size="large"
+            onClick={handleCorrect}
+            sx={{ minWidth: 120 }}
+          >
+            Hade rätt
+          </Button>
+          <Button
+            variant="contained"
+            color="error"
+            size="large"
+            onClick={handleIncorrect}
+            sx={{ minWidth: 120 }}
+          >
+            Hade fel
+          </Button>
+        </Box>
+      )}
+
+    </Card>
+  );
+};
+
+// Duplicerad komponent för Meningar-övning - samma som ursprungliga SentencesExercise
 const SentencesExerciseDuplicate: React.FC<{
   learnedWords: any[];
   phraseDatabase: any;
@@ -1382,68 +1578,177 @@ const SentencesExerciseDuplicate: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip }) => {
+  // Ladda phrase_index.json för att hitta fraser länkade till lärda ord
+  const [phraseIndex, setPhraseIndex] = useState<any>(null);
   const [isLoadingPhrases, setIsLoadingPhrases] = useState(true);
-  const [sortBy, setSortBy] = useState<'id' | 'learned' | 'unlearned'>('id');
+  const [sortBy, setSortBy] = useState<'id' | 'learned' | 'unlearned'>('unlearned');
   const [sortAscending, setSortAscending] = useState(true);
 
   useEffect(() => {
-    // Simulera laddning för att matcha den andra komponenten
-    const timer = setTimeout(() => {
-      setIsLoadingPhrases(false);
-    }, 500);
-    return () => clearTimeout(timer);
+    const loadPhraseIndex = async () => {
+      try {
+        const response = await fetch('/phrase_index.json');
+        const data = await response.json();
+        setPhraseIndex(data);
+      } catch (error) {
+        console.error('Fel vid laddning av phrase_index.json:', error);
+      } finally {
+        setIsLoadingPhrases(false);
+      }
+    };
+
+    loadPhraseIndex();
   }, []);
 
-  // Hämta alla meningar med meningsnivå, oberoende av lärda ord
-  const getAllPhrasesByLevel = () => {
-    if (!phraseDatabase) {
-      return { level1: [], level2: [], level3: [], level4: [] };
+  // Hitta alla fraser som är länkade till lärda ord (optimerad version)
+  const getLinkedPhrases = () => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return { completePhrases: [], almostCompletePhrases: [] };
     }
 
-    const phrases = Object.values(phraseDatabase).filter((phrase: any) => 
-      phrase.meningsnivå && ['N1', 'N2', 'N3', 'N4'].includes(phrase.meningsnivå)
-    );
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const phraseMap = new Map(); // För att undvika duplicerade fraser
 
-    // Gruppera efter nivå
-    const level1 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N1');
-    const level2 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N2');
-    const level3 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N3');
-    const level4 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N4');
+    // Gå igenom alla lärda ord och hitta deras fraser
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          if (!phraseMap.has(phraseId)) {
+            const phraseData = phraseDatabase[phraseId];
+            if (phraseData) {
+              // Endast meningar med meningsnivå
+              if (!phraseData.meningsnivå) {
+                return; // Hoppa över meningar utan meningsnivå
+              }
 
-    // Sortera varje nivå
+              // Hitta vilka ord som hänvisar till denna fras (optimerat med phrase_to_words)
+              const referringWords: any[] = [];
+              
+              // Använd phrase_to_words för direkt lookup istället för att gå igenom alla ord
+              const wordIds = phraseIndex.phrase_to_words[phraseId];
+              if (wordIds) {
+                wordIds.forEach((wordId: string) => {
+                  const wordData = wordDatabase[wordId];
+                  if (wordData) {
+                    referringWords.push(wordData);
+                  }
+                });
+              }
+
+              const learnedReferringWords = referringWords.filter(word => learnedWordIds.has(word.id));
+              const unlearnedReferringWords = referringWords.filter(word => !learnedWordIds.has(word.id));
+
+              phraseMap.set(phraseId, {
+                id: phraseId,
+                fras: phraseData.fras,
+                meningsnivå: phraseData.meningsnivå || null,
+                learnedWords: learnedReferringWords,
+                unlearnedWords: unlearnedReferringWords,
+                primaryWord: learnedWord
+              });
+            }
+          }
+        });
+      }
+    });
+
+    // Konvertera Map till array
+    const uniquePhrases = Array.from(phraseMap.values());
+    
+    // Separera meningar baserat på antal saknade ord
+    const completePhrases = uniquePhrases.filter(phrase => phrase.unlearnedWords.length === 0);
+    const almostCompletePhrases = uniquePhrases.filter(phrase => phrase.unlearnedWords.length === 1);
+    
+    // Sortera varje lista
     const sortPhrases = (phrases: any[]) => {
       return [...phrases].sort((a, b) => {
         let comparison = 0;
+        
         switch (sortBy) {
           case 'id':
             comparison = a.id.localeCompare(b.id);
             break;
           case 'learned':
-            // För denna komponent är detta inte relevant, men behåller för konsistens
-            comparison = 0;
+            comparison = a.learnedWords.length - b.learnedWords.length;
             break;
           case 'unlearned':
-            // För denna komponent är detta inte relevant, men behåller för konsistens
-            comparison = 0;
+            comparison = a.unlearnedWords.length - b.unlearnedWords.length;
             break;
           default:
             return 0;
         }
+        
+        // Växla riktning baserat på sortAscending
         return sortAscending ? comparison : -comparison;
       });
     };
 
     return {
-      level1: sortPhrases(level1),
-      level2: sortPhrases(level2),
-      level3: sortPhrases(level3),
-      level4: sortPhrases(level4)
+      completePhrases: sortPhrases(completePhrases),
+      almostCompletePhrases: sortPhrases(almostCompletePhrases)
     };
   };
 
-  const { level1, level2, level3, level4 } = getAllPhrasesByLevel();
-  const totalPhrases = level1.length + level2.length + level3.length + level4.length;
+  const { completePhrases, almostCompletePhrases } = getLinkedPhrases();
 
+  // Beräkna vilka ord som skulle göra flest meningar kompletta
+  const getMostCommonUnlearnedWords = () => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return [];
+    }
+
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const wordCompletionMap = new Map<string, number>();
+
+    // Gå igenom alla lärda ord och deras fraser
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          const phraseData = phraseDatabase[phraseId];
+          if (phraseData) {
+            // Endast meningar med meningsnivå
+            if (!phraseData.meningsnivå) {
+              return; // Hoppa över meningar utan meningsnivå
+            }
+
+            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+            if (referringWordIds) {
+              // Räkna hur många okända ord som finns i denna mening
+              const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
+              
+              // Om det finns exakt 1 okänt ord, så skulle det ordet göra meningen komplett
+              if (unlearnedWordsInPhrase.length === 1) {
+                const wordId = unlearnedWordsInPhrase[0];
+                const currentCount = wordCompletionMap.get(wordId) || 0;
+                wordCompletionMap.set(wordId, currentCount + 1);
+              }
+            }
+          }
+        });
+      }
+    });
+
+    // Konvertera till array och sortera efter antal kompletterade meningar
+    const wordCounts = Array.from(wordCompletionMap.entries())
+      .map(([wordId, count]) => {
+        const wordData = wordDatabase[wordId];
+        return {
+          wordId,
+          word: wordData ? wordData.ord : `Ord ${wordId}`,
+          count
+        };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3); // Ta bara de 3 bästa
+
+    return wordCounts;
+  };
+
+  const mostCommonUnlearnedWords = getMostCommonUnlearnedWords();
+
+  // Uppdatera sortering när sortBy eller sortAscending ändras
   useEffect(() => {
     // Trigger re-render när sortering ändras
   }, [sortBy, sortAscending]);
@@ -1461,7 +1766,7 @@ const SentencesExerciseDuplicate: React.FC<{
     );
   }
 
-  if (totalPhrases === 0) {
+  if (completePhrases.length === 0 && almostCompletePhrases.length === 0) {
     return (
       <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
         <CardContent sx={{ p: 4, textAlign: 'center' }}>
@@ -1469,29 +1774,29 @@ const SentencesExerciseDuplicate: React.FC<{
             Meningar (Duplicerad)
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-            Inga meningar med meningsnivå hittades.
+            Inga meningar hittades för dina lärda ord.
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Lär dig fler ord för att se fler meningar.
           </Typography>
         </CardContent>
       </Card>
     );
   }
 
-  const renderPhraseList = (phrases: any[], level: string, color: string) => {
+  const renderPhraseList = (phrases: any[], title: string, color: string) => {
     if (phrases.length === 0) return null;
 
     return (
       <>
         <Typography variant="h5" sx={{ mb: 2, mt: 3, color: color, fontWeight: 600 }}>
-          Nivå {level} ({phrases.length})
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-          Meningar med svårighetsnivå {level}
+          {title} ({phrases.length})
         </Typography>
         <List>
           {phrases.map((phrase, index) => (
             <React.Fragment key={phrase.id}>
               <ListItem sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 1.5 }}>
-                {/* Rad 1: Fras-ID och meningen */}
+                {/* Rad 1: Fras-ID och meningsnivå */}
                 <Box sx={{ display: 'flex', gap: 1, mb: 0.5, width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
                   <Chip 
                     label={`ID: ${phrase.id}`} 
@@ -1499,16 +1804,52 @@ const SentencesExerciseDuplicate: React.FC<{
                     variant="outlined"
                     color="primary"
                   />
-                  <Chip 
-                    label={`Nivå ${phrase.meningsnivå}`} 
-                    size="small" 
-                    variant="filled"
-                    color={phrase.meningsnivå === 'N1' ? 'success' : phrase.meningsnivå === 'N2' ? 'warning' : 'error'}
-                  />
+                  {phrase.meningsnivå && (
+                    <Chip 
+                      label={`Nivå ${phrase.meningsnivå}`} 
+                      size="small" 
+                      variant="filled"
+                      color={phrase.meningsnivå === 'N1' ? 'success' : phrase.meningsnivå === 'N2' ? 'warning' : 'error'}
+                    />
+                  )}
                   <Typography variant="body1" sx={{ fontWeight: 500, flex: 1, minWidth: 0 }}>
                     {phrase.fras}
                   </Typography>
                 </Box>
+                
+                {/* Rad 2: Mina lärda ord som hänvisar till frasen */}
+                <Box sx={{ display: 'flex', gap: 0.5, mb: 0.5, flexWrap: 'wrap' }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                    Mina lärda ord:
+                  </Typography>
+                  {phrase.learnedWords.map((word: any) => (
+                    <Chip 
+                      key={word.id}
+                      label={word.ord} 
+                      size="small" 
+                      variant="outlined"
+                      color="success"
+                    />
+                  ))}
+                </Box>
+                
+                {/* Rad 3: Ord som hänvisar till frasen som jag inte har i lärda */}
+                {phrase.unlearnedWords.length > 0 && (
+                  <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ mr: 1 }}>
+                      Andra ord:
+                    </Typography>
+                    {phrase.unlearnedWords.map((word: any) => (
+                      <Chip 
+                        key={word.id}
+                        label={word.ord} 
+                        size="small" 
+                        variant="outlined"
+                        color="error"
+                      />
+                    ))}
+                  </Box>
+                )}
               </ListItem>
               {index < phrases.length - 1 && <Divider />}
             </React.Fragment>
@@ -1526,12 +1867,31 @@ const SentencesExerciseDuplicate: React.FC<{
         </Typography>
         
         <Typography variant="h6" color="text.secondary" sx={{ mb: 3, textAlign: 'center', fontWeight: 600 }}>
-          {totalPhrases} meningar med meningsnivå hittades
+          {completePhrases.length + almostCompletePhrases.length} meningar hittades för dina lärda ord
         </Typography>
-        
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
-          Alla meningar från databasen, oberoende av lärda ord
-        </Typography>
+
+        {/* Top 3 ord att lära sig */}
+        {mostCommonUnlearnedWords.length > 0 && (
+          <Box sx={{ mb: 4, p: 3, backgroundColor: 'primary.50', borderRadius: 2, border: '1px solid', borderColor: 'primary.200' }}>
+            <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
+              🎯 Bästa ord att lära sig (Top 3)
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Dessa ord skulle göra flest "nästan kompletta" meningar kompletta:
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+              {mostCommonUnlearnedWords.map((wordData, index) => (
+                <Chip 
+                  key={wordData.wordId}
+                  label={`${wordData.word} (+${wordData.count})`}
+                  color="primary"
+                  variant="filled"
+                  sx={{ fontWeight: 600 }}
+                />
+              ))}
+            </Box>
+          </Box>
+        )}
 
         {/* Sorteringsknappar */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
@@ -1550,19 +1910,43 @@ const SentencesExerciseDuplicate: React.FC<{
           >
             ID {sortBy === 'id' ? (sortAscending ? '↑' : '↓') : ''}
           </Button>
+          <Button
+            variant={sortBy === 'learned' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => {
+              if (sortBy === 'learned') {
+                setSortAscending(!sortAscending);
+              } else {
+                setSortBy('learned');
+                setSortAscending(true);
+              }
+            }}
+            sx={{ minWidth: 100 }}
+          >
+            Antal lärda {sortBy === 'learned' ? (sortAscending ? '↑' : '↓') : ''}
+          </Button>
+          <Button
+            variant={sortBy === 'unlearned' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => {
+              if (sortBy === 'unlearned') {
+                setSortAscending(!sortAscending);
+              } else {
+                setSortBy('unlearned');
+                setSortAscending(true);
+              }
+            }}
+            sx={{ minWidth: 100 }}
+          >
+            Antal andra {sortBy === 'unlearned' ? (sortAscending ? '↑' : '↓') : ''}
+          </Button>
         </Box>
 
-        {/* Nivå N1 - Enklast */}
-        {renderPhraseList(level1, 'N1', 'success.main')}
+        {/* Kompletta meningar */}
+        {renderPhraseList(completePhrases, 'Kompletta meningar (0 andra ord)', 'success.main')}
 
-        {/* Nivå N2 */}
-        {renderPhraseList(level2, 'N2', 'warning.main')}
-
-        {/* Nivå N3 */}
-        {renderPhraseList(level3, 'N3', 'error.main')}
-
-        {/* Nivå N4 - Svårast */}
-        {renderPhraseList(level4, 'N4', 'error.dark')}
+        {/* Nästan kompletta meningar */}
+        {renderPhraseList(almostCompletePhrases, 'Nästan kompletta meningar (1 annat ord)', 'warning.main')}
       </CardContent>
     </Card>
   );
@@ -1604,6 +1988,36 @@ const OvningPage: React.FC = () => {
     return saved ? saved === 'true' : true; // Default till true
   });
 
+  // State för valda meningsnivåer för meningar-övning
+  const [selectedSentenceLevels, setSelectedSentenceLevels] = useState<string[]>(['N1']);
+  
+  // State för meningar-övning
+  const [sentencesWords, setSentencesWords] = useState<any[]>([]);
+  const [phraseIndex, setPhraseIndex] = useState<any>(null);
+
+  // Ladda phrase_index.json för meningar-övning
+  useEffect(() => {
+    const loadPhraseIndex = async () => {
+      try {
+        const response = await fetch('/phrase_index.json');
+        const data = await response.json();
+        setPhraseIndex(data);
+      } catch (error) {
+        console.error('Fel vid laddning av phrase_index.json:', error);
+      }
+    };
+
+    loadPhraseIndex();
+  }, []);
+
+  // Rensa sentencesWords när selectedExerciseType ändras från SENTENCES
+  useEffect(() => {
+    if (selectedExerciseType !== ExerciseType.SENTENCES && sentencesWords.length > 0) {
+      console.log('[DEBUG] Clearing sentencesWords because exercise type changed from SENTENCES');
+      setSentencesWords([]);
+    }
+  }, [selectedExerciseType, sentencesWords.length]);
+
   // Lyssna på ändringar i localStorage för meningar-inställningen
   useEffect(() => {
     const handleStorageChange = () => {
@@ -1616,6 +2030,129 @@ const OvningPage: React.FC = () => {
     window.addEventListener('storage', handleStorageChange);
     return () => window.removeEventListener('storage', handleStorageChange);
   }, []);
+
+  // Hämta lärda ord för Meningar-övningen
+  const learnedWords = useMemo(() => {
+    const wordsWithProgress = Object.values(wordDatabase).map((word: any) => ({
+      ...word,
+      progress: wordProgress[word.id] || { level: 0, stats: { difficulty: 0, lastPracticed: new Date().toISOString() } }
+    }));
+    return wordsWithProgress.filter(word => word.progress.level === 2);
+  }, [wordDatabase, wordProgress]);
+
+  // Beräkna progress för meningar per nivå (samma logik som getAvailablePhrasesForLevel)
+  const getSentencesProgress = useMemo(() => {
+    if (!phraseDatabase || learnedWords.length === 0 || !phraseIndex) {
+      return { N1: { correct: 0, total: 0 }, N2: { correct: 0, total: 0 }, N3: { correct: 0, total: 0 }, N4: { correct: 0, total: 0 } };
+    }
+
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const sentencesProgress = JSON.parse(localStorage.getItem('sentences-progress') || '{}');
+    
+    const progress = { N1: { correct: 0, total: 0 }, N2: { correct: 0, total: 0 }, N3: { correct: 0, total: 0 }, N4: { correct: 0, total: 0 } };
+
+    // Använd samma logik som getAvailablePhrasesForLevel - gå igenom lärda ord och hitta deras fraser
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex?.word_to_phrases?.[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          const phraseData = phraseDatabase[phraseId];
+          if (phraseData) {
+            // Kontrollera att meningen har en meningsnivå (N1-N4)
+            if ((phraseData as any).meningsnivå && ['N1', 'N2', 'N3', 'N4'].includes((phraseData as any).meningsnivå)) {
+              // Kontrollera att alla ord som hänvisar till meningen är lärda
+              const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
+              if (referringWordIds) {
+                const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+                
+                if (allWordsLearned) {
+                  const level = (phraseData as any).meningsnivå as keyof typeof progress;
+                  progress[level].total++;
+                  if (sentencesProgress[phraseId]) {
+                    progress[level].correct++;
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    });
+
+    return progress;
+  }, [phraseDatabase, learnedWords, phraseIndex]);
+
+  // Hämta tillgängliga meningar för en specifik nivå
+  const getAvailablePhrasesForLevel = (level: string) => {
+    if (!phraseDatabase || learnedWords.length === 0) return [];
+    
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const phrases: any[] = [];
+    
+    // Gå igenom alla lärda ord och hitta deras fraser (samma logik som SentencesExerciseDuplicate)
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex?.word_to_phrases?.[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          const phraseData = phraseDatabase[phraseId];
+          if (phraseData) {
+            // Kontrollera att meningen har den specifika nivån (N1-N4)
+            if ((phraseData as any).meningsnivå === level) {
+              // Kontrollera att alla ord som hänvisar till meningen är lärda
+              const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
+              if (referringWordIds) {
+                const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+                
+                if (allWordsLearned) {
+                  // Undvik duplicerade meningar
+                  if (!phrases.find(p => p.id === phraseId)) {
+                    phrases.push(phraseData);
+                  }
+                }
+              }
+            }
+          }
+        });
+      }
+    });
+    
+    return phrases;
+  };
+
+  // Starta meningar-övning för valda nivåer
+  const startSentencesExercise = (levels: string[]) => {
+    console.log(`[DEBUG] startSentencesExercise called with levels: ${levels.join(', ')}`);
+    
+    // Samla alla tillgängliga meningar för de valda nivåerna
+    let allPhrases: any[] = [];
+    levels.forEach(level => {
+      allPhrases = allPhrases.concat(getAvailablePhrasesForLevel(level));
+    });
+    
+    console.log(`[DEBUG] Found ${allPhrases.length} phrases for levels: ${levels.join(', ')}`);
+    
+    if (allPhrases.length === 0) {
+      alert(`Inga meningar tillgängliga för nivå ${levels.join(', ')}. Du behöver lära dig fler ord.`);
+      return;
+    }
+    
+    // Slumpa fram max 10 meningar
+    const shuffledPhrases = shuffleArrayWithSeed(allPhrases, Date.now());
+    const selectedPhrases = shuffledPhrases.slice(0, Math.min(10, shuffledPhrases.length));
+    
+    console.log(`[DEBUG] Selected ${selectedPhrases.length} phrases for exercise`);
+    
+    // Sätt valda nivåer och starta övningen
+    setSelectedSentenceLevels(levels);
+    setSentencesWords(selectedPhrases);
+    setSelectedExerciseType(ExerciseType.SENTENCES);
+    setCurrentWordIndex(0);
+    setShowResults(false);
+    setResults([]);
+    
+    // Scrolla till toppen
+    window.scrollTo(0, 0);
+  };
 
   // Definiera förbestämda intervall (moved to before spelling section)
 
@@ -1703,15 +2240,6 @@ const OvningPage: React.FC = () => {
     console.log(`[DEBUG] Found ${spellingWords.length} spelling words in database`);
     return spellingWords;
   }, [wordDatabase]);
-
-  // Hämta lärda ord för Meningar-övningen
-  const learnedWords = useMemo(() => {
-    const wordsWithProgress = Object.values(wordDatabase).map((word: any) => ({
-      ...word,
-      progress: wordProgress[word.id] || { level: 0, stats: { difficulty: 0, lastPracticed: new Date().toISOString() } }
-    }));
-    return wordsWithProgress.filter(word => word.progress.level === 2);
-  }, [wordDatabase, wordProgress]);
 
   // State för att hålla statisk lista av ord under hela övningen
   const [staticPracticeWords, setStaticPracticeWords] = useState<any[]>([]);
@@ -1940,7 +2468,8 @@ const OvningPage: React.FC = () => {
   // Funktion som körs när användaren slutför en övning
   const handleExerciseResult = (isCorrect: boolean) => {
     const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : staticPracticeWords;
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                         selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
     const currentWord = currentWords[currentWordIndex];
     if (!currentWord) return;
 
@@ -2014,7 +2543,8 @@ const OvningPage: React.FC = () => {
   // Funktion som körs när användaren hoppar över en övning
   const handleSkip = () => {
     const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : staticPracticeWords;
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                         selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
     console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, currentWords.length=${currentWords.length}`);
     
     if (currentWordIndex < currentWords.length - 1) {
@@ -2085,10 +2615,12 @@ const OvningPage: React.FC = () => {
       return spellingWords[currentWordIndex];
     } else if ((selectedExerciseType as ExerciseType) === ExerciseType.QUIZ) {
       return quizWords[currentWordIndex];
+    } else if ((selectedExerciseType as ExerciseType) === ExerciseType.SENTENCES) {
+      return sentencesWords[currentWordIndex];
     } else {
       return staticPracticeWords[currentWordIndex];
     }
-  }, [selectedExerciseType, currentWordIndex, spellingWords, quizWords, staticPracticeWords]);
+  }, [selectedExerciseType, currentWordIndex, spellingWords, quizWords, sentencesWords, staticPracticeWords]);
 
   // Funktion för att validera tillgängliga ord och returnera felmeddelande
   const validateAvailableWords = () => {
@@ -2652,7 +3184,7 @@ const OvningPage: React.FC = () => {
             console.log(`[DEBUG] Completed lists: ${completedLists}, Total lists: ${totalLists}`);
              
              return (
-              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(3, 1fr)' }, gap: 3 }}>
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, gap: 3 }}>
                 {/* Lärda */}
                 <Box sx={{ 
                   p: 2, 
@@ -2703,6 +3235,23 @@ const OvningPage: React.FC = () => {
                     Bokstavering
                </Typography>
                  </Box>
+
+                {/* Meningar */}
+                <Box sx={{ 
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'secondary.50',
+                  border: '1px solid',
+                  borderColor: 'secondary.200',
+                  textAlign: 'center'
+                }}>
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main', mb: 1 }}>
+                    {Object.values(getSentencesProgress).reduce((sum, level) => sum + level.correct, 0)}/{Object.values(getSentencesProgress).reduce((sum, level) => sum + level.total, 0)}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    Meningar
+                    </Typography>
+                </Box>
                </Box>
              );
            })()}
@@ -2750,26 +3299,46 @@ const OvningPage: React.FC = () => {
             <Box sx={{ mt: 3 }}>
               <List>
                 {results.map((result, index) => {
-                  // Hämta ordet från wordDatabase baserat på wordId istället för index
-                  const word = wordDatabase[result.wordId];
-                  console.log(`[DEBUG] Result ${index}: wordId=${result.wordId}, word=${word?.ord}, isCorrect=${result.isCorrect}`);
-                  return (
-                    <ListItem key={`${result.wordId}-${index}`}>
-                      <ListItemText
-                        primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
-                        secondary={wordsMovedToLearned.has(result.wordId) ? "Flyttad till lärda ord!" : ""}
-                      />
-                      {result.isCorrect ? (
-                        wordProgress[result.wordId]?.level === 2 ? (
-                        <CheckCircle color="success" />
+                  // För meningar-övning, visa meningen istället för ordet
+                  if (result.exerciseType === ExerciseType.SENTENCES) {
+                    // Hitta meningen från sentencesWords baserat på wordId (som är phraseId för meningar)
+                    const phrase = sentencesWords.find(p => p.id === result.wordId);
+                    console.log(`[DEBUG] Result ${index}: phraseId=${result.wordId}, phrase=${phrase?.fras}, isCorrect=${result.isCorrect}`);
+                    return (
+                      <ListItem key={`${result.wordId}-${index}`}>
+                        <ListItemText
+                          primary={phrase?.fras || `Okänd mening (ID: ${result.wordId})`}
+                          secondary={phrase?.meningsnivå ? `Nivå ${phrase.meningsnivå}` : ""}
+                        />
+                        {result.isCorrect ? (
+                          <CheckCircle color="success" />
                         ) : (
-                          <CheckCircle color="primary" />
-                        )
-                      ) : (
-                        <Cancel color="error" />
-                      )}
-                    </ListItem>
-                  );
+                          <Cancel color="error" />
+                        )}
+                      </ListItem>
+                    );
+                  } else {
+                    // För andra övningar, visa ordet som vanligt
+                    const word = wordDatabase[result.wordId];
+                    console.log(`[DEBUG] Result ${index}: wordId=${result.wordId}, word=${word?.ord}, isCorrect=${result.isCorrect}`);
+                    return (
+                      <ListItem key={`${result.wordId}-${index}`}>
+                        <ListItemText
+                          primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
+                          secondary={wordsMovedToLearned.has(result.wordId) ? "Flyttad till lärda ord!" : ""}
+                        />
+                        {result.isCorrect ? (
+                          wordProgress[result.wordId]?.level === 2 ? (
+                          <CheckCircle color="success" />
+                          ) : (
+                            <CheckCircle color="primary" />
+                          )
+                        ) : (
+                          <Cancel color="error" />
+                        )}
+                      </ListItem>
+                    );
+                  }
                 })}
               </List>
             </Box>
@@ -2833,34 +3402,38 @@ const OvningPage: React.FC = () => {
     <Container maxWidth="md" sx={{ py: 4 }}>
       {/* Header med progress */}
       <Box sx={{ mb: 2 }}>
-        {/* Visa rubrik bara för andra övningstyper än flashcards och bokstavering */}
-        {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && (
+        {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering och meningar */}
+        {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && (
         <Typography variant="h4" gutterBottom align="center">
           {selectedExerciseType === ExerciseType.QUIZ && 'Flervalsquiz'}
             {selectedExerciseType === ExerciseType.SIGN && 'Övningstest'}
-            {selectedExerciseType === ExerciseType.SENTENCES && 'Meningar'}
         </Typography>
         )}
         
-        <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 1 }}>
-          <Typography variant="body2" color="text.secondary">
-            Ord {currentWordIndex + 1} av {
-              (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
-              (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
-              practiceWords.length
-            }
+        {/* Visa progress bara för andra övningstyper än meningar */}
+        {selectedExerciseType !== ExerciseType.SENTENCES && (
+          <>
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 1 }}>
+              <Typography variant="body2" color="text.secondary">
+                Ord {currentWordIndex + 1} av {
+                  (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+                  (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
+                  practiceWords.length
+                }
           </Typography>
         </Box>
         
         <LinearProgress 
           variant="determinate" 
-          value={((currentWordIndex + 1) / (
-            (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
-            (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
-            practiceWords.length
-          )) * 100}
-          sx={{ mb: 1, height: 4 }}
-        />
+              value={((currentWordIndex + 1) / (
+                (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+                (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
+                practiceWords.length
+              )) * 100}
+              sx={{ mb: 1, height: 4 }}
+            />
+          </>
+        )}
 
       </Box>
 
@@ -3011,7 +3584,17 @@ const OvningPage: React.FC = () => {
 
       {selectedExerciseType === ExerciseType.SENTENCES && (
         <>
-          {learnedWords.length === 0 ? (
+          {sentencesWords.length > 0 ? (
+            <SentencesPracticeExercise
+              learnedWords={learnedWords}
+              phraseDatabase={phraseDatabase}
+              wordDatabase={wordDatabase}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+              selectedLevels={selectedSentenceLevels}
+              sentencesWords={sentencesWords}
+            />
+          ) : learnedWords.length === 0 ? (
             <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
               <CardContent sx={{ textAlign: 'center', p: 4 }}>
                 <Typography variant="h5" gutterBottom color="text.secondary">
@@ -3026,14 +3609,173 @@ const OvningPage: React.FC = () => {
               </CardContent>
             </Card>
           ) : (
-            <SentencesExercise
-              learnedWords={learnedWords}
-              phraseDatabase={phraseDatabase}
-              wordDatabase={wordDatabase}
-              onResult={handleExerciseResult}
-              onSkip={handleSkip}
-              sentencesOnlyWithLevel={sentencesOnlyWithLevel}
-            />
+            <>
+              {/* Infotext för meningar */}
+              <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
+                  Meningar
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
+                  Välj svårighetsnivå för att träna på meningar. Du kommer att se en video och gissa vad meningen betyder.
+                </Typography>
+              </Box>
+
+              {/* Rutnät för nivåval */}
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mb: 4
+              }}>
+                <Box sx={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gap: { xs: 2, sm: 3 },
+                  maxWidth: '400px',
+                  width: '100%'
+                }}>
+                  {/* Nivå 1 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N1'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 1
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
+                      Enklaste meningar
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                      {getAvailablePhrasesForLevel('N1').length} meningar
+                    </Typography>
+                  </Box>
+
+                  {/* Nivå 2 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N2'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 2
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
+                      Medelsvåra meningar
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                      {getAvailablePhrasesForLevel('N2').length} meningar
+                    </Typography>
+                  </Box>
+
+                  {/* Nivå 3 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N3'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 3
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
+                      Svåra meningar
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                      {getAvailablePhrasesForLevel('N3').length} meningar
+                    </Typography>
+                  </Box>
+
+                  {/* Nivå 4 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N4'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 4
+                    </Typography>
+                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
+                      Svåraste meningar
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                      {getAvailablePhrasesForLevel('N4').length} meningar
+                    </Typography>
+                  </Box>
+                </Box>
+              </Box>
+            </>
           )}
         </>
       )}
