@@ -75,14 +75,39 @@ export const loadPhraseDatabase = async (): Promise<PhraseDatabase> => {
   }
 };
 
-// Funktion för att söka efter ord
+// Funktion för att söka efter ord med smart prioritering
 export const searchWords = (database: WordDatabase, searchTerm: string): Word[] => {
   const term = searchTerm.toLowerCase().trim();
   if (!term || term.length < 2) return [];
   
-  return Object.values(database).filter(word => 
+  const allWords = Object.values(database);
+  const matchingWords = allWords.filter(word => 
     word.ord.toLowerCase().includes(term)
   );
+  
+  // Sortera resultaten med smart prioritering
+  return matchingWords.sort((a, b) => {
+    const aWord = a.ord.toLowerCase();
+    const bWord = b.ord.toLowerCase();
+    
+    // 1. Exakta matchningar först
+    if (aWord === term && bWord !== term) return -1;
+    if (bWord === term && aWord !== term) return 1;
+    
+    // 2. Ord som börjar med söktermen
+    const aStartsWith = aWord.startsWith(term);
+    const bStartsWith = bWord.startsWith(term);
+    if (aStartsWith && !bStartsWith) return -1;
+    if (bStartsWith && !aStartsWith) return 1;
+    
+    // 3. Kortare ord först (ofta mer relevanta)
+    if (aWord.length !== bWord.length) {
+      return aWord.length - bWord.length;
+    }
+    
+    // 4. Alfabetisk ordning som sista kriterium
+    return aWord.localeCompare(bWord);
+  });
 };
 
 // Funktion för att hämta ord efter ämne

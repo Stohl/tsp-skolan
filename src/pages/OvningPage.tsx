@@ -889,7 +889,8 @@ const SentencesExercise: React.FC<{
   wordDatabase: any;
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
-}> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip }) => {
+  sentencesOnlyWithLevel?: boolean;
+}> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip, sentencesOnlyWithLevel = true }) => {
   // Ladda phrase_index.json för att hitta fraser länkade till lärda ord
   const [phraseIndex, setPhraseIndex] = useState<any>(null);
   const [isLoadingPhrases, setIsLoadingPhrases] = useState(true);
@@ -915,7 +916,7 @@ const SentencesExercise: React.FC<{
   // Hitta alla fraser som är länkade till lärda ord (optimerad version)
   const getLinkedPhrases = () => {
     if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
-      return [];
+      return { completePhrases: [], almostCompletePhrases: [] };
     }
 
     const learnedWordIds = new Set(learnedWords.map(word => word.id));
@@ -929,6 +930,11 @@ const SentencesExercise: React.FC<{
           if (!phraseMap.has(phraseId)) {
             const phraseData = phraseDatabase[phraseId];
             if (phraseData) {
+              // Filtrera baserat på inställningen för meningsnivå
+              if (sentencesOnlyWithLevel && !phraseData.meningsnivå) {
+                return; // Hoppa över meningar utan meningsnivå
+              }
+
               // Hitta vilka ord som hänvisar till denna fras (optimerat med phrase_to_words)
               const referringWords: any[] = [];
               
@@ -960,34 +966,100 @@ const SentencesExercise: React.FC<{
       }
     });
 
-    // Konvertera Map till array och sortera
+    // Konvertera Map till array
     const uniquePhrases = Array.from(phraseMap.values());
     
-    const sortedPhrases = [...uniquePhrases].sort((a, b) => {
-      let comparison = 0;
-      
-      switch (sortBy) {
-        case 'id':
-          comparison = a.id.localeCompare(b.id);
-          break;
-        case 'learned':
-          comparison = a.learnedWords.length - b.learnedWords.length;
-          break;
-        case 'unlearned':
-          comparison = a.unlearnedWords.length - b.unlearnedWords.length;
-          break;
-        default:
-          return 0;
-      }
-      
-      // Växla riktning baserat på sortAscending
-      return sortAscending ? comparison : -comparison;
-    });
+    // Separera meningar baserat på antal saknade ord
+    const completePhrases = uniquePhrases.filter(phrase => phrase.unlearnedWords.length === 0);
+    const almostCompletePhrases = uniquePhrases.filter(phrase => phrase.unlearnedWords.length === 1);
+    
+    // Sortera varje lista
+    const sortPhrases = (phrases: any[]) => {
+      return [...phrases].sort((a, b) => {
+        let comparison = 0;
+        
+        switch (sortBy) {
+          case 'id':
+            comparison = a.id.localeCompare(b.id);
+            break;
+          case 'learned':
+            comparison = a.learnedWords.length - b.learnedWords.length;
+            break;
+          case 'unlearned':
+            comparison = a.unlearnedWords.length - b.unlearnedWords.length;
+            break;
+          default:
+            return 0;
+        }
+        
+        // Växla riktning baserat på sortAscending
+        return sortAscending ? comparison : -comparison;
+      });
+    };
 
-    return sortedPhrases;
+    return {
+      completePhrases: sortPhrases(completePhrases),
+      almostCompletePhrases: sortPhrases(almostCompletePhrases)
+    };
   };
 
-  const linkedPhrases = getLinkedPhrases();
+  const { completePhrases, almostCompletePhrases } = getLinkedPhrases();
+
+  // Beräkna vilka ord som skulle göra flest meningar kompletta
+  const getMostCommonUnlearnedWords = () => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return [];
+    }
+
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const wordCompletionMap = new Map<string, number>();
+
+    // Gå igenom alla lärda ord och deras fraser
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          const phraseData = phraseDatabase[phraseId];
+          if (phraseData) {
+            // Filtrera baserat på inställningen för meningsnivå
+            if (sentencesOnlyWithLevel && !phraseData.meningsnivå) {
+              return; // Hoppa över meningar utan meningsnivå
+            }
+
+            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+            if (referringWordIds) {
+              // Räkna hur många okända ord som finns i denna mening
+              const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
+              
+              // Om det finns exakt 1 okänt ord, så skulle det ordet göra meningen komplett
+              if (unlearnedWordsInPhrase.length === 1) {
+                const wordId = unlearnedWordsInPhrase[0];
+                const currentCount = wordCompletionMap.get(wordId) || 0;
+                wordCompletionMap.set(wordId, currentCount + 1);
+              }
+            }
+          }
+        });
+      }
+    });
+
+    // Konvertera till array och sortera efter antal kompletterade meningar
+    const wordCounts = Array.from(wordCompletionMap.entries())
+      .map(([wordId, count]) => {
+        const wordData = wordDatabase[wordId];
+        return {
+          wordId,
+          word: wordData ? wordData.ord : `Ord ${wordId}`,
+          count
+        };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3); // Ta bara de 3 bästa
+
+    return wordCounts;
+  };
+
+  const mostCommonUnlearnedWords = getMostCommonUnlearnedWords();
 
   // Uppdatera sortering när sortBy eller sortAscending ändras
   useEffect(() => {
@@ -1007,7 +1079,7 @@ const SentencesExercise: React.FC<{
     );
   }
 
-  if (linkedPhrases.length === 0) {
+  if (completePhrases.length === 0 && almostCompletePhrases.length === 0) {
     return (
       <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
         <CardContent sx={{ p: 4, textAlign: 'center' }}>
@@ -1033,12 +1105,52 @@ const SentencesExercise: React.FC<{
         </Typography>
         
         <Typography variant="h6" color="text.secondary" sx={{ mb: 3, textAlign: 'center', fontWeight: 600 }}>
-          {linkedPhrases.length} meningar/fraser hittades
+          {completePhrases.length + almostCompletePhrases.length} meningar/fraser hittades
         </Typography>
         
         <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
           Länkade till dina {learnedWords.length} lärda ord
         </Typography>
+
+        {/* Vanligaste "andra" ord */}
+        {mostCommonUnlearnedWords.length > 0 && (
+          <>
+            <Typography variant="h5" sx={{ mb: 2, mt: 3, color: 'info.main', fontWeight: 600 }}>
+              Bästa ord att lära sig härnäst
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Dessa ord skulle göra flest meningar kompletta om du lärde dig dem
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap', justifyContent: 'center' }}>
+              {mostCommonUnlearnedWords.map((item, index) => (
+                <Box
+                  key={item.wordId}
+                  sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center',
+                    p: 2,
+                    border: '1px solid',
+                    borderColor: 'info.main',
+                    borderRadius: 2,
+                    backgroundColor: 'info.50',
+                    minWidth: 120
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 600, color: 'info.main' }}>
+                    #{index + 1}
+                  </Typography>
+                  <Typography variant="body1" sx={{ fontWeight: 500, mb: 0.5 }}>
+                    {item.word}
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    {item.count} komplett{item.count !== 1 ? 'a' : ''} mening{item.count !== 1 ? 'ar' : ''}
+                  </Typography>
+                </Box>
+              ))}
+            </Box>
+          </>
+        )}
 
         {/* Sorteringsknappar */}
         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
@@ -1089,76 +1201,146 @@ const SentencesExercise: React.FC<{
           </Button>
         </Box>
 
-        <List>
-          {linkedPhrases.map((phrase, index) => (
-            <React.Fragment key={phrase.id}>
-              <ListItem sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 1.5 }}>
-                {/* Rad 1: Fras-ID, meningsnivå och meningen */}
-                <Box sx={{ display: 'flex', gap: 1, mb: 0.5, width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
-                  <Chip 
-                    label={`ID: ${phrase.id}`} 
-                    size="small" 
-                    variant="outlined"
-                    color="primary"
-                  />
-                  {phrase.meningsnivå && (
-                    <Chip 
-                      label={`Nivå ${phrase.meningsnivå}`} 
-                      size="small" 
-                      variant="filled"
-                      color={phrase.meningsnivå === '1' ? 'success' : phrase.meningsnivå === '2' ? 'warning' : 'error'}
-                    />
-                  )}
-                  <Typography variant="body1" sx={{ fontWeight: 500, flex: 1, minWidth: 0 }}>
-                    {phrase.fras}
-                  </Typography>
-                </Box>
-
-                {/* Rad 2: Lärda och oinlärda ord */}
-                <Box sx={{ display: 'flex', gap: 2, width: '100%', flexWrap: 'wrap' }}>
-                  {/* Lärda ord */}
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                    <Typography variant="caption" color="success.main" sx={{ fontWeight: 500 }}>
-                      Lärda:
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                      {phrase.learnedWords.map((word: any) => (
+        {/* Kompletta meningar (0 saknade ord) */}
+        {completePhrases.length > 0 && (
+          <>
+            <Typography variant="h5" sx={{ mb: 2, mt: 3, color: 'success.main', fontWeight: 600 }}>
+              Kompletta meningar ({completePhrases.length})
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Alla ord i dessa meningar är lärda
+            </Typography>
+            <List>
+              {completePhrases.map((phrase, index) => (
+                <React.Fragment key={phrase.id}>
+                  <ListItem sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 1.5 }}>
+                    {/* Rad 1: Fras-ID, meningsnivå och meningen */}
+                    <Box sx={{ display: 'flex', gap: 1, mb: 0.5, width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
+                      <Chip 
+                        label={`ID: ${phrase.id}`} 
+                        size="small" 
+                        variant="outlined"
+                        color="primary"
+                      />
+                      {phrase.meningsnivå && (
                         <Chip 
-                          key={word.id}
-                          label={word.ord} 
+                          label={`Nivå ${phrase.meningsnivå}`} 
                           size="small" 
-                          color="success"
-                          variant="outlined"
+                          variant="filled"
+                          color={phrase.meningsnivå === '1' ? 'success' : phrase.meningsnivå === '2' ? 'warning' : 'error'}
                         />
-                      ))}
-                    </Box>
-                  </Box>
-
-                  {/* Oinlärda ord */}
-                  {phrase.unlearnedWords.length > 0 && (
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
-                      <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
-                        Andra:
+                      )}
+                      <Typography variant="body1" sx={{ fontWeight: 500, flex: 1, minWidth: 0 }}>
+                        {phrase.fras}
                       </Typography>
-                      <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
-                        {phrase.unlearnedWords.map((word: any) => (
-                          <Chip 
-                            key={word.id}
-                            label={word.ord} 
-                            size="small" 
-                            color="default"
-                            variant="outlined"
-                          />
-                        ))}
+                    </Box>
+
+                    {/* Rad 2: Lärda ord */}
+                    <Box sx={{ display: 'flex', gap: 2, width: '100%', flexWrap: 'wrap' }}>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        <Typography variant="caption" color="success.main" sx={{ fontWeight: 500 }}>
+                          Lärda:
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                          {phrase.learnedWords.map((word: any) => (
+                            <Chip 
+                              key={word.id}
+                              label={word.ord} 
+                              size="small" 
+                              color="success"
+                              variant="outlined"
+                            />
+                          ))}
+                        </Box>
                       </Box>
                     </Box>
-                  )}
-                </Box>
-              </ListItem>
-              {index < linkedPhrases.length - 1 && <Divider />}
-            </React.Fragment>
-          ))}
-        </List>
+                  </ListItem>
+                  {index < completePhrases.length - 1 && <Divider />}
+                </React.Fragment>
+              ))}
+            </List>
+          </>
+        )}
+
+        {/* Nästan kompletta meningar (1 saknat ord) */}
+        {almostCompletePhrases.length > 0 && (
+          <>
+            <Typography variant="h5" sx={{ mb: 2, mt: 3, color: 'warning.main', fontWeight: 600 }}>
+              Nästan kompletta meningar ({almostCompletePhrases.length})
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Saknar bara 1 ord
+            </Typography>
+            <List>
+              {almostCompletePhrases.map((phrase, index) => (
+                <React.Fragment key={phrase.id}>
+                  <ListItem sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 1.5 }}>
+                    {/* Rad 1: Fras-ID, meningsnivå och meningen */}
+                    <Box sx={{ display: 'flex', gap: 1, mb: 0.5, width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
+                      <Chip 
+                        label={`ID: ${phrase.id}`} 
+                        size="small" 
+                        variant="outlined"
+                        color="primary"
+                      />
+                      {phrase.meningsnivå && (
+                        <Chip 
+                          label={`Nivå ${phrase.meningsnivå}`} 
+                          size="small" 
+                          variant="filled"
+                          color={phrase.meningsnivå === '1' ? 'success' : phrase.meningsnivå === '2' ? 'warning' : 'error'}
+                        />
+                      )}
+                      <Typography variant="body1" sx={{ fontWeight: 500, flex: 1, minWidth: 0 }}>
+                        {phrase.fras}
+                      </Typography>
+                    </Box>
+
+                    {/* Rad 2: Lärda och saknade ord */}
+                    <Box sx={{ display: 'flex', gap: 2, width: '100%', flexWrap: 'wrap' }}>
+                      {/* Lärda ord */}
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        <Typography variant="caption" color="success.main" sx={{ fontWeight: 500 }}>
+                          Lärda:
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                          {phrase.learnedWords.map((word: any) => (
+                            <Chip 
+                              key={word.id}
+                              label={word.ord} 
+                              size="small" 
+                              color="success"
+                              variant="outlined"
+                            />
+                          ))}
+                        </Box>
+                      </Box>
+
+                      {/* Saknade ord */}
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        <Typography variant="caption" color="warning.main" sx={{ fontWeight: 500 }}>
+                          Saknas:
+                        </Typography>
+                        <Box sx={{ display: 'flex', gap: 0.5, flexWrap: 'wrap' }}>
+                          {phrase.unlearnedWords.map((word: any) => (
+                            <Chip 
+                              key={word.id}
+                              label={word.ord} 
+                              size="small" 
+                              color="warning"
+                              variant="outlined"
+                            />
+                          ))}
+                        </Box>
+                      </Box>
+                    </Box>
+                  </ListItem>
+                  {index < almostCompletePhrases.length - 1 && <Divider />}
+                </React.Fragment>
+              ))}
+            </List>
+          </>
+        )}
       </CardContent>
     </Card>
   );
@@ -1200,18 +1382,187 @@ const SentencesExerciseDuplicate: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
 }> = ({ learnedWords, phraseDatabase, wordDatabase, onResult, onSkip }) => {
+  const [isLoadingPhrases, setIsLoadingPhrases] = useState(true);
+  const [sortBy, setSortBy] = useState<'id' | 'learned' | 'unlearned'>('id');
+  const [sortAscending, setSortAscending] = useState(true);
+
+  useEffect(() => {
+    // Simulera laddning för att matcha den andra komponenten
+    const timer = setTimeout(() => {
+      setIsLoadingPhrases(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Hämta alla meningar med meningsnivå, oberoende av lärda ord
+  const getAllPhrasesByLevel = () => {
+    if (!phraseDatabase) {
+      return { level1: [], level2: [], level3: [], level4: [] };
+    }
+
+    const phrases = Object.values(phraseDatabase).filter((phrase: any) => 
+      phrase.meningsnivå && ['N1', 'N2', 'N3', 'N4'].includes(phrase.meningsnivå)
+    );
+
+    // Gruppera efter nivå
+    const level1 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N1');
+    const level2 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N2');
+    const level3 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N3');
+    const level4 = phrases.filter((phrase: any) => phrase.meningsnivå === 'N4');
+
+    // Sortera varje nivå
+    const sortPhrases = (phrases: any[]) => {
+      return [...phrases].sort((a, b) => {
+        let comparison = 0;
+        switch (sortBy) {
+          case 'id':
+            comparison = a.id.localeCompare(b.id);
+            break;
+          case 'learned':
+            // För denna komponent är detta inte relevant, men behåller för konsistens
+            comparison = 0;
+            break;
+          case 'unlearned':
+            // För denna komponent är detta inte relevant, men behåller för konsistens
+            comparison = 0;
+            break;
+          default:
+            return 0;
+        }
+        return sortAscending ? comparison : -comparison;
+      });
+    };
+
+    return {
+      level1: sortPhrases(level1),
+      level2: sortPhrases(level2),
+      level3: sortPhrases(level3),
+      level4: sortPhrases(level4)
+    };
+  };
+
+  const { level1, level2, level3, level4 } = getAllPhrasesByLevel();
+  const totalPhrases = level1.length + level2.length + level3.length + level4.length;
+
+  useEffect(() => {
+    // Trigger re-render när sortering ändras
+  }, [sortBy, sortAscending]);
+
+  if (isLoadingPhrases) {
+    return (
+      <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+        <CardContent sx={{ p: 4, textAlign: 'center' }}>
+          <CircularProgress sx={{ mb: 2 }} />
+          <Typography variant="body1" color="text.secondary">
+            Laddar meningar...
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  if (totalPhrases === 0) {
+    return (
+      <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+        <CardContent sx={{ p: 4, textAlign: 'center' }}>
+          <Typography variant="h4" gutterBottom color="secondary">
+            Meningar (Duplicerad)
+          </Typography>
+          <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+            Inga meningar med meningsnivå hittades.
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+  }
+
+  const renderPhraseList = (phrases: any[], level: string, color: string) => {
+    if (phrases.length === 0) return null;
+
+    return (
+      <>
+        <Typography variant="h5" sx={{ mb: 2, mt: 3, color: color, fontWeight: 600 }}>
+          Nivå {level} ({phrases.length})
+        </Typography>
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+          Meningar med svårighetsnivå {level}
+        </Typography>
+        <List>
+          {phrases.map((phrase, index) => (
+            <React.Fragment key={phrase.id}>
+              <ListItem sx={{ flexDirection: 'column', alignItems: 'flex-start', py: 1.5 }}>
+                {/* Rad 1: Fras-ID och meningen */}
+                <Box sx={{ display: 'flex', gap: 1, mb: 0.5, width: '100%', alignItems: 'center', flexWrap: 'wrap' }}>
+                  <Chip 
+                    label={`ID: ${phrase.id}`} 
+                    size="small" 
+                    variant="outlined"
+                    color="primary"
+                  />
+                  <Chip 
+                    label={`Nivå ${phrase.meningsnivå}`} 
+                    size="small" 
+                    variant="filled"
+                    color={phrase.meningsnivå === 'N1' ? 'success' : phrase.meningsnivå === 'N2' ? 'warning' : 'error'}
+                  />
+                  <Typography variant="body1" sx={{ fontWeight: 500, flex: 1, minWidth: 0 }}>
+                    {phrase.fras}
+                  </Typography>
+                </Box>
+              </ListItem>
+              {index < phrases.length - 1 && <Divider />}
+            </React.Fragment>
+          ))}
+        </List>
+      </>
+    );
+  };
+
   return (
-    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-      <CardContent sx={{ p: 4, textAlign: 'center' }}>
-        <Typography variant="h4" gutterBottom color="secondary">
+    <Card sx={{ maxWidth: 1000, mx: 'auto', mb: 3 }}>
+      <CardContent sx={{ p: 4 }}>
+        <Typography variant="h4" gutterBottom align="center" color="secondary">
           Meningar (Duplicerad)
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-          Denna övning kommer att utvecklas i framtiden.
+        
+        <Typography variant="h6" color="text.secondary" sx={{ mb: 3, textAlign: 'center', fontWeight: 600 }}>
+          {totalPhrases} meningar med meningsnivå hittades
         </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Kommer snart med nya funktioner för att öva med meningar och fraser.
+        
+        <Typography variant="body2" color="text.secondary" sx={{ mb: 3, textAlign: 'center' }}>
+          Alla meningar från databasen, oberoende av lärda ord
         </Typography>
+
+        {/* Sorteringsknappar */}
+        <Box sx={{ display: 'flex', gap: 1, justifyContent: 'center', mb: 3, flexWrap: 'wrap' }}>
+          <Button
+            variant={sortBy === 'id' ? 'contained' : 'outlined'}
+            size="small"
+            onClick={() => {
+              if (sortBy === 'id') {
+                setSortAscending(!sortAscending);
+              } else {
+                setSortBy('id');
+                setSortAscending(true);
+              }
+            }}
+            sx={{ minWidth: 100 }}
+          >
+            ID {sortBy === 'id' ? (sortAscending ? '↑' : '↓') : ''}
+          </Button>
+        </Box>
+
+        {/* Nivå N1 - Enklast */}
+        {renderPhraseList(level1, 'N1', 'success.main')}
+
+        {/* Nivå N2 */}
+        {renderPhraseList(level2, 'N2', 'warning.main')}
+
+        {/* Nivå N3 */}
+        {renderPhraseList(level3, 'N3', 'error.main')}
+
+        {/* Nivå N4 - Svårast */}
+        {renderPhraseList(level4, 'N4', 'error.dark')}
       </CardContent>
     </Card>
   );
@@ -1246,6 +1597,25 @@ const OvningPage: React.FC = () => {
     const saved = localStorage.getItem('spelling-progress');
     return saved ? JSON.parse(saved) : [];
   });
+
+  // State för inställning om meningar med meningsnivå
+  const [sentencesOnlyWithLevel, setSentencesOnlyWithLevel] = useState<boolean>(() => {
+    const saved = localStorage.getItem('sentences-only-with-level');
+    return saved ? saved === 'true' : true; // Default till true
+  });
+
+  // Lyssna på ändringar i localStorage för meningar-inställningen
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const saved = localStorage.getItem('sentences-only-with-level');
+      if (saved !== null) {
+        setSentencesOnlyWithLevel(saved === 'true');
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+    return () => window.removeEventListener('storage', handleStorageChange);
+  }, []);
 
   // Definiera förbestämda intervall (moved to before spelling section)
 
@@ -2662,6 +3032,7 @@ const OvningPage: React.FC = () => {
               wordDatabase={wordDatabase}
               onResult={handleExerciseResult}
               onSkip={handleSkip}
+              sentencesOnlyWithLevel={sentencesOnlyWithLevel}
             />
           )}
         </>

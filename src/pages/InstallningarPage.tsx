@@ -19,7 +19,8 @@ import {
   Brightness4,
   Help,
   Info,
-  Refresh
+  Refresh,
+  FilterList
 } from '@mui/icons-material';
 import { useTheme } from '../contexts/ThemeContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -39,11 +40,19 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
   // State för antal lärda ord att repetera
   const [reviewLearnedWords, setReviewLearnedWords] = useState<number>(2);
   
-  // Ladda inställning från localStorage vid komponentens mount
+  // State för att bara visa meningar med meningsnivå
+  const [sentencesOnlyWithLevel, setSentencesOnlyWithLevel] = useState<boolean>(true);
+  
+  // Ladda inställningar från localStorage vid komponentens mount
   useEffect(() => {
-    const saved = localStorage.getItem('reviewLearnedWords');
-    if (saved !== null) {
-      setReviewLearnedWords(parseInt(saved));
+    const savedReviewWords = localStorage.getItem('reviewLearnedWords');
+    if (savedReviewWords !== null) {
+      setReviewLearnedWords(parseInt(savedReviewWords));
+    }
+    
+    const savedSentencesLevel = localStorage.getItem('sentences-only-with-level');
+    if (savedSentencesLevel !== null) {
+      setSentencesOnlyWithLevel(savedSentencesLevel === 'true');
     }
   }, []);
   
@@ -52,6 +61,13 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const value = Array.isArray(newValue) ? newValue[0] : newValue;
     setReviewLearnedWords(value);
     localStorage.setItem('reviewLearnedWords', value.toString());
+  };
+
+  // Hantera ändring av meningar-inställning
+  const handleSentencesOnlyWithLevelChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setSentencesOnlyWithLevel(newValue);
+    localStorage.setItem('sentences-only-with-level', newValue.toString());
   };
 
   // Funktion för att nollställa alla inställningar och progress
@@ -76,6 +92,7 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
       localStorage.removeItem('spelling-playback-speed');
       localStorage.removeItem('spelling-interval');
       localStorage.removeItem('reviewLearnedWords');
+      localStorage.removeItem('sentences-only-with-level');
       
       // Nollställ wordProgress
       setWordProgress({});
@@ -122,6 +139,24 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
               edge="end" 
               checked={mode === 'dark'}
               onChange={toggleTheme}
+            />
+          </ListItem>
+          
+          <Divider />
+          
+          {/* Meningar med meningsnivå */}
+          <ListItem>
+            <ListItemIcon>
+              <FilterList />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Meningar med meningsnivå" 
+              secondary={sentencesOnlyWithLevel ? 'Visa bara meningar med svårighetsnivå' : 'Visa alla meningar'}
+            />
+            <Switch 
+              edge="end" 
+              checked={sentencesOnlyWithLevel}
+              onChange={handleSentencesOnlyWithLevelChange}
             />
           </ListItem>
           
