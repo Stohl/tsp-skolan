@@ -122,7 +122,7 @@ const FlashcardsExercise: React.FC<{
         {!showVideo ? (
           // Visa ordet
           <Box>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" sx={{ mb: 1 }}>
               {word.ord}
             </Typography>
             {word.beskrivning && (
@@ -148,7 +148,7 @@ const FlashcardsExercise: React.FC<{
           // Visa videon och resultat-knappar
           <Box>
             {/* Visa ordet ovanför videon */}
-            <Typography variant="h4" gutterBottom sx={{ mb: 3 }}>
+            <Typography variant="h4" sx={{ mb: 1 }}>
               {word.ord}
             </Typography>
             
@@ -497,7 +497,7 @@ const SignExercise: React.FC<{
               )}
             </Box>
             
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" sx={{ mb: 1 }}>
               {word.ord}
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -608,7 +608,7 @@ const SignExercise: React.FC<{
         ) : (
           // Visa ordet igen
           <Box>
-            <Typography variant="h4" gutterBottom>
+            <Typography variant="h4" sx={{ mb: 1 }}>
               {word.ord}
             </Typography>
             <Typography variant="body1" color="text.secondary">
@@ -3192,8 +3192,17 @@ const OvningPage: React.FC = () => {
                   backgroundColor: 'success.50',
                   border: '1px solid',
                   borderColor: 'success.200',
-                  textAlign: 'center'
-                }}>
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'success.100'
+                  }
+                }}
+                onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
+                >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
                     {level2Words}
                  </Typography>
@@ -3209,8 +3218,20 @@ const OvningPage: React.FC = () => {
                   backgroundColor: 'info.50',
                   border: '1px solid',
                   borderColor: 'info.200',
-                  textAlign: 'center'
-                }}>
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'info.100'
+                  }
+                }}
+                onClick={() => {
+                  // Navigera till ordlistor-sidan (index 1)
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { detail: 1 }));
+                }}
+                >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
                     {completedLists}/{totalLists}
                    </Typography>
@@ -3226,8 +3247,17 @@ const OvningPage: React.FC = () => {
                   backgroundColor: 'warning.50',
                   border: '1px solid',
                   borderColor: 'warning.200',
-                  textAlign: 'center'
-                }}>
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'warning.100'
+                  }
+                }}
+                onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
+                >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'warning.main', mb: 1 }}>
                     {completedSpellingBoxesCount}/15
                   </Typography>
@@ -3243,8 +3273,17 @@ const OvningPage: React.FC = () => {
                   backgroundColor: 'secondary.50',
                   border: '1px solid',
                   borderColor: 'secondary.200',
-                  textAlign: 'center'
-                }}>
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'secondary.100'
+                  }
+                }}
+                onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
+                >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main', mb: 1 }}>
                     {Object.values(getSentencesProgress).reduce((sum, level) => sum + level.correct, 0)}/{Object.values(getSentencesProgress).reduce((sum, level) => sum + level.total, 0)}
                     </Typography>
@@ -3413,25 +3452,55 @@ const OvningPage: React.FC = () => {
         {/* Visa progress bara för andra övningstyper än meningar */}
         {selectedExerciseType !== ExerciseType.SENTENCES && (
           <>
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 1 }}>
-              <Typography variant="body2" color="text.secondary">
-                Ord {currentWordIndex + 1} av {
+            {/* Visa text bara för andra övningstyper än flashcards */}
+            {selectedExerciseType !== ExerciseType.FLASHCARDS && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0.5 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Ord {currentWordIndex + 1} av {
+                    (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+                    (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
+                    practiceWords.length
+                  }
+                </Typography>
+              </Box>
+            )}
+            
+            {/* Progress-mätare */}
+            {selectedExerciseType === ExerciseType.FLASHCARDS ? (
+              // Uppdelad progress för flashcards (10 korta horisontella streck)
+              <Box sx={{ mb: 0.5 }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: { xs: 0.5, sm: 1 }
+                }}>
+                  {Array.from({ length: 10 }, (_, index) => (
+                    <Box
+                      key={index}
+                      sx={{
+                        width: { xs: 20, sm: 24 },
+                        height: 4,
+                        backgroundColor: index < currentWordIndex + 1 ? 'primary.main' : 'rgba(25, 118, 210, 0.1)',
+                        transition: 'background-color 0.3s ease',
+                        borderRadius: 2
+                      }}
+                    />
+                  ))}
+                </Box>
+              </Box>
+            ) : (
+              // Kontinuerlig progress för andra övningar
+              <LinearProgress 
+                variant="determinate" 
+                value={((currentWordIndex + 1) / (
                   (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
                   (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
                   practiceWords.length
-                }
-          </Typography>
-        </Box>
-        
-        <LinearProgress 
-          variant="determinate" 
-              value={((currentWordIndex + 1) / (
-                (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
-                (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
-                practiceWords.length
-              )) * 100}
-              sx={{ mb: 1, height: 4 }}
-            />
+                )) * 100}
+                sx={{ mb: 0.5, height: 4 }}
+              />
+            )}
           </>
         )}
 
@@ -3661,11 +3730,11 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 1
                     </Typography>
-                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                      Enklaste meningar
-                    </Typography>
                     <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
-                      {getAvailablePhrasesForLevel('N1').length} meningar
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N1.correct}
+                      </Box>
+                      /{getAvailablePhrasesForLevel('N1').length} meningar
                     </Typography>
                   </Box>
 
@@ -3696,11 +3765,11 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 2
                     </Typography>
-                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                      Medelsvåra meningar
-                    </Typography>
                     <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
-                      {getAvailablePhrasesForLevel('N2').length} meningar
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N2.correct}
+                      </Box>
+                      /{getAvailablePhrasesForLevel('N2').length} meningar
                     </Typography>
                   </Box>
 
@@ -3731,11 +3800,11 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 3
                     </Typography>
-                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                      Svåra meningar
-                    </Typography>
                     <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
-                      {getAvailablePhrasesForLevel('N3').length} meningar
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N3.correct}
+                      </Box>
+                      /{getAvailablePhrasesForLevel('N3').length} meningar
                     </Typography>
                   </Box>
 
@@ -3766,11 +3835,11 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 4
                     </Typography>
-                    <Typography variant="body2" sx={{ textAlign: 'center', fontSize: { xs: '0.75rem', sm: '0.875rem' } }}>
-                      Svåraste meningar
-                    </Typography>
                     <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
-                      {getAvailablePhrasesForLevel('N4').length} meningar
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N4.correct}
+                      </Box>
+                      /{getAvailablePhrasesForLevel('N4').length} meningar
                     </Typography>
                   </Box>
                 </Box>

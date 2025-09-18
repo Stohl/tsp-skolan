@@ -59,10 +59,17 @@ function AppContent() {
       setShowStartGuide(true);
     };
 
+    const handleNavigateToPage = (event: CustomEvent) => {
+      const pageIndex = event.detail;
+      setCurrentPage(pageIndex);
+    };
+
     window.addEventListener('openStartGuide', handleOpenStartGuide);
+    window.addEventListener('navigateToPage', handleNavigateToPage as EventListener);
     
     return () => {
       window.removeEventListener('openStartGuide', handleOpenStartGuide);
+      window.removeEventListener('navigateToPage', handleNavigateToPage as EventListener);
     };
   }, []);
 
