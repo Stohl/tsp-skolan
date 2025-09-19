@@ -266,7 +266,7 @@ const MultipleChoiceExercise: React.FC<{
     setShowVideo(false);
     setSelectedAnswer(null);
     setShowResult(false);
-  }, [word.id]);
+  }, [word.id, word.ord]);
 
   // Visa videon direkt (ingen countdown)
   useEffect(() => {
@@ -301,9 +301,11 @@ const MultipleChoiceExercise: React.FC<{
     console.log(`[DEBUG] MultipleChoice: User selected "${answer}", correct: ${isCorrect} for word: ${word.ord} (ID: ${word.id})`);
     
     // Vänta lite innan vi anropar onResult för att användaren ska se resultatet
+    // Vänta längre om svaret är fel för att ge tid att se rätt svar
+    const delay = isCorrect ? 1500 : 3000;
     setTimeout(() => {
       onResult(isCorrect);
-    }, 1500);
+    }, delay);
   };
 
   const handleMoveToLearned = () => {
@@ -314,19 +316,6 @@ const MultipleChoiceExercise: React.FC<{
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
       <CardContent sx={{ textAlign: 'center', p: 4 }}>
         <Box>
-          {/* Visa ordet ovanför videon */}
-          <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-            {isLearnedWord && (
-              <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
-            )}
-            {word.ord}
-            {word.beskrivning && (
-              <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.5em' }}>
-                ({word.beskrivning})
-              </Typography>
-            )}
-          </Typography>
-          
           {word.video_url && (
             <Box sx={{ mb: 3 }}>
               <video
@@ -335,7 +324,6 @@ const MultipleChoiceExercise: React.FC<{
                 autoPlay
                 muted
                 playsInline // Förhindrar helskärm på mobil
-                loop // Spelar videon i loop
                 onClick={() => {
                   if (videoRef.current) {
                     videoRef.current.currentTime = 0;
@@ -381,7 +369,7 @@ const MultipleChoiceExercise: React.FC<{
               return (
                 <Button
                   key={index}
-                  variant={selectedAnswer === answer ? 'contained' : 'outlined'}
+                  variant={(selectedAnswer === answer || (showResult && answer === word.ord)) ? 'contained' : 'outlined'}
                   color={buttonColor}
                   size="large"
                   disabled={disabled}
@@ -2171,6 +2159,7 @@ const OvningPage: React.FC = () => {
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<ExerciseResult[]>([]);
   const [flashcardResults, setFlashcardResults] = useState<(boolean | null)[]>(new Array(10).fill(null)); // null = inte besvarad, true = rätt, false = fel
+  const [quizResults, setQuizResults] = useState<(boolean | null)[]>(new Array(10).fill(null)); // null = inte besvarad, true = rätt, false = fel
 
   const [learningWordsOnly, setLearningWordsOnly] = useState(false);
   
@@ -2696,6 +2685,7 @@ const OvningPage: React.FC = () => {
     setResults([]);
     setShowResults(false);
     setFlashcardResults(new Array(10).fill(null)); // Återställ progress-baren
+    setQuizResults(new Array(10).fill(null)); // Återställ quiz progress-baren
     setStaticPracticeWords([]); // Återställ för ny övning
     setWordsMovedToLearned(new Set()); // Återställ för ny övning
     
@@ -2729,6 +2719,15 @@ const OvningPage: React.FC = () => {
     // Uppdatera flashcard results för progress-baren
     if (selectedExerciseType === ExerciseType.FLASHCARDS) {
       setFlashcardResults(prev => {
+        const newResults = [...prev];
+        newResults[currentWordIndex] = isCorrect;
+        return newResults;
+      });
+    }
+    
+    // Uppdatera quiz results för progress-baren
+    if (selectedExerciseType === ExerciseType.QUIZ) {
+      setQuizResults(prev => {
         const newResults = [...prev];
         newResults[currentWordIndex] = isCorrect;
         return newResults;
@@ -2824,6 +2823,15 @@ const OvningPage: React.FC = () => {
     // Uppdatera flashcard results för progress-baren (Placera i lärda = rätt)
     if (selectedExerciseType === ExerciseType.FLASHCARDS) {
       setFlashcardResults(prev => {
+        const newResults = [...prev];
+        newResults[currentWordIndex] = true; // Placera i lärda = rätt
+        return newResults;
+      });
+    }
+    
+    // Uppdatera quiz results för progress-baren (Placera i lärda = rätt)
+    if (selectedExerciseType === ExerciseType.QUIZ) {
+      setQuizResults(prev => {
         const newResults = [...prev];
         newResults[currentWordIndex] = true; // Placera i lärda = rätt
         return newResults;
@@ -3742,19 +3750,18 @@ const OvningPage: React.FC = () => {
     <Container maxWidth="md" sx={{ py: 4 }}>
       {/* Header med progress */}
       <Box sx={{ mb: 2 }}>
-        {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering och meningar */}
-        {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && (
+        {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering, meningar och quiz */}
+        {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && selectedExerciseType !== ExerciseType.QUIZ && (
         <Typography variant="h4" gutterBottom align="center">
-          {selectedExerciseType === ExerciseType.QUIZ && 'Flervalsquiz'}
-            {selectedExerciseType === ExerciseType.SIGN && 'Övningstest'}
+          {selectedExerciseType === ExerciseType.SIGN && 'Övningstest'}
         </Typography>
         )}
         
         {/* Visa progress bara för andra övningstyper än meningar */}
         {selectedExerciseType !== ExerciseType.SENTENCES && (
           <>
-            {/* Visa text bara för andra övningstyper än flashcards */}
-            {selectedExerciseType !== ExerciseType.FLASHCARDS && (
+            {/* Visa text bara för andra övningstyper än flashcards och quiz */}
+            {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.QUIZ && (
               <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0.5 }}>
                 <Typography variant="body2" color="text.secondary">
                   Ord {currentWordIndex + 1} av {
@@ -3767,8 +3774,8 @@ const OvningPage: React.FC = () => {
             )}
             
             {/* Progress-mätare */}
-            {selectedExerciseType === ExerciseType.FLASHCARDS ? (
-              // Uppdelad progress för flashcards (10 korta horisontella streck)
+            {(selectedExerciseType === ExerciseType.FLASHCARDS || selectedExerciseType === ExerciseType.QUIZ) ? (
+              // Uppdelad progress för flashcards och quiz (10 korta horisontella streck)
               <Box sx={{ mb: 0.5 }}>
                 <Box sx={{ 
                   display: 'flex', 
@@ -3777,7 +3784,7 @@ const OvningPage: React.FC = () => {
                   gap: { xs: 0.5, sm: 1 }
                 }}>
                   {Array.from({ length: 10 }, (_, index) => {
-                    const result = flashcardResults[index];
+                    const result = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults[index] : quizResults[index];
                     let backgroundColor = 'rgba(25, 118, 210, 0.1)'; // Standard blå (tom)
                     
                     if (result === true) {
@@ -3807,7 +3814,6 @@ const OvningPage: React.FC = () => {
           variant="determinate" 
                 value={((currentWordIndex + 1) / (
                   (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
-                  (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
                   practiceWords.length
                 )) * 100}
                 sx={{ mb: 0.5, height: 4 }}
@@ -3868,6 +3874,7 @@ const OvningPage: React.FC = () => {
             </Card>
           ) : (
         <MultipleChoiceExercise
+          key={currentWord.id} // Tvingar React att återställa komponenten när ordet ändras
           word={currentWord}
           allWords={quizWords}
           onResult={handleExerciseResult}
