@@ -43,7 +43,7 @@ import {
   Spellcheck,
   ChatBubbleOutline
 } from '@mui/icons-material';
-import { useDatabase } from '../contexts/DatabaseContext';
+import { useDatabase, WordIndex } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
 import { getVideoUrl } from '../types/database';
 import { getWordListDifficulty, getAllWordLists } from '../types/wordLists';
@@ -72,7 +72,9 @@ const FlashcardsExercise: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
   onMoveToLearned: () => void;
-}> = ({ word, onResult, onSkip, onMoveToLearned }) => {
+  wordIndex: WordIndex | null;
+  wordDatabase: any;
+}> = ({ word, onResult, onSkip, onMoveToLearned, wordIndex, wordDatabase }) => {
   // Bestäm vilken typ av ord detta är baserat på progress level
   const isLearnedWord = word.progress?.level === 2;
   const isLearningWord = word.progress?.level === 1;
@@ -163,40 +165,11 @@ const FlashcardsExercise: React.FC<{
               )}
             </Typography>
             
-            {word.video_url && (
-              <Box sx={{ mb: 3 }}>
-                <video
-                  ref={videoRef}
-                  key={word.id} // Tvingar React att skapa ny video när ordet ändras
-                  autoPlay
-                  muted
-                  playsInline // Förhindrar helskärm på mobil
-                  loop // Spelar videon i loop
-                  onClick={() => {
-                    if (videoRef.current) {
-                      videoRef.current.currentTime = 0;
-                      videoRef.current.play().catch(error => {
-                        // Ignorera AbortError - detta händer när komponenten unmountas
-                        if (error.name !== 'AbortError') {
-                          console.warn('Video play error:', error);
-                        }
-                      });
-                    }
-                  }}
-                  style={{ 
-                    width: '100%', 
-                    height: '300px',
-                    objectFit: 'cover',
-                    borderRadius: '8px',
-                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                    cursor: 'pointer' // Visa att videon är klickbar
-                  }}
-                >
-                  <source src={getVideoUrl(word.video_url)} type="video/mp4" />
-                  Din webbläsare stöder inte video-elementet.
-                </video>
-              </Box>
-            )}
+            <VariantSequencePlayer 
+              word={word} 
+              wordIndex={wordIndex} 
+              wordDatabase={wordDatabase} 
+            />
             
             <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Button
@@ -245,6 +218,136 @@ const FlashcardsExercise: React.FC<{
   );
 };
 
+// Komponent för att spela alla varianter av ett ord i sekvens
+const VariantSequencePlayer: React.FC<{
+  word: any;
+  wordIndex: WordIndex | null;
+  wordDatabase: any;
+}> = ({ word, wordIndex, wordDatabase }) => {
+  const [currentVariantIndex, setCurrentVariantIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Hämta alla varianter av ordet
+  const variants = useMemo(() => {
+    if (!wordIndex || !word) return [];
+    
+    const wordVariants = wordIndex.variants[word.ord.toLowerCase()];
+    if (!wordVariants || wordVariants.count <= 1) return [word];
+    
+    return wordVariants.variants.map(variantId => wordDatabase[variantId]).filter(Boolean);
+  }, [word, wordIndex, wordDatabase]);
+
+  // Spela nästa variant när denna är klar
+  useEffect(() => {
+    if (!isPlaying || variants.length <= 1) return;
+
+    const timer = setTimeout(() => {
+      if (currentVariantIndex < variants.length - 1) {
+        setCurrentVariantIndex(prev => prev + 1);
+      } else {
+        // Börja om från början
+        setCurrentVariantIndex(0);
+      }
+    }, 3000); // 3 sekunder per variant
+
+    return () => clearTimeout(timer);
+  }, [currentVariantIndex, isPlaying, variants.length]);
+
+  // Starta sekvensen när komponenten mountas
+  useEffect(() => {
+    if (variants.length > 1) {
+      setIsPlaying(true);
+    }
+  }, [variants.length]);
+
+  const currentVariant = variants[currentVariantIndex];
+
+  if (variants.length <= 1) {
+    // Ingen variant-sekvens, visa bara det vanliga videot
+    return word.video_url ? (
+      <Box sx={{ mb: 3 }}>
+        <video
+          ref={videoRef}
+          key={word.id}
+          autoPlay
+          muted
+          playsInline
+          loop
+          onClick={() => {
+            if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.play().catch(error => {
+                if (error.name !== 'AbortError') {
+                  console.warn('Video play error:', error);
+                }
+              });
+            }
+          }}
+          style={{ 
+            width: '100%', 
+            height: '300px',
+            objectFit: 'cover',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            cursor: 'pointer'
+          }}
+        >
+          <source src={getVideoUrl(word.video_url)} type="video/mp4" />
+          Din webbläsare stöder inte video-elementet.
+        </video>
+      </Box>
+    ) : null;
+  }
+
+  return (
+    <Box sx={{ mb: 3 }}>
+      <Box sx={{ mb: 2, textAlign: 'center' }}>
+        <Typography variant="body2" color="text.secondary">
+          {word.ord} - Variant {currentVariantIndex + 1} av {variants.length}
+        </Typography>
+        <LinearProgress 
+          variant="determinate" 
+          value={((currentVariantIndex + 1) / variants.length) * 100}
+          sx={{ mt: 1, height: 4, borderRadius: 2 }}
+        />
+      </Box>
+      
+      {currentVariant?.video_url && (
+        <video
+          ref={videoRef}
+          key={`${currentVariant.id}-${currentVariantIndex}`}
+          autoPlay
+          muted
+          playsInline
+          loop
+          onClick={() => {
+            if (videoRef.current) {
+              videoRef.current.currentTime = 0;
+              videoRef.current.play().catch(error => {
+                if (error.name !== 'AbortError') {
+                  console.warn('Video play error:', error);
+                }
+              });
+            }
+          }}
+          style={{ 
+            width: '100%', 
+            height: '300px',
+            objectFit: 'cover',
+            borderRadius: '8px',
+            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+            cursor: 'pointer'
+          }}
+        >
+          <source src={getVideoUrl(currentVariant.video_url)} type="video/mp4" />
+          Din webbläsare stöder inte video-elementet.
+        </video>
+      )}
+    </Box>
+  );
+};
+
 // Komponent för Flervalsquiz-övning (baserad på FlashcardsExercise men utan countdown och med 4 alternativ)
 const MultipleChoiceExercise: React.FC<{
   word: any;
@@ -252,7 +355,9 @@ const MultipleChoiceExercise: React.FC<{
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
   onMoveToLearned: () => void;
-}> = ({ word, allWords, onResult, onSkip, onMoveToLearned }) => {
+  wordIndex: WordIndex | null;
+  wordDatabase: any;
+}> = ({ word, allWords, onResult, onSkip, onMoveToLearned, wordIndex, wordDatabase }) => {
   // Bestäm vilken typ av ord detta är baserat på progress level
   const isLearnedWord = word.progress?.level === 2;
   const [showVideo, setShowVideo] = useState(false);
@@ -316,39 +421,11 @@ const MultipleChoiceExercise: React.FC<{
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
       <CardContent sx={{ textAlign: 'center', p: 4 }}>
         <Box>
-          {word.video_url && (
-            <Box sx={{ mb: 3 }}>
-              <video
-                ref={videoRef}
-                key={word.id} // Tvingar React att skapa ny video när ordet ändras
-                autoPlay
-                muted
-                playsInline // Förhindrar helskärm på mobil
-                onClick={() => {
-                  if (videoRef.current) {
-                    videoRef.current.currentTime = 0;
-                    videoRef.current.play().catch(error => {
-                      // Ignorera AbortError - detta händer när komponenten unmountas
-                      if (error.name !== 'AbortError') {
-                        console.warn('Video play error:', error);
-                      }
-                    });
-                  }
-                }}
-                style={{ 
-                  width: '100%', 
-                  height: '300px',
-                  objectFit: 'cover',
-                  borderRadius: '8px',
-                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-                  cursor: 'pointer' // Visa att videon är klickbar
-                }}
-              >
-                <source src={getVideoUrl(word.video_url)} type="video/mp4" />
-                Din webbläsare stöder inte video-elementet.
-              </video>
-            </Box>
-          )}
+          <VariantSequencePlayer 
+            word={word} 
+            wordIndex={wordIndex} 
+            wordDatabase={wordDatabase} 
+          />
           
           {/* Visa svarsalternativ */}
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
@@ -2151,7 +2228,7 @@ const SentencesExerciseDuplicate: React.FC<{
 
 // Huvudkomponent för övningssidan
 const OvningPage: React.FC = () => {
-  const { wordDatabase, phraseDatabase, isLoading, error } = useDatabase();
+  const { wordDatabase, phraseDatabase, wordIndex, isLoading, error } = useDatabase();
   const { getWordsForPractice, markWordResult, setWordLevel, wordProgress } = useWordProgress();
   
   const [selectedExerciseType, setSelectedExerciseType] = useState<ExerciseType | null>(null);
@@ -3849,6 +3926,8 @@ const OvningPage: React.FC = () => {
           onResult={handleExerciseResult}
           onSkip={handleSkip}
           onMoveToLearned={handleMoveToLearned}
+          wordIndex={wordIndex}
+          wordDatabase={wordDatabase}
         />
               
             </>
@@ -3880,6 +3959,8 @@ const OvningPage: React.FC = () => {
           onResult={handleExerciseResult}
           onSkip={handleSkip}
           onMoveToLearned={handleMoveToLearned}
+          wordIndex={wordIndex}
+          wordDatabase={wordDatabase}
         />
           )}
         </>

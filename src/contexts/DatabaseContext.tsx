@@ -6,10 +6,35 @@ import {
   loadPhraseDatabase 
 } from '../types/database';
 
+// Interface för word index
+export interface WordIndex {
+  metadata: {
+    created: string;
+    totalWords: number;
+    wordsWithVariants: number;
+    wordsWithRelations: number;
+    description: string;
+  };
+  variants: {
+    [word: string]: {
+      variants: string[];
+      primary: string;
+      count: number;
+    };
+  };
+  relations: {
+    [wordId: string]: {
+      sameMeaning: string[];
+      alternativeMeanings: string[];
+    };
+  };
+}
+
 // Interface för context-värdet
 interface DatabaseContextType {
   wordDatabase: WordDatabase;
   phraseDatabase: PhraseDatabase;
+  wordIndex: WordIndex | null;
   isLoading: boolean;
   error: string | null;
   refreshDatabases: () => Promise<void>;
@@ -19,6 +44,7 @@ interface DatabaseContextType {
 const DatabaseContext = createContext<DatabaseContextType>({
   wordDatabase: {},
   phraseDatabase: {},
+  wordIndex: null,
   isLoading: false,
   error: null,
   refreshDatabases: async () => {},
@@ -38,11 +64,21 @@ interface DatabaseProviderProps {
   children: ReactNode;
 }
 
+// Funktion för att ladda word index
+const loadWordIndex = async (): Promise<WordIndex> => {
+  const response = await fetch('/word_index.json');
+  if (!response.ok) {
+    throw new Error(`Kunde inte ladda word_index.json: ${response.statusText}`);
+  }
+  return response.json();
+};
+
 // Provider-komponent som laddar och tillhandahåller databaserna
 export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({ children }) => {
   // State för att hålla databaserna
   const [wordDatabase, setWordDatabase] = useState<WordDatabase>({});
   const [phraseDatabase, setPhraseDatabase] = useState<PhraseDatabase>({});
+  const [wordIndex, setWordIndex] = useState<WordIndex | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -52,14 +88,16 @@ export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({ children }) 
       setIsLoading(true);
       setError(null);
       
-      // Laddar båda databaserna parallellt för bättre prestanda
-      const [words, phrases] = await Promise.all([
+      // Laddar alla databaserna parallellt för bättre prestanda
+      const [words, phrases, index] = await Promise.all([
         loadWordDatabase(),
-        loadPhraseDatabase()
+        loadPhraseDatabase(),
+        loadWordIndex()
       ]);
       
       setWordDatabase(words);
       setPhraseDatabase(phrases);
+      setWordIndex(index);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Ett fel uppstod vid laddning av databaserna');
       console.error('Fel vid laddning av databaserna:', err);
@@ -82,6 +120,7 @@ export const DatabaseProvider: React.FC<DatabaseProviderProps> = ({ children }) 
   const value: DatabaseContextType = {
     wordDatabase,
     phraseDatabase,
+    wordIndex,
     isLoading,
     error,
     refreshDatabases,
