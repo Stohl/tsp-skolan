@@ -122,7 +122,13 @@ export const useWordProgress = () => {
     const newPoints = Math.max(0, currentPoints + (isCorrect ? 1 : -1));
     
     // Om poängen når 5, markera ordet som lärt (nivå 2)
-    const newLevel = newPoints >= 5 ? 2 : current.level;
+    // Om ordet är på nivå 2 (lärda) och poängen blir 3 eller mindre efter fel svar, flytta tillbaka till nivå 1 (att lära mig)
+    let newLevel = newPoints >= 5 ? 2 : current.level;
+    
+    if (!isCorrect && current.level === 2 && newPoints <= 3) {
+      newLevel = 1; // Flytta tillbaka till "att lära mig"
+      console.log(`[DEBUG] Moving word ${wordId} back to level 1 (att lära mig) due to low points: ${newPoints}`);
+    }
 
     console.log(`[DEBUG] New points: ${newPoints}, new level: ${newLevel}`);
 
