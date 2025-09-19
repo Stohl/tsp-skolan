@@ -124,12 +124,12 @@ const FlashcardsExercise: React.FC<{
           <Box>
             <Typography variant="h4" sx={{ mb: 1 }}>
               {word.ord}
+              {word.beskrivning && (
+                <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.7em' }}>
+                  ({word.beskrivning})
             </Typography>
-            {word.beskrivning && (
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                {word.beskrivning}
+              )}
             </Typography>
-            )}
             
             {countdown !== null && countdown > 0 && (
               <Typography variant="h6" color="primary" sx={{ mb: 2 }}>
@@ -150,6 +150,11 @@ const FlashcardsExercise: React.FC<{
             {/* Visa ordet ovanför videon */}
             <Typography variant="h4" sx={{ mb: 1 }}>
               {word.ord}
+              {word.beskrivning && (
+                <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.7em' }}>
+                  ({word.beskrivning})
+                </Typography>
+              )}
             </Typography>
             
             {word.video_url && (
@@ -187,7 +192,7 @@ const FlashcardsExercise: React.FC<{
               </Box>
             )}
             
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
               <Button
                 variant="contained"
                 color="success"
@@ -207,6 +212,24 @@ const FlashcardsExercise: React.FC<{
                 sx={{ textTransform: 'none' }}
               >
                 Nej, jag kunde inte
+              </Button>
+              <Button
+                variant="outlined"
+                size="large"
+                onClick={() => {
+                  // Anropa onResult med true för att markera som korrekt och gå till nästa ord
+                  onResult(true);
+                }}
+                sx={{ 
+                  borderColor: 'success.main',
+                  color: 'success.main',
+                  '&:hover': {
+                    backgroundColor: 'success.50',
+                    borderColor: 'success.main'
+                  }
+                }}
+              >
+                Placera i lärda ord
               </Button>
             </Box>
           </Box>
@@ -808,6 +831,11 @@ const SpellingExercise: React.FC<{
           
           <Typography variant="h5" gutterBottom>
             Vilket ord?
+            {word.beskrivning && (
+              <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.7em' }}>
+                ({word.beskrivning})
+          </Typography>
+            )}
           </Typography>
         </Box>
 
@@ -2438,8 +2466,8 @@ const OvningPage: React.FC = () => {
         if (levelA !== 1 && levelB === 1) return 1;
         
           // Sedan efter senast övade (nyligen övade först)
-          const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
-          const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
+        const lastPracticedA = new Date(a.progress.stats.lastPracticed).getTime();
+        const lastPracticedB = new Date(b.progress.stats.lastPracticed).getTime();
           
           // Hantera NaN (tom sträng) genom att sätta dem till 0 (aldrig övade)
           const timeA = isNaN(lastPracticedA) ? 0 : lastPracticedA;
@@ -3561,39 +3589,6 @@ const OvningPage: React.FC = () => {
           onSkip={handleSkip}
         />
               
-              {/* Diskret knapp för att placera ord i lärda */}
-              <Box sx={{ mt: 3, textAlign: 'center' }}>
-                <Button
-                  variant="outlined"
-                  size="small"
-                  onClick={() => {
-                    if (currentWord) {
-                      // Precis som "Ja, jag kunde" - använd samma funktion
-                      handleExerciseResult(true); // Detta sparar resultatet OCH markerar som rätt OCH går till nästa ord
-                      // Sedan ge extra poäng för att komma till 5 totalt
-                      const current = wordProgress[currentWord.id];
-                      if (current && current.points < 5) {
-                        setWordLevel(currentWord.id, 2); // Sätt till level 2 (5 poäng)
-                      }
-                      console.log(`[DEBUG] Manually marked word ${currentWord.ord} as correct and moved to learned`);
-                      // INTE handleSkip() här eftersom handleExerciseResult redan hanterar nästa ord
-                    }
-                  }}
-                  sx={{ 
-                    fontSize: '0.75rem',
-                    py: 0.5,
-                    px: 2,
-                    borderColor: 'success.main',
-                    color: 'success.main',
-                    '&:hover': {
-                      backgroundColor: 'success.50',
-                      borderColor: 'success.main'
-                    }
-                  }}
-                >
-                  Placera i lärda ord
-                </Button>
-              </Box>
             </>
           )}
         </>
