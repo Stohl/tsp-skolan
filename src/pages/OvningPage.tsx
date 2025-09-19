@@ -71,7 +71,8 @@ const FlashcardsExercise: React.FC<{
   word: any;
   onResult: (isCorrect: boolean) => void;
   onSkip: () => void;
-}> = ({ word, onResult, onSkip }) => {
+  onMoveToLearned: () => void;
+}> = ({ word, onResult, onSkip, onMoveToLearned }) => {
   // Bestäm vilken typ av ord detta är baserat på progress level
   const isLearnedWord = word.progress?.level === 2;
   const isLearningWord = word.progress?.level === 1;
@@ -114,7 +115,6 @@ const FlashcardsExercise: React.FC<{
     onResult(isCorrect);
   };
 
-  console.log(`[DEBUG] Flashcards: Rendering word: ${word.ord} (ID: ${word.id}), showVideo: ${showVideo}, countdown: ${countdown}`);
 
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
@@ -122,10 +122,13 @@ const FlashcardsExercise: React.FC<{
         {!showVideo ? (
           // Visa ordet
           <Box>
-            <Typography variant="h4" sx={{ mb: 1 }}>
+            <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+              {isLearnedWord && (
+                <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
+              )}
               {word.ord}
               {word.beskrivning && (
-                <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.7em' }}>
+                <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.5em' }}>
                   ({word.beskrivning})
             </Typography>
               )}
@@ -148,10 +151,13 @@ const FlashcardsExercise: React.FC<{
           // Visa videon och resultat-knappar
           <Box>
             {/* Visa ordet ovanför videon */}
-            <Typography variant="h4" sx={{ mb: 1 }}>
+            <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+              {isLearnedWord && (
+                <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
+              )}
               {word.ord}
               {word.beskrivning && (
-                <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.7em' }}>
+                <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.5em' }}>
                   ({word.beskrivning})
                 </Typography>
               )}
@@ -217,8 +223,8 @@ const FlashcardsExercise: React.FC<{
                 variant="outlined"
                 size="large"
                 onClick={() => {
-                  // Anropa onResult med true för att markera som korrekt och gå till nästa ord
-                  onResult(true);
+                  // Anropa onMoveToLearned för att flytta ordet till lärda och gå till nästa ord
+                  onMoveToLearned();
                 }}
                 sx={{ 
                   borderColor: 'success.main',
@@ -1989,6 +1995,7 @@ const OvningPage: React.FC = () => {
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const [showResults, setShowResults] = useState(false);
   const [results, setResults] = useState<ExerciseResult[]>([]);
+  const [flashcardResults, setFlashcardResults] = useState<(boolean | null)[]>(new Array(10).fill(null)); // null = inte besvarad, true = rätt, false = fel
 
   const [learningWordsOnly, setLearningWordsOnly] = useState(false);
   
@@ -2513,6 +2520,7 @@ const OvningPage: React.FC = () => {
     setCurrentWordIndex(0);
     setResults([]);
     setShowResults(false);
+    setFlashcardResults(new Array(10).fill(null)); // Återställ progress-baren
     setStaticPracticeWords([]); // Återställ för ny övning
     setWordsMovedToLearned(new Set()); // Återställ för ny övning
     
@@ -2543,6 +2551,14 @@ const OvningPage: React.FC = () => {
     
     setResults(prev => [...prev, result]);
 
+    // Uppdatera flashcard results för progress-baren
+    if (selectedExerciseType === ExerciseType.FLASHCARDS) {
+      setFlashcardResults(prev => {
+        const newResults = [...prev];
+        newResults[currentWordIndex] = isCorrect;
+        return newResults;
+      });
+    }
     
     // Spara inte progress för bokstavering-övningar
     if (selectedExerciseType !== ExerciseType.SPELLING) {
@@ -2552,11 +2568,18 @@ const OvningPage: React.FC = () => {
       const currentLevel = currentProgress?.level || 0;
       const willMoveToLevel2 = isCorrect && currentPoints + 1 >= 5 && currentLevel < 2;
       
+      console.log(`[DEBUG] Word progress check: ${currentWord.ord} (ID: ${currentWord.id})`);
+      console.log(`[DEBUG] - Current points: ${currentPoints}, Current level: ${currentLevel}`);
+      console.log(`[DEBUG] - isCorrect: ${isCorrect}, willMoveToLevel2: ${willMoveToLevel2}`);
+      
       markWordResult(currentWord.id, isCorrect);
       
       // Om ordet flyttades till level 2, spåra det
       if (willMoveToLevel2) {
+        console.log(`[DEBUG] Adding ${currentWord.ord} (ID: ${currentWord.id}) to wordsMovedToLearned`);
         setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
+      } else {
+        console.log(`[DEBUG] NOT adding ${currentWord.ord} (ID: ${currentWord.id}) to wordsMovedToLearned`);
       }
     }
 
@@ -2593,6 +2616,49 @@ const OvningPage: React.FC = () => {
         }
       }
       
+      setShowResults(true);
+    }
+  };
+
+  // Funktion som körs när användaren klickar på "Placera i lärda ord"
+  const handleMoveToLearned = () => {
+    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                         selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    const currentWord = currentWords[currentWordIndex];
+    if (!currentWord) return;
+
+    console.log(`[DEBUG] handleMoveToLearned: Moving ${currentWord.ord} (ID: ${currentWord.id}) to learned level`);
+
+    // Sätt ordet direkt till level 2 (lärda)
+    setWordLevel(currentWord.id, 2);
+    
+    // Lägg till i wordsMovedToLearned för att visa i resultatvyn
+    setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
+    
+    // Spara resultat som korrekt
+    const result: ExerciseResult = {
+      wordId: currentWord.id,
+      isCorrect: true,
+      exerciseType: selectedExerciseType!,
+      timestamp: new Date().toISOString()
+    };
+    
+    setResults(prev => [...prev, result]);
+
+    // Uppdatera flashcard results för progress-baren (Placera i lärda = rätt)
+    if (selectedExerciseType === ExerciseType.FLASHCARDS) {
+      setFlashcardResults(prev => {
+        const newResults = [...prev];
+        newResults[currentWordIndex] = true; // Placera i lärda = rätt
+        return newResults;
+      });
+    }
+
+    // Gå till nästa ord eller visa resultat
+    if (currentWordIndex < currentWords.length - 1) {
+      setCurrentWordIndex(prev => prev + 1);
+    } else {
       setShowResults(true);
     }
   };
@@ -3416,12 +3482,15 @@ const OvningPage: React.FC = () => {
                   } else {
                     // För andra övningar, visa ordet som vanligt
                     const word = wordDatabase[result.wordId];
+                    const isMovedToLearned = wordsMovedToLearned.has(result.wordId);
                     console.log(`[DEBUG] Result ${index}: wordId=${result.wordId}, word=${word?.ord}, isCorrect=${result.isCorrect}`);
+                    console.log(`[DEBUG] - wordsMovedToLearned has ${result.wordId}: ${isMovedToLearned}`);
+                    console.log(`[DEBUG] - wordsMovedToLearned contents:`, Array.from(wordsMovedToLearned));
                     return (
                       <ListItem key={`${result.wordId}-${index}`}>
                         <ListItemText
                           primary={word?.ord || `Okänt ord (ID: ${result.wordId})`}
-                          secondary={wordsMovedToLearned.has(result.wordId) ? "Flyttad till lärda ord!" : ""}
+                          secondary={isMovedToLearned ? "Flyttad till lärda ord!" : ""}
                         />
                         {result.isCorrect ? (
                           wordProgress[result.wordId]?.level === 2 ? (
@@ -3532,18 +3601,29 @@ const OvningPage: React.FC = () => {
                   alignItems: 'center',
                   gap: { xs: 0.5, sm: 1 }
                 }}>
-                  {Array.from({ length: 10 }, (_, index) => (
-                    <Box
-                      key={index}
-                      sx={{
-                        width: { xs: 20, sm: 24 },
-                        height: 4,
-                        backgroundColor: index < currentWordIndex + 1 ? 'primary.main' : 'rgba(25, 118, 210, 0.1)',
-                        transition: 'background-color 0.3s ease',
-                        borderRadius: 2
-                      }}
-                    />
-                  ))}
+                  {Array.from({ length: 10 }, (_, index) => {
+                    const result = flashcardResults[index];
+                    let backgroundColor = 'rgba(25, 118, 210, 0.1)'; // Standard blå (tom)
+                    
+                    if (result === true) {
+                      backgroundColor = 'success.main'; // Grön för rätt svar
+                    } else if (result === false) {
+                      backgroundColor = 'error.main'; // Röd för fel svar
+                    }
+                    
+                    return (
+                      <Box
+                        key={index}
+                        sx={{
+                          width: { xs: 20, sm: 24 },
+                          height: 4,
+                          backgroundColor,
+                          transition: 'background-color 0.3s ease',
+                          borderRadius: 2
+                        }}
+                      />
+                    );
+                  })}
                 </Box>
               </Box>
             ) : (
@@ -3587,6 +3667,7 @@ const OvningPage: React.FC = () => {
           word={currentWord}
           onResult={handleExerciseResult}
           onSkip={handleSkip}
+          onMoveToLearned={handleMoveToLearned}
         />
               
             </>
