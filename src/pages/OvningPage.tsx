@@ -245,6 +245,181 @@ const FlashcardsExercise: React.FC<{
   );
 };
 
+// Komponent för Flervalsquiz-övning (baserad på FlashcardsExercise men utan countdown och med 4 alternativ)
+const MultipleChoiceExercise: React.FC<{
+  word: any;
+  allWords: any[];
+  onResult: (isCorrect: boolean) => void;
+  onSkip: () => void;
+  onMoveToLearned: () => void;
+}> = ({ word, allWords, onResult, onSkip, onMoveToLearned }) => {
+  // Bestäm vilken typ av ord detta är baserat på progress level
+  const isLearnedWord = word.progress?.level === 2;
+  const [showVideo, setShowVideo] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState<string | null>(null);
+  const [showResult, setShowResult] = useState(false);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Återställ state när ordet ändras
+  useEffect(() => {
+    console.log(`[DEBUG] MultipleChoice: Word changed to: ${word.ord} (ID: ${word.id})`);
+    setShowVideo(false);
+    setSelectedAnswer(null);
+    setShowResult(false);
+  }, [word.id]);
+
+  // Visa videon direkt (ingen countdown)
+  useEffect(() => {
+    if (!showVideo) {
+      setShowVideo(true);
+    }
+  }, [showVideo]);
+
+  // Generera felaktiga alternativ
+  const getWrongAnswers = () => {
+    const wrongWords = shuffleArray(allWords
+      .filter(w => w.id !== word.id))
+      .slice(0, 3);
+    return wrongWords.map(w => w.ord);
+  };
+
+  const wrongAnswers = useMemo(() => getWrongAnswers(), [word.id, allWords]);
+
+  // Skapa alla alternativ (rätt svar + 3 fel)
+  const allAnswers = useMemo(() => {
+    const answers = [word.ord, ...wrongAnswers];
+    return shuffleArray(answers);
+  }, [word.ord, wrongAnswers]);
+
+  const handleAnswerClick = (answer: string) => {
+    if (selectedAnswer) return; // Förhindra flera klick
+    
+    setSelectedAnswer(answer);
+    setShowResult(true);
+    
+    const isCorrect = answer === word.ord;
+    console.log(`[DEBUG] MultipleChoice: User selected "${answer}", correct: ${isCorrect} for word: ${word.ord} (ID: ${word.id})`);
+    
+    // Vänta lite innan vi anropar onResult för att användaren ska se resultatet
+    setTimeout(() => {
+      onResult(isCorrect);
+    }, 1500);
+  };
+
+  const handleMoveToLearned = () => {
+    onMoveToLearned();
+  };
+
+  return (
+    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+      <CardContent sx={{ textAlign: 'center', p: 4 }}>
+        <Box>
+          {/* Visa ordet ovanför videon */}
+          <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+            {isLearnedWord && (
+              <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
+            )}
+            {word.ord}
+            {word.beskrivning && (
+              <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.5em' }}>
+                ({word.beskrivning})
+              </Typography>
+            )}
+          </Typography>
+          
+          {word.video_url && (
+            <Box sx={{ mb: 3 }}>
+              <video
+                ref={videoRef}
+                key={word.id} // Tvingar React att skapa ny video när ordet ändras
+                autoPlay
+                muted
+                playsInline // Förhindrar helskärm på mobil
+                loop // Spelar videon i loop
+                onClick={() => {
+                  if (videoRef.current) {
+                    videoRef.current.currentTime = 0;
+                    videoRef.current.play().catch(error => {
+                      // Ignorera AbortError - detta händer när komponenten unmountas
+                      if (error.name !== 'AbortError') {
+                        console.warn('Video play error:', error);
+                      }
+                    });
+                  }
+                }}
+                style={{ 
+                  width: '100%', 
+                  height: '300px',
+                  objectFit: 'cover',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  cursor: 'pointer' // Visa att videon är klickbar
+                }}
+              >
+                <source src={getVideoUrl(word.video_url)} type="video/mp4" />
+                Din webbläsare stöder inte video-elementet.
+              </video>
+            </Box>
+          )}
+          
+          {/* Visa svarsalternativ */}
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mb: 3 }}>
+            {allAnswers.map((answer, index) => {
+              let buttonColor: 'primary' | 'success' | 'error' = 'primary';
+              let disabled = false;
+              
+              if (showResult && selectedAnswer) {
+                if (answer === word.ord) {
+                  buttonColor = 'success'; // Rätt svar är alltid grön
+                } else if (answer === selectedAnswer) {
+                  buttonColor = 'error'; // Valda fel svar är röd
+                } else {
+                  disabled = true; // Andra alternativ blir inaktiva
+                }
+              }
+              
+              return (
+                <Button
+                  key={index}
+                  variant={selectedAnswer === answer ? 'contained' : 'outlined'}
+                  color={buttonColor}
+                  size="large"
+                  disabled={disabled}
+                  onClick={() => handleAnswerClick(answer)}
+                  sx={{ 
+                    textTransform: 'none',
+                    py: 1.5,
+                    fontSize: '1.1rem'
+                  }}
+                >
+                  {answer}
+                </Button>
+              );
+            })}
+          </Box>
+          
+          {/* Placera i lärda ord knapp */}
+          <Button
+            variant="outlined"
+            size="large"
+            onClick={handleMoveToLearned}
+            sx={{ 
+              borderColor: 'success.main',
+              color: 'success.main',
+              '&:hover': {
+                backgroundColor: 'success.50',
+                borderColor: 'success.main'
+              }
+            }}
+          >
+            Placera i lärda ord
+          </Button>
+        </Box>
+      </CardContent>
+    </Card>
+  );
+};
+
 // Komponent för Quiz-övning
 const QuizExercise: React.FC<{
   word: any;
@@ -3692,11 +3867,12 @@ const OvningPage: React.FC = () => {
               </CardContent>
             </Card>
           ) : (
-        <QuizExercise
+        <MultipleChoiceExercise
           word={currentWord}
-              allWords={quizWords}
+          allWords={quizWords}
           onResult={handleExerciseResult}
           onSkip={handleSkip}
+          onMoveToLearned={handleMoveToLearned}
         />
           )}
         </>
