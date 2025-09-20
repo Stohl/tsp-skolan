@@ -1179,11 +1179,6 @@ const SpellingExercise: React.FC<{
           
           <Typography variant="h5" gutterBottom>
             Vilket ord?
-            {word.beskrivning && (
-              <Typography component="span" variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.7em' }}>
-                ({word.beskrivning})
-          </Typography>
-            )}
           </Typography>
         </Box>
 
@@ -1904,7 +1899,7 @@ const SentencesPracticeExercise: React.FC<{
             onClick={() => setIsRevealed(true)}
             sx={{ minWidth: 150 }}
           >
-            Avslöja mening
+            Visa mening
           </Button>
         </Box>
       )}
@@ -1928,7 +1923,7 @@ const SentencesPracticeExercise: React.FC<{
             onClick={handleCorrect}
             sx={{ minWidth: 120 }}
           >
-            Hade rätt
+            Det kunde jag
           </Button>
           <Button
             variant="contained"
@@ -1937,7 +1932,7 @@ const SentencesPracticeExercise: React.FC<{
             onClick={handleIncorrect}
             sx={{ minWidth: 120 }}
           >
-            Hade fel
+            Behöver öva mer
           </Button>
         </Box>
       )}
