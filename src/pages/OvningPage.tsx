@@ -935,14 +935,76 @@ const SpellingExercise: React.FC<{
     }
   }, [playbackSpeed, word.id]);
 
-  // Generera felaktiga alternativ med samma längd som det korrekta ordet
+  // Generera felaktiga alternativ med liknande bokstäver som det korrekta ordet
   const getWrongAnswers = () => {
-    const correctLength = word.ord.length;
+    const correctWord = word.ord.toLowerCase();
+    const correctLength = correctWord.length;
     let wrongWords: any[] = [];
+    
+    // Funktion för att beräkna likhet mellan två ord
+    const calculateSimilarity = (word1: string, word2: string): number => {
+      const w1 = word1.toLowerCase();
+      const w2 = word2.toLowerCase();
+      let similarity = 0;
+      
+      // Poäng för samma första bokstav
+      if (w1[0] === w2[0]) similarity += 2;
+      
+      // Poäng för samma sista bokstav
+      if (w1[w1.length - 1] === w2[w2.length - 1]) similarity += 2;
+      
+      // Poäng för gemensamma bokstäver
+      const commonLetters = new Set();
+      for (let i = 0; i < Math.min(w1.length, w2.length); i++) {
+        if (w1[i] === w2[i]) {
+          similarity += 1;
+          commonLetters.add(w1[i]);
+        }
+      }
+      
+      // Poäng för bokstäver som finns i båda orden (men inte på samma position)
+      for (const letter of w1) {
+        if (w2.includes(letter) && !commonLetters.has(letter)) {
+          similarity += 0.5;
+        }
+      }
+      
+      return similarity;
+    };
     
     // Försök först hitta ord med exakt samma längd
     const sameLengthWords = allSpellingWords.filter(w => w.id !== word.id && w.ord.length === correctLength);
-    wrongWords = [...sameLengthWords];
+    
+    if (sameLengthWords.length > 0) {
+      // Beräkna likhet för alla ord med samma längd
+      const wordsWithSimilarity = sameLengthWords.map(w => ({
+        word: w,
+        similarity: calculateSimilarity(correctWord, w.ord)
+      })).sort((a, b) => b.similarity - a.similarity);
+      
+      // Ta 1-2 ord med hög likhet (likhet >= 3)
+      const highSimilarity = wordsWithSimilarity.filter(w => w.similarity >= 3);
+      const selectedWords: Array<{word: any, similarity: number}> = [];
+      
+      if (highSimilarity.length > 0) {
+        const numHigh = Math.min(2, highSimilarity.length);
+        const shuffledHigh = shuffleArray(highSimilarity).slice(0, numHigh);
+        selectedWords.push(...shuffledHigh);
+      }
+      
+      // Slumpa resten från ord med samma längd (exklusive de redan valda)
+      const remainingWords = wordsWithSimilarity.filter(w => 
+        !selectedWords.some(selected => selected.word.id === w.word.id)
+      );
+      
+      if (remainingWords.length > 0) {
+        const needed = 3 - selectedWords.length;
+        const shuffledRemaining = shuffleArray(remainingWords).slice(0, needed);
+        selectedWords.push(...shuffledRemaining);
+      }
+      
+      wrongWords = selectedWords.map(item => item.word);
+    }
     
     // Om vi inte har tillräckligt (3 ord), komplettera med ord med liknande längd (±1 bokstav)
     if (wrongWords.length < 3) {
@@ -952,21 +1014,41 @@ const SpellingExercise: React.FC<{
         w.ord.length <= correctLength + 1 &&
         !wrongWords.some(existing => existing.id === w.id)
       );
-      wrongWords = [...wrongWords, ...similarLengthWords];
+      
+      if (similarLengthWords.length > 0) {
+        const similarLengthWithScore = similarLengthWords.map(w => ({
+          word: w,
+          similarity: calculateSimilarity(correctWord, w.ord)
+        })).sort((a, b) => b.similarity - a.similarity);
+        
+        const needed = 3 - wrongWords.length;
+        const shuffled = shuffleArray(similarLengthWithScore).slice(0, needed);
+        wrongWords = [...wrongWords, ...shuffled.map(item => item.word)];
+      }
     }
     
-    // Om vi fortfarande inte har tillräckligt, ta från alla ord (exklusive det korrekta)
+    // Om vi fortfarande inte har tillräckligt, komplettera med alla andra ord
     if (wrongWords.length < 3) {
       const allOtherWords = allSpellingWords.filter(w => 
         w.id !== word.id && 
         !wrongWords.some(existing => existing.id === w.id)
       );
-      wrongWords = [...wrongWords, ...allOtherWords];
+      
+      if (allOtherWords.length > 0) {
+        const otherWordsWithScore = allOtherWords.map(w => ({
+          word: w,
+          similarity: calculateSimilarity(correctWord, w.ord)
+        })).sort((a, b) => b.similarity - a.similarity);
+        
+        const needed = 3 - wrongWords.length;
+        const shuffled = shuffleArray(otherWordsWithScore).slice(0, needed);
+        wrongWords = [...wrongWords, ...shuffled.map(item => item.word)];
+      }
     }
     
     // Blanda och ta max 3 ord
     const shuffledWords = shuffleArray(wrongWords).slice(0, 3);
-    console.log(`[DEBUG] Spelling alternatives: correct="${word.ord}" (${correctLength} chars), wrong alternatives:`, shuffledWords.map(w => `${w.ord} (${w.ord.length} chars)`));
+    console.log(`[DEBUG] Spelling alternatives: correct="${word.ord}" (${correctLength} chars), wrong alternatives:`, shuffledWords.map(w => `${w.ord} (${w.ord.length} chars, similarity: ${calculateSimilarity(correctWord, w.ord).toFixed(1)})`));
     
     return shuffledWords.map(w => ({ id: w.id, text: w.ord }));
   };
