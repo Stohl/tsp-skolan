@@ -119,11 +119,11 @@ const FlashcardsExercise: React.FC<{
 
 
   return (
-    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-      <CardContent sx={{ textAlign: 'center', p: 4 }}>
+    <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3, boxShadow: 'none', border: 'none' }}>
+      <CardContent sx={{ textAlign: 'center', p: 4, border: 'none' }}>
         {!showVideo ? (
           // Visa ordet
-          <Box>
+          <Box sx={{ border: 'none' }}>
             <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
               {isLearnedWord && (
                 <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
@@ -151,7 +151,7 @@ const FlashcardsExercise: React.FC<{
           </Box>
         ) : (
           // Visa videon och resultat-knappar
-          <Box>
+          <Box sx={{ border: 'none' }}>
             {/* Visa ordet ovanför videon */}
             <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
               {isLearnedWord && (
@@ -171,35 +171,40 @@ const FlashcardsExercise: React.FC<{
               wordDatabase={wordDatabase} 
             />
             
-            <Box sx={{ display: 'flex', gap: 2, justifyContent: 'center', flexWrap: 'wrap' }}>
-              <Button
-                variant="contained"
-                color="success"
-                size="large"
-                onClick={() => handleResult(true)}
-                startIcon={<CheckCircle />}
-                sx={{ textTransform: 'none' }}
-              >
-                Ja, jag kunde
-              </Button>
-              <Button
-                variant="contained"
-                color="error"
-                size="large"
-                onClick={() => handleResult(false)}
-                startIcon={<Cancel />}
-                sx={{ textTransform: 'none' }}
-              >
-                Nej, jag kunde inte
-              </Button>
+            {/* Resultat-knappar */}
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 3 }}>
+              {/* De två första knapparna bredvid varandra på mobil */}
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'row', sm: 'column' }, gap: 2 }}>
+                <Button
+                  variant="contained"
+                  color="success"
+                  size="large"
+                  onClick={() => handleResult(true)}
+                  startIcon={<CheckCircle />}
+                  sx={{ textTransform: 'none', flex: 1 }}
+                >
+                  Det kunde jag
+                </Button>
+                <Button
+                  variant="contained"
+                  color="error"
+                  size="large"
+                  onClick={() => handleResult(false)}
+                  startIcon={<Cancel />}
+                  sx={{ textTransform: 'none', flex: 1 }}
+                >
+                  Behöver öva mer
+                </Button>
+              </Box>
+              {/* Placera i lärda ord knappen längst ner */}
               <Button
                 variant="outlined"
                 size="large"
                 onClick={() => {
-                  // Anropa onMoveToLearned för att flytta ordet till lärda och gå till nästa ord
                   onMoveToLearned();
                 }}
                 sx={{ 
+                  textTransform: 'none',
                   borderColor: 'success.main',
                   color: 'success.main',
                   '&:hover': {
@@ -266,37 +271,37 @@ const VariantSequencePlayer: React.FC<{
   if (variants.length <= 1) {
     // Ingen variant-sekvens, visa bara det vanliga videot
     return word.video_url ? (
-      <Box sx={{ mb: 3 }}>
-        <video
-          ref={videoRef}
+              <Box sx={{ mb: 3 }}>
+                <video
+                  ref={videoRef}
           key={word.id}
-          autoPlay
-          muted
+                  autoPlay
+                  muted
           playsInline
           loop
-          onClick={() => {
-            if (videoRef.current) {
-              videoRef.current.currentTime = 0;
+                  onClick={() => {
+                    if (videoRef.current) {
+                      videoRef.current.currentTime = 0;
               videoRef.current.play().catch(error => {
                 if (error.name !== 'AbortError') {
                   console.warn('Video play error:', error);
                 }
               });
-            }
-          }}
-          style={{ 
-            width: '100%', 
-            height: '300px',
-            objectFit: 'cover',
-            borderRadius: '8px',
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                    }
+                  }}
+                  style={{ 
+                    width: '100%', 
+                    height: '300px',
+                    objectFit: 'cover',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
             cursor: 'pointer'
-          }}
-        >
-          <source src={getVideoUrl(word.video_url)} type="video/mp4" />
-          Din webbläsare stöder inte video-elementet.
-        </video>
-      </Box>
+                  }}
+                >
+                  <source src={getVideoUrl(word.video_url)} type="video/mp4" />
+                  Din webbläsare stöder inte video-elementet.
+                </video>
+              </Box>
     ) : null;
   }
 
@@ -305,7 +310,7 @@ const VariantSequencePlayer: React.FC<{
       <Box sx={{ mb: 2, textAlign: 'center' }}>
         <Typography variant="body2" color="text.secondary">
           {word.ord} - Variant {currentVariantIndex + 1} av {variants.length}
-        </Typography>
+            </Typography>
         <LinearProgress 
           variant="determinate" 
           value={((currentVariantIndex + 1) / variants.length) * 100}
@@ -444,11 +449,11 @@ const MultipleChoiceExercise: React.FC<{
               }
               
               return (
-                <Button
+              <Button
                   key={index}
                   variant={(selectedAnswer === answer || (showResult && answer === word.ord)) ? 'contained' : 'outlined'}
                   color={buttonColor}
-                  size="large"
+                size="large"
                   disabled={disabled}
                   onClick={() => handleAnswerClick(answer)}
                   sx={{ 
@@ -458,15 +463,15 @@ const MultipleChoiceExercise: React.FC<{
                   }}
                 >
                   {answer}
-                </Button>
+              </Button>
               );
             })}
           </Box>
           
           {/* Placera i lärda ord knapp */}
-          <Button
+              <Button
             variant="outlined"
-            size="large"
+                size="large"
             onClick={handleMoveToLearned}
             sx={{ 
               borderColor: 'success.main',
@@ -478,8 +483,8 @@ const MultipleChoiceExercise: React.FC<{
             }}
           >
             Placera i lärda ord
-          </Button>
-        </Box>
+              </Button>
+            </Box>
       </CardContent>
     </Card>
   );
