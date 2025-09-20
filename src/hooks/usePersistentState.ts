@@ -106,7 +106,7 @@ export const useWordProgress = () => {
   };
 
   // Funktion för att markera ett ord som korrekt/felaktigt
-  const markWordResult = (wordId: string, isCorrect: boolean) => {
+  const markWordResult = (wordId: string, isCorrect: boolean, wordDatabase?: any) => {
     const current = wordProgress[wordId] || {
       level: 0,
       points: 0,
@@ -150,6 +150,11 @@ export const useWordProgress = () => {
       stats: newStats 
     });
 
+    // Om ordet når nivå 2 (lärt) och vi har wordDatabase, använd gruppinlärning
+    if (newLevel === 2 && wordDatabase && isCorrect) {
+      markWordGroupAsLearned(wordId, wordDatabase);
+    }
+
     console.log(`[DEBUG] markWordResult completed for wordId=${wordId}, newPoints=${newPoints}, newLevel=${newLevel}`);
   };
 
@@ -172,6 +177,46 @@ export const useWordProgress = () => {
         lastPracticed: new Date().toISOString() // Sätt nuvarande tid när nivå ändras
       }
     });
+  };
+
+  // Funktion för att skapa grupper av ord med samma betydelse
+  const createWordGroups = (words: any[], wordDatabase: any) => {
+    const groups = new Map<string, { representative: any; allWords: string[] }>();
+    
+    words.forEach(word => {
+      const sameMeaningWords = word.samma_betydelse || [];
+      const groupKey = [word.id, ...sameMeaningWords].sort().join(',');
+      
+      if (!groups.has(groupKey)) {
+        groups.set(groupKey, {
+          representative: word, // Välj första ordet som representant
+          allWords: [word.id, ...sameMeaningWords]
+        });
+      }
+    });
+    
+    return Array.from(groups.values()).map(group => group.representative);
+  };
+
+  // Funktion för att markera ett ord och alla dess synonymer som lärda
+  const markWordGroupAsLearned = (wordId: string, wordDatabase: any) => {
+    const word = wordDatabase[wordId];
+    if (!word) return;
+
+    const sameMeaningWords = word.samma_betydelse || [];
+    
+    // Markera huvudordet som lärt
+    setWordLevel(wordId, 2);
+    
+    // Markera alla synonymer som lärda
+    sameMeaningWords.forEach((synonymId: string) => {
+      if (wordDatabase[synonymId]) {
+        setWordLevel(synonymId, 2);
+        console.log(`[DEBUG] Marked synonym ${synonymId} as learned due to ${wordId}`);
+      }
+    });
+    
+    console.log(`[DEBUG] Marked word group as learned: ${wordId} + ${sameMeaningWords.length} synonyms`);
   };
 
   // Funktion för att hämta ord för övning (prioritera ord som användaren vill lära sig)
@@ -229,6 +274,8 @@ export const useWordProgress = () => {
     markWordResult,
     setWordLevel,
     getWordsForPractice,
-    getPointsDisplay
+    getPointsDisplay,
+    createWordGroups,
+    markWordGroupAsLearned
   };
 };

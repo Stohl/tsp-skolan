@@ -2229,7 +2229,7 @@ const SentencesExerciseDuplicate: React.FC<{
 // Huvudkomponent för övningssidan
 const OvningPage: React.FC = () => {
   const { wordDatabase, phraseDatabase, wordIndex, isLoading, error } = useDatabase();
-  const { getWordsForPractice, markWordResult, setWordLevel, wordProgress } = useWordProgress();
+  const { getWordsForPractice, markWordResult, setWordLevel, wordProgress, createWordGroups, markWordGroupAsLearned } = useWordProgress();
   
   const [selectedExerciseType, setSelectedExerciseType] = useState<ExerciseType | null>(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -2632,15 +2632,19 @@ const OvningPage: React.FC = () => {
     console.log(`[DEBUG] Selected learned words: ${selectedLearnedWords.length}`);
     console.log(`[DEBUG] Combined words before deduplication: ${combinedWords.length}`);
     
-    // Ta bort duplicerade ord baserat på ID
-    const uniqueWords = combinedWords.filter((word, index, self) => 
+    // Ta bort duplicerade ord baserat på ID (första steget)
+    const uniqueWordsById = combinedWords.filter((word, index, self) => 
       index === self.findIndex(w => w.id === word.id)
     );
     
-    console.log(`[DEBUG] Unique words after deduplication: ${uniqueWords.length}`);
-    console.log(`[DEBUG] Words for exercise:`, uniqueWords.map(w => `${w.ord} (ID: ${w.id})`));
+    // Gruppbaserad deduplication - ta bort ord med samma betydelse
+    const uniqueWordsByMeaning = createWordGroups(uniqueWordsById, wordDatabase);
     
-    const shuffledCombinedWords = shuffleArrayWithSeed(uniqueWords, seed);
+    console.log(`[DEBUG] Unique words after ID deduplication: ${uniqueWordsById.length}`);
+    console.log(`[DEBUG] Unique words after meaning deduplication: ${uniqueWordsByMeaning.length}`);
+    console.log(`[DEBUG] Words for exercise:`, uniqueWordsByMeaning.map(w => `${w.ord} (ID: ${w.id})`));
+    
+    const shuffledCombinedWords = shuffleArrayWithSeed(uniqueWordsByMeaning, seed);
     
     // Om inga ord hittas för övning, använd alla ord
     if (shuffledCombinedWords.length === 0) {
@@ -2823,7 +2827,7 @@ const OvningPage: React.FC = () => {
       console.log(`[DEBUG] - Current points: ${currentPoints}, Current level: ${currentLevel}`);
       console.log(`[DEBUG] - isCorrect: ${isCorrect}, willMoveToLevel2: ${willMoveToLevel2}`);
       
-      markWordResult(currentWord.id, isCorrect);
+      markWordResult(currentWord.id, isCorrect, wordDatabase);
       
       // Om ordet flyttades till level 2, spåra det
       if (willMoveToLevel2) {
@@ -2881,8 +2885,8 @@ const OvningPage: React.FC = () => {
 
     console.log(`[DEBUG] handleMoveToLearned: Moving ${currentWord.ord} (ID: ${currentWord.id}) to learned level`);
 
-    // Sätt ordet direkt till level 2 (lärda)
-    setWordLevel(currentWord.id, 2);
+    // Använd gruppinlärning - markera ordet och alla synonymer som lärda
+    markWordGroupAsLearned(currentWord.id, wordDatabase);
     
     // Lägg till i wordsMovedToLearned för att visa i resultatvyn
     setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
