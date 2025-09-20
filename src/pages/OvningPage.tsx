@@ -2637,8 +2637,8 @@ const OvningPage: React.FC = () => {
       index === self.findIndex(w => w.id === word.id)
     );
     
-    // Gruppbaserad deduplication - ta bort ord med samma betydelse
-    const uniqueWordsByMeaning = createWordGroups(uniqueWordsById, wordDatabase);
+       // Gruppbaserad deduplication - ta bort ord med samma betydelse
+       const uniqueWordsByMeaning = createWordGroups(uniqueWordsById, wordDatabase, wordIndex);
     
     console.log(`[DEBUG] Unique words after ID deduplication: ${uniqueWordsById.length}`);
     console.log(`[DEBUG] Unique words after meaning deduplication: ${uniqueWordsByMeaning.length}`);
@@ -2827,7 +2827,7 @@ const OvningPage: React.FC = () => {
       console.log(`[DEBUG] - Current points: ${currentPoints}, Current level: ${currentLevel}`);
       console.log(`[DEBUG] - isCorrect: ${isCorrect}, willMoveToLevel2: ${willMoveToLevel2}`);
       
-      markWordResult(currentWord.id, isCorrect, wordDatabase);
+       markWordResult(currentWord.id, isCorrect, wordDatabase, wordIndex);
       
       // Om ordet flyttades till level 2, spåra det
       if (willMoveToLevel2) {
@@ -2885,8 +2885,8 @@ const OvningPage: React.FC = () => {
 
     console.log(`[DEBUG] handleMoveToLearned: Moving ${currentWord.ord} (ID: ${currentWord.id}) to learned level`);
 
-    // Använd gruppinlärning - markera ordet och alla synonymer som lärda
-    markWordGroupAsLearned(currentWord.id, wordDatabase);
+         // Använd gruppinlärning - markera ordet och alla synonymer som lärda
+         markWordGroupAsLearned(currentWord.id, wordDatabase, wordIndex);
     
     // Lägg till i wordsMovedToLearned för att visa i resultatvyn
     setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));

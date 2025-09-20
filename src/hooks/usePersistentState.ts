@@ -106,7 +106,7 @@ export const useWordProgress = () => {
   };
 
   // Funktion för att markera ett ord som korrekt/felaktigt
-  const markWordResult = (wordId: string, isCorrect: boolean, wordDatabase?: any) => {
+  const markWordResult = (wordId: string, isCorrect: boolean, wordDatabase?: any, wordIndex?: any) => {
     const current = wordProgress[wordId] || {
       level: 0,
       points: 0,
@@ -150,10 +150,10 @@ export const useWordProgress = () => {
       stats: newStats 
     });
 
-    // Om ordet når nivå 2 (lärt) och vi har wordDatabase, använd gruppinlärning
-    if (newLevel === 2 && wordDatabase && isCorrect) {
-      markWordGroupAsLearned(wordId, wordDatabase);
-    }
+        // Om ordet når nivå 2 (lärt) och vi har wordDatabase, använd gruppinlärning
+        if (newLevel === 2 && wordDatabase && isCorrect) {
+          markWordGroupAsLearned(wordId, wordDatabase, wordIndex);
+        }
 
     console.log(`[DEBUG] markWordResult completed for wordId=${wordId}, newPoints=${newPoints}, newLevel=${newLevel}`);
   };
@@ -180,18 +180,54 @@ export const useWordProgress = () => {
   };
 
   // Funktion för att skapa grupper av ord med samma betydelse
-  const createWordGroups = (words: any[], wordDatabase: any) => {
+  const createWordGroups = (words: any[], wordDatabase: any, wordIndex?: any) => {
     const groups = new Map<string, { representative: any; allWords: string[] }>();
     
     words.forEach(word => {
       const sameMeaningWords = word.samma_betydelse || [];
-      const groupKey = [word.id, ...sameMeaningWords].sort().join(',');
+      let groupKey: string;
+      let allWords: string[] = [word.id];
+      
+      if (sameMeaningWords.length > 0) {
+        // Använd samma_betydelse om det finns
+        groupKey = [word.id, ...sameMeaningWords].sort().join(',');
+        allWords = [word.id, ...sameMeaningWords];
+      } else if (wordIndex && wordIndex.variants && word.ord) {
+        // Använd wordIndex för att hitta varianter
+        const wordVariants = wordIndex.variants[word.ord.toLowerCase()];
+        if (wordVariants && wordVariants.variants && wordVariants.variants.length > 1) {
+          // Det finns flera varianter av detta ord
+          groupKey = wordVariants.variants.sort().join(',');
+          allWords = wordVariants.variants;
+        } else {
+          // Ingen gruppering - unikt ord
+          groupKey = word.id;
+          allWords = [word.id];
+        }
+      } else {
+        // Fallback: gruppera baserat på samma ord-text (case-insensitive)
+        const normalizedText = word.ord?.toLowerCase().trim() || '';
+        groupKey = `text:${normalizedText}`;
+        allWords = [word.id];
+      }
       
       if (!groups.has(groupKey)) {
         groups.set(groupKey, {
           representative: word, // Välj första ordet som representant
-          allWords: [word.id, ...sameMeaningWords]
+          allWords: allWords
         });
+      } else {
+        // Om gruppen redan finns, välj den variant med högst poäng som representant
+        const existingGroup = groups.get(groupKey)!;
+        const existingProgress = wordProgress[existingGroup.representative.id] || { points: 0 };
+        const currentProgress = wordProgress[word.id] || { points: 0 };
+        
+        if (currentProgress.points > existingProgress.points) {
+          groups.set(groupKey, {
+            representative: word, // Välj ordet med högst poäng som representant
+            allWords: allWords
+          });
+        }
       }
     });
     
@@ -199,24 +235,49 @@ export const useWordProgress = () => {
   };
 
   // Funktion för att markera ett ord och alla dess synonymer som lärda
-  const markWordGroupAsLearned = (wordId: string, wordDatabase: any) => {
+  const markWordGroupAsLearned = (wordId: string, wordDatabase: any, wordIndex?: any) => {
     const word = wordDatabase[wordId];
     if (!word) return;
 
     const sameMeaningWords = word.samma_betydelse || [];
+    let allRelatedWords: string[] = [wordId];
     
-    // Markera huvudordet som lärt
-    setWordLevel(wordId, 2);
+    if (sameMeaningWords.length > 0) {
+      // Använd samma_betydelse om det finns
+      allRelatedWords = [wordId, ...sameMeaningWords];
+    } else if (wordIndex && wordIndex.variants && word.ord) {
+      // Använd wordIndex för att hitta varianter
+      const wordVariants = wordIndex.variants[word.ord.toLowerCase()];
+      if (wordVariants && wordVariants.variants && wordVariants.variants.length > 1) {
+        allRelatedWords = wordVariants.variants;
+      }
+    }
     
-    // Markera alla synonymer som lärda
-    sameMeaningWords.forEach((synonymId: string) => {
-      if (wordDatabase[synonymId]) {
-        setWordLevel(synonymId, 2);
-        console.log(`[DEBUG] Marked synonym ${synonymId} as learned due to ${wordId}`);
+    // Markera alla relaterade ord som lärda och synkronisera poäng
+    const mainWordProgress = wordProgress[wordId];
+    const targetPoints = mainWordProgress?.points || 0;
+    
+    allRelatedWords.forEach((relatedWordId: string) => {
+      if (wordDatabase[relatedWordId]) {
+        setWordLevel(relatedWordId, 2);
+        
+        // Synkronisera poäng med huvudordet
+        if (relatedWordId !== wordId) {
+          updateWordProgress(relatedWordId, { 
+            points: targetPoints,
+            level: 2,
+            stats: {
+              ...wordProgress[relatedWordId]?.stats,
+              lastPracticed: new Date().toISOString()
+            }
+          });
+        }
+        
+        console.log(`[DEBUG] Marked related word ${relatedWordId} as learned due to ${wordId} (synced points: ${targetPoints})`);
       }
     });
     
-    console.log(`[DEBUG] Marked word group as learned: ${wordId} + ${sameMeaningWords.length} synonyms`);
+    console.log(`[DEBUG] Marked word group as learned: ${wordId} + ${allRelatedWords.length - 1} related words`);
   };
 
   // Funktion för att hämta ord för övning (prioritera ord som användaren vill lära sig)
