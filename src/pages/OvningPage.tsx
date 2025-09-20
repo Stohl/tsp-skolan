@@ -120,11 +120,11 @@ const FlashcardsExercise: React.FC<{
 
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3, boxShadow: 'none', border: 'none' }}>
-      <CardContent sx={{ textAlign: 'center', p: 4, border: 'none' }}>
+      <CardContent sx={{ textAlign: 'center', p: 1, border: 'none' }}>
         {!showVideo ? (
           // Visa ordet
           <Box sx={{ border: 'none' }}>
-            <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+            <Typography variant="h4" sx={{ mb: 0.3, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
               {isLearnedWord && (
                 <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
               )}
@@ -137,13 +137,13 @@ const FlashcardsExercise: React.FC<{
             </Typography>
             
             {countdown !== null && countdown > 0 && (
-              <Typography variant="h6" color="primary" sx={{ mb: 2 }}>
+              <Typography variant="h6" color="primary" sx={{ mb: 0.3 }}>
                 {countdown}...
               </Typography>
             )}
             
             {countdown === null && (
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 0.3 }}>
                 Tecknet visas om 3 sekunder...
               </Typography>
             )}
@@ -153,7 +153,7 @@ const FlashcardsExercise: React.FC<{
           // Visa videon och resultat-knappar
           <Box sx={{ border: 'none' }}>
             {/* Visa ordet ovanför videon */}
-            <Typography variant="h4" sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+            <Typography variant="h4" sx={{ mb: 0.3, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
               {isLearnedWord && (
                 <CheckCircle sx={{ color: 'success.main', fontSize: '0.6em' }} />
               )}
@@ -172,19 +172,19 @@ const FlashcardsExercise: React.FC<{
             />
             
             {/* Resultat-knappar */}
-            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2, mt: 3 }}>
+            <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mt: 1.5 }}>
               {/* De två första knapparna bredvid varandra på mobil */}
               <Box sx={{ display: 'flex', flexDirection: { xs: 'row', sm: 'column' }, gap: 2 }}>
-                <Button
-                  variant="contained"
+            <Button
+              variant="contained"
                   color="success"
-                  size="large"
+              size="large"
                   onClick={() => handleResult(true)}
                   startIcon={<CheckCircle />}
                   sx={{ textTransform: 'none', flex: 1 }}
                 >
                   Det kunde jag
-                </Button>
+            </Button>
                 <Button
                   variant="contained"
                   color="error"
@@ -243,20 +243,36 @@ const VariantSequencePlayer: React.FC<{
     return wordVariants.variants.map(variantId => wordDatabase[variantId]).filter(Boolean);
   }, [word, wordIndex, wordDatabase]);
 
-  // Spela nästa variant när denna är klar
+  // Spela nästa variant när videon är klar
   useEffect(() => {
     if (!isPlaying || variants.length <= 1) return;
 
-    const timer = setTimeout(() => {
+    const handleVideoEnd = () => {
+      console.log(`[DEBUG] Video ended for variant ${currentVariantIndex + 1} of ${variants.length}`);
       if (currentVariantIndex < variants.length - 1) {
         setCurrentVariantIndex(prev => prev + 1);
       } else {
         // Börja om från början
         setCurrentVariantIndex(0);
       }
-    }, 3000); // 3 sekunder per variant
+    };
 
-    return () => clearTimeout(timer);
+    // Lägg till event listener när videot är redo
+    const video = videoRef.current;
+    if (video) {
+      console.log(`[DEBUG] Adding event listener to video for variant ${currentVariantIndex + 1}`);
+      // Ta bort eventuell befintlig listener först
+      video.removeEventListener('ended', handleVideoEnd);
+      // Lägg till ny listener
+      video.addEventListener('ended', handleVideoEnd);
+      
+      return () => {
+        console.log(`[DEBUG] Removing event listener from video for variant ${currentVariantIndex + 1}`);
+        video.removeEventListener('ended', handleVideoEnd);
+      };
+    } else {
+      console.log(`[DEBUG] Video ref is null for variant ${currentVariantIndex + 1}`);
+    }
   }, [currentVariantIndex, isPlaying, variants.length]);
 
   // Starta sekvensen när komponenten mountas
@@ -271,7 +287,7 @@ const VariantSequencePlayer: React.FC<{
   if (variants.length <= 1) {
     // Ingen variant-sekvens, visa bara det vanliga videot
     return word.video_url ? (
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: 0.3 }}>
                 <video
                   ref={videoRef}
           key={word.id}
@@ -306,8 +322,8 @@ const VariantSequencePlayer: React.FC<{
   }
 
   return (
-    <Box sx={{ mb: 3 }}>
-      <Box sx={{ mb: 2, textAlign: 'center' }}>
+    <Box sx={{ mb: 1.5 }}>
+      <Box sx={{ mb: 0.3 }}>
         <Typography variant="body2" color="text.secondary">
           {word.ord} - Variant {currentVariantIndex + 1} av {variants.length}
             </Typography>
@@ -325,7 +341,6 @@ const VariantSequencePlayer: React.FC<{
           autoPlay
           muted
           playsInline
-          loop
           onClick={() => {
             if (videoRef.current) {
               videoRef.current.currentTime = 0;
@@ -597,7 +612,7 @@ const QuizExercise: React.FC<{
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
-            <Box sx={{ mb: 3 }}>
+            <Box sx={{ mb: 0.3 }}>
               <video
                 ref={videoRef}
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
@@ -820,7 +835,7 @@ const SignExercise: React.FC<{
             </Box>
             
             {word.video_url && (
-              <Box sx={{ mb: 3 }}>
+              <Box sx={{ mb: 0.3 }}>
                 <video
                   ref={videoRef}
                   key={word.id} // Tvingar React att skapa ny video när ordet ändras
@@ -1043,7 +1058,7 @@ const SpellingExercise: React.FC<{
         {/* Fråga */}
         <Box sx={{ mb: 4 }}>
           {word.video_url && (
-            <Box sx={{ mb: 3 }}>
+            <Box sx={{ mb: 0.3 }}>
               <video
                 ref={videoRef}
                 key={word.id} // Tvingar React att skapa ny video när ordet ändras
@@ -3839,7 +3854,7 @@ const OvningPage: React.FC = () => {
   return (
     <Container maxWidth="md" sx={{ py: 4 }}>
       {/* Header med progress */}
-      <Box sx={{ mb: 2 }}>
+      <Box sx={{ mb: 0.3 }}>
         {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering, meningar och quiz */}
         {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && selectedExerciseType !== ExerciseType.QUIZ && (
         <Typography variant="h4" gutterBottom align="center">
@@ -3866,7 +3881,7 @@ const OvningPage: React.FC = () => {
             {/* Progress-mätare */}
             {(selectedExerciseType === ExerciseType.FLASHCARDS || selectedExerciseType === ExerciseType.QUIZ) ? (
               // Uppdelad progress för flashcards och quiz (10 korta horisontella streck)
-              <Box sx={{ mb: 0.5 }}>
+              <Box sx={{ mb: 0.3 }}>
                 <Box sx={{ 
                   display: 'flex', 
                   justifyContent: 'center',
@@ -3906,7 +3921,7 @@ const OvningPage: React.FC = () => {
                   (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
                   practiceWords.length
                 )) * 100}
-                sx={{ mb: 0.5, height: 4 }}
+                sx={{ mb: 0.3, height: 4 }}
               />
             )}
           </>

@@ -64,12 +64,12 @@ export const getWordListDifficulty = (wordId: string): DifficultyLevel => {
 
 // Förgenererade ordlistor
 export const predefinedWordLists: PredefinedWordList[] = [
-    {
+  {
       id: 'pedagogic_001',
       name: 'Grundläggande kommunikation (1-10)',
       description: '1-10 pedagogiskt sorterade ord - 5731 träffar i lexikonet',
       wordIds: ['02798', '02817', '00479', '15855', '00812', '02238', '00022', '05173', '00239', '02158'],
-      type: 'predefined',
+    type: 'predefined',
       difficulty: 'nyborjare',
       priority: 1
     },
