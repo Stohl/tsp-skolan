@@ -207,13 +207,13 @@ const ListorPage: React.FC = () => {
           <Box
             sx={{
               ...circleStyle,
-              backgroundColor: 'yellow.200',
-              borderColor: 'yellow.600',
-              color: 'yellow.800'
+              backgroundColor: '#e3f2fd',
+              borderColor: '#1976d2',
+              color: '#1976d2'
             }}
             onClick={(e) => handleProgressClick(wordId, e)}
           >
-            🟡
+            ⚪
           </Box>
         );
       case 2: // Lärt sig
@@ -221,13 +221,13 @@ const ListorPage: React.FC = () => {
           <Box
             sx={{
               ...circleStyle,
-              backgroundColor: 'green.200',
-              borderColor: 'green.600',
-              color: 'green.800'
+              backgroundColor: '#e8f5e8',
+              borderColor: '#2e7d32',
+              color: '#2e7d32'
             }}
             onClick={(e) => handleProgressClick(wordId, e)}
           >
-            🟢
+            ✓
           </Box>
         );
       default:
@@ -521,11 +521,11 @@ const ListorPage: React.FC = () => {
                                 <Typography variant="body2" sx={{ color: 'grey.600' }}>
                                   ⚪ Omarkerade: {unmarked}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'warning.main' }}>
-                                  🟡 Att lära mig: {learning}
+                                <Typography variant="body2" sx={{ color: '#1976d2' }}>
+                                  ⚪ Att lära mig: {learning}
                                 </Typography>
-                                <Typography variant="body2" sx={{ color: 'success.main' }}>
-                                  🟢 Lärda: {learned}
+                                <Typography variant="body2" sx={{ color: '#2e7d32' }}>
+                                  ✓ Lärda: {learned}
                                 </Typography>
                               </>
                             );
@@ -548,23 +548,29 @@ const ListorPage: React.FC = () => {
                         }}>
                         {wordsInList.map((word, index) => {
                             const progress = wordProgress[word.id];
-                            let wordColor = 'inherit'; // Omarkerade = samma som nu
+                            let wordStyle: React.CSSProperties = { fontWeight: 500 };
                             
                             if (progress) {
                               if (progress.level === 1) {
-                                wordColor = '#2196F3'; // Att lära mig = blå
+                                wordStyle.color = '#1976d2'; // Mer subtil blå
+                                wordStyle.backgroundColor = '#e3f2fd';
+                                wordStyle.padding = '2px 4px';
+                                wordStyle.borderRadius = '3px';
                               } else if (progress.level === 2) {
-                                wordColor = '#4CAF50'; // Lärda = grön
+                                wordStyle.color = '#2e7d32'; // Mer subtil grön
+                                wordStyle.backgroundColor = '#e8f5e8';
+                                wordStyle.padding = '2px 4px';
+                                wordStyle.borderRadius = '3px';
                               }
                             }
                             
                             return (
                               <span key={word.id}>
-                                <span style={{ fontWeight: 500, color: wordColor }}>
+                                <span style={wordStyle}>
                                   {word.ord}
                                 </span>
                                 {word.beskrivning && (
-                                  <span style={{ color: wordColor, fontWeight: 400 }}>
+                                  <span style={{ color: 'inherit', fontWeight: 400 }}>
                                     {' '}({word.beskrivning})
                                   </span>
                                 )}

@@ -195,17 +195,14 @@ export const useWordProgress = () => {
       } else if (wordIndex && wordIndex.variants && word.ord) {
         // Använd wordIndex för att hitta varianter
         const wordVariants = wordIndex.variants[word.ord.toLowerCase()];
-        console.log(`[DEBUG] Checking word "${word.ord}" (ID: ${word.id}) for variants:`, wordVariants);
         if (wordVariants && wordVariants.variants && wordVariants.variants.length > 1) {
           // Det finns flera varianter av detta ord
           groupKey = wordVariants.variants.sort().join(',');
           allWords = wordVariants.variants;
-          console.log(`[DEBUG] Found ${wordVariants.variants.length} variants for "${word.ord}":`, wordVariants.variants);
         } else {
           // Ingen gruppering - unikt ord
           groupKey = word.id;
           allWords = [word.id];
-          console.log(`[DEBUG] No variants found for "${word.ord}" (ID: ${word.id})`);
         }
       } else {
         // Fallback: gruppera baserat på samma ord-text (case-insensitive)

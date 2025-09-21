@@ -348,7 +348,13 @@ const LexikonPage: React.FC = () => {
                                       sx={{ 
                                         fontSize: '0.75rem',
                                         fontWeight: 500,
-                                        borderRadius: 1
+                                        borderRadius: 1,
+                                        borderColor: 'grey.300',
+                                        color: 'text.secondary',
+                                        '&:hover': {
+                                          borderColor: 'primary.main',
+                                          color: 'primary.main'
+                                        }
                                       }} 
                                     />
                                   ))}
