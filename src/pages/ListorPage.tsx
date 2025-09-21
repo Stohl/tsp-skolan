@@ -441,16 +441,6 @@ const ListorPage: React.FC = () => {
                           <Typography variant="h6">
                             {wordList.name}
                           </Typography>
-                          <Chip 
-                            label={wordList.type === 'predefined' ? 'Förgenererad' : 'Dynamisk'} 
-                            size="small" 
-                            color={wordList.type === 'predefined' ? 'primary' : 'secondary'}
-                          />
-                          <Chip 
-                            label={getDifficultyInfo(wordList.difficulty).label}
-                            size="small" 
-                            color={getDifficultyInfo(wordList.difficulty).color}
-                          />
                         </Box>
                       }
                       secondary={
@@ -781,16 +771,16 @@ const ListorPage: React.FC = () => {
             }
           }}
         >
-          <Tab label="Att lära mig" />
           <Tab label="Ordlistor" />
+          <Tab label="Att lära mig" />
           <Tab label="Lärda" />
         </Tabs>
       </Paper>
 
       {/* Innehåll för den aktiva taben */}
       <Box sx={{ minHeight: 400 }}>
-        {activeTab === 0 && renderAttLaraMig()}
-        {activeTab === 1 && renderOrdlistor()}
+        {activeTab === 0 && renderOrdlistor()}
+        {activeTab === 1 && renderAttLaraMig()}
         {activeTab === 2 && renderLarda()}
       </Box>
 
