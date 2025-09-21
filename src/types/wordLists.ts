@@ -746,7 +746,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
       wordIds: ['18671', '11891', '11894'],
       type: 'predefined',
       difficulty: 'proffs',
-      priority: 76,
+      priority: 76
     }
   /*{
     id: 'siffror_0_10',
