@@ -424,7 +424,17 @@ const ListorPage: React.FC = () => {
             const isExpanded = expandedLists[wordList.id] || false;
             
             return (
-              <Card key={wordList.id} sx={{ mb: 2 }}>
+              <Card key={wordList.id} sx={{ 
+                mb: 3,
+                borderRadius: 3,
+                overflow: 'hidden',
+                boxShadow: '0 4px 20px rgba(0,0,0,0.08)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 8px 30px rgba(0,0,0,0.12)'
+                }
+              }}>
                 <CardContent sx={{ p: 0 }}>
                   {/* Ordlista header - klickbar för att expandera */}
                   <ListItemButton 
@@ -432,29 +442,36 @@ const ListorPage: React.FC = () => {
                     sx={{ 
                       borderBottom: isExpanded ? '1px solid' : 'none',
                       borderColor: 'divider',
-                      p: 2
+                      p: 3,
+                      backgroundColor: isExpanded ? 'grey.50' : 'transparent',
+                      transition: 'all 0.2s ease',
+                      '&:hover': {
+                        backgroundColor: 'primary.50'
+                      }
                     }}
                   >
                     <ListItemText
                       primary={
                         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, flexWrap: 'wrap' }}>
-                          <Typography variant="h6">
+                          <Typography variant="h5" sx={{ fontWeight: 600, color: 'text.primary' }}>
                             {wordList.name}
                           </Typography>
                         </Box>
                       }
-                      secondary={
-                        <Box sx={{ mt: 1 }}>
-                          <Typography variant="body2" color="text.secondary">
-                            {wordList.description}
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            {wordsInList.length} ord
-                          </Typography>
-                        </Box>
-                      }
+                      secondary={null}
                     />
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      {/* Grön bock om alla ord är lärda */}
+                      {(() => {
+                        const wordsInList = getWordsFromList(wordList, wordDatabase);
+                        const learnedCount = wordsInList.filter(word => wordProgress[word.id] && wordProgress[word.id].level === 2).length;
+                        const allLearned = learnedCount === wordsInList.length && wordsInList.length > 0;
+                        
+                        return allLearned ? (
+                          <CheckCircle sx={{ color: 'success.main', fontSize: 24 }} />
+                        ) : null;
+                      })()}
+                      
                       {isExpanded ? (
                         <ExpandLess sx={{ color: 'text.secondary' }} />
                       ) : (
@@ -465,9 +482,30 @@ const ListorPage: React.FC = () => {
                   
                   {/* Expandable content */}
                   <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                    <Box sx={{ p: 2, pt: 0 }}>
+                    <Box sx={{ p: 4, pt: 0 }}>
+                      {/* Beskrivning av ordlistan */}
+                      <Box sx={{ 
+                        mb: 3, 
+                        p: 3, 
+                        backgroundColor: 'primary.50', 
+                        borderRadius: 2,
+                        border: '1px solid',
+                        borderColor: 'primary.200'
+                      }}>
+                        <Typography variant="body1" color="text.secondary" sx={{ fontWeight: 500 }}>
+                          {wordList.description}
+                        </Typography>
+                      </Box>
+                      
                       {/* Status-visning */}
-                      <Box sx={{ mb: 2, p: 2, backgroundColor: 'grey.50', borderRadius: 1 }}>
+                      <Box sx={{ 
+                        mb: 3, 
+                        p: 3, 
+                        backgroundColor: 'grey.50', 
+                        borderRadius: 2,
+                        border: '1px solid',
+                        borderColor: 'grey.200'
+                      }}>
                         <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
                           Status för orden i denna ordlista:
                         </Typography>
@@ -496,9 +534,19 @@ const ListorPage: React.FC = () => {
                       </Box>
                       
                       {/* Ordlista - Inline lista */}
-                      <Box sx={{ mb: 3, p: 2 }}>
-                        <Typography variant="body1" sx={{ lineHeight: 1.8 }}>
-                          {wordsInList.map((word, index) => {
+                      <Box sx={{ 
+                        mb: 4, 
+                        p: 3,
+                        backgroundColor: 'background.paper',
+                        borderRadius: 2,
+                        border: '1px solid',
+                        borderColor: 'grey.200'
+                      }}>
+                        <Typography variant="body1" sx={{ 
+                          lineHeight: 1.8,
+                          fontSize: '1.1rem'
+                        }}>
+                        {wordsInList.map((word, index) => {
                             const progress = wordProgress[word.id];
                             let wordColor = 'inherit'; // Omarkerade = samma som nu
                             
@@ -527,12 +575,23 @@ const ListorPage: React.FC = () => {
                         </Typography>
                       </Box>
                       
+                      {/* Text ovanför knapparna */}
+                      <Typography variant="h6" color="text.primary" sx={{ 
+                        mb: 3, 
+                        textAlign: 'center', 
+                        fontWeight: 600,
+                        color: 'text.primary'
+                      }}>
+                        Markera alla orden i ordlistan som:
+                      </Typography>
+                      
                       {/* Bulk-tagging knappar med dynamisk färgkodning */}
                       <Box sx={{ 
                         display: 'flex', 
                         gap: 2, 
                         flexWrap: 'wrap',
-                        justifyContent: 'center'
+                        justifyContent: 'center',
+                        mb: 2
                       }}>
                         {(() => {
                           const wordsInList = getWordsFromList(wordList, wordDatabase);
@@ -578,17 +637,25 @@ const ListorPage: React.FC = () => {
                                 startIcon={<CheckCircle />}
                                 sx={{ 
                                   flex: { xs: 1, sm: '0 1 auto' },
-                                  minWidth: { xs: '100%', sm: '140px' },
-                                  py: 1.5,
-                                  borderRadius: 2,
-                                  fontWeight: activeButton === 'kan_dessa' ? 'bold' : 'normal',
+                                  minWidth: { xs: '100%', sm: '160px' },
+                                  py: 2,
+                                  px: 3,
+                                  borderRadius: 3,
+                                  fontWeight: activeButton === 'kan_dessa' ? 700 : 600,
+                                  fontSize: '1rem',
+                                  textTransform: 'none',
                                   backgroundColor: activeButton === 'kan_dessa' ? 'success.main' : 'transparent',
                                   color: activeButton === 'kan_dessa' ? 'white' : 'success.main',
                                   borderColor: 'success.main',
+                                  borderWidth: 2,
+                                  boxShadow: activeButton === 'kan_dessa' ? '0 4px 12px rgba(76, 175, 80, 0.3)' : 'none',
+                                  transition: 'all 0.3s ease',
                                   '&:hover': {
-                                    backgroundColor: activeButton === 'kan_dessa' ? 'success.main' : 'transparent',
-                                    color: activeButton === 'kan_dessa' ? 'white' : 'success.main',
-                                    borderColor: 'success.main'
+                                    backgroundColor: activeButton === 'kan_dessa' ? 'success.dark' : 'success.50',
+                                    color: activeButton === 'kan_dessa' ? 'white' : 'success.dark',
+                                    borderColor: 'success.dark',
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: '0 6px 20px rgba(76, 175, 80, 0.4)'
                                   }
                                 }}
                               >
@@ -600,17 +667,25 @@ const ListorPage: React.FC = () => {
                                 onClick={() => handleBulkTag(wordList, 1, 3)}
                                 sx={{ 
                                   flex: { xs: 1, sm: '0 1 auto' },
-                                  minWidth: { xs: '100%', sm: '140px' },
-                                  py: 1.5,
-                                  borderRadius: 2,
-                                  fontWeight: activeButton === 'behover_repetera' ? 'bold' : 'normal',
+                                  minWidth: { xs: '100%', sm: '160px' },
+                                  py: 2,
+                                  px: 3,
+                                  borderRadius: 3,
+                                  fontWeight: activeButton === 'behover_repetera' ? 700 : 600,
+                                  fontSize: '1rem',
+                                  textTransform: 'none',
                                   backgroundColor: activeButton === 'behover_repetera' ? 'warning.main' : 'transparent',
                                   color: activeButton === 'behover_repetera' ? 'white' : 'warning.main',
                                   borderColor: 'warning.main',
+                                  borderWidth: 2,
+                                  boxShadow: activeButton === 'behover_repetera' ? '0 4px 12px rgba(255, 152, 0, 0.3)' : 'none',
+                                  transition: 'all 0.3s ease',
                                   '&:hover': {
-                                    backgroundColor: activeButton === 'behover_repetera' ? 'warning.main' : 'transparent',
-                                    color: activeButton === 'behover_repetera' ? 'white' : 'warning.main',
-                                    borderColor: 'warning.main'
+                                    backgroundColor: activeButton === 'behover_repetera' ? 'warning.dark' : 'warning.50',
+                                    color: activeButton === 'behover_repetera' ? 'white' : 'warning.dark',
+                                    borderColor: 'warning.dark',
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: '0 6px 20px rgba(255, 152, 0, 0.4)'
                                   }
                                 }}
                               >
@@ -622,17 +697,25 @@ const ListorPage: React.FC = () => {
                                 onClick={() => handleBulkTag(wordList, 1, 0)}
                                 sx={{ 
                                   flex: { xs: 1, sm: '0 1 auto' },
-                                  minWidth: { xs: '100%', sm: '140px' },
-                                  py: 1.5,
-                                  borderRadius: 2,
-                                  fontWeight: activeButton === 'vill_lara_mig' ? 'bold' : 'normal',
-                                  backgroundColor: activeButton === 'vill_lara_mig' ? '#2196F3' : 'transparent',
-                                  color: activeButton === 'vill_lara_mig' ? 'white' : '#2196F3',
-                                  borderColor: '#2196F3',
+                                  minWidth: { xs: '100%', sm: '160px' },
+                                  py: 2,
+                                  px: 3,
+                                  borderRadius: 3,
+                                  fontWeight: activeButton === 'vill_lara_mig' ? 700 : 600,
+                                  fontSize: '1rem',
+                                  textTransform: 'none',
+                                  backgroundColor: activeButton === 'vill_lara_mig' ? 'primary.main' : 'transparent',
+                                  color: activeButton === 'vill_lara_mig' ? 'white' : 'primary.main',
+                                  borderColor: 'primary.main',
+                                  borderWidth: 2,
+                                  boxShadow: activeButton === 'vill_lara_mig' ? '0 4px 12px rgba(33, 150, 243, 0.3)' : 'none',
+                                  transition: 'all 0.3s ease',
                                   '&:hover': {
-                                    backgroundColor: activeButton === 'vill_lara_mig' ? '#2196F3' : 'transparent',
-                                    color: activeButton === 'vill_lara_mig' ? 'white' : '#2196F3',
-                                    borderColor: '#2196F3'
+                                    backgroundColor: activeButton === 'vill_lara_mig' ? 'primary.dark' : 'primary.50',
+                                    color: activeButton === 'vill_lara_mig' ? 'white' : 'primary.dark',
+                                    borderColor: 'primary.dark',
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: '0 6px 20px rgba(33, 150, 243, 0.4)'
                                   }
                                 }}
                               >
@@ -643,19 +726,27 @@ const ListorPage: React.FC = () => {
                                 size="medium"
                                 onClick={() => handleBulkTag(wordList, 0)}
                                 startIcon={<HourglassEmpty />}
-                                    sx={{ 
+                                sx={{ 
                                   flex: { xs: 1, sm: '0 1 auto' },
-                                  minWidth: { xs: '100%', sm: '140px' },
-                                  py: 1.5,
-                                  borderRadius: 2,
-                                  fontWeight: activeButton === 'vanta' ? 'bold' : 'normal',
-                                  backgroundColor: activeButton === 'vanta' ? 'grey.500' : 'transparent',
+                                  minWidth: { xs: '100%', sm: '160px' },
+                                  py: 2,
+                                  px: 3,
+                                  borderRadius: 3,
+                                  fontWeight: activeButton === 'vanta' ? 700 : 600,
+                                  fontSize: '1rem',
+                                  textTransform: 'none',
+                                  backgroundColor: activeButton === 'vanta' ? 'grey.600' : 'transparent',
                                   color: activeButton === 'vanta' ? 'white' : 'grey.600',
-                                  borderColor: 'grey.500',
+                                  borderColor: 'grey.600',
+                                  borderWidth: 2,
+                                  boxShadow: activeButton === 'vanta' ? '0 4px 12px rgba(117, 117, 117, 0.3)' : 'none',
+                                  transition: 'all 0.3s ease',
                                   '&:hover': {
-                                    backgroundColor: activeButton === 'vanta' ? 'grey.500' : 'transparent',
-                                    color: activeButton === 'vanta' ? 'white' : 'grey.600',
-                                    borderColor: 'grey.500'
+                                    backgroundColor: activeButton === 'vanta' ? 'grey.700' : 'grey.50',
+                                    color: activeButton === 'vanta' ? 'white' : 'grey.700',
+                                    borderColor: 'grey.700',
+                                    transform: 'translateY(-2px)',
+                                    boxShadow: '0 6px 20px rgba(117, 117, 117, 0.4)'
                                   }
                                 }}
                               >
@@ -745,57 +836,112 @@ const ListorPage: React.FC = () => {
   };
 
   return (
-    <Container maxWidth="md" sx={{ py: 3 }}>
-      {/* Header med titel och ikon */}
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <School sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-        <Typography variant="h4" gutterBottom>
-          Ordlistor & Progress
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Hantera dina ordlistor och följ din utveckling
-        </Typography>
-      </Box>
+    <Box sx={{ 
+      minHeight: '100vh', 
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      py: 4
+    }}>
+      <Container maxWidth="lg">
+        {/* Modern header */}
+        <Box sx={{ 
+          textAlign: 'center', 
+          mb: 6,
+          color: 'white'
+        }}>
+          <Box sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 80,
+            height: 80,
+            borderRadius: '50%',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(10px)',
+            mb: 3,
+            border: '2px solid rgba(255, 255, 255, 0.3)'
+          }}>
+            <School sx={{ fontSize: 40, color: 'white' }} />
+          </Box>
+          <Typography variant="h3" gutterBottom sx={{ 
+            fontWeight: 700,
+            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            mb: 2
+          }}>
+            Ordlistor & Progress
+          </Typography>
+          <Typography variant="h6" sx={{ 
+            opacity: 0.9,
+            fontWeight: 300,
+            maxWidth: 600,
+            mx: 'auto'
+          }}>
+            Hantera dina ordlistor och följ din utveckling
+          </Typography>
+        </Box>
 
-      {/* Sub-tabs för olika kategorier */}
-      <Paper sx={{ mb: 3, borderRadius: 2 }}>
-        <Tabs 
-          value={activeTab} 
-          onChange={handleTabChange}
-          variant="fullWidth"
-          sx={{
-            '& .MuiTab-root': {
-              minHeight: 56,
-              fontSize: '1rem',
-              fontWeight: 500
-            }
+        {/* Modern tabs container */}
+        <Paper sx={{ 
+          mb: 4, 
+          borderRadius: 3,
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          backdropFilter: 'blur(10px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)'
+        }}>
+          <Tabs 
+            value={activeTab} 
+            onChange={handleTabChange}
+            variant="fullWidth"
+            sx={{
+              '& .MuiTab-root': {
+                minHeight: 64,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                textTransform: 'none',
+                color: 'text.primary',
+                '&.Mui-selected': {
+                  color: 'primary.main'
+                }
+              },
+              '& .MuiTabs-indicator': {
+                height: 4,
+                borderRadius: '2px 2px 0 0'
+              }
+            }}
+          >
+            <Tab label="Ordlistor" />
+            <Tab label="Att lära mig" />
+            <Tab label="Lärda" />
+          </Tabs>
+        </Paper>
+
+        {/* Content container */}
+        <Box sx={{ 
+          minHeight: 500,
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          borderRadius: 3,
+          backdropFilter: 'blur(10px)',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          overflow: 'hidden'
+        }}>
+          {activeTab === 0 && renderOrdlistor()}
+          {activeTab === 1 && renderAttLaraMig()}
+          {activeTab === 2 && renderLarda()}
+        </Box>
+
+        {/* Dialog för orddetaljer */}
+        <WordDetailDialog
+          word={selectedWord}
+          phrases={getPhrasesForSelectedWord()}
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          wordProgress={selectedWord ? getWordProgress(selectedWord.id) : 0}
+          onProgressChange={(wordId, newLevel) => {
+            setWordLevel(wordId, newLevel);
           }}
-        >
-          <Tab label="Ordlistor" />
-          <Tab label="Att lära mig" />
-          <Tab label="Lärda" />
-        </Tabs>
-      </Paper>
-
-      {/* Innehåll för den aktiva taben */}
-      <Box sx={{ minHeight: 400 }}>
-        {activeTab === 0 && renderOrdlistor()}
-        {activeTab === 1 && renderAttLaraMig()}
-        {activeTab === 2 && renderLarda()}
-      </Box>
-
-      {/* Dialog för orddetaljer */}
-      <WordDetailDialog
-        word={selectedWord}
-        phrases={getPhrasesForSelectedWord()}
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        wordProgress={selectedWord ? getWordProgress(selectedWord.id) : 0}
-        onProgressChange={(wordId, newLevel) => {
-          setWordLevel(wordId, newLevel);
-        }}
-      />
-    </Container>
+        />
+      </Container>
+    </Box>
   );
 };
 

@@ -3195,10 +3195,10 @@ const OvningPage: React.FC = () => {
             </Card>
 
           {/* Meningar */}
-          <Card 
-            sx={{ 
-              cursor: 'pointer', 
-              height: '100%',
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
               borderRadius: 2,
               backgroundColor: 'background.paper',
               border: '1px solid',
@@ -3213,17 +3213,17 @@ const OvningPage: React.FC = () => {
               }
             }}
             onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
-          >
-            <CardContent sx={{ textAlign: 'center', p: 3 }}>
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
               <ChatBubbleOutline sx={{ fontSize: 40, color: 'info.main', mb: 2 }} />
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                 Meningar
-           </Typography>
+                </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Öva med meningar och fraser från dina lärda ord.
-              </Typography>
-            </CardContent>
-          </Card>
+                </Typography>
+              </CardContent>
+            </Card>
 
         </Box>
 
@@ -3239,9 +3239,9 @@ const OvningPage: React.FC = () => {
         }}>
           <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3, color: 'text.primary' }}>
             Mitt lärande
-          </Typography>
-          
-          {(() => {
+           </Typography>
+           
+           {(() => {
              // Räkna ord per nivå
              const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
              const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;

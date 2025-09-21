@@ -15,9 +15,14 @@ import {
   Alert,
   Chip,
   Divider,
-  Paper
+  Paper,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button
 } from '@mui/material';
-import { Book, Search, PlayArrow } from '@mui/icons-material';
+import { Book, Search, PlayArrow, Add } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
 import { searchWords, getAllSubjects, getWordsBySubject, getPhrasesForWord } from '../types/database';
@@ -64,7 +69,7 @@ const LexikonPage: React.FC = () => {
 
   // Funktion som körs när användaren klickar på ett ämne
   const handleSubjectClick = (subject: string) => {
-    setSelectedSubject(selectedSubject === subject ? null : subject);
+    setSelectedSubject(subject === '' ? null : subject);
     setSearchTerm(''); // Rensar sökfältet när man väljer ämne
   };
 
@@ -85,121 +90,274 @@ const LexikonPage: React.FC = () => {
     setWordLevel(wordId, newLevel);
   };
 
+  // Funktion som lägger till alla ord i resultatet till "att lära mig"
+  const handleAddAllToLearning = () => {
+    const wordsToAdd = searchTerm ? searchResults : getWordsForSelectedSubject();
+    wordsToAdd.forEach(word => {
+      setWordLevel(word.id, 1); // Nivå 1 = "att lära mig"
+    });
+  };
+
   // Hämtar progress för det valda ordet
   const getWordProgress = () => {
     if (!selectedWord) return 0;
     return wordProgress[selectedWord.id]?.level || 0;
   };
   return (
-    <Container maxWidth="md" sx={{ py: 3 }}>
-      {/* Header med titel och ikon */}
-      <Box sx={{ textAlign: 'center', mb: 4 }}>
-        <Book sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-        <Typography variant="h4" gutterBottom>
-          Teckenspråkslexikon
-        </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Sök efter ord och lär dig hur de tecknas
-        </Typography>
-      </Box>
-
-      {/* Sökfält för att söka efter ord */}
-      <Paper sx={{ mb: 4, p: 3, borderRadius: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          Sök efter ord
-        </Typography>
-        <TextField
-          fullWidth
-          placeholder="Skriv ett ord för att söka..."
-          variant="outlined"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          InputProps={{
-            startAdornment: (
-              <InputAdornment position="start">
-                <Search />
-              </InputAdornment>
-            ),
-          }}
-          sx={{ mb: 2 }}
-        />
-        <Typography variant="body2" color="text.secondary">
-          Söker efter ord i ordlistan. Skriv minst 2 bokstäver för att få resultat.
-        </Typography>
-        {isLoading && (
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
-            <CircularProgress size={20} />
-            <Typography variant="body2" color="text.secondary">
-              Laddar databasen...
-            </Typography>
+    <Box sx={{ 
+      minHeight: '100vh', 
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      py: 4
+    }}>
+      <Container maxWidth="lg">
+        {/* Modern header */}
+        <Box sx={{ 
+          textAlign: 'center', 
+          mb: 6,
+          color: 'white'
+        }}>
+          <Box sx={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 80,
+            height: 80,
+            borderRadius: '50%',
+            backgroundColor: 'rgba(255, 255, 255, 0.2)',
+            backdropFilter: 'blur(10px)',
+            mb: 3,
+            border: '2px solid rgba(255, 255, 255, 0.3)'
+          }}>
+            <Book sx={{ fontSize: 40, color: 'white' }} />
           </Box>
-        )}
-        {error && (
-          <Alert severity="error" sx={{ mt: 2 }}>
-            {error}
-          </Alert>
-        )}
-      </Paper>
-
-      {/* Ämneskategorier */}
-      {subjects.length > 0 && (
-        <Paper sx={{ mb: 4, p: 3, borderRadius: 2 }}>
-          <Typography variant="h6" gutterBottom>
-            Kategorier
+          <Typography variant="h3" gutterBottom sx={{ 
+            fontWeight: 700,
+            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
+            mb: 2
+          }}>
+            Teckenspråkslexikon
           </Typography>
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-            {subjects.slice(0, 12).map((subject) => (
-              <Chip
-                key={subject}
-                label={subject}
-                onClick={() => handleSubjectClick(subject)}
-                color={selectedSubject === subject ? 'primary' : 'default'}
-                variant={selectedSubject === subject ? 'filled' : 'outlined'}
-                clickable
-              />
-            ))}
-          </Box>
-        </Paper>
-      )}
+          <Typography variant="h6" sx={{ 
+            opacity: 0.9,
+            fontWeight: 300,
+            maxWidth: 600,
+            mx: 'auto'
+          }}>
+            Sök efter ord och lär dig hur de tecknas
+          </Typography>
+        </Box>
 
-      {/* Sökresultat eller ord från valt ämne */}
-      <Paper sx={{ p: 3, borderRadius: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          {searchTerm ? `Sökresultat för "${searchTerm}"` : 
-           selectedSubject ? `Ord i kategorin "${selectedSubject}"` : 
-           'Sökresultat'}
-        </Typography>
+        {/* Sökfält container */}
+        <Paper sx={{ 
+          mb: 4, 
+          p: 4, 
+          borderRadius: 3,
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          backdropFilter: 'blur(10px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)'
+        }}>
+          <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
+            Sök efter ord
+          </Typography>
+          <TextField
+            fullWidth
+            placeholder="Skriv ett ord för att söka..."
+            variant="outlined"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search sx={{ color: 'primary.main' }} />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ 
+              mb: 2,
+              '& .MuiOutlinedInput-root': {
+                borderRadius: 2,
+                fontSize: '1.1rem',
+                '& fieldset': {
+                  borderWidth: 2,
+                },
+                '&:hover fieldset': {
+                  borderColor: 'primary.main',
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: 'primary.main',
+                  borderWidth: 2,
+                }
+              }
+            }}
+          />
+          <Typography variant="body1" color="text.secondary" sx={{ fontWeight: 500 }}>
+            Söker efter ord i ordlistan. Skriv minst 2 bokstäver för att få resultat.
+          </Typography>
+          {isLoading && (
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mt: 2 }}>
+              <CircularProgress size={20} />
+              <Typography variant="body2" color="text.secondary">
+                Laddar databasen...
+              </Typography>
+            </Box>
+          )}
+          {error && (
+            <Alert severity="error" sx={{ mt: 2 }}>
+              {error}
+            </Alert>
+          )}
+        </Paper>
+
+        {/* Ämneskategorier */}
+        {subjects.length > 0 && (
+          <Paper sx={{ 
+            mb: 4, 
+            p: 4, 
+            borderRadius: 3,
+            overflow: 'hidden',
+            boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+            backdropFilter: 'blur(10px)',
+            backgroundColor: 'rgba(255, 255, 255, 0.95)'
+          }}>
+            <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
+              Kategorier
+            </Typography>
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <InputLabel id="category-select-label">Välj en kategori</InputLabel>
+              <Select
+                labelId="category-select-label"
+                value={selectedSubject || ''}
+                label="Välj en kategori"
+                onChange={(e) => handleSubjectClick(e.target.value)}
+                sx={{
+                  borderRadius: 2,
+                  fontSize: '1.1rem',
+                  '& .MuiOutlinedInput-notchedOutline': {
+                    borderWidth: 2,
+                  },
+                  '&:hover .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'primary.main',
+                  },
+                  '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                    borderColor: 'primary.main',
+                    borderWidth: 2,
+                  }
+                }}
+              >
+                <MenuItem value="">
+                  <em>Alla kategorier</em>
+                </MenuItem>
+                {subjects.map((subject) => (
+                  <MenuItem key={subject} value={subject}>
+                    {subject}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+              Välj en kategori för att se alla ord inom det ämnet.
+            </Typography>
+          </Paper>
+        )}
+
+        {/* Sökresultat container */}
+        <Paper sx={{ 
+          p: 4, 
+          borderRadius: 3,
+          overflow: 'hidden',
+          boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
+          backdropFilter: 'blur(10px)',
+          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          minHeight: 300
+        }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>
+            <Typography variant="h5" sx={{ fontWeight: 600 }}>
+              {searchTerm ? `Sökresultat för "${searchTerm}"` : 
+               selectedSubject ? `Ord i kategorin "${selectedSubject}"` : 
+               'Sökresultat'}
+            </Typography>
+            {(searchResults.length > 0 || getWordsForSelectedSubject().length > 0) && (
+              <Button
+                variant="contained"
+                startIcon={<Add />}
+                onClick={handleAddAllToLearning}
+                sx={{
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1.5,
+                  fontWeight: 600,
+                  fontSize: '0.9rem',
+                  textTransform: 'none',
+                  backgroundColor: 'primary.main',
+                  boxShadow: '0 4px 12px rgba(33, 150, 243, 0.3)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor: 'primary.dark',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 20px rgba(33, 150, 243, 0.4)'
+                  }
+                }}
+              >
+                Lägg till alla i "att lära mig"
+              </Button>
+            )}
+          </Box>
             
             {searchResults.length > 0 && (
-              <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, fontWeight: 500 }}>
                 Hittade {searchResults.length} ord som innehåller "{searchTerm}"
               </Typography>
             )}
             
             {searchResults.length > 0 && (
-              <List>
+              <List sx={{ bgcolor: 'background.paper', borderRadius: 2, overflow: 'hidden' }}>
                 {searchResults.slice(0, 10).map((word, index) => (
                   <React.Fragment key={word.id}>
                     <ListItem disablePadding>
-                      <ListItemButton onClick={() => handleWordClick(word)}>
+                      <ListItemButton 
+                        onClick={() => handleWordClick(word)}
+                        sx={{
+                          p: 3,
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: 'primary.50',
+                            transform: 'translateX(4px)'
+                          }
+                        }}
+                      >
                         <ListItemText
-                          primary={word.ord}
+                          primary={
+                            <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>
+                              {word.ord}
+                            </Typography>
+                          }
                           secondary={
-                            <Box>
-                              <Typography variant="body2" color="text.secondary">
+                            <Box sx={{ mt: 1 }}>
+                              <Typography variant="body1" color="text.secondary" sx={{ mb: 1 }}>
                                 {word.beskrivning || 'Ingen beskrivning tillgänglig'}
                               </Typography>
                               {word.ämne && word.ämne.length > 0 && (
-                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 1 }}>
+                                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
                                   {word.ämne.slice(0, 3).map((ämne: string) => (
-                                    <Chip key={ämne} label={ämne} size="small" variant="outlined" />
+                                    <Chip 
+                                      key={ämne} 
+                                      label={ämne} 
+                                      size="small" 
+                                      variant="outlined" 
+                                      sx={{ 
+                                        fontSize: '0.75rem',
+                                        fontWeight: 500,
+                                        borderRadius: 1
+                                      }} 
+                                    />
                                   ))}
                                 </Box>
                               )}
                             </Box>
                           }
                         />
-                        <PlayArrow color="primary" />
+                        <PlayArrow color="primary" sx={{ fontSize: 28 }} />
                       </ListItemButton>
                     </ListItem>
                     {index < Math.min(searchResults.length, 10) - 1 && <Divider />}
@@ -209,16 +367,34 @@ const LexikonPage: React.FC = () => {
             )}
             
             {getWordsForSelectedSubject().length > 0 && (
-              <List>
+              <List sx={{ bgcolor: 'background.paper', borderRadius: 2, overflow: 'hidden' }}>
                 {getWordsForSelectedSubject().slice(0, 10).map((word, index) => (
                   <React.Fragment key={word.id}>
                     <ListItem disablePadding>
-                      <ListItemButton onClick={() => handleWordClick(word)}>
+                      <ListItemButton 
+                        onClick={() => handleWordClick(word)}
+                        sx={{
+                          p: 3,
+                          transition: 'all 0.2s ease',
+                          '&:hover': {
+                            backgroundColor: 'primary.50',
+                            transform: 'translateX(4px)'
+                          }
+                        }}
+                      >
                         <ListItemText
-                          primary={word.ord}
-                          secondary={word.beskrivning}
+                          primary={
+                            <Typography variant="h6" sx={{ fontWeight: 600, color: 'text.primary' }}>
+                              {word.ord}
+                            </Typography>
+                          }
+                          secondary={
+                            <Typography variant="body1" color="text.secondary" sx={{ mt: 1 }}>
+                              {word.beskrivning}
+                            </Typography>
+                          }
                         />
-                        <PlayArrow color="primary" />
+                        <PlayArrow color="primary" sx={{ fontSize: 28 }} />
                       </ListItemButton>
                     </ListItem>
                     {index < Math.min(getWordsForSelectedSubject().length, 10) - 1 && <Divider />}
@@ -228,28 +404,47 @@ const LexikonPage: React.FC = () => {
             )}
             
             {!searchTerm && !selectedSubject && (
-              <Typography variant="body2" color="text.secondary">
-                Skriv ett ord för att söka eller välj en kategori ovan.
-              </Typography>
+              <Box sx={{ 
+                textAlign: 'center', 
+                py: 6,
+                backgroundColor: 'grey.50',
+                borderRadius: 2,
+                border: '2px dashed',
+                borderColor: 'grey.300'
+              }}>
+                <Typography variant="h6" color="text.secondary" sx={{ fontWeight: 500 }}>
+                  Skriv ett ord för att söka eller välj en kategori ovan.
+                </Typography>
+              </Box>
             )}
             
             {searchTerm && searchResults.length === 0 && !isLoading && (
-              <Typography variant="body2" color="text.secondary">
-                Inga ord hittades som innehåller "{searchTerm}". Prova att skriva ett annat ord.
-              </Typography>
+              <Box sx={{ 
+                textAlign: 'center', 
+                py: 6,
+                backgroundColor: 'warning.50',
+                borderRadius: 2,
+                border: '2px dashed',
+                borderColor: 'warning.300'
+              }}>
+                <Typography variant="h6" color="warning.main" sx={{ fontWeight: 500 }}>
+                  Inga ord hittades som innehåller "{searchTerm}". Prova att skriva ett annat ord.
+                </Typography>
+              </Box>
             )}
-      </Paper>
+        </Paper>
 
-      {/* Dialog för orddetaljer */}
-      <WordDetailDialog
-        word={selectedWord}
-        phrases={getPhrasesForSelectedWord()}
-        open={dialogOpen}
-        onClose={() => setDialogOpen(false)}
-        wordProgress={getWordProgress()}
-        onProgressChange={handleProgressChange}
-      />
-    </Container>
+        {/* Dialog för orddetaljer */}
+        <WordDetailDialog
+          word={selectedWord}
+          phrases={getPhrasesForSelectedWord()}
+          open={dialogOpen}
+          onClose={() => setDialogOpen(false)}
+          wordProgress={getWordProgress()}
+          onProgressChange={handleProgressChange}
+        />
+      </Container>
+    </Box>
   );
 };
 
