@@ -1483,44 +1483,27 @@ const SentencesExercise: React.FC<{
           Länkade till dina {learnedWords.length} lärda ord
         </Typography>
 
-        {/* Vanligaste "andra" ord */}
+        {/* Top 3 ord att lära sig */}
         {mostCommonUnlearnedWords.length > 0 && (
-          <>
-            <Typography variant="h5" sx={{ mb: 2, mt: 3, color: 'info.main', fontWeight: 600 }}>
-              Bästa ord att lära sig härnäst
+          <Box sx={{ mb: 4, p: 3, backgroundColor: 'primary.50', borderRadius: 2, border: '1px solid', borderColor: 'primary.200' }}>
+            <Typography variant="h6" sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
+              🎯 Bästa ord att lära sig (Top 3)
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Dessa ord skulle göra flest meningar kompletta om du lärde dig dem
+              Dessa ord skulle göra flest "nästan kompletta" meningar kompletta:
             </Typography>
-            <Box sx={{ display: 'flex', gap: 2, mb: 3, flexWrap: 'wrap', justifyContent: 'center' }}>
-              {mostCommonUnlearnedWords.map((item, index) => (
-                <Box
-                  key={item.wordId}
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    alignItems: 'center',
-                    p: 2,
-                    border: '1px solid',
-                    borderColor: 'info.main',
-                    borderRadius: 2,
-                    backgroundColor: 'info.50',
-                    minWidth: 120
-                  }}
-                >
-                  <Typography variant="h6" sx={{ fontWeight: 600, color: 'info.main' }}>
-                    #{index + 1}
-                  </Typography>
-                  <Typography variant="body1" sx={{ fontWeight: 500, mb: 0.5 }}>
-                    {item.word}
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary">
-                    {item.count} komplett{item.count !== 1 ? 'a' : ''} mening{item.count !== 1 ? 'ar' : ''}
-                  </Typography>
-                </Box>
+            <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
+              {mostCommonUnlearnedWords.map((wordData, index) => (
+                <Chip 
+                  key={wordData.wordId}
+                  label={`${wordData.word} (+${wordData.count})`}
+                  color="primary"
+                  variant="filled"
+                  sx={{ fontWeight: 600 }}
+                />
               ))}
             </Box>
-          </>
+          </Box>
         )}
 
         {/* Sorteringsknappar */}
@@ -1921,16 +1904,16 @@ const SentencesPracticeExercise: React.FC<{
             color="success"
             size="large"
             onClick={handleCorrect}
-            sx={{ minWidth: 120 }}
+            sx={{ minWidth: 120, textTransform: 'none' }}
           >
-            Det kunde jag
+            Det förstod jag
           </Button>
           <Button
             variant="contained"
             color="error"
             size="large"
             onClick={handleIncorrect}
-            sx={{ minWidth: 120 }}
+            sx={{ minWidth: 120, textTransform: 'none' }}
           >
             Behöver öva mer
           </Button>
@@ -2248,7 +2231,7 @@ const SentencesExerciseDuplicate: React.FC<{
               🎯 Bästa ord att lära sig (Top 3)
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Dessa ord skulle göra flest "nästan kompletta" meningar kompletta:
+              Dessa ord skulle lägga till flest nya meningar:
             </Typography>
             <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
               {mostCommonUnlearnedWords.map((wordData, index) => (
@@ -2326,7 +2309,7 @@ const SentencesExerciseDuplicate: React.FC<{
 // Huvudkomponent för övningssidan
 const OvningPage: React.FC = () => {
   const { wordDatabase, phraseDatabase, wordIndex, isLoading, error } = useDatabase();
-  const { getWordsForPractice, markWordResult, setWordLevel, wordProgress, createWordGroups, markWordGroupAsLearned } = useWordProgress();
+  const { getWordsForPractice, markWordResult, setWordLevel, wordProgress, createWordGroups, markWordGroupAsLearned, updateWordProgress } = useWordProgress();
   
   const [selectedExerciseType, setSelectedExerciseType] = useState<ExerciseType | null>(null);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
@@ -2454,6 +2437,83 @@ const OvningPage: React.FC = () => {
 
     return progress;
   }, [phraseDatabase, learnedWords, phraseIndex]);
+
+  // Beräkna vilka ord som skulle göra flest meningar kompletta (samma logik som SentencesExerciseDuplicate)
+  const getMostCommonUnlearnedWords = useMemo(() => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return [];
+    }
+
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const wordCompletionMap = new Map<string, number>();
+
+    // Gå igenom alla lärda ord och deras fraser
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          const phraseData = phraseDatabase[phraseId];
+          if (phraseData && (phraseData as any).meningsnivå) {
+            // Hitta vilka ord som hänvisar till denna fras
+            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+            if (referringWordIds) {
+              // Räkna hur många okända ord som finns i denna mening
+              const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
+              
+              // Om det finns exakt 1 okänt ord, så skulle det ordet göra meningen komplett
+              if (unlearnedWordsInPhrase.length === 1) {
+                const wordId = unlearnedWordsInPhrase[0];
+                const currentCount = wordCompletionMap.get(wordId) || 0;
+                wordCompletionMap.set(wordId, currentCount + 1);
+              }
+            }
+          }
+        });
+      }
+    });
+
+    // Konvertera till array och sortera efter antal kompletterade meningar
+    const wordCounts = Array.from(wordCompletionMap.entries())
+      .map(([wordId, count]) => {
+        const wordData = wordDatabase[wordId];
+        return {
+          wordId,
+          word: wordData ? wordData.ord : `Ord ${wordId}`,
+          count
+        };
+      })
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 3); // Ta bara de 3 bästa
+
+    return wordCounts;
+  }, [phraseIndex, phraseDatabase, learnedWords, wordDatabase]);
+
+  const mostCommonUnlearnedWords = getMostCommonUnlearnedWords;
+
+  // Funktion för att lägga till ord i "att lära mig" listan
+  const addWordToLearningList = (wordId: string) => {
+    console.log(`[DEBUG] Adding word ${wordId} to learning list`);
+    
+    // Sätt ordet till nivå 1 (att lära mig) och uppdatera lastPracticed
+    updateWordProgress(wordId, {
+      level: 1,
+      points: 0,
+      stats: {
+        correct: 0,
+        incorrect: 0,
+        lastPracticed: new Date().toISOString(),
+        difficulty: 50
+      }
+    });
+    
+    console.log(`[DEBUG] Word ${wordId} added to learning list with level 1`);
+  };
+
+  // Funktion för att kontrollera om ett ord är i "att lära mig" listan
+  const isWordInLearningList = (wordId: string) => {
+    const progress = wordProgress[wordId];
+    return progress && progress.level === 1;
+  };
 
   // Hämta tillgängliga meningar för en specifik nivå
   const getAvailablePhrasesForLevel = (level: string) => {
@@ -4159,9 +4219,10 @@ const OvningPage: React.FC = () => {
                   Meningar
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-                  Välj svårighetsnivå för att träna på meningar. Du kommer att se en video och gissa vad meningen betyder.
+                  Välj svårighetsnivå för att träna på meningar. Du kommer att se en video och gissa vad meningen betyder. Meningarna baseras på vilka ord som du har lärt dig.
                 </Typography>
               </Box>
+
 
               {/* Rutnät för nivåval */}
               <Box sx={{
@@ -4204,7 +4265,7 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 1
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
                         {getSentencesProgress.N1.correct}
                       </Box>
@@ -4239,7 +4300,7 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 2
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
                         {getSentencesProgress.N2.correct}
                       </Box>
@@ -4274,7 +4335,7 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 3
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
                         {getSentencesProgress.N3.correct}
                       </Box>
@@ -4309,7 +4370,7 @@ const OvningPage: React.FC = () => {
                     <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
                       Nivå 4
                     </Typography>
-                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { xs: '0.6rem', sm: '0.7rem' } }}>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
                       <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
                         {getSentencesProgress.N4.correct}
                       </Box>
@@ -4318,6 +4379,41 @@ const OvningPage: React.FC = () => {
                   </Box>
                 </Box>
               </Box>
+
+              {/* Top 3 ord att lära sig */}
+              {mostCommonUnlearnedWords.length > 0 && (
+                <Box sx={{ mb: 4, p: 3, backgroundColor: 'primary.50', borderRadius: 2, border: '1px solid', borderColor: 'primary.200', maxWidth: '600px', mx: 'auto' }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {learnedWords.length === 0 
+                      ? "Dessa ord finns i flest meningar och är bra att börja med:"
+                      : "Dessa ord skulle lägga till flest nya meningar:"
+                    }
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+                    {mostCommonUnlearnedWords.map((wordData, index) => {
+                      const isInLearningList = isWordInLearningList(wordData.wordId);
+                      return (
+                        <Chip 
+                          key={wordData.wordId}
+                          label={`${wordData.word} (+${wordData.count})`}
+                          color={isInLearningList ? "warning" : "primary"}
+                          variant={isInLearningList ? "filled" : "outlined"}
+                          sx={{ 
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            '&:hover': {
+                              backgroundColor: isInLearningList ? 'warning.dark' : 'primary.dark',
+                              transform: 'scale(1.05)',
+                              transition: 'all 0.2s ease-in-out'
+                            }
+                          }}
+                          onClick={() => addWordToLearningList(wordData.wordId)}
+                        />
+                      );
+                    })}
+                  </Box>
+                </Box>
+              )}
             </>
           )}
         </>
