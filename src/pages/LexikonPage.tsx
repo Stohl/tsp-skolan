@@ -106,7 +106,7 @@ const LexikonPage: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', // Extremt subtil lila bakgrund
       py: 4
     }}>
       <Container maxWidth="lg">
@@ -130,18 +130,12 @@ const LexikonPage: React.FC = () => {
           }}>
             <Book sx={{ fontSize: 40, color: 'white' }} />
           </Box>
-          <Typography variant="h3" gutterBottom sx={{ 
-            fontWeight: 700,
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-            mb: 2
-          }}>
-            Teckenspråkslexikon
-          </Typography>
           <Typography variant="h6" sx={{ 
             opacity: 0.9,
             fontWeight: 300,
             maxWidth: 600,
-            mx: 'auto'
+            mx: 'auto',
+            color: 'black' // Svart text
           }}>
             Sök efter ord och lär dig hur de tecknas
           </Typography>
@@ -321,7 +315,7 @@ const LexikonPage: React.FC = () => {
                           p: 3,
                           transition: 'all 0.2s ease',
                           '&:hover': {
-                            backgroundColor: 'primary.50',
+                            backgroundColor: 'rgba(156, 39, 176, 0.05)', // Extremt subtil lila med rgba
                             transform: 'translateX(4px)'
                           }
                         }}
@@ -383,7 +377,7 @@ const LexikonPage: React.FC = () => {
                           p: 3,
                           transition: 'all 0.2s ease',
                           '&:hover': {
-                            backgroundColor: 'primary.50',
+                            backgroundColor: 'rgba(156, 39, 176, 0.05)', // Extremt subtil lila med rgba
                             transform: 'translateX(4px)'
                           }
                         }}
@@ -413,7 +407,7 @@ const LexikonPage: React.FC = () => {
               <Box sx={{ 
                 textAlign: 'center', 
                 py: 6,
-                backgroundColor: 'grey.50',
+                backgroundColor: 'rgba(158, 158, 158, 0.05)', // Extremt subtil grå med rgba
                 borderRadius: 2,
                 border: '2px dashed',
                 borderColor: 'grey.300'
@@ -428,7 +422,7 @@ const LexikonPage: React.FC = () => {
               <Box sx={{ 
                 textAlign: 'center', 
                 py: 6,
-                backgroundColor: 'warning.50',
+                backgroundColor: 'rgba(255, 152, 0, 0.05)', // Extremt subtil orange med rgba
                 borderRadius: 2,
                 border: '2px dashed',
                 borderColor: 'warning.300'

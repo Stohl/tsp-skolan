@@ -65,6 +65,691 @@ export const getWordListDifficulty = (wordId: string): DifficultyLevel => {
 // Förgenererade ordlistor
 export const predefinedWordLists: PredefinedWordList[] = [
   {
+    
+    id: 'pedagogic_001',
+    name: 'Grundläggande kommunikation (1)',
+    description: '1-10 pedagogiskt sorterade ord - 5731 träffar i lexikonet',
+    wordIds: ['02798', '02817', '00479', '15855', '00812', '02238', '00022', '05173', '00239', '02158'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 1
+  },
+  {
+    id: 'pedagogic_002',
+    name: 'Grundläggande kommunikation (2)',
+    description: '11-20 pedagogiskt sorterade ord - 777 träffar i lexikonet',
+    wordIds: ['00257', '01266', '02557', '00696', '00222', '00188', '01384', '05150', '00344', '02711'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 2
+  },
+  {
+    id: 'pedagogic_003',
+    name: 'Vardagsliv och behov (3)',
+    description: '21-30 pedagogiskt sorterade ord - 698 träffar i lexikonet',
+    wordIds: ['11274', '03965', '05114', '02866', '00452', '00683', '15519', '15960', '00519', '02352'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 3
+  },
+  {
+    id: 'pedagogic_004',
+    name: 'Vardagsliv och behov (4)',
+    description: '31-40 pedagogiskt sorterade ord - 486 träffar i lexikonet',
+    wordIds: ['00086', '09120', '00789', '08479', '00256', '00607', '11320', '00604', '01505', '00659'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 4
+  },
+  {
+    id: 'pedagogic_005',
+    name: 'Vardagsliv och behov (5)',
+    description: '41-50 pedagogiskt sorterade ord - 178 träffar i lexikonet',
+    wordIds: ['05259', '07367', '07410', '05680', '02042', '01913', '08776', '00966', '03447', '05136'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 5
+  },
+  {
+    id: 'pedagogic_006',
+    name: 'Känslor och upplevelser (6)',
+    description: '51-60 pedagogiskt sorterade ord - 666 träffar i lexikonet',
+    wordIds: ['02773', '00773', '01477', '02966', '01701', '17211', '00328', '05055', '00320', '00464'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 6
+  },
+  {
+    id: 'pedagogic_007',
+    name: 'Abstrakta begrepp (7)',
+    description: '61-70 pedagogiskt sorterade ord - 644 träffar i lexikonet',
+    wordIds: ['04473', '15485', '02173', '04151', '03954', '01456', '05748', '03563', '00617', '00304'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 7
+  },
+  {
+    id: 'pedagogic_008',
+    name: 'Mindre vanliga ord (8)',
+    description: '71-80 pedagogiskt sorterade ord - 420 träffar i lexikonet',
+    wordIds: ['05870', '01909', '00912', '01302', '00770', '01377', '03700', '02117', '08116', '00708'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 8
+  },
+  {
+    id: 'pedagogic_009',
+    name: 'Mindre vanliga ord (9)',
+    description: '81-90 pedagogiskt sorterade ord - 343 träffar i lexikonet',
+    wordIds: ['05382', '00623', '03552', '05434', '04250', '04510', '07824', '06912', '09044', '03513'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 9
+  },
+  {
+    id: 'pedagogic_010',
+    name: 'Mindre vanliga ord (10)',
+    description: '91-100 pedagogiskt sorterade ord - 296 träffar i lexikonet',
+    wordIds: ['00589', '02284', '04582', '02839', '01210', '00610', '07603', '00632', '00498', '04593'],
+    type: 'predefined',
+    difficulty: 'nyborjare',
+    priority: 10
+  },
+  {
+    id: 'pedagogic_011',
+    name: 'Mindre vanliga ord (11)',
+    description: '101-110 pedagogiskt sorterade ord - 264 träffar i lexikonet',
+    wordIds: ['07549', '07668', '05697', '05374', '02877', '08133', '01353', '17327', '11721', '08730'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 11
+  },
+  {
+    id: 'pedagogic_012',
+    name: 'Mindre vanliga ord (12)',
+    description: '111-120 pedagogiskt sorterade ord - 244 träffar i lexikonet',
+    wordIds: ['01943', '04603', '00472', '01553', '04024', '00286', '04540', '00058', '02521', '03660'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 12
+  },
+  {
+    id: 'pedagogic_013',
+    name: 'Mindre vanliga ord (13)',
+    description: '121-130 pedagogiskt sorterade ord - 230 träffar i lexikonet',
+    wordIds: ['03019', '05369', '02740', '05513', '02412', '01018', '00416', '01581', '04408', '03839'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 13
+  },
+  {
+    id: 'pedagogic_014',
+    name: 'Mindre vanliga ord (14)',
+    description: '131-140 pedagogiskt sorterade ord - 222 träffar i lexikonet',
+    wordIds: ['02224', '00979', '12048', '04568', '02875', '16261', '04567', '03826', '03750', '09156'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 14
+  },
+  {
+    id: 'pedagogic_015',
+    name: 'Mindre vanliga ord (15)',
+    description: '141-150 pedagogiskt sorterade ord - 204 träffar i lexikonet',
+    wordIds: ['00319', '07696', '01938', '01720', '01767', '04545', '12312', '02378', '06723', '04560'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 15
+  },
+  {
+    id: 'pedagogic_016',
+    name: 'Mindre vanliga ord (16)',
+    description: '151-160 pedagogiskt sorterade ord - 189 träffar i lexikonet',
+    wordIds: ['02861', '00059', '04008', '02775', '05395', '00945', '10692', '04853', '00106', '08386'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 16
+  },
+  {
+    id: 'pedagogic_017',
+    name: 'Mindre vanliga ord (17)',
+    description: '161-170 pedagogiskt sorterade ord - 179 träffar i lexikonet',
+    wordIds: ['05072', '00339', '07219', '10521', '03456', '01106', '02574', '05831', '01038', '07961'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 17
+  },
+  {
+    id: 'pedagogic_018',
+    name: 'Mindre vanliga ord (18)',
+    description: '171-180 pedagogiskt sorterade ord - 169 träffar i lexikonet',
+    wordIds: ['05777', '02890', '00391', '03156', '00516', '01550', '01282', '02037', '04907', '04299'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 18
+  },
+  {
+    id: 'pedagogic_019',
+    name: 'Mindre vanliga ord (19)',
+    description: '181-190 pedagogiskt sorterade ord - 156 träffar i lexikonet',
+    wordIds: ['11733', '13821', '18191', '00496', '01259', '04397', '02538', '09318', '04718', '09701'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 19
+  },
+  {
+    id: 'pedagogic_020',
+    name: 'Mindre vanliga ord (20)',
+    description: '191-200 pedagogiskt sorterade ord - 148 träffar i lexikonet',
+    wordIds: ['01416', '07822', '17265', '00664', '14854', '01786', '02924', '02445', '05214', '08870'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 20
+  },
+  {
+    id: 'pedagogic_021',
+    name: 'Mindre vanliga ord (21)',
+    description: '201-210 pedagogiskt sorterade ord - 140 träffar i lexikonet',
+    wordIds: ['00588', '05635', '07405', '05036', '01522', '00995', '04527', '03152', '00864', '01217'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 21
+  },
+  {
+    id: 'pedagogic_022',
+    name: 'Mindre vanliga ord (22)',
+    description: '211-220 pedagogiskt sorterade ord - 131 träffar i lexikonet',
+    wordIds: ['01875', '00303', '02504', '09098', '12226', '00262', '10930', '00669', '03638', '02203'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 22
+  },
+  {
+    id: 'pedagogic_023',
+    name: 'Mindre vanliga ord (23)',
+    description: '221-230 pedagogiskt sorterade ord - 124 träffar i lexikonet',
+    wordIds: ['07858', '07958', '08205', '00678', '14976', '02215', '05539', '01978', '00838', '02089'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 23
+  },
+  {
+    id: 'pedagogic_024',
+    name: 'Mindre vanliga ord (24)',
+    description: '231-240 pedagogiskt sorterade ord - 120 träffar i lexikonet',
+    wordIds: ['01251', '08580', '12779', '00439', '03411', '01462', '05134', '05846', '00555', '07606'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 24
+  },
+  {
+    id: 'pedagogic_025',
+    name: 'Mindre vanliga ord (25)',
+    description: '241-250 pedagogiskt sorterade ord - 117 träffar i lexikonet',
+    wordIds: ['03741', '05499', '13038', '17726', '03809', '04025', '00573', '08316', '03356', '03828'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 25
+  },
+  {
+    id: 'pedagogic_026',
+    name: 'Mindre vanliga ord (26)',
+    description: '251-260 pedagogiskt sorterade ord - 110 träffar i lexikonet',
+    wordIds: ['05056', '07605', '04184', '01403', '03629', '08476', '02622', '00449', '02395', '02061'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 26
+  },
+  {
+    id: 'pedagogic_027',
+    name: 'Mindre vanliga ord (27)',
+    description: '261-270 pedagogiskt sorterade ord - 109 träffar i lexikonet',
+    wordIds: ['02130', '05787', '03018', '05240', '00418', '01759', '11658', '00247', '02519', '01939'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 27
+  },
+  {
+    id: 'pedagogic_028',
+    name: 'Mindre vanliga ord (28)',
+    description: '271-280 pedagogiskt sorterade ord - 100 träffar i lexikonet',
+    wordIds: ['16268', '05564', '11459', '09659', '01260', '01613', '03555', '00993', '05660', '02472'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 28
+  },
+  {
+    id: 'pedagogic_029',
+    name: 'Mindre vanliga ord (29)',
+    description: '281-290 pedagogiskt sorterade ord - 100 träffar i lexikonet',
+    wordIds: ['00088', '00223', '04491', '00490', '00488', '01168', '02208', '00676', '00200', '01737'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 29
+  },
+  {
+    id: 'pedagogic_030',
+    name: 'Mindre vanliga ord (30)',
+    description: '291-300 pedagogiskt sorterade ord - 215 träffar i lexikonet',
+    wordIds: ['05988', '15259', '03191', '07749', '03010', '02383', '04373', '07173', '00935', '03033'],
+    type: 'predefined',
+    difficulty: 'lite_erfaren',
+    priority: 30
+  },
+  {
+    id: 'pedagogic_031',
+    name: 'Mindre vanliga ord (31)',
+    description: '301-310 pedagogiskt sorterade ord - 409 träffar i lexikonet',
+    wordIds: ['02892', '12313', '02436', '00312', '03181', '00824', '04769', '01585', '00446', '04238'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 31
+  },
+  {
+    id: 'pedagogic_032',
+    name: 'Mindre vanliga ord (32)',
+    description: '311-320 pedagogiskt sorterade ord - 311 träffar i lexikonet',
+    wordIds: ['08317', '01300', '08319', '01301', '03854', '07621', '03253', '03936', '03115', '17018'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 32
+  },
+  {
+    id: 'pedagogic_033',
+    name: 'Mindre vanliga ord (33)',
+    description: '321-330 pedagogiskt sorterade ord - 262 träffar i lexikonet',
+    wordIds: ['03023', '01571', '00616', '02522', '00998', '02945', '02220', '01548', '00333', '07982'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 33
+  },
+  {
+    id: 'pedagogic_034',
+    name: 'Mindre vanliga ord (34)',
+    description: '331-340 pedagogiskt sorterade ord - 213 träffar i lexikonet',
+    wordIds: ['03035', '02694', '00034', '01497', '01710', '00277', '00805', '02222', '17620', '00354'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 34
+  },
+  {
+    id: 'pedagogic_035',
+    name: 'Mindre vanliga ord (35)',
+    description: '341-350 pedagogiskt sorterade ord - 176 träffar i lexikonet',
+    wordIds: ['00378', '03919', '01722', '01547', '00281', '04496', '16369', '06012', '00179', '00835'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 35
+  },
+  {
+    id: 'pedagogic_036',
+    name: 'Mindre vanliga ord (36)',
+    description: '351-360 pedagogiskt sorterade ord - 159 träffar i lexikonet',
+    wordIds: ['00360', '04209', '02616', '04036', '04364', '01828', '01143', '00173', '02747', '03410'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 36
+  },
+  {
+    id: 'pedagogic_037',
+    name: 'Mindre vanliga ord (37)',
+    description: '361-370 pedagogiskt sorterade ord - 144 träffar i lexikonet',
+    wordIds: ['05673', '00666', '01218', '04101', '02993', '04848', '02064', '00365', '02068', '05183'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 37
+  },
+  {
+    id: 'pedagogic_038',
+    name: 'Mindre vanliga ord (38)',
+    description: '371-380 pedagogiskt sorterade ord - 132 träffar i lexikonet',
+    wordIds: ['01092', '02663', '13561', '09249', '00098', '07789', '03184', '05683', '01876', '01882'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 38
+  },
+  {
+    id: 'pedagogic_039',
+    name: 'Mindre vanliga ord (39)',
+    description: '381-390 pedagogiskt sorterade ord - 121 träffar i lexikonet',
+    wordIds: ['04191', '01716', '00207', '08360', '04009', '01784', '03926', '00585', '04489', '00580'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 39
+  },
+  {
+    id: 'pedagogic_040',
+    name: 'Mindre vanliga ord (40)',
+    description: '391-400 pedagogiskt sorterade ord - 110 träffar i lexikonet',
+    wordIds: ['05093', '15816', '00249', '10555', '00529', '01901', '00044', '07714', '09032', '01820'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 40
+  },
+  {
+    id: 'pedagogic_041',
+    name: 'Mindre vanliga ord (41)',
+    description: '401-410 pedagogiskt sorterade ord - 104 träffar i lexikonet',
+    wordIds: ['02739', '00648', '00163', '03852', '03068', '02153', '14794', '00332', '01723', '02213'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 41
+  },
+  {
+    id: 'pedagogic_042',
+    name: 'Mindre vanliga ord (42)',
+    description: '411-420 pedagogiskt sorterade ord - 215 träffar i lexikonet',
+    wordIds: ['15755', '02631', '00462', '12239', '11794', '10979', '01870', '00469', '02293', '00289'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 42
+  },
+  {
+    id: 'pedagogic_043',
+    name: 'Mindre vanliga ord (43)',
+    description: '421-430 pedagogiskt sorterade ord - 397 träffar i lexikonet',
+    wordIds: ['01609', '05076', '02645', '00720', '05705', '01885', '00298', '05642', '11866', '04866'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 43
+  },
+  {
+    id: 'pedagogic_044',
+    name: 'Mindre vanliga ord (44)',
+    description: '431-440 pedagogiskt sorterade ord - 276 träffar i lexikonet',
+    wordIds: ['00387', '12125', '03145', '05131', '00631', '05218', '03377', '07101', '02902', '00456'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 44
+  },
+  {
+    id: 'pedagogic_045',
+    name: 'Mindre vanliga ord (45)',
+    description: '441-450 pedagogiskt sorterade ord - 223 träffar i lexikonet',
+    wordIds: ['00174', '00233', '03856', '00172', '01117', '04602', '01741', '01234', '01058', '04308'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 45
+  },
+  {
+    id: 'pedagogic_046',
+    name: 'Mindre vanliga ord (46)',
+    description: '451-460 pedagogiskt sorterade ord - 197 träffar i lexikonet',
+    wordIds: ['05431', '00755', '00515', '00202', '02751', '02355', '09401', '00322', '02899', '02569'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 46
+  },
+  {
+    id: 'pedagogic_047',
+    name: 'Mindre vanliga ord (47)',
+    description: '461-470 pedagogiskt sorterade ord - 169 träffar i lexikonet',
+    wordIds: ['00311', '13464', '00647', '01401', '07440', '00532', '07278', '00379', '00866', '20372'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 47
+  },
+  {
+    id: 'pedagogic_048',
+    name: 'Mindre vanliga ord (48)',
+    description: '471-480 pedagogiskt sorterade ord - 142 träffar i lexikonet',
+    wordIds: ['05079', '17195', '02647', '00443', '02989', '00597', '00017', '05061', '05086', '04803'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 48
+  },
+  {
+    id: 'pedagogic_049',
+    name: 'Mindre vanliga ord (49)',
+    description: '481-490 pedagogiskt sorterade ord - 126 träffar i lexikonet',
+    wordIds: ['12377', '02204', '10773', '03990', '07499', '04771', '00535', '01702', '00085', '04095'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 49
+  },
+  {
+    id: 'pedagogic_050',
+    name: 'Mindre vanliga ord (50)',
+    description: '491-500 pedagogiskt sorterade ord - 114 träffar i lexikonet',
+    wordIds: ['04596', '10789', '04339', '02363', '07525', '01869', '08001', '00079', '02058', '01078'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 50
+  },
+  {
+    id: 'pedagogic_051',
+    name: 'Mindre vanliga ord (51)',
+    description: '501-510 pedagogiskt sorterade ord - 103 träffar i lexikonet',
+    wordIds: ['20373', '00248', '02214', '02465', '05668', '02150', '20017', '12900', '00603', '00512'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 51
+  },
+  {
+    id: 'pedagogic_052',
+    name: 'Mindre vanliga ord (52)',
+    description: '511-520 pedagogiskt sorterade ord - 4435 träffar i lexikonet',
+    wordIds: ['00069', '02991', '00187', '03955', '00699', '02852', '05133', '01816', '16234', '02237'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 52
+  },
+  {
+    id: 'pedagogic_053',
+    name: 'Avancerade begrepp (53)',
+    description: '521-530 pedagogiskt sorterade ord - 2487 träffar i lexikonet',
+    wordIds: ['02830', '02712', '00204', '00060', '10342', '00167', '00958', '00644', '00646', '08979'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 53
+  },
+  {
+    id: 'pedagogic_054',
+    name: 'Avancerade begrepp (54)',
+    description: '531-540 pedagogiskt sorterade ord - 1689 träffar i lexikonet',
+    wordIds: ['02801', '04485', '00275', '01061', '15856', '02531', '02381', '18717', '01807', '11879'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 54
+  },
+  {
+    id: 'pedagogic_055',
+    name: 'Avancerade begrepp (55)',
+    description: '541-550 pedagogiskt sorterade ord - 1228 träffar i lexikonet',
+    wordIds: ['04569', '06767', '06832', '04104', '00563', '15606', '04724', '00483', '02688', '07844'],
+    type: 'predefined',
+    difficulty: 'erfaren',
+    priority: 55
+  },
+  {
+    id: 'pedagogic_056',
+    name: 'Avancerade begrepp (56)',
+    description: '551-560 pedagogiskt sorterade ord - 1005 träffar i lexikonet',
+    wordIds: ['02063', '04357', '03622', '01267', '03281', '09956', '02809', '00182', '02690', '04004'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 56
+  },
+  {
+    id: 'pedagogic_057',
+    name: 'Avancerade begrepp (57)',
+    description: '561-570 pedagogiskt sorterade ord - 865 träffar i lexikonet',
+    wordIds: ['02845', '00310', '00050', '11880', '00561', '09291', '00124', '03639', '00715', '01366'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 57
+  },
+  {
+    id: 'pedagogic_058',
+    name: 'Avancerade begrepp (58)',
+    description: '571-580 pedagogiskt sorterade ord - 734 träffar i lexikonet',
+    wordIds: ['01241', '03497', '00074', '02375', '03640', '02850', '02365', '04919', '00193', '02584'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 58
+  },
+  {
+    id: 'pedagogic_059',
+    name: 'Avancerade begrepp (59)',
+    description: '581-590 pedagogiskt sorterade ord - 645 träffar i lexikonet',
+    wordIds: ['12546', '02686', '01944', '02354', '03194', '02749', '07516', '03171', '00064', '02847'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 59
+  },
+  {
+    id: 'pedagogic_060',
+    name: 'Avancerade begrepp (60)',
+    description: '591-600 pedagogiskt sorterade ord - 576 träffar i lexikonet',
+    wordIds: ['11882', '08045', '05428', '02831', '02273', '08135', '04864', '04606', '00954', '01062'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 60
+  },
+  {
+    id: 'pedagogic_061',
+    name: 'Avancerade begrepp (61)',
+    description: '601-610 pedagogiskt sorterade ord - 522 träffar i lexikonet',
+    wordIds: ['05158', '04475', '00432', '00609', '02433', '00375', '01695', '00582', '00625', '01862'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 61
+  },
+  {
+    id: 'pedagogic_062',
+    name: 'Avancerade begrepp (62)',
+    description: '611-620 pedagogiskt sorterade ord - 458 träffar i lexikonet',
+    wordIds: ['11881', '06495', '10533', '06773', '11898', '02914', '02828', '05708', '05135', '12054'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 62
+  },
+  {
+    id: 'pedagogic_063',
+    name: 'Avancerade begrepp (63)',
+    description: '621-630 pedagogiskt sorterade ord - 400 träffar i lexikonet',
+    wordIds: ['03451', '08042', '03279', '04892', '05071', '05459', '00857', '05490', '07700', '00274'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 63
+  },
+  {
+    id: 'pedagogic_064',
+    name: 'Avancerade begrepp (64)',
+    description: '631-640 pedagogiskt sorterade ord - 331 träffar i lexikonet',
+    wordIds: ['04333', '04153', '19460', '11833', '00123', '12274', '04287', '05500', '00061', '15804'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 64
+  },
+  {
+    id: 'pedagogic_065',
+    name: 'Avancerade begrepp (65)',
+    description: '641-650 pedagogiskt sorterade ord - 277 träffar i lexikonet',
+    wordIds: ['11910', '15873', '08850', '00299', '03187', '04289', '08984', '01764', '11884', '03211'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 65
+  },
+  {
+    id: 'pedagogic_066',
+    name: 'Avancerade begrepp (66)',
+    description: '651-660 pedagogiskt sorterade ord - 241 träffar i lexikonet',
+    wordIds: ['03474', '04264', '02370', '00112', '14530', '11908', '09229', '00900', '11950', '04480'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 66
+  },
+  {
+    id: 'pedagogic_067',
+    name: 'Avancerade begrepp (67)',
+    description: '661-670 pedagogiskt sorterade ord - 212 träffar i lexikonet',
+    wordIds: ['00186', '10593', '01994', '01464', '11885', '11860', '20028', '01458', '12325', '02978'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 67
+  },
+  {
+    id: 'pedagogic_068',
+    name: 'Avancerade begrepp (68)',
+    description: '671-680 pedagogiskt sorterade ord - 189 träffar i lexikonet',
+    wordIds: ['11454', '17210', '11890', '19467', '14156', '00177', '09222', '08027', '01841', '01420'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 68
+  },
+  {
+    id: 'pedagogic_069',
+    name: 'Avancerade begrepp (69)',
+    description: '681-690 pedagogiskt sorterade ord - 169 träffar i lexikonet',
+    wordIds: ['04877', '02950', '18600', '12034', '03785', '01818', '08028', '01576', '02778', '16274'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 69
+  },
+  {
+    id: 'pedagogic_070',
+    name: 'Avancerade begrepp (70)',
+    description: '691-700 pedagogiskt sorterade ord - 149 träffar i lexikonet',
+    wordIds: ['04466', '00767', '11886', '00718', '02087', '04620', '08597', '17331', '05295', '07429'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 70
+  },
+  {
+    id: 'pedagogic_071',
+    name: 'Avancerade begrepp (71)',
+    description: '701-710 pedagogiskt sorterade ord - 136 träffar i lexikonet',
+    wordIds: ['03499', '00294', '00118', '04318', '00240', '02658', '02689', '12052', '01180', '19421'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 71
+  },
+  {
+    id: 'pedagogic_072',
+    name: 'Avancerade begrepp (72)',
+    description: '711-720 pedagogiskt sorterade ord - 126 träffar i lexikonet',
+    wordIds: ['11912', '11909', '15520', '00937', '08535', '10033', '08728', '00487', '01043', '01196'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 72
+  },
+  {
+    id: 'pedagogic_073',
+    name: 'Avancerade begrepp (73)',
+    description: '721-730 pedagogiskt sorterade ord - 117 träffar i lexikonet',
+    wordIds: ['11810', '00828', '00110', '00873', '01806', '01182', '08076', '07612', '07346', '06432'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 73
+  },
+  {
+    id: 'pedagogic_074',
+    name: 'Avancerade begrepp (74)',
+    description: '731-740 pedagogiskt sorterade ord - 109 träffar i lexikonet',
+    wordIds: ['00313', '01206', '02851', '04261', '11911', '00062', '11892', '03540', '05647', '09519'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 74
+  },
+  {
+    id: 'pedagogic_075',
+    name: 'Avancerade begrepp (75)',
+    description: '741-750 pedagogiskt sorterade ord - 100 träffar i lexikonet',
+    wordIds: ['01221', '02290', '02810', '01789', '02329', '17553', '02391', '00335', '02705', '00159'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 75
+  },
+  {
+    id: 'pedagogic_076',
+    name: 'Avancerade begrepp (76)',
+    description: '751-753 pedagogiskt sorterade ord - 30 träffar i lexikonet',
+    wordIds: ['18671', '11891', '11894'],
+    type: 'predefined',
+    difficulty: 'proffs',
+    priority: 76
+  }
+    /*
       id: 'pedagogic_001',
       name: 'Grundläggande kommunikation (1-10)',
       description: '1-10 pedagogiskt sorterade ord - 5731 träffar i lexikonet',
@@ -747,7 +1432,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
       type: 'predefined',
       difficulty: 'proffs',
       priority: 76
-    }
+    }*/
   /*{
     id: 'siffror_0_10',
     name: 'Siffror 0-10',

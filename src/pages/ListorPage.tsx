@@ -207,7 +207,7 @@ const ListorPage: React.FC = () => {
           <Box
             sx={{
               ...circleStyle,
-              backgroundColor: '#e3f2fd',
+              backgroundColor: '#fafbff', // Extremt subtil blå
               borderColor: '#1976d2',
               color: '#1976d2'
             }}
@@ -221,7 +221,7 @@ const ListorPage: React.FC = () => {
           <Box
             sx={{
               ...circleStyle,
-              backgroundColor: '#e8f5e8',
+              backgroundColor: '#fafffa', // Extremt subtil grön
               borderColor: '#2e7d32',
               color: '#2e7d32'
             }}
@@ -443,10 +443,10 @@ const ListorPage: React.FC = () => {
                       borderBottom: isExpanded ? '1px solid' : 'none',
                       borderColor: 'divider',
                       p: 3,
-                      backgroundColor: isExpanded ? 'grey.50' : 'transparent',
+                      backgroundColor: isExpanded ? 'rgba(158, 158, 158, 0.05)' : 'transparent', // Extremt subtil grå bakgrund
                       transition: 'all 0.2s ease',
                       '&:hover': {
-                        backgroundColor: 'primary.50'
+                        backgroundColor: 'rgba(156, 39, 176, 0.05)' // Extremt subtil lila med rgba
                       }
                     }}
                   >
@@ -487,7 +487,7 @@ const ListorPage: React.FC = () => {
                       <Box sx={{ 
                         mb: 3, 
                         p: 3, 
-                        backgroundColor: 'primary.50', 
+                        backgroundColor: 'rgba(156, 39, 176, 0.05)', // Extremt subtil lila med rgba 
                         borderRadius: 2,
                         border: '1px solid',
                         borderColor: 'primary.200'
@@ -501,7 +501,7 @@ const ListorPage: React.FC = () => {
                       <Box sx={{ 
                         mb: 3, 
                         p: 3, 
-                        backgroundColor: 'grey.50', 
+                        backgroundColor: 'rgba(158, 158, 158, 0.05)', // Extremt subtil grå bakgrund 
                         borderRadius: 2,
                         border: '1px solid',
                         borderColor: 'grey.200'
@@ -553,12 +553,12 @@ const ListorPage: React.FC = () => {
                             if (progress) {
                               if (progress.level === 1) {
                                 wordStyle.color = '#1976d2'; // Mer subtil blå
-                                wordStyle.backgroundColor = '#e3f2fd';
+                                wordStyle.backgroundColor = '#fafbff'; // Extremt subtil blå
                                 wordStyle.padding = '2px 4px';
                                 wordStyle.borderRadius = '3px';
                               } else if (progress.level === 2) {
                                 wordStyle.color = '#2e7d32'; // Mer subtil grön
-                                wordStyle.backgroundColor = '#e8f5e8';
+                                wordStyle.backgroundColor = '#fafffa'; // Extremt subtil grön
                                 wordStyle.padding = '2px 4px';
                                 wordStyle.borderRadius = '3px';
                               }
@@ -717,7 +717,7 @@ const ListorPage: React.FC = () => {
                                   boxShadow: activeButton === 'vill_lara_mig' ? '0 4px 12px rgba(33, 150, 243, 0.3)' : 'none',
                                   transition: 'all 0.3s ease',
                                   '&:hover': {
-                                    backgroundColor: activeButton === 'vill_lara_mig' ? 'primary.dark' : 'primary.50',
+                                    backgroundColor: activeButton === 'vill_lara_mig' ? 'primary.dark' : 'rgba(156, 39, 176, 0.05)', // Extremt subtil lila med rgba
                                     color: activeButton === 'vill_lara_mig' ? 'white' : 'primary.dark',
                                     borderColor: 'primary.dark',
                                     transform: 'translateY(-2px)',
@@ -844,7 +844,7 @@ const ListorPage: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', // Extremt subtil lila bakgrund
       py: 4
     }}>
       <Container maxWidth="lg">
@@ -868,18 +868,12 @@ const ListorPage: React.FC = () => {
           }}>
             <School sx={{ fontSize: 40, color: 'white' }} />
           </Box>
-          <Typography variant="h3" gutterBottom sx={{ 
-            fontWeight: 700,
-            textShadow: '0 2px 4px rgba(0,0,0,0.3)',
-            mb: 2
-          }}>
-            Ordlistor & Progress
-          </Typography>
           <Typography variant="h6" sx={{ 
             opacity: 0.9,
             fontWeight: 300,
             maxWidth: 600,
-            mx: 'auto'
+            mx: 'auto',
+            color: 'black' // Svart text
           }}>
             Hantera dina ordlistor och följ din utveckling
           </Typography>
