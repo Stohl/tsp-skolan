@@ -1375,14 +1375,26 @@ const SentencesExercise: React.FC<{
 
   const { completePhrases, almostCompletePhrases } = getLinkedPhrases();
 
-  // Beräkna vilka ord som skulle göra flest meningar kompletta
-  const getMostCommonUnlearnedWords = () => {
+  // Typer för Top 3-debug
+  type PhraseDetail = { id: string; fras: string; meningsnivå: string | null; words: string[]; missingWord: string };
+  type Top3Entry = { wordId: string; word: string; count: number; phraseIds: string[]; phraseDetails: PhraseDetail[] };
+
+  // Beräkna vilka ord som skulle göra flest meningar kompletta (unika fraser, N1–N4, exakt 1 saknat ord)
+  const getMostCommonUnlearnedWords = (): Top3Entry[] => {
     if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
-      return [];
+      return [] as Top3Entry[];
     }
 
+    const allowedLevels = new Set(['N1','N2','N3','N4']);
     const learnedWordIds = new Set(learnedWords.map(word => word.id));
     const wordCompletionMap = new Map<string, number>();
+    // Samla vilka meningar (fras-ID) som skulle bli kompletta för respektive ord
+    const phraseIdsPerWordId = new Map<string, Set<string>>();
+    // Samla detaljer per fras för respektive ord: text, nivå och ord
+    const phraseDetailsPerWordId = new Map<string, PhraseDetail[]>();
+
+    // Undvik dubbletter när samma fras hittas via flera lärda ord
+    // (vi deduplar per wordId via phraseIdsPerWordId set:en)
 
     // Gå igenom alla lärda ord och deras fraser
     learnedWords.forEach(learnedWord => {
@@ -1390,46 +1402,120 @@ const SentencesExercise: React.FC<{
       if (phraseIds) {
         phraseIds.forEach((phraseId: string) => {
           const phraseData = phraseDatabase[phraseId];
-          if (phraseData) {
-            // Filtrera baserat på inställningen för meningsnivå
-            if (sentencesOnlyWithLevel && !phraseData.meningsnivå) {
-              return; // Hoppa över meningar utan meningsnivå
-            }
+          if (!phraseData) return;
 
-            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
-            if (referringWordIds) {
-              // Räkna hur många okända ord som finns i denna mening
-              const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
-              
-              // Om det finns exakt 1 okänt ord, så skulle det ordet göra meningen komplett
-              if (unlearnedWordsInPhrase.length === 1) {
-                const wordId = unlearnedWordsInPhrase[0];
-                const currentCount = wordCompletionMap.get(wordId) || 0;
-                wordCompletionMap.set(wordId, currentCount + 1);
-              }
-            }
+          const meningsniva: string | undefined = (phraseData as any).meningsnivå;
+          // ENDAST fraser med nivå N1–N4
+          if (!meningsniva || !allowedLevels.has(meningsniva)) return;
+
+          const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+          if (!referringWordIds) return;
+
+          // Räkna hur många okända ord som finns i denna mening
+          const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
+          
+          // Exkludera redan kompletta (0 saknade) och fraser med fler än 1 saknat ord
+          if (unlearnedWordsInPhrase.length !== 1) return;
+
+          const neededWordId = unlearnedWordsInPhrase[0];
+
+          // Dedupl per wordId: räkna fras bara en gång per ord
+          if (!phraseIdsPerWordId.has(neededWordId)) {
+            phraseIdsPerWordId.set(neededWordId, new Set<string>());
           }
+          const seenSet = phraseIdsPerWordId.get(neededWordId)!;
+          if (seenSet.has(phraseId)) return; // redan räknad denna fras för ordet
+
+          // Räkna
+          seenSet.add(phraseId);
+          const currentCount = wordCompletionMap.get(neededWordId) || 0;
+          wordCompletionMap.set(neededWordId, currentCount + 1);
+
+          // Bygg fras-detaljer för debug
+          const wordsInPhrase = referringWordIds
+            .map((wid: string) => wordDatabase[wid]?.ord || wid)
+            .filter(Boolean) as string[];
+          const missingWordName = (wordDatabase[neededWordId]?.ord as string) || neededWordId;
+          const entry: PhraseDetail = {
+            id: phraseId,
+            fras: (phraseData as any).fras || '',
+            meningsnivå: meningsniva || null,
+            words: wordsInPhrase,
+            missingWord: missingWordName
+          };
+          if (!phraseDetailsPerWordId.has(neededWordId)) {
+            phraseDetailsPerWordId.set(neededWordId, []);
+          }
+          phraseDetailsPerWordId.get(neededWordId)!.push(entry);
         });
       }
     });
 
-    // Konvertera till array och sortera efter antal kompletterade meningar
-    const wordCounts = Array.from(wordCompletionMap.entries())
-      .map(([wordId, count]) => {
+    // Konvertera till array och sortera efter antal kompletterade (unika) meningar
+    const wordCounts: Top3Entry[] = Array.from(wordCompletionMap.entries())
+      .map(([wordId, _obsoleteCount]) => {
+        const phraseDetails = phraseDetailsPerWordId.get(wordId) || [];
         const wordData = wordDatabase[wordId];
         return {
           wordId,
-          word: wordData ? wordData.ord : `Ord ${wordId}`,
-          count
-        };
+          word: wordData ? (wordData.ord as string) : `Ord ${wordId}`,
+          // Sätt count till antal unika fraser som uppfyller reglerna
+          count: phraseDetails.length,
+          phraseIds: Array.from(phraseIdsPerWordId.get(wordId) || []),
+          phraseDetails
+        } as Top3Entry;
       })
+      .filter(entry => entry.count > 0)
       .sort((a, b) => b.count - a.count)
       .slice(0, 3); // Ta bara de 3 bästa
+
+    // DEBUG: visa för Top 3 vilka (unika) fraser som skulle bli kompletta med detaljer
+    wordCounts.forEach((entry) => {
+      if (entry.phraseDetails.length > 0) {
+        console.log(`[DEBUG][Exercise][Top3] Ord "${entry.word}" (${entry.wordId}) skulle komplettera ${entry.phraseDetails.length} (unika, N1–N4) meningar:`);
+        entry.phraseDetails.forEach((p: PhraseDetail) => {
+          console.log(`  - ${p.id}${p.fras ? ` (${p.fras})` : ''} | nivå: ${p.meningsnivå ?? '—'} | ord: ${p.words.join(', ')} | saknas: ${p.missingWord}`);
+        });
+      }
+    });
 
     return wordCounts;
   };
 
   const mostCommonUnlearnedWords = getMostCommonUnlearnedWords();
+
+  // Hjälpare: bygg fras-detaljer för ett specifikt ord (samma regler som ovan: unika, N1–N4, exakt 1 saknat)
+  const buildPhraseDetailsForWord = (targetWordId: string): { id: string; fras: string; meningsnivå: string | null; words: string[]; missingWord: string }[] => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) return [];
+    const allowedLevels = new Set(['N1','N2','N3','N4']);
+    const learnedWordIds = new Set(learnedWords.map(w => w.id));
+    const seen = new Set<string>();
+    const details: { id: string; fras: string; meningsnivå: string | null; words: string[]; missingWord: string }[] = [];
+
+    Object.keys(phraseDatabase).forEach((phraseId: string) => {
+      if (seen.has(phraseId)) return;
+      const phraseData: any = (phraseDatabase as any)[phraseId];
+      if (!phraseData) return;
+      const meningsniva: string | undefined = phraseData.meningsnivå;
+      if (!meningsniva || !allowedLevels.has(meningsniva)) return;
+      const referringWordIds: string[] | undefined = phraseIndex?.phrase_to_words?.[phraseId];
+      if (!referringWordIds) return;
+      const unlearned = referringWordIds.filter((wid: string) => !learnedWordIds.has(wid));
+      if (unlearned.length === 1 && unlearned[0] === targetWordId) {
+        seen.add(phraseId);
+        const words = referringWordIds.map((wid: string) => (wordDatabase[wid]?.ord as string) || wid).filter(Boolean) as string[];
+        details.push({
+          id: phraseId,
+          fras: (phraseData.fras as string) || '',
+          meningsnivå: meningsniva || null,
+          words,
+          missingWord: (wordDatabase[targetWordId]?.ord as string) || targetWordId
+        });
+      }
+    });
+
+    return details;
+  };
 
   // Uppdatera sortering när sortBy eller sortAscending ändras
   useEffect(() => {
@@ -1465,6 +1551,14 @@ const SentencesExercise: React.FC<{
         </CardContent>
       </Card>
     );
+  }
+
+  // DEBUG: skriv bara ut om något hittades
+  if (completePhrases.length > 0) {
+    console.log('[DEBUG][Exercise] Kompletta meningar:', completePhrases.map(p => `${p.id} (${p.fras || ''})`));
+  }
+  if (almostCompletePhrases.length > 0) {
+    console.log('[DEBUG][Exercise] Nästan kompletta meningar:', almostCompletePhrases.map(p => `${p.id} (${p.fras || ''})`));
   }
 
   return (
@@ -2025,31 +2119,56 @@ const OvningPage: React.FC = () => {
     
     const progress = { N1: { correct: 0, total: 0 }, N2: { correct: 0, total: 0 }, N3: { correct: 0, total: 0 }, N4: { correct: 0, total: 0 } };
 
+    // Se till att inte dubbelräkna samma fras (unik per fras-ID)
+    const countedPhraseIds = new Set<string>();
+
+    // DEBUG: samla listor på hittade (unika) meningar per nivå
+    const debugFoundPerLevel: Record<string, string[]> = { N1: [], N2: [], N3: [], N4: [] };
+    const debugCorrectPerLevel: Record<string, string[]> = { N1: [], N2: [], N3: [], N4: [] };
+
     // Använd samma logik som getAvailablePhrasesForLevel - gå igenom lärda ord och hitta deras fraser
     learnedWords.forEach(learnedWord => {
       const phraseIds = phraseIndex?.word_to_phrases?.[learnedWord.id];
       if (phraseIds) {
         phraseIds.forEach((phraseId: string) => {
+          if (countedPhraseIds.has(phraseId)) {
+            return; // hoppa över dubbletter
+          }
           const phraseData = phraseDatabase[phraseId];
-          if (phraseData) {
-            // Kontrollera att meningen har en meningsnivå (N1-N4)
-            if ((phraseData as any).meningsnivå && ['N1', 'N2', 'N3', 'N4'].includes((phraseData as any).meningsnivå)) {
-              // Kontrollera att alla ord som hänvisar till meningen är lärda
-              const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
-              if (referringWordIds) {
-                const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
-                
-                if (allWordsLearned) {
-                  const level = (phraseData as any).meningsnivå as keyof typeof progress;
-                  progress[level].total++;
-                  if (sentencesProgress[phraseId]) {
-                    progress[level].correct++;
-                  }
-                }
-              }
+          if (!phraseData) return;
+
+          const meningsniva = (phraseData as any).meningsnivå as string | undefined;
+          // Kontrollera att meningen har en meningsnivå (N1-N4)
+          if (meningsniva && ['N1', 'N2', 'N3', 'N4'].includes(meningsniva)) {
+            const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
+            if (!referringWordIds) return;
+
+            // Alla ord som refererar till frasen måste vara lärda
+            const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+            if (!allWordsLearned) return;
+
+            // Markera som räknad nu när vi vet att den uppfyller kraven
+            countedPhraseIds.add(phraseId);
+
+            const level = meningsniva as keyof typeof progress;
+            progress[level].total++;
+            debugFoundPerLevel[level].push(`${phraseId} (${(phraseData as any).fras || ''})`);
+            if (sentencesProgress[phraseId]) {
+              progress[level].correct++;
+              debugCorrectPerLevel[level].push(`${phraseId}`);
             }
           }
         });
+      }
+    });
+
+    // DEBUG: skriv bara ut om något hittades
+    (['N1','N2','N3','N4'] as const).forEach(lvl => {
+      if (debugFoundPerLevel[lvl].length > 0) {
+        console.log(`[DEBUG][Home] (UNIKA) Hittade meningar ${lvl}:`, debugFoundPerLevel[lvl]);
+      }
+      if (debugCorrectPerLevel[lvl].length > 0) {
+        console.log(`[DEBUG][Home] (UNIKA) Markerade korrekta ${lvl}:`, debugCorrectPerLevel[lvl]);
       }
     });
 
@@ -2106,7 +2225,58 @@ const OvningPage: React.FC = () => {
     return wordCounts;
   }, [phraseIndex, phraseDatabase, learnedWords, wordDatabase]);
 
-  const mostCommonUnlearnedWords = getMostCommonUnlearnedWords;
+  const top3Words = getMostCommonUnlearnedWords;
+
+  // Hjälpare: bygg fras-detaljer för ett specifikt ord som skulle göra meningar kompletta
+  const buildPhraseDetailsForWord = (targetWordId: string): { id: string; fras: string; meningsnivå: string | null; words: string[]; missingWord: string }[] => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) return [];
+    const learnedWordIds = new Set(learnedWords.map(w => w.id));
+    const details: { id: string; fras: string; meningsnivå: string | null; words: string[]; missingWord: string }[] = [];
+
+    // Gå igenom alla fraser som refererar till targetWordId via phrase_to_words (omvänd lookup saknas, iterera över map:en)
+    // Effektivt sätt: iterera alla fraser och kontrollera om targetWordId är det enda olärda
+    Object.keys(phraseDatabase).forEach((phraseId: string) => {
+      const phraseData: any = (phraseDatabase as any)[phraseId];
+      if (!phraseData) return;
+      if (sentencesOnlyWithLevel && !phraseData.meningsnivå) return;
+      const referringWordIds: string[] | undefined = phraseIndex?.phrase_to_words?.[phraseId];
+      if (!referringWordIds) return;
+      const unlearned = referringWordIds.filter((wid: string) => !learnedWordIds.has(wid));
+      if (unlearned.length === 1 && unlearned[0] === targetWordId) {
+        const words = referringWordIds.map((wid: string) => (wordDatabase[wid]?.ord as string) || wid).filter(Boolean) as string[];
+        details.push({
+          id: phraseId,
+          fras: (phraseData.fras as string) || '',
+          meningsnivå: (phraseData.meningsnivå as string) || null,
+          words,
+          missingWord: (wordDatabase[targetWordId]?.ord as string) || targetWordId
+        });
+      }
+    });
+
+    return details;
+  };
+
+  // DEBUG: visa en sammanfattning av vad Top 3-rutan visar just nu och detaljer per ord
+  if (top3Words && top3Words.length > 0) {
+    const summaryWithLiveCounts = top3Words.map(e => {
+      const live = buildPhraseDetailsForWord(e.wordId).filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå)).length;
+      return `${e.word} (${e.wordId}) x${live}`;
+    });
+    console.log('[DEBUG][Exercise][Top3][Shown] Ord:', summaryWithLiveCounts);
+    top3Words.forEach(entry => {
+      const details = buildPhraseDetailsForWord(entry.wordId);
+      // För säkerhets skull, använd samma filter även här så vi inte visar nivå —
+      const filteredDetails = details.filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå));
+      if (filteredDetails.length > 0) {
+        console.log(`[DEBUG][Exercise][Top3][Shown] → "${entry.word}" (${entry.wordId}) meningar:`, filteredDetails.map(d => `${d.id}${d.fras ? ` (${d.fras})` : ''} | nivå: ${d.meningsnivå ?? '—'} | ord: ${d.words.join(', ')} | saknas: ${d.missingWord}`));
+      } else {
+        console.log(`[DEBUG][Exercise][Top3][Shown] → "${entry.word}" (${entry.wordId}) (inga matchande meningar hittades vid on-the-fly kontroll).`);
+      }
+    });
+  } else {
+    console.log('[DEBUG][Exercise][Top3][Shown] Inga kandidater nu (0 nästan kompletta).');
+  }
 
   // Funktion för att lägga till ord i "att lära mig" listan
   const addWordToLearningList = (wordId: string) => {
@@ -2134,75 +2304,81 @@ const OvningPage: React.FC = () => {
   };
 
   // Hämta tillgängliga meningar för en specifik nivå
-  const getAvailablePhrasesForLevel = (level: string) => {
-    if (!phraseDatabase || learnedWords.length === 0) return [];
-    
+  const getAvailablePhrasesForLevel = (level: 'N1' | 'N2' | 'N3' | 'N4') => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return [] as any[];
+    }
+
     const learnedWordIds = new Set(learnedWords.map(word => word.id));
-    const phrases: any[] = [];
-    
+    const phraseMap = new Map<string, any>();
+
     // Gå igenom alla lärda ord och hitta deras fraser (samma logik som SentencesExerciseDuplicate)
     learnedWords.forEach(learnedWord => {
-      const phraseIds = phraseIndex?.word_to_phrases?.[learnedWord.id];
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
       if (phraseIds) {
         phraseIds.forEach((phraseId: string) => {
+          if (phraseMap.has(phraseId)) return; // undvik dubbletter
           const phraseData = phraseDatabase[phraseId];
-          if (phraseData) {
-            // Kontrollera att meningen har den specifika nivån (N1-N4)
-            if ((phraseData as any).meningsnivå === level) {
-              // Kontrollera att alla ord som hänvisar till meningen är lärda
-              const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
-              if (referringWordIds) {
-                const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
-                
-                if (allWordsLearned) {
-                  // Undvik duplicerade meningar
-                  if (!phrases.find(p => p.id === phraseId)) {
-                    phrases.push(phraseData);
-                  }
-                }
-              }
-            }
+          if (!phraseData) return;
+
+          // Kontrollera att meningen har den specifika nivån (N1-N4)
+          if ((phraseData as any).meningsnivå === level) {
+            // Kontrollera att alla ord som hänvisar till meningen är lärda
+            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+            if (!referringWordIds) return;
+            const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+            if (!allWordsLearned) return;
+
+            phraseMap.set(phraseId, {
+              id: phraseId,
+              fras: (phraseData as any).fras,
+              meningsnivå: (phraseData as any).meningsnivå
+            });
           }
         });
       }
     });
-    
-    return phrases;
+
+    const available = Array.from(phraseMap.values());
+    if (available.length > 0) {
+      console.log(`[DEBUG][Exercise][AvailableForLevel] ${level}:`, available.map(p => `${p.id}${p.fras ? ` (${p.fras})` : ''}`));
+    }
+    return available;
   };
 
   // Starta meningar-övning för valda nivåer
   const startSentencesExercise = (levels: string[]) => {
     console.log(`[DEBUG] startSentencesExercise called with levels: ${levels.join(', ')}`);
-    
+
     // Samla alla tillgängliga meningar för de valda nivåerna
-    let allPhrases: any[] = [];
-    levels.forEach(level => {
-      allPhrases = allPhrases.concat(getAvailablePhrasesForLevel(level));
+    const allAvailable: any[] = [];
+    levels.forEach((lvl) => {
+      if (['N1','N2','N3','N4'].includes(lvl)) {
+        allAvailable.push(...getAvailablePhrasesForLevel(lvl as 'N1'|'N2'|'N3'|'N4'));
+      }
     });
-    
-    console.log(`[DEBUG] Found ${allPhrases.length} phrases for levels: ${levels.join(', ')}`);
-    
-    if (allPhrases.length === 0) {
+
+    // Undvik dubbletter mellan nivåer
+    const uniqueByIdMap = new Map<string, any>();
+    allAvailable.forEach(p => uniqueByIdMap.set(p.id, p));
+    const uniqueAvailable = Array.from(uniqueByIdMap.values());
+
+    console.log('[DEBUG][Exercise][Start] Tillgängliga (unika) före slumpning:', uniqueAvailable.map(p => `${p.id}${p.fras ? ` (${p.fras})` : ''}`));
+
+    // Slumpa fram max 10 meningar
+    const shuffled = [...uniqueAvailable].sort(() => Math.random() - 0.5);
+    const selectedPhrases = shuffled.slice(0, 10);
+
+    console.log('[DEBUG][Exercise][Start] Valda (efter slumpning/max10):', selectedPhrases.map(p => `${p.id}${p.fras ? ` (${p.fras})` : ''}`));
+
+    if (selectedPhrases.length === 0) {
       alert(`Inga meningar tillgängliga för nivå ${levels.join(', ')}. Du behöver lära dig fler ord.`);
       return;
     }
-    
-    // Slumpa fram max 10 meningar
-    const shuffledPhrases = shuffleArrayWithSeed(allPhrases, Date.now());
-    const selectedPhrases = shuffledPhrases.slice(0, Math.min(10, shuffledPhrases.length));
-    
-    console.log(`[DEBUG] Selected ${selectedPhrases.length} phrases for exercise`);
-    
-    // Sätt valda nivåer och starta övningen
+
     setSelectedSentenceLevels(levels);
     setSentencesWords(selectedPhrases);
     setSelectedExerciseType(ExerciseType.SENTENCES);
-    setCurrentWordIndex(0);
-    setShowResults(false);
-    setResults([]);
-    
-    // Scrolla till toppen
-    window.scrollTo(0, 0);
   };
 
   // Definiera förbestämda intervall (moved to before spelling section)
@@ -3154,10 +3330,10 @@ const OvningPage: React.FC = () => {
               <CardContent sx={{ textAlign: 'center', p: 3 }}>
               <Quiz sx={{ fontSize: 40, color: 'secondary.main', mb: 2 }} />
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                  Flervalsquiz
+                  Se tecknet
                 </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                  Se videon och välj rätt ord från flera alternativ.
+                  Se tecknet och välj rätt ord från flera alternativ.
                 </Typography>
               </CardContent>
             </Card>
@@ -3189,7 +3365,7 @@ const OvningPage: React.FC = () => {
                   Bokstavering
                 </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                  Se bokstaveringsvideo och gissa vilket ord som bokstaveras.
+                  Se bokstavering och gissa vilket ord som bokstaveras.
                 </Typography>
               </CardContent>
             </Card>
@@ -3220,7 +3396,7 @@ const OvningPage: React.FC = () => {
                 Meningar
                 </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                Öva med meningar och fraser från dina lärda ord.
+                Se meningar baserat på dina lärda ord och se om du förstår.
                 </Typography>
               </CardContent>
             </Card>
@@ -3760,13 +3936,10 @@ const OvningPage: React.FC = () => {
             <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
               <CardContent sx={{ textAlign: 'center', p: 4 }}>
                 <Typography variant="h5" gutterBottom color="text.secondary">
-                  Inga ord att öva med
+                  Inga meningar att öva med
                 </Typography>
                 <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                  Du behöver markera ord som "lärda" för att kunna göra meningar-övningar.
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Gå till startguiden eller ordlistor för att markera ord.
+                  Gör övningarna 'Teckna' eller 'Se Tecknet' för att lära dig ord innan du går över till meningar.
                 </Typography>
               </CardContent>
             </Card>
@@ -3940,7 +4113,7 @@ const OvningPage: React.FC = () => {
               </Box>
 
               {/* Top 3 ord att lära sig */}
-              {mostCommonUnlearnedWords.length > 0 && (
+              {top3Words.length > 0 && (
                 <Box sx={{ mb: 4, p: 3, backgroundColor: 'primary.50', borderRadius: 2, border: '1px solid', borderColor: 'primary.200', maxWidth: '600px', mx: 'auto' }}>
                   <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
                     {learnedWords.length === 0 
@@ -3949,14 +4122,14 @@ const OvningPage: React.FC = () => {
                     }
                   </Typography>
                   <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
-                    {mostCommonUnlearnedWords.map((wordData, index) => {
+                    {top3Words.map((wordData, index) => {
                       const isInLearningList = isWordInLearningList(wordData.wordId);
                       return (
                         <Chip 
                           key={wordData.wordId}
-                          label={`${wordData.word} (+${wordData.count})`}
-                          color={isInLearningList ? "warning" : "primary"}
-                          variant={isInLearningList ? "filled" : "outlined"}
+                          label={`${wordData.word} (+${buildPhraseDetailsForWord(wordData.wordId).filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå)).length})`}
+                          color="primary"
+                          variant="filled"
                           sx={{ 
                             fontWeight: 600,
                             cursor: 'pointer',
@@ -3985,3 +4158,4 @@ const OvningPage: React.FC = () => {
 };
 
 export default OvningPage;
+
