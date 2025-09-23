@@ -2346,6 +2346,52 @@ const OvningPage: React.FC = () => {
     return available;
   };
 
+  // Hämta tillgängliga meningar UTAN meningsnivå
+  const getAvailablePhrasesWithoutLevel = () => {
+    if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
+      return [] as any[];
+    }
+
+    const learnedWordIds = new Set(learnedWords.map(word => word.id));
+    const phraseMap = new Map<string, any>();
+
+    learnedWords.forEach(learnedWord => {
+      const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
+      if (phraseIds) {
+        phraseIds.forEach((phraseId: string) => {
+          if (phraseMap.has(phraseId)) return; // undvik dubbletter
+          const phraseData = phraseDatabase[phraseId];
+          if (!phraseData) return;
+
+          const meningsniva = (phraseData as any).meningsnivå as string | undefined;
+          // Endast fraser UTAN nivå (saknar meningsnivå eller inte i N1–N4)
+          if (!meningsniva || !['N1','N2','N3','N4'].includes(meningsniva)) {
+            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+            if (!referringWordIds) return;
+            const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+            if (!allWordsLearned) return;
+
+            phraseMap.set(phraseId, {
+              id: phraseId,
+              fras: (phraseData as any).fras,
+              meningsnivå: (phraseData as any).meningsnivå || null
+            });
+          }
+        });
+      }
+    });
+
+    return Array.from(phraseMap.values());
+  };
+
+  // Progress för UTAN nivå (räknar hur många av de tillgängliga utan nivå som är avklarade)
+  const getNoLevelProgress = () => {
+    const sentencesProgress = JSON.parse(localStorage.getItem('sentences-progress') || '{}');
+    const available = getAvailablePhrasesWithoutLevel();
+    const correct = available.filter(p => sentencesProgress[p.id]).length;
+    return { correct, total: available.length };
+  };
+
   // Starta meningar-övning för valda nivåer
   const startSentencesExercise = (levels: string[]) => {
     console.log(`[DEBUG] startSentencesExercise called with levels: ${levels.join(', ')}`);
@@ -2355,6 +2401,8 @@ const OvningPage: React.FC = () => {
     levels.forEach((lvl) => {
       if (['N1','N2','N3','N4'].includes(lvl)) {
         allAvailable.push(...getAvailablePhrasesForLevel(lvl as 'N1'|'N2'|'N3'|'N4'));
+      } else if (lvl === 'NONE') {
+        allAvailable.push(...getAvailablePhrasesWithoutLevel());
       }
     });
 
@@ -4107,6 +4155,41 @@ const OvningPage: React.FC = () => {
                         {getSentencesProgress.N4.correct}
                       </Box>
                       /{getAvailablePhrasesForLevel('N4').length} meningar
+                    </Typography>
+                  </Box>
+
+                  {/* Utan nivå */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['NONE'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Utan nivå
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getNoLevelProgress().correct}
+                      </Box>
+                      /{getNoLevelProgress().total} meningar
                     </Typography>
                   </Box>
                 </Box>
