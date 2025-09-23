@@ -28,6 +28,7 @@ import { useWordProgress } from '../hooks/usePersistentState';
 import { searchWords, getAllSubjects, getWordsBySubject, getPhrasesForWord } from '../types/database';
 import WordDetailDialog from '../components/WordDetailDialog';
 import { Word } from '../types/database';
+import { useTheme } from '@mui/material/styles';
 
 // Lexikon-sidan - här kommer användare att kunna söka efter ord och tecken
 const LexikonPage: React.FC = () => {
@@ -103,6 +104,9 @@ const LexikonPage: React.FC = () => {
     if (!selectedWord) return 0;
     return wordProgress[selectedWord.id]?.level || 0;
   };
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
+
   return (
     <Box sx={{ 
       minHeight: '100vh', 
@@ -135,7 +139,7 @@ const LexikonPage: React.FC = () => {
             fontWeight: 300,
             maxWidth: 600,
             mx: 'auto',
-            color: 'black' // Svart text
+            color: isDark ? 'white' : 'black'
           }}>
             Sök efter ord och lär dig hur de tecknas
           </Typography>
@@ -149,7 +153,7 @@ const LexikonPage: React.FC = () => {
           overflow: 'hidden',
           boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
           backdropFilter: 'blur(10px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)'
+          backgroundColor: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.95)'
         }}>
           <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
             Sök efter ord
@@ -212,7 +216,7 @@ const LexikonPage: React.FC = () => {
             overflow: 'hidden',
             boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
             backdropFilter: 'blur(10px)',
-            backgroundColor: 'rgba(255, 255, 255, 0.95)'
+            backgroundColor: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.95)'
           }}>
             <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 3 }}>
               Kategorier
@@ -262,7 +266,7 @@ const LexikonPage: React.FC = () => {
           overflow: 'hidden',
           boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
           backdropFilter: 'blur(10px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          backgroundColor: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.95)',
           minHeight: 300
         }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 3 }}>

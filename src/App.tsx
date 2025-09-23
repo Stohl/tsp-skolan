@@ -11,10 +11,10 @@ import {
   Button
 } from '@mui/material';
 import { 
-  FitnessCenter, 
-  List, 
-  Book, 
-  Settings,
+  SportsKabaddiRounded,
+  FormatListBulletedRounded,
+  MenuBookRounded,
+  SettingsRounded,
   Refresh
 } from '@mui/icons-material';
 
@@ -130,38 +130,61 @@ function AppContent() {
             bottom: 0, 
             left: 0, 
             right: 0,
-            zIndex: 1000, // Säkerställer att navigation alltid är ovanpå innehåll
-            elevation: 8 // Ger skugga för att skilja från innehåll
+            zIndex: 1000,
+            borderTopLeftRadius: 16,
+            borderTopRightRadius: 16,
+            overflow: 'hidden',
+            backdropFilter: 'blur(10px)',
+            background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%)',
+            borderTop: '1px solid rgba(255,255,255,0.4)'
           }} 
-          elevation={3}
+          elevation={6}
         >
           <BottomNavigation
             value={currentPage}
             onChange={handlePageChange}
-            showLabels // Visar text under ikonerna
+            showLabels
+            sx={{
+              px: 1,
+              '& .MuiBottomNavigationAction-root': {
+                minWidth: 0,
+                px: 1.5,
+                borderRadius: 10,
+                transition: 'all 0.2s ease',
+                color: 'text.secondary',
+                '& .MuiSvgIcon-root': { fontSize: 26 },
+                '&.Mui-selected': {
+                  color: 'primary.main',
+                  backgroundColor: 'rgba(25, 118, 210, 0.10)',
+                },
+                '&:hover': {
+                  backgroundColor: 'rgba(25, 118, 210, 0.08)'
+                }
+              },
+              '& .Mui-selected .MuiBottomNavigationAction-label': {
+                fontWeight: 700
+              }
+            }}
           >
-            {/* Övning - första fliken */}
+            {/* Övning */}
             <BottomNavigationAction 
               label="Övning" 
-              icon={<FitnessCenter />} 
+              icon={<SportsKabaddiRounded />}
             />
-            
-            {/* Listor - andra fliken */}
+            {/* Ordlistor */}
             <BottomNavigationAction 
               label="Ordlistor" 
-              icon={<List />} 
+              icon={<FormatListBulletedRounded />}
             />
-            
-            {/* Lexikon - tredje fliken */}
+            {/* Lexikon */}
             <BottomNavigationAction 
               label="Lexikon" 
-              icon={<Book />} 
+              icon={<MenuBookRounded />}
             />
-            
-            {/* Inställningar - fjärde fliken */}
+            {/* Inställningar */}
             <BottomNavigationAction 
               label="Inställningar" 
-              icon={<Settings />} 
+              icon={<SettingsRounded />}
             />
           </BottomNavigation>
         </Paper>

@@ -106,8 +106,8 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
   };
 
   return (
-    // Container som centrerar innehållet och ger padding
-    <Container maxWidth="sm" sx={{ py: 3 }}>
+    <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', py: 3 }}>
+      <Container maxWidth="sm">
 
       {/* Lista med inställningsalternativ */}
       <Card>
@@ -264,7 +264,8 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
           </CardContent>
         </Card>
       </Box>
-    </Container>
+      </Container>
+    </Box>
   );
 };
 

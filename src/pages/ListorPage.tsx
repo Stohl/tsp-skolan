@@ -20,6 +20,7 @@ import {
   Grid,
   Paper
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School, CheckCircle, HourglassEmpty } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList, getDifficultyInfo } from '../types/wordLists';
@@ -334,7 +335,7 @@ const ListorPage: React.FC = () => {
                         </Box>
                       }
                     />
-                    {renderProgressCircle(word.id)}
+                    {/* Progress-ringen borttagen enligt önskemål */}
                     <PlayArrow color="primary" />
                   </ListItemButton>
                 </ListItem>
@@ -810,7 +811,7 @@ const ListorPage: React.FC = () => {
                           </Typography>
                           {wordProgress[word.id] && (
                             <Typography component="span" variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                              {getPointsDisplay(wordProgress[word.id].points || 0)} ({wordProgress[word.id].points || 0}/5) ✅ Lärd!
+                              {getPointsDisplay(wordProgress[word.id].points || 0)} ({wordProgress[word.id].points || 0}/5)
                               {wordProgress[word.id].stats && (
                                 <span> • ✅ {wordProgress[word.id].stats.correct} rätt • ❌ {wordProgress[word.id].stats.incorrect} fel</span>
                               )}
@@ -819,8 +820,8 @@ const ListorPage: React.FC = () => {
                         </Box>
                       }
                     />
-                    {renderProgressCircle(word.id)}
-                    <PlayArrow color="primary" />
+                    {/* Ta bort tidigare progress/bock i Lärda-vyn */}
+                    <CheckCircle sx={{ color: 'success.main', fontSize: 24 }} />
                   </ListItemButton>
                 </ListItem>
                 {index < learnedWords.length - 1 && <Divider />}
@@ -840,6 +841,9 @@ const ListorPage: React.FC = () => {
       </Box>
     );
   };
+
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
 
   return (
     <Box sx={{ 
@@ -873,7 +877,7 @@ const ListorPage: React.FC = () => {
             fontWeight: 300,
             maxWidth: 600,
             mx: 'auto',
-            color: 'black' // Svart text
+            color: isDark ? 'white' : 'black'
           }}>
             Hantera dina ordlistor och följ din utveckling
           </Typography>
@@ -886,7 +890,7 @@ const ListorPage: React.FC = () => {
           overflow: 'hidden',
           boxShadow: '0 8px 32px rgba(0,0,0,0.1)',
           backdropFilter: 'blur(10px)',
-          backgroundColor: 'rgba(255, 255, 255, 0.95)'
+          backgroundColor: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.95)'
         }}>
           <Tabs 
             value={activeTab} 
@@ -918,7 +922,7 @@ const ListorPage: React.FC = () => {
         {/* Content container */}
         <Box sx={{ 
           minHeight: 500,
-          backgroundColor: 'rgba(255, 255, 255, 0.95)',
+          backgroundColor: isDark ? 'rgba(0, 0, 0, 0.35)' : 'rgba(255, 255, 255, 0.95)',
           borderRadius: 3,
           backdropFilter: 'blur(10px)',
           boxShadow: '0 8px 32px rgba(0,0,0,0.1)',

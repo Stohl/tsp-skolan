@@ -59,7 +59,8 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="md" sx={{ py: 3, pb: 10 }}>
+      <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', py: 3, pb: 10 }}>
+        <Container maxWidth="md">
         {/* Huvudrubrik */}
         <Box sx={{ textAlign: 'center', mb: 4 }}>
           <Help sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
@@ -437,7 +438,8 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
           </List>
         </CardContent>
       </Card>
-      </Container>
+        </Container>
+      </Box>
     </>
   );
 };
