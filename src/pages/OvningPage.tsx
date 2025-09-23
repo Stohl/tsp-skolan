@@ -1326,6 +1326,7 @@ const SentencesExercise: React.FC<{
                 id: phraseId,
                 fras: phraseData.fras,
                 meningsnivå: phraseData.meningsnivå || null,
+                video_url: phraseData.video_url,
                 learnedWords: learnedReferringWords,
                 unlearnedWords: unlearnedReferringWords,
                 primaryWord: learnedWord
@@ -1408,12 +1409,12 @@ const SentencesExercise: React.FC<{
           // ENDAST fraser med nivå N1–N4
           if (!meningsniva || !allowedLevels.has(meningsniva)) return;
 
-          const referringWordIds = phraseIndex.phrase_to_words[phraseId];
+            const referringWordIds = phraseIndex.phrase_to_words[phraseId];
           if (!referringWordIds) return;
 
-          // Räkna hur många okända ord som finns i denna mening
-          const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
-          
+              // Räkna hur många okända ord som finns i denna mening
+              const unlearnedWordsInPhrase = referringWordIds.filter((wordId: string) => !learnedWordIds.has(wordId));
+              
           // Exkludera redan kompletta (0 saknade) och fraser med fler än 1 saknat ord
           if (unlearnedWordsInPhrase.length !== 1) return;
 
@@ -1845,7 +1846,11 @@ const SentencesPracticeExercise: React.FC<{
   useEffect(() => {
     if (currentPhrase) {
       console.log('[DEBUG] Current phrase video URL (raw):', currentPhrase.video_url);
-      console.log('[DEBUG] Current phrase video URL (processed):', getVideoUrl(currentPhrase.video_url));
+      if (currentPhrase.video_url) {
+        console.log('[DEBUG] Current phrase video URL (processed):', getVideoUrl(currentPhrase.video_url));
+      } else {
+        console.log('[DEBUG] Current phrase has no video_url');
+      }
       console.log('[DEBUG] Current phrase:', currentPhrase.fras);
     }
   }, [currentPhrase]);
@@ -1932,13 +1937,14 @@ const SentencesPracticeExercise: React.FC<{
 
       {/* Video */}
       <Box sx={{ mb: 3, textAlign: 'center' }}>
-        <video
-          ref={videoRef}
-          key={currentPhrase.id} // Tvingar React att skapa ny video när meningen ändras
-          src={getVideoUrl(currentPhrase.video_url)}
-          autoPlay
-          muted
-          playsInline // Förhindrar helskärm på mobil
+        {currentPhrase.video_url ? (
+          <video
+            ref={videoRef}
+            key={currentPhrase.id} // Tvingar React att skapa ny video när meningen ändras
+            src={getVideoUrl(currentPhrase.video_url)}
+            autoPlay
+            muted
+            playsInline // Förhindrar helskärm på mobil
           onClick={() => {
             if (videoRef.current) {
               videoRef.current.currentTime = 0;
@@ -1964,6 +1970,24 @@ const SentencesPracticeExercise: React.FC<{
             cursor: 'pointer'
           }}
         />
+        ) : (
+          <Box sx={{ 
+            width: '100%', 
+            maxWidth: '400px', 
+            height: '300px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: 'grey.100',
+            borderRadius: '8px',
+            border: '2px dashed',
+            borderColor: 'grey.300'
+          }}>
+            <Typography variant="body1" color="text.secondary">
+              Ingen video tillgänglig för denna mening
+            </Typography>
+          </Box>
+        )}
       </Box>
 
       {/* Avslöja knapp */}
@@ -2138,23 +2162,23 @@ const OvningPage: React.FC = () => {
           if (!phraseData) return;
 
           const meningsniva = (phraseData as any).meningsnivå as string | undefined;
-          // Kontrollera att meningen har en meningsnivå (N1-N4)
+            // Kontrollera att meningen har en meningsnivå (N1-N4)
           if (meningsniva && ['N1', 'N2', 'N3', 'N4'].includes(meningsniva)) {
-            const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
+              const referringWordIds = phraseIndex?.phrase_to_words?.[phraseId];
             if (!referringWordIds) return;
 
             // Alla ord som refererar till frasen måste vara lärda
-            const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+                const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
             if (!allWordsLearned) return;
 
             // Markera som räknad nu när vi vet att den uppfyller kraven
             countedPhraseIds.add(phraseId);
 
             const level = meningsniva as keyof typeof progress;
-            progress[level].total++;
+                  progress[level].total++;
             debugFoundPerLevel[level].push(`${phraseId} (${(phraseData as any).fras || ''})`);
-            if (sentencesProgress[phraseId]) {
-              progress[level].correct++;
+                  if (sentencesProgress[phraseId]) {
+                    progress[level].correct++;
               debugCorrectPerLevel[level].push(`${phraseId}`);
             }
           }
@@ -2308,10 +2332,10 @@ const OvningPage: React.FC = () => {
     if (!phraseIndex || !phraseDatabase || learnedWords.length === 0) {
       return [] as any[];
     }
-
+    
     const learnedWordIds = new Set(learnedWords.map(word => word.id));
     const phraseMap = new Map<string, any>();
-
+    
     // Gå igenom alla lärda ord och hitta deras fraser (samma logik som SentencesExerciseDuplicate)
     learnedWords.forEach(learnedWord => {
       const phraseIds = phraseIndex.word_to_phrases[learnedWord.id];
@@ -2321,18 +2345,19 @@ const OvningPage: React.FC = () => {
           const phraseData = phraseDatabase[phraseId];
           if (!phraseData) return;
 
-          // Kontrollera att meningen har den specifika nivån (N1-N4)
-          if ((phraseData as any).meningsnivå === level) {
-            // Kontrollera att alla ord som hänvisar till meningen är lärda
+            // Kontrollera att meningen har den specifika nivån (N1-N4)
+            if ((phraseData as any).meningsnivå === level) {
+              // Kontrollera att alla ord som hänvisar till meningen är lärda
             const referringWordIds = phraseIndex.phrase_to_words[phraseId];
             if (!referringWordIds) return;
-            const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
+                const allWordsLearned = referringWordIds.every((wordId: string) => learnedWordIds.has(wordId));
             if (!allWordsLearned) return;
 
             phraseMap.set(phraseId, {
               id: phraseId,
               fras: (phraseData as any).fras,
-              meningsnivå: (phraseData as any).meningsnivå
+              meningsnivå: (phraseData as any).meningsnivå,
+              video_url: (phraseData as any).video_url
             });
           }
         });
@@ -2374,13 +2399,14 @@ const OvningPage: React.FC = () => {
             phraseMap.set(phraseId, {
               id: phraseId,
               fras: (phraseData as any).fras,
-              meningsnivå: (phraseData as any).meningsnivå || null
+              meningsnivå: (phraseData as any).meningsnivå || null,
+              video_url: (phraseData as any).video_url
             });
           }
         });
       }
     });
-
+    
     return Array.from(phraseMap.values());
   };
 
@@ -2412,7 +2438,7 @@ const OvningPage: React.FC = () => {
     const uniqueAvailable = Array.from(uniqueByIdMap.values());
 
     console.log('[DEBUG][Exercise][Start] Tillgängliga (unika) före slumpning:', uniqueAvailable.map(p => `${p.id}${p.fras ? ` (${p.fras})` : ''}`));
-
+    
     // Slumpa fram max 10 meningar
     const shuffled = [...uniqueAvailable].sort(() => Math.random() - 0.5);
     const selectedPhrases = shuffled.slice(0, 10);
@@ -3035,21 +3061,21 @@ const OvningPage: React.FC = () => {
   if (isLoading) {
     return (
       <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' }}>
-        <Container maxWidth="md" sx={{ py: 4 }}>
-          <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column',
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            minHeight: '70vh',
-            textAlign: 'center'
-          }}>
-            {/* App-namn */}
-            <Typography 
-              variant="h3" 
-              component="h1" 
-              gutterBottom
-                    sx={{ 
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '70vh',
+          textAlign: 'center'
+        }}>
+          {/* App-namn */}
+          <Typography 
+            variant="h3" 
+            component="h1" 
+            gutterBottom
+                  sx={{ 
               fontWeight: 'bold',
               background: 'linear-gradient(45deg, #1976d2, #42a5f5)',
               backgroundClip: 'text',
@@ -3060,59 +3086,59 @@ const OvningPage: React.FC = () => {
           >
             TSP Skolan
                     </Typography>
-            
-            {/* Undertitel */}
-            <Typography 
-              variant="h6" 
-              color="text.secondary" 
-              sx={{ mb: 4, fontWeight: 300 }}
-            >
-              Teckenspråk för alla
-            </Typography>
-            
-            {/* Laddningsikon */}
-            <Box sx={{ position: 'relative', mb: 3 }}>
-              <CircularProgress 
-                size={60} 
-                thickness={4}
-                sx={{ 
-                  color: 'primary.main',
-                  animation: 'pulse 2s ease-in-out infinite'
-                }} 
-              />
-            </Box>
-            
-            {/* Laddningstext */}
-            <Typography 
-              variant="body1" 
-              color="text.secondary"
-                      sx={{ 
-                animation: 'fadeInOut 2s ease-in-out infinite',
-                '@keyframes fadeInOut': {
-                  '0%, 100%': { opacity: 0.6 },
-                  '50%': { opacity: 1 }
-                }
-              }}
-            >
-              Laddar ord och övningar...
-                        </Typography>
-            
-            {/* Progress-indikator */}
-            <Box sx={{ mt: 3, width: '100%', maxWidth: 300 }}>
-              <LinearProgress 
-                sx={{ 
-                  height: 4,
-                  borderRadius: 2,
-                  backgroundColor: 'rgba(25, 118, 210, 0.1)',
-                  '& .MuiLinearProgress-bar': {
-                    borderRadius: 2,
-                    background: 'linear-gradient(45deg, #1976d2, #42a5f5)'
-                  }
-                }} 
-              />
-            </Box>
+          
+          {/* Undertitel */}
+          <Typography 
+            variant="h6" 
+            color="text.secondary" 
+            sx={{ mb: 4, fontWeight: 300 }}
+          >
+            Teckenspråk för alla
+          </Typography>
+          
+          {/* Laddningsikon */}
+          <Box sx={{ position: 'relative', mb: 3 }}>
+            <CircularProgress 
+              size={60} 
+              thickness={4}
+              sx={{ 
+                color: 'primary.main',
+                animation: 'pulse 2s ease-in-out infinite'
+              }} 
+            />
           </Box>
-        </Container>
+          
+          {/* Laddningstext */}
+          <Typography 
+            variant="body1" 
+            color="text.secondary"
+                    sx={{ 
+              animation: 'fadeInOut 2s ease-in-out infinite',
+              '@keyframes fadeInOut': {
+                '0%, 100%': { opacity: 0.6 },
+                '50%': { opacity: 1 }
+              }
+            }}
+          >
+            Laddar ord och övningar...
+                      </Typography>
+          
+          {/* Progress-indikator */}
+          <Box sx={{ mt: 3, width: '100%', maxWidth: 300 }}>
+            <LinearProgress 
+              sx={{ 
+                height: 4,
+                borderRadius: 2,
+                backgroundColor: 'rgba(25, 118, 210, 0.1)',
+                '& .MuiLinearProgress-bar': {
+                  borderRadius: 2,
+                  background: 'linear-gradient(45deg, #1976d2, #42a5f5)'
+                }
+              }} 
+            />
+          </Box>
+        </Box>
+      </Container>
       </Box>
     );
   }
@@ -3120,39 +3146,39 @@ const OvningPage: React.FC = () => {
   if (error) {
     return (
       <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' }}>
-        <Container maxWidth="md" sx={{ py: 4 }}>
-          <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column',
-            justifyContent: 'center', 
-            alignItems: 'center', 
-            minHeight: '50vh',
-            textAlign: 'center'
-          }}>
-            <Typography 
-              variant="h4" 
-              color="error" 
-              gutterBottom
-              sx={{ mb: 2 }}
-            >
-              Oops! Något gick fel
-            </Typography>
-            <Typography 
-              variant="body1" 
-              color="text.secondary"
-              sx={{ mb: 3 }}
-            >
-              {error}
-            </Typography>
-              <Button
-                variant="contained"
-              onClick={() => window.location.reload()}
-              startIcon={<Refresh />}
-            >
-              Försök igen
-              </Button>
-            </Box>
-        </Container>
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          justifyContent: 'center', 
+          alignItems: 'center', 
+          minHeight: '50vh',
+          textAlign: 'center'
+        }}>
+          <Typography 
+            variant="h4" 
+            color="error" 
+            gutterBottom
+            sx={{ mb: 2 }}
+          >
+            Oops! Något gick fel
+          </Typography>
+          <Typography 
+            variant="body1" 
+            color="text.secondary"
+            sx={{ mb: 3 }}
+          >
+            {error}
+          </Typography>
+            <Button
+              variant="contained"
+            onClick={() => window.location.reload()}
+            startIcon={<Refresh />}
+          >
+            Försök igen
+            </Button>
+          </Box>
+      </Container>
       </Box>
     );
   }
@@ -3312,7 +3338,7 @@ const OvningPage: React.FC = () => {
   if (!selectedExerciseType) {
     return (
       <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' }}>
-        <Container maxWidth="md" sx={{ py: 4 }}>
+      <Container maxWidth="md" sx={{ py: 4 }}>
           {/* Header */}
           <Box sx={{ textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" sx={{ fontWeight: 700, color: 'primary.main' }}>
@@ -3323,347 +3349,347 @@ const OvningPage: React.FC = () => {
             </Typography>
           </Box>
 
-          <Box sx={{ 
-            display: 'grid', 
-            gridTemplateColumns: { 
-              xs: '1fr', 
-              sm: 'repeat(2, 1fr)', 
-              md: 'repeat(3, 1fr)', 
-              lg: 'repeat(4, 1fr)' 
-            },
-            gap: 3,
-            mb: 4
-          }}>
-            {/* Teckna */}
-              <Card 
-                sx={{ 
-                  cursor: 'pointer', 
-                  height: '100%',
-                borderRadius: 2,
-                backgroundColor: 'background.paper',
-                border: '1px solid',
-                borderColor: 'divider',
-                position: 'relative',
-                overflow: 'hidden',
-                '&:hover': { 
-                  transform: 'translateY(-4px)', 
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { 
+            xs: '1fr', 
+            sm: 'repeat(2, 1fr)', 
+            md: 'repeat(3, 1fr)', 
+            lg: 'repeat(4, 1fr)' 
+          },
+          gap: 3,
+          mb: 4
+        }}>
+          {/* Teckna */}
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'primary.main'
+              }
+              }}
+              onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <School sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                Teckna
+                </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                Se ordet, teckna själv, och jämför med videon.
+                </Typography>
+              </CardContent>
+            </Card>
+
+          {/* Flervalsquiz */}
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'secondary.main'
+              }
+            }}
+            onClick={() => {
+              if (quizWords.length < 10) {
+                alert(`Du behöver minst 10 ord för att kunna göra flervalsquiz. Du har för närvarande ${quizWords.length} ord tillgängliga (från "att lära mig" och "lärda").\n\nMarkera fler ord som "vill lära mig" eller "lärda" för att kunna göra quizet.`);
+                return;
+              }
+              handleExerciseTypeSelect(ExerciseType.QUIZ);
+            }}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Quiz sx={{ fontSize: 40, color: 'secondary.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                  Se tecknet
+                </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                  Se tecknet och välj rätt ord från flera alternativ.
+                </Typography>
+              </CardContent>
+            </Card>
+
+
+          {/* Bokstavering */}
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'warning.main'
+              }
+              }}
+              onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Spellcheck sx={{ fontSize: 40, color: 'warning.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                  Bokstavering
+                </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                  Se bokstavering och gissa vilket ord som bokstaveras.
+                </Typography>
+              </CardContent>
+            </Card>
+
+          {/* Meningar */}
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'info.main'
+              }
+            }}
+            onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <ChatBubbleOutline sx={{ fontSize: 40, color: 'info.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                Meningar
+                </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                Se meningar baserat på dina lärda ord och se om du förstår.
+                </Typography>
+              </CardContent>
+            </Card>
+
+        </Box>
+
+        {/* Progress-mätare */}
+        <Paper sx={{ 
+          mt: 4, 
+          p: 3, 
+          borderRadius: 2,
+          backgroundColor: 'background.paper',
+          border: '1px solid',
+          borderColor: 'divider',
+          boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
+        }}>
+          <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3, color: 'text.primary' }}>
+            Mitt lärande
+           </Typography>
+           
+           {(() => {
+             // Räkna ord per nivå
+             const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
+             const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;
+            
+            // Räkna omarkerade ord från ordlista-ordlista
+            const unmarkedWords = Object.entries(wordDatabase).filter(([_, word]: [string, any]) => 
+              word.ämne && word.ämne.includes('Ordlista - Ordlista') && 
+              (!wordProgress[word.id] || wordProgress[word.id].level === 0)
+            ).length;
+            
+            // Räkna ordlistor där alla ord är lärda
+            // Hämta alla ordlistor från wordLists.ts
+            const { getAllWordLists } = require('../types/wordLists');
+            const allWordLists = getAllWordLists(wordDatabase);
+            
+            // Gruppera ordlistor efter namn för att räkna avklarade
+            const wordListGroups = allWordLists.reduce((acc: any, wordList: any) => {
+              if (!acc[wordList.name]) {
+                acc[wordList.name] = [];
+              }
+              acc[wordList.name].push(wordList);
+              return acc;
+            }, {});
+            
+            // Debug: logga ordlistor
+            console.log('[DEBUG] All word lists:', allWordLists.map((list: any) => list.name));
+            console.log('[DEBUG] Word list groups:', Object.keys(wordListGroups));
+            
+            const completedLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
+              // Kontrollera om alla ord i alla wordLists med detta namn är lärda
+              const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
+              // En lista är bara avklarad om den har ord OCH alla ord är lärda
+              const allLearned = allWordsInList.length > 0 && allWordsInList.every((wordId: string) => wordProgress[wordId]?.level === 2);
+              console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}`);
+              return allLearned;
+            }).length;
+            
+            // Räkna avklarade bokstavering-rutor
+            const completedSpellingBoxesCount = completedSpellingBoxes.length;
+             
+            // Räkna totalt antal ordlistor (unika namn) - exkludera tomma listor
+            const totalLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
+              const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
+              return allWordsInList.length > 0; // Bara räkna listor som har ord
+            }).length;
+            
+            console.log(`[DEBUG] Completed lists: ${completedLists}, Total lists: ${totalLists}`);
+             
+             return (
+              <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, gap: 3 }}>
+                {/* Lärda */}
+                <Box sx={{ 
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'success.50',
+                  border: '1px solid',
+                  borderColor: 'success.200',
+                  textAlign: 'center',
+                  cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-                  borderColor: 'primary.main'
-                }
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'success.100'
+                  }
                 }}
                 onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
-              >
-                <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <School sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                  Teckna
-                  </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                  Se ordet, teckna själv, och jämför med videon.
-                  </Typography>
-                </CardContent>
-              </Card>
-
-            {/* Flervalsquiz */}
-              <Card 
-                sx={{ 
-                  cursor: 'pointer', 
-                  height: '100%',
-                borderRadius: 2,
-                backgroundColor: 'background.paper',
-                border: '1px solid',
-                borderColor: 'divider',
-                position: 'relative',
-                overflow: 'hidden',
-                '&:hover': { 
-                  transform: 'translateY(-4px)', 
+                >
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
+                    {level2Words}
+                 </Typography>
+                   <Typography variant="body2" color="text.secondary">
+                    Lärda ord
+                   </Typography>
+                </Box>
+                
+                {/* Avklarade ordlistor */}
+                <Box sx={{ 
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'info.50',
+                  border: '1px solid',
+                  borderColor: 'info.200',
+                  textAlign: 'center',
+                  cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-                  borderColor: 'secondary.main'
-                }
-              }}
-              onClick={() => {
-                if (quizWords.length < 10) {
-                  alert(`Du behöver minst 10 ord för att kunna göra flervalsquiz. Du har för närvarande ${quizWords.length} ord tillgängliga (från "att lära mig" och "lärda").\n\nMarkera fler ord som "vill lära mig" eller "lärda" för att kunna göra quizet.`);
-                  return;
-                }
-                handleExerciseTypeSelect(ExerciseType.QUIZ);
-              }}
-              >
-                <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <Quiz sx={{ fontSize: 40, color: 'secondary.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    Se tecknet
-                  </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                    Se tecknet och välj rätt ord från flera alternativ.
-                  </Typography>
-                </CardContent>
-              </Card>
-
-
-            {/* Bokstavering */}
-              <Card 
-                sx={{ 
-                  cursor: 'pointer', 
-                  height: '100%',
-                borderRadius: 2,
-                backgroundColor: 'background.paper',
-                border: '1px solid',
-                borderColor: 'divider',
-                position: 'relative',
-                overflow: 'hidden',
-                '&:hover': { 
-                  transform: 'translateY(-4px)', 
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'info.100'
+                  }
+                }}
+                onClick={() => {
+                  // Navigera till ordlistor-sidan (index 1)
+                  window.dispatchEvent(new CustomEvent('navigateToPage', { detail: 1 }));
+                }}
+                >
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
+                    {completedLists}/{totalLists}
+                   </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Avklarade ordlistor
+                   </Typography>
+                 </Box>
+                
+                {/* Bokstavering framsteg */}
+                <Box sx={{ 
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'warning.50',
+                  border: '1px solid',
+                  borderColor: 'warning.200',
+                  textAlign: 'center',
+                  cursor: 'pointer',
                   transition: 'all 0.2s ease',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-                  borderColor: 'warning.main'
-                }
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'warning.100'
+                  }
                 }}
                 onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
-              >
-                <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <Spellcheck sx={{ fontSize: 40, color: 'warning.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                >
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'warning.main', mb: 1 }}>
+                    {completedSpellingBoxesCount}/15
+                  </Typography>
+               <Typography variant="body2" color="text.secondary">
                     Bokstavering
-                  </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                    Se bokstavering och gissa vilket ord som bokstaveras.
-                  </Typography>
-                </CardContent>
-              </Card>
-
-            {/* Meningar */}
-              <Card 
-                sx={{ 
-                  cursor: 'pointer', 
-                  height: '100%',
-                borderRadius: 2,
-                backgroundColor: 'background.paper',
-                border: '1px solid',
-                borderColor: 'divider',
-                position: 'relative',
-                overflow: 'hidden',
-                '&:hover': { 
-                  transform: 'translateY(-4px)', 
-                  transition: 'all 0.2s ease',
-                  boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
-                  borderColor: 'info.main'
-                }
-              }}
-              onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
-              >
-                <CardContent sx={{ textAlign: 'center', p: 3 }}>
-                <ChatBubbleOutline sx={{ fontSize: 40, color: 'info.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                  Meningar
-                  </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                  Se meningar baserat på dina lärda ord och se om du förstår.
-                  </Typography>
-                </CardContent>
-              </Card>
-
-          </Box>
-
-          {/* Progress-mätare */}
-          <Paper sx={{ 
-            mt: 4, 
-            p: 3, 
-            borderRadius: 2,
-            backgroundColor: 'background.paper',
-            border: '1px solid',
-            borderColor: 'divider',
-            boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
-          }}>
-            <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 3, color: 'text.primary' }}>
-              Mitt lärande
-             </Typography>
-             
-             {(() => {
-               // Räkna ord per nivå
-               const level1Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 1).length;
-               const level2Words = Object.entries(wordProgress).filter(([_, progress]) => progress.level === 2).length;
-              
-              // Räkna omarkerade ord från ordlista-ordlista
-              const unmarkedWords = Object.entries(wordDatabase).filter(([_, word]: [string, any]) => 
-                word.ämne && word.ämne.includes('Ordlista - Ordlista') && 
-                (!wordProgress[word.id] || wordProgress[word.id].level === 0)
-              ).length;
-              
-              // Räkna ordlistor där alla ord är lärda
-              // Hämta alla ordlistor från wordLists.ts
-              const { getAllWordLists } = require('../types/wordLists');
-              const allWordLists = getAllWordLists(wordDatabase);
-              
-              // Gruppera ordlistor efter namn för att räkna avklarade
-              const wordListGroups = allWordLists.reduce((acc: any, wordList: any) => {
-                if (!acc[wordList.name]) {
-                  acc[wordList.name] = [];
-                }
-                acc[wordList.name].push(wordList);
-                return acc;
-              }, {});
-              
-              // Debug: logga ordlistor
-              console.log('[DEBUG] All word lists:', allWordLists.map((list: any) => list.name));
-              console.log('[DEBUG] Word list groups:', Object.keys(wordListGroups));
-              
-              const completedLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
-                // Kontrollera om alla ord i alla wordLists med detta namn är lärda
-                const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
-                // En lista är bara avklarad om den har ord OCH alla ord är lärda
-                const allLearned = allWordsInList.length > 0 && allWordsInList.every((wordId: string) => wordProgress[wordId]?.level === 2);
-                console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}`);
-                return allLearned;
-              }).length;
-              
-              // Räkna avklarade bokstavering-rutor
-              const completedSpellingBoxesCount = completedSpellingBoxes.length;
-               
-              // Räkna totalt antal ordlistor (unika namn) - exkludera tomma listor
-              const totalLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
-                const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
-                return allWordsInList.length > 0; // Bara räkna listor som har ord
-              }).length;
-              
-              console.log(`[DEBUG] Completed lists: ${completedLists}, Total lists: ${totalLists}`);
-               
-               return (
-                <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(4, 1fr)' }, gap: 3 }}>
-                  {/* Lärda */}
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: 2, 
-                    backgroundColor: 'success.50',
-                    border: '1px solid',
-                    borderColor: 'success.200',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                      backgroundColor: 'success.100'
-                    }
-                  }}
-                  onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
-                  >
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
-                      {level2Words}
-                   </Typography>
-                     <Typography variant="body2" color="text.secondary">
-                      Lärda ord
-                     </Typography>
-                  </Box>
-                  
-                  {/* Avklarade ordlistor */}
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: 2, 
-                    backgroundColor: 'info.50',
-                    border: '1px solid',
-                    borderColor: 'info.200',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                      backgroundColor: 'info.100'
-                    }
-                  }}
-                  onClick={() => {
-                    // Navigera till ordlistor-sidan (index 1)
-                    window.dispatchEvent(new CustomEvent('navigateToPage', { detail: 1 }));
-                  }}
-                  >
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
-                      {completedLists}/{totalLists}
-                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Avklarade ordlistor
-                     </Typography>
-                   </Box>
-                  
-                  {/* Bokstavering framsteg */}
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: 2, 
-                    backgroundColor: 'warning.50',
-                    border: '1px solid',
-                    borderColor: 'warning.200',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                      backgroundColor: 'warning.100'
-                    }
-                  }}
-                  onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
-                  >
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'warning.main', mb: 1 }}>
-                      {completedSpellingBoxesCount}/15
-                    </Typography>
-                 <Typography variant="body2" color="text.secondary">
-                      Bokstavering
-                 </Typography>
-                   </Box>
-
-                  {/* Meningar */}
-                  <Box sx={{ 
-                    p: 2, 
-                    borderRadius: 2, 
-                    backgroundColor: 'secondary.50',
-                    border: '1px solid',
-                    borderColor: 'secondary.200',
-                    textAlign: 'center',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s ease',
-                    '&:hover': {
-                      transform: 'translateY(-2px)',
-                      boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                      backgroundColor: 'secondary.100'
-                    }
-                  }}
-                  onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
-                  >
-                    <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main', mb: 1 }}>
-                      {Object.values(getSentencesProgress).reduce((sum, level) => sum + level.correct, 0)}/{Object.values(getSentencesProgress).reduce((sum, level) => sum + level.total, 0)}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                      Meningar
-                      </Typography>
-                  </Box>
+               </Typography>
                  </Box>
-               );
-             })()}
-          </Paper>
 
-           {/* Start-guide knapp */}
-           <Paper sx={{ mt: 3, p: 3 }}>
-             <Typography variant="h6" gutterBottom>
-               Lägg till fler ord
-                      </Typography>
-             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-               Använd startguiden för att lägga till fler ord i "att lära mig" från olika ordlistor.
-                      </Typography>
-                          <Button
-               variant="contained"
-               startIcon={<School />}
-               onClick={() => {
-                 // Öppna startguiden genom att trigga en custom event
-                 window.dispatchEvent(new CustomEvent('openStartGuide'));
-               }}
-               sx={{ mt: 1 }}
-             >
-               Öppna start-guide
-                          </Button>
-           </Paper>
-         </Container>
+                {/* Meningar */}
+                <Box sx={{ 
+                  p: 2, 
+                  borderRadius: 2, 
+                  backgroundColor: 'secondary.50',
+                  border: '1px solid',
+                  borderColor: 'secondary.200',
+                  textAlign: 'center',
+                  cursor: 'pointer',
+                  transition: 'all 0.2s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                    backgroundColor: 'secondary.100'
+                  }
+                }}
+                onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
+                >
+                  <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main', mb: 1 }}>
+                    {Object.values(getSentencesProgress).reduce((sum, level) => sum + level.correct, 0)}/{Object.values(getSentencesProgress).reduce((sum, level) => sum + level.total, 0)}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                    Meningar
+                    </Typography>
+                </Box>
+               </Box>
+             );
+           })()}
+        </Paper>
+
+         {/* Start-guide knapp */}
+         <Paper sx={{ mt: 3, p: 3 }}>
+           <Typography variant="h6" gutterBottom>
+             Lägg till fler ord
+                    </Typography>
+           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+             Använd startguiden för att lägga till fler ord i "att lära mig" från olika ordlistor.
+                    </Typography>
+                        <Button
+             variant="contained"
+             startIcon={<School />}
+             onClick={() => {
+               // Öppna startguiden genom att trigga en custom event
+               window.dispatchEvent(new CustomEvent('openStartGuide'));
+             }}
+             sx={{ mt: 1 }}
+           >
+             Öppna start-guide
+                        </Button>
+         </Paper>
+       </Container>
        </Box>
      );
   }
@@ -3790,103 +3816,103 @@ const OvningPage: React.FC = () => {
 
   return (
     <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)' }}>
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        {/* Header med progress */}
-        <Box sx={{ mb: 0.3 }}>
-          {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering, meningar och quiz */}
-          {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && selectedExerciseType !== ExerciseType.QUIZ && (
-          <Typography variant="h4" gutterBottom align="center">
-            Övning
-          </Typography>
-          )}
-          
-          {/* Visa progress bara för andra övningstyper än meningar */}
-          {selectedExerciseType !== ExerciseType.SENTENCES && (
-            <>
-              {/* Visa text bara för andra övningstyper än flashcards och quiz */}
-              {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.QUIZ && (
-                <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0.5 }}>
-                  <Typography variant="body2" color="text.secondary">
-                    Ord {currentWordIndex + 1} av {
-                      (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
-                      (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
-                      practiceWords.length
-                    }
-            </Typography>
-          </Box>
-              )}
-              
-              {/* Progress-mätare */}
-              {(selectedExerciseType === ExerciseType.FLASHCARDS || selectedExerciseType === ExerciseType.QUIZ) ? (
-                // Uppdelad progress för flashcards och quiz (10 korta horisontella streck)
-                <Box sx={{ mb: 0.3 }}>
-                  <Box sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: { xs: 0.5, sm: 1 }
-                  }}>
-                    {Array.from({ length: 10 }, (_, index) => {
-                      const result = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults[index] : quizResults[index];
-                      let backgroundColor = 'rgba(25, 118, 210, 0.1)'; // Standard blå (tom)
-                      
-                      if (result === true) {
-                        backgroundColor = 'success.main'; // Grön för rätt svar
-                      } else if (result === false) {
-                        backgroundColor = 'error.main'; // Röd för fel svar
-                      }
-                      
-                      return (
-                        <Box
-                          key={index}
-                          sx={{
-                            width: { xs: 20, sm: 24 },
-                            height: 4,
-                            backgroundColor,
-                            transition: 'background-color 0.3s ease',
-                            borderRadius: 2
-                          }}
-                        />
-                      );
-                    })}
-                  </Box>
-                </Box>
-              ) : (
-                // Kontinuerlig progress för andra övningar
-          <LinearProgress 
-            variant="determinate" 
-                  value={((currentWordIndex + 1) / (
-                    (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
-                    practiceWords.length
-                  )) * 100}
-                  sx={{ mb: 0.3, height: 4 }}
-                />
-              )}
-            </>
-          )}
-
-        </Box>
-
-        {/* Övningskomponent */}
-        {selectedExerciseType === ExerciseType.FLASHCARDS && (
+    <Container maxWidth="md" sx={{ py: 4 }}>
+      {/* Header med progress */}
+      <Box sx={{ mb: 0.3 }}>
+        {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering, meningar och quiz */}
+        {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && selectedExerciseType !== ExerciseType.QUIZ && (
+        <Typography variant="h4" gutterBottom align="center">
+          Övning
+        </Typography>
+        )}
+        
+        {/* Visa progress bara för andra övningstyper än meningar */}
+        {selectedExerciseType !== ExerciseType.SENTENCES && (
           <>
-            {console.log(`[DEBUG] Main: Rendering FlashcardsExercise with word: ${currentWord?.ord} (ID: ${currentWord?.id}), currentWordIndex: ${currentWordIndex}`)}
-            {!currentWord ? (
-              <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                  <Typography variant="h5" gutterBottom color="text.secondary">
-                    Inga ord att öva med
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                    Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Gå till startguiden eller ordlistor för att markera ord.
-                  </Typography>
-                </CardContent>
-              </Card>
+            {/* Visa text bara för andra övningstyper än flashcards och quiz */}
+            {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.QUIZ && (
+              <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 0.5 }}>
+                <Typography variant="body2" color="text.secondary">
+                  Ord {currentWordIndex + 1} av {
+                    (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+                    (selectedExerciseType as any) === ExerciseType.QUIZ ? quizWords.length :
+                    practiceWords.length
+                  }
+          </Typography>
+        </Box>
+            )}
+            
+            {/* Progress-mätare */}
+            {(selectedExerciseType === ExerciseType.FLASHCARDS || selectedExerciseType === ExerciseType.QUIZ) ? (
+              // Uppdelad progress för flashcards och quiz (10 korta horisontella streck)
+              <Box sx={{ mb: 0.3 }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  gap: { xs: 0.5, sm: 1 }
+                }}>
+                  {Array.from({ length: 10 }, (_, index) => {
+                    const result = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults[index] : quizResults[index];
+                    let backgroundColor = 'rgba(25, 118, 210, 0.1)'; // Standard blå (tom)
+                    
+                    if (result === true) {
+                      backgroundColor = 'success.main'; // Grön för rätt svar
+                    } else if (result === false) {
+                      backgroundColor = 'error.main'; // Röd för fel svar
+                    }
+                    
+                    return (
+                      <Box
+                        key={index}
+                        sx={{
+                          width: { xs: 20, sm: 24 },
+                          height: 4,
+                          backgroundColor,
+                          transition: 'background-color 0.3s ease',
+                          borderRadius: 2
+                        }}
+                      />
+                    );
+                  })}
+                </Box>
+              </Box>
             ) : (
-              <>
+              // Kontinuerlig progress för andra övningar
+        <LinearProgress 
+          variant="determinate" 
+                value={((currentWordIndex + 1) / (
+                  (selectedExerciseType as any) === ExerciseType.SPELLING ? spellingWords.length :
+                  practiceWords.length
+                )) * 100}
+                sx={{ mb: 0.3, height: 4 }}
+              />
+            )}
+          </>
+        )}
+
+      </Box>
+
+      {/* Övningskomponent */}
+      {selectedExerciseType === ExerciseType.FLASHCARDS && (
+        <>
+          {console.log(`[DEBUG] Main: Rendering FlashcardsExercise with word: ${currentWord?.ord} (ID: ${currentWord?.id}), currentWordIndex: ${currentWordIndex}`)}
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <>
         <FlashcardsExercise
           word={currentWord}
           onResult={handleExerciseResult}
@@ -3896,285 +3922,285 @@ const OvningPage: React.FC = () => {
           wordDatabase={wordDatabase}
         />
               
-              </>
-            )}
-          </>
-        )}
-        
-        {selectedExerciseType === ExerciseType.QUIZ && (
-          <>
-            {!currentWord ? (
-              <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                  <Typography variant="h5" gutterBottom color="text.secondary">
-                    Inga ord att öva med
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                    Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Gå till startguiden eller ordlistor för att markera ord.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ) : (
-          <MultipleChoiceExercise
-            key={currentWord.id} // Tvingar React att återställa komponenten när ordet ändras
-            word={currentWord}
-            allWords={quizWords}
-            onResult={handleExerciseResult}
-            onSkip={handleSkip}
-            onMoveToLearned={handleMoveToLearned}
-            wordIndex={wordIndex}
-            wordDatabase={wordDatabase}
-          />
-            )}
-          </>
-        )}
-        
-        {selectedExerciseType === ExerciseType.SIGN && (
-          <>
-            {!currentWord ? (
-              <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                  <Typography variant="h5" gutterBottom color="text.secondary">
-                    Inga ord att öva med
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                    Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Gå till startguiden eller ordlistor för att markera ord.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ) : (
-          <SignExercise
-            word={currentWord}
-            onResult={handleExerciseResult}
-            onSkip={handleSkip}
-          />
-            )}
-          </>
-        )}
-        
-        {(selectedExerciseType as any) === ExerciseType.SPELLING && (
-          <>
-            {!currentWord ? (
-              <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                  <Typography variant="h5" gutterBottom color="text.secondary">
-                    Inga ord att öva med
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                    Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Gå till startguiden eller ordlistor för att markera ord.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ) : (
-          <SpellingExercise
-            word={currentWord}
-            allSpellingWords={spellingWords}
-            onResult={handleExerciseResult}
-            onSkip={handleSkip}
-            playbackSpeed={playbackSpeed}
-          />
-            )}
-          </>
-        )}
+            </>
+          )}
+        </>
+      )}
+      
+      {selectedExerciseType === ExerciseType.QUIZ && (
+        <>
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+        <MultipleChoiceExercise
+          key={currentWord.id} // Tvingar React att återställa komponenten när ordet ändras
+          word={currentWord}
+          allWords={quizWords}
+          onResult={handleExerciseResult}
+          onSkip={handleSkip}
+          onMoveToLearned={handleMoveToLearned}
+          wordIndex={wordIndex}
+          wordDatabase={wordDatabase}
+        />
+          )}
+        </>
+      )}
+      
+      {selectedExerciseType === ExerciseType.SIGN && (
+        <>
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+        <SignExercise
+          word={currentWord}
+          onResult={handleExerciseResult}
+          onSkip={handleSkip}
+        />
+          )}
+        </>
+      )}
+      
+      {(selectedExerciseType as any) === ExerciseType.SPELLING && (
+        <>
+          {!currentWord ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga ord att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Du behöver markera ord som "vill lära mig" eller "lärda" för att kunna göra övningar.
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Gå till startguiden eller ordlistor för att markera ord.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+        <SpellingExercise
+          word={currentWord}
+          allSpellingWords={spellingWords}
+          onResult={handleExerciseResult}
+          onSkip={handleSkip}
+          playbackSpeed={playbackSpeed}
+        />
+          )}
+        </>
+      )}
 
-        {selectedExerciseType === ExerciseType.SENTENCES && (
-          <>
-            {sentencesWords.length > 0 ? (
-              <SentencesPracticeExercise
-                learnedWords={learnedWords}
-                phraseDatabase={phraseDatabase}
-                wordDatabase={wordDatabase}
-                onResult={handleExerciseResult}
-                onSkip={handleSkip}
-                selectedLevels={selectedSentenceLevels}
-                sentencesWords={sentencesWords}
-              />
-            ) : learnedWords.length === 0 ? (
-              <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
-                <CardContent sx={{ textAlign: 'center', p: 4 }}>
-                  <Typography variant="h5" gutterBottom color="text.secondary">
-                    Inga meningar att öva med
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-                    Gör övningarna 'Teckna' eller 'Se Tecknet' för att lära dig ord innan du går över till meningar.
-                  </Typography>
-                </CardContent>
-              </Card>
-            ) : (
-              <>
-                {/* Infotext för meningar */}
-                <Box sx={{ mb: 4, textAlign: 'center' }}>
-                  <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
-                    Meningar
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-                    Välj svårighetsnivå för att träna på meningar. Du kommer att se en video och gissa vad meningen betyder. Meningarna baseras på vilka ord som du har lärt dig.
-                  </Typography>
-                </Box>
+      {selectedExerciseType === ExerciseType.SENTENCES && (
+        <>
+          {sentencesWords.length > 0 ? (
+            <SentencesPracticeExercise
+              learnedWords={learnedWords}
+              phraseDatabase={phraseDatabase}
+              wordDatabase={wordDatabase}
+              onResult={handleExerciseResult}
+              onSkip={handleSkip}
+              selectedLevels={selectedSentenceLevels}
+              sentencesWords={sentencesWords}
+            />
+          ) : learnedWords.length === 0 ? (
+            <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3 }}>
+              <CardContent sx={{ textAlign: 'center', p: 4 }}>
+                <Typography variant="h5" gutterBottom color="text.secondary">
+                  Inga meningar att öva med
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
+                  Gör övningarna 'Teckna' eller 'Se Tecknet' för att lära dig ord innan du går över till meningar.
+                </Typography>
+              </CardContent>
+            </Card>
+          ) : (
+            <>
+              {/* Infotext för meningar */}
+              <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
+                  Meningar
+                </Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
+                  Välj svårighetsnivå för att träna på meningar. Du kommer att se en video och gissa vad meningen betyder. Meningarna baseras på vilka ord som du har lärt dig.
+                </Typography>
+              </Box>
 
 
-                {/* Rutnät för nivåval */}
+              {/* Rutnät för nivåval */}
+              <Box sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                mb: 4
+              }}>
                 <Box sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  mb: 4
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(2, 1fr)',
+                  gap: { xs: 2, sm: 3 },
+                  maxWidth: '400px',
+                  width: '100%'
                 }}>
-                  <Box sx={{
-                    display: 'grid',
-                    gridTemplateColumns: 'repeat(2, 1fr)',
-                    gap: { xs: 2, sm: 3 },
-                    maxWidth: '400px',
-                    width: '100%'
-                  }}>
-                    {/* Nivå 1 */}
-                    <Box 
-                      sx={{
-                        cursor: 'pointer',
-                        border: '1px solid',
-                        borderColor: 'primary.main',
-                        backgroundColor: 'primary.50',
-                        color: 'primary.main',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: { xs: 80, sm: 100 },
-                        p: { xs: 1, sm: 2 },
-                        borderRadius: 2,
-                        '&:hover': {
-                          transform: 'translateY(-2px)',
-                          transition: 'transform 0.2s',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                          backgroundColor: 'primary.100'
-                        }
-                      }}
-                      onClick={() => startSentencesExercise(['N1'])}
-                    >
-                      <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-                        Nivå 1
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
-                        <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
-                          {getSentencesProgress.N1.correct}
-                        </Box>
-                        /{getAvailablePhrasesForLevel('N1').length} meningar
-                      </Typography>
-                    </Box>
+                  {/* Nivå 1 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N1'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 1
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N1.correct}
+                      </Box>
+                      /{getAvailablePhrasesForLevel('N1').length} meningar
+                    </Typography>
+                  </Box>
 
-                    {/* Nivå 2 */}
-                    <Box 
-                      sx={{
-                        cursor: 'pointer',
-                        border: '1px solid',
-                        borderColor: 'primary.main',
-                        backgroundColor: 'primary.50',
-                        color: 'primary.main',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: { xs: 80, sm: 100 },
-                        p: { xs: 1, sm: 2 },
-                        borderRadius: 2,
-                        '&:hover': {
-                          transform: 'translateY(-2px)',
-                          transition: 'transform 0.2s',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                          backgroundColor: 'primary.100'
-                        }
-                      }}
-                      onClick={() => startSentencesExercise(['N2'])}
-                    >
-                      <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-                        Nivå 2
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
-                        <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
-                          {getSentencesProgress.N2.correct}
-                        </Box>
+                  {/* Nivå 2 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N2'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 2
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N2.correct}
+                      </Box>
                         /{getAvailablePhrasesForLevel('N2').length} meningar
-                      </Typography>
-                    </Box>
+                    </Typography>
+                  </Box>
 
-                    {/* Nivå 3 */}
-                    <Box 
-                      sx={{
-                        cursor: 'pointer',
-                        border: '1px solid',
-                        borderColor: 'primary.main',
-                        backgroundColor: 'primary.50',
-                        color: 'primary.main',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: { xs: 80, sm: 100 },
-                        p: { xs: 1, sm: 2 },
-                        borderRadius: 2,
-                        '&:hover': {
-                          transform: 'translateY(-2px)',
-                          transition: 'transform 0.2s',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                          backgroundColor: 'primary.100'
-                        }
-                      }}
-                      onClick={() => startSentencesExercise(['N3'])}
-                    >
-                      <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-                        Nivå 3
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
-                        <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
-                          {getSentencesProgress.N3.correct}
-                        </Box>
+                  {/* Nivå 3 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N3'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 3
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N3.correct}
+                      </Box>
                         /{getAvailablePhrasesForLevel('N3').length} meningar
-                      </Typography>
-                    </Box>
+                    </Typography>
+                  </Box>
 
-                    {/* Nivå 4 */}
-                    <Box 
-                      sx={{
-                        cursor: 'pointer',
-                        border: '1px solid',
-                        borderColor: 'primary.main',
-                        backgroundColor: 'primary.50',
-                        color: 'primary.main',
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        minHeight: { xs: 80, sm: 100 },
-                        p: { xs: 1, sm: 2 },
-                        borderRadius: 2,
-                        '&:hover': {
-                          transform: 'translateY(-2px)',
-                          transition: 'transform 0.2s',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
-                          backgroundColor: 'primary.100'
-                        }
-                      }}
-                      onClick={() => startSentencesExercise(['N4'])}
-                    >
-                      <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
-                        Nivå 4
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
-                        <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
-                          {getSentencesProgress.N4.correct}
-                        </Box>
+                  {/* Nivå 4 */}
+                  <Box 
+                    sx={{
+                      cursor: 'pointer',
+                      border: '1px solid',
+                      borderColor: 'primary.main',
+                      backgroundColor: 'primary.50',
+                      color: 'primary.main',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      minHeight: { xs: 80, sm: 100 },
+                      p: { xs: 1, sm: 2 },
+                      borderRadius: 2,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        transition: 'transform 0.2s',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.1)',
+                        backgroundColor: 'primary.100'
+                      }
+                    }}
+                    onClick={() => startSentencesExercise(['N4'])}
+                  >
+                    <Typography variant="h5" sx={{ fontWeight: 600, mb: 1 }}>
+                      Nivå 4
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.8rem', sm: '0.9rem' } }}>
+                      <Box component="span" sx={{ color: 'success.main', fontWeight: 600 }}>
+                        {getSentencesProgress.N4.correct}
+                      </Box>
                         /{getAvailablePhrasesForLevel('N4').length} meningar
-                      </Typography>
-                    </Box>
+                    </Typography>
+                  </Box>
 
                     {/* Utan nivå */}
                     <Box 
@@ -4210,51 +4236,51 @@ const OvningPage: React.FC = () => {
                         /{getNoLevelProgress().total} meningar
                       </Typography>
                     </Box>
-                  </Box>
                 </Box>
+              </Box>
 
-                {/* Top 3 ord att lära sig */}
+              {/* Top 3 ord att lära sig */}
                 {top3Words.length > 0 && (
-                  <Box sx={{ mb: 4, p: 3, backgroundColor: 'primary.50', borderRadius: 2, border: '1px solid', borderColor: 'primary.200', maxWidth: '600px', mx: 'auto' }}>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      {learnedWords.length === 0 
-                        ? "Dessa ord finns i flest meningar och är bra att börja med:"
-                        : "Dessa ord skulle lägga till flest nya meningar:"
-                      }
-                    </Typography>
-                    <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
+                <Box sx={{ mb: 4, p: 3, backgroundColor: 'primary.50', borderRadius: 2, border: '1px solid', borderColor: 'primary.200', maxWidth: '600px', mx: 'auto' }}>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    {learnedWords.length === 0 
+                      ? "Dessa ord finns i flest meningar och är bra att börja med:"
+                      : "Dessa ord skulle lägga till flest nya meningar:"
+                    }
+                  </Typography>
+                  <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', justifyContent: 'center' }}>
                       {top3Words.map((wordData, index) => {
-                        const isInLearningList = isWordInLearningList(wordData.wordId);
-                        return (
-                          <Chip 
-                            key={wordData.wordId}
+                      const isInLearningList = isWordInLearningList(wordData.wordId);
+                      return (
+                        <Chip 
+                          key={wordData.wordId}
                             label={`${wordData.word} (+${buildPhraseDetailsForWord(wordData.wordId).filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå)).length})`}
                             color="primary"
                             variant="filled"
-                            sx={{ 
-                              fontWeight: 600,
-                              cursor: 'pointer',
-                              '&:hover': {
-                                backgroundColor: isInLearningList ? 'warning.dark' : 'primary.dark',
-                                transform: 'scale(1.05)',
-                                transition: 'all 0.2s ease-in-out'
-                              }
-                            }}
-                            onClick={() => addWordToLearningList(wordData.wordId)}
-                          />
-                        );
-                      })}
-                    </Box>
+                          sx={{ 
+                            fontWeight: 600,
+                            cursor: 'pointer',
+                            '&:hover': {
+                              backgroundColor: isInLearningList ? 'warning.dark' : 'primary.dark',
+                              transform: 'scale(1.05)',
+                              transition: 'all 0.2s ease-in-out'
+                            }
+                          }}
+                          onClick={() => addWordToLearningList(wordData.wordId)}
+                        />
+                      );
+                    })}
                   </Box>
-                )}
-              </>
-            )}
-          </>
-        )}
+                </Box>
+              )}
+            </>
+          )}
+        </>
+      )}
 
 
 
-      </Container>
+    </Container>
     </Box>
   );
 };
