@@ -43,6 +43,9 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
   // State för att bara visa meningar med meningsnivå
   const [sentencesOnlyWithLevel, setSentencesOnlyWithLevel] = useState<boolean>(true);
   
+  // State för att visa/dölja ordlistor-dialog
+  const [showAddWordsDialog, setShowAddWordsDialog] = useState<boolean>(true);
+  
   // Ladda inställningar från localStorage vid komponentens mount
   useEffect(() => {
     const savedReviewWords = localStorage.getItem('reviewLearnedWords');
@@ -53,6 +56,11 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const savedSentencesLevel = localStorage.getItem('sentences-only-with-level');
     if (savedSentencesLevel !== null) {
       setSentencesOnlyWithLevel(savedSentencesLevel === 'true');
+    }
+    
+    const savedShowAddWordsDialog = localStorage.getItem('showAddWordsDialog');
+    if (savedShowAddWordsDialog !== null) {
+      setShowAddWordsDialog(savedShowAddWordsDialog === 'true');
     }
   }, []);
   
@@ -68,6 +76,13 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const newValue = event.target.checked;
     setSentencesOnlyWithLevel(newValue);
     localStorage.setItem('sentences-only-with-level', newValue.toString());
+  };
+
+  // Hantera ändring av ordlistor-dialog-inställning
+  const handleShowAddWordsDialogChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setShowAddWordsDialog(newValue);
+    localStorage.setItem('showAddWordsDialog', newValue.toString());
   };
 
   // Funktion för att nollställa alla inställningar och progress
@@ -125,6 +140,22 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
               edge="end" 
               checked={mode === 'dark'}
               onChange={toggleTheme}
+            />
+          </ListItem>
+          
+          {/* Ordlistor-dialog */}
+          <ListItem>
+            <ListItemIcon>
+              <FilterList />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Förslag på fler ordlistor" 
+              secondary={showAddWordsDialog ? 'Dialog visas när du har få ord att lära' : 'Dialog är avstängd'}
+            />
+            <Switch 
+              edge="end" 
+              checked={showAddWordsDialog}
+              onChange={handleShowAddWordsDialogChange}
             />
           </ListItem>
           

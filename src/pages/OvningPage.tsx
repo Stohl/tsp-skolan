@@ -2032,24 +2032,6 @@ const SentencesPracticeExercise: React.FC<{
           </Button>
         </Box>
       )}
-
-      {/* Information om källa och licens */}
-      <Box sx={{ mt: 4, p: 2, backgroundColor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
-        <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.4 }}>
-          Tack till Stockholms Universitet och{' '}
-          <Link href="https://teckensprakslexikon.su.se" target="_blank" rel="noopener noreferrer">
-            teckensprakslexikon.su.se
-          </Link>
-          {' '}som gör detta material tillgängligt. Utan det skulle TSP Skolan inte vara möjligt.
-          <br />
-          Materialet används under{' '}
-          <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.sv" target="_blank" rel="noopener noreferrer">
-            Creative Commons-licens
-          </Link>
-          {' '}med stor tacksamhet.
-        </Typography>
-      </Box>
-
     </Card>
   );
 };
@@ -3626,7 +3608,7 @@ const OvningPage: React.FC = () => {
               const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
               // En lista är bara avklarad om den har ord OCH alla ord är lärda
               const allLearned = allWordsInList.length > 0 && allWordsInList.every((wordId: string) => wordProgress[wordId]?.level === 2);
-              console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}`);
+              // console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}`);
               return allLearned;
             }).length;
             

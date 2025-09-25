@@ -8,7 +8,11 @@ import {
   Typography,
   CircularProgress,
   LinearProgress,
-  Button
+  Button,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions
 } from '@mui/material';
 import { 
   SportsKabaddiRounded,
@@ -29,15 +33,23 @@ import StartGuideDialog from './components/StartGuideDialog';
 // Importera Providers
 import { DatabaseProvider, useDatabase } from './contexts/DatabaseContext';
 import { CustomThemeProvider } from './contexts/ThemeContext';
+import { useWordProgress } from './hooks/usePersistentState';
+import { getAllWordLists, getWordsFromList } from './types/wordLists';
 
 // Komponent för huvudinnehållet (efter att databaserna laddats)
 function AppContent() {
+  // Använd databasen och word progress hooks
+  const { wordDatabase } = useDatabase();
+  const { setWordLevel } = useWordProgress();
+  
   // State för att hålla reda på vilken sida som är aktiv
   const [currentPage, setCurrentPage] = useState(0);
   // State för att hantera om hjälpsidan ska visas
   const [showHelp, setShowHelp] = useState(false);
   // State för att hantera start-guiden
   const [showStartGuide, setShowStartGuide] = useState(false);
+  // State för att hantera dialog om att lägga till ordlistor
+  const [showAddWordsDialog, setShowAddWordsDialog] = useState(false);
 
   // Kontrollera om användaren är ny (ingen sparad data)
   React.useEffect(() => {
@@ -52,6 +64,83 @@ function AppContent() {
       setShowStartGuide(true);
     }
   }, []);
+
+  // Kontrollera om användaren behöver fler ord att lära sig (bara på Övning-sidan)
+  React.useEffect(() => {
+    // Vänta tills databasen är laddad
+    if (Object.keys(wordDatabase).length === 0) return;
+    
+    // Bara kontrollera på Övning-sidan (index 0)
+    if (currentPage !== 0) return;
+    
+    // Läs direkt från localStorage för att få senaste värden
+    const wordProgressData = localStorage.getItem('wordProgress');
+    const currentProgress = wordProgressData ? JSON.parse(wordProgressData) : {};
+    const learningWordsCount = Object.values(currentProgress).filter((word: any) => word.level === 1).length;
+    const hasSeenGuide = localStorage.getItem('hasSeenStartGuide');
+    const showAddWordsDialogSetting = localStorage.getItem('showAddWordsDialog') !== 'false'; // Default: true
+    
+    console.log(`[DEBUG] På Övning-sidan - Antal ord att lära: ${learningWordsCount}, Har sett guide: ${hasSeenGuide}, Visa dialog: ${showAddWordsDialogSetting}`);
+    
+    // Bara visa dialog om användaren har sett start-guiden, har färre än 20 ord OCH har aktiverat inställningen
+    if (hasSeenGuide && learningWordsCount < 20 && showAddWordsDialogSetting) {
+      console.log('[DEBUG] Villkor uppfyllda, kontrollerar ordlistor...');
+      
+      // Kontrollera om det finns tillgängliga ordlistor
+      const allWordLists = getAllWordLists(wordDatabase);
+      const availableWordLists = allWordLists.filter(list => {
+        const wordsInList = getWordsFromList(list, wordDatabase);
+        // Kontrollera om det finns ord som INTE är lärda (nivå 2)
+        return wordsInList.some(word => currentProgress[word.id]?.level !== 2);
+      });
+      
+      console.log(`[DEBUG] Tillgängliga ordlistor: ${availableWordLists.length}, Visa dialog: ${true}`);
+      
+      // Visa dialog om det finns tillgängliga ordlistor
+      setShowAddWordsDialog(true);
+    } else {
+      console.log(`[DEBUG] Villkor INTE uppfyllda - hasSeenGuide: ${hasSeenGuide}, learningWordsCount: ${learningWordsCount}, showAddWordsDialogSetting: ${showAddWordsDialogSetting}`);
+    }
+  }, [wordDatabase, currentPage]);
+
+  // Funktion för att lägga till ord från ordlistor
+  const handleAddWordLists = () => {
+    const wordProgressData = localStorage.getItem('wordProgress');
+    const currentProgress = wordProgressData ? JSON.parse(wordProgressData) : {};
+    
+    const allWordLists = getAllWordLists(wordDatabase);
+    const availableWordLists = allWordLists.filter(list => {
+      const wordsInList = getWordsFromList(list, wordDatabase);
+      return wordsInList.some(word => currentProgress[word.id]?.level !== 2);
+    });
+    
+    // Sortera efter priority (lägre nummer = högre prioritet)
+    availableWordLists.sort((a, b) => a.priority - b.priority);
+    
+    // Lägg till ord från de första 1-2 ordlistorna
+    let addedWords = 0;
+    availableWordLists.slice(0, 2).forEach(list => {
+      const wordsInList = getWordsFromList(list, wordDatabase);
+      wordsInList.forEach(word => {
+        if (currentProgress[word.id]?.level !== 2 && currentProgress[word.id]?.level !== 1) {
+          setWordLevel(word.id, 1); // Sätt till "att lära mig"
+          addedWords++;
+        }
+      });
+    });
+    
+    console.log(`[DEBUG] Lade till ${addedWords} ord från ordlistor`);
+    setShowAddWordsDialog(false);
+    
+    // Uppdatera sidan för att visa nya ord
+    window.dispatchEvent(new Event('storage'));
+  };
+
+  // Funktion för att navigera till ordlistor-sidan
+  const handleShowWordLists = () => {
+    setShowAddWordsDialog(false);
+    setCurrentPage(1); // Navigera till Ordlistor-sidan (index 1)
+  };
 
   // Lyssna på custom event för att öppna startguiden
   React.useEffect(() => {
@@ -207,10 +296,56 @@ function AppContent() {
           // Ladda om sidan för att uppdatera alla komponenter med nya ord
           window.location.reload();
         }}
-      />
-    </>
-  );
-}
+        />
+
+        {/* Dialog för att lägga till fler ordlistor */}
+        <Dialog
+          open={showAddWordsDialog}
+          onClose={() => setShowAddWordsDialog(false)}
+          maxWidth="sm"
+          fullWidth
+        >
+          <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
+            Lägg till fler ord att lära?
+          </DialogTitle>
+          <DialogContent>
+            <Typography variant="body1" sx={{ textAlign: 'center', mb: 2 }}>
+              Du har bara {(() => {
+                const wordProgressData = localStorage.getItem('wordProgress');
+                const currentProgress = wordProgressData ? JSON.parse(wordProgressData) : {};
+                return Object.values(currentProgress).filter((word: any) => word.level === 1).length;
+              })()} ord i "att lära mig". 
+              Vill du lägga till ord från fler ordlistor för att ha mer att öva med?
+            </Typography>
+          </DialogContent>
+          <DialogActions sx={{ justifyContent: 'center', gap: 1, pb: 3 }}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleAddWordLists}
+              sx={{ minWidth: 120 }}
+            >
+              Ja, lägg till
+            </Button>
+            <Button
+              variant="outlined"
+              onClick={handleShowWordLists}
+              sx={{ minWidth: 120 }}
+            >
+              Visa ordlistor
+            </Button>
+            <Button
+              variant="text"
+              onClick={() => setShowAddWordsDialog(false)}
+              sx={{ minWidth: 120 }}
+            >
+              Inte nu
+            </Button>
+          </DialogActions>
+        </Dialog>
+      </>
+    );
+  }
 
 // Huvudkomponenten som hanterar laddning och rendering
 function App() {
