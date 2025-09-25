@@ -11,7 +11,7 @@ import {
   Divider,
   Link
 } from '@mui/material';
-import { PlayArrow, OpenInNew } from '@mui/icons-material';
+import { OpenInNew, CheckCircle } from '@mui/icons-material';
 import { Word, Phrase, getVideoUrl } from '../types/database';
 
 // Interface för props
@@ -37,18 +37,18 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
 
   if (!word) return null;
 
-  // Funktion som körs när användaren klickar på videolänken
-  const handleVideoClick = () => {
-    if (word.video_url) {
-      window.open(getVideoUrl(word.video_url), '_blank');
-    }
-  };
-
   // Funktion som körs när användaren klickar på lexikonlänken
   const handleLexikonClick = () => {
-    // Lexikonlänken har tagits bort från databasen
-    // Öppna istället videon direkt
-    if (word.video_url) {
+    const anyWord: any = word as any;
+    const LEX_BASE = 'https://teckensprakslexikon.su.se';
+    // Öppna ordets externa URL om den finns (säkerställ absolut URL), annars fallback: video_url
+    if (anyWord.url && typeof anyWord.url === 'string' && anyWord.url.trim().length > 0) {
+      const raw = anyWord.url.trim();
+      const absoluteUrl = raw.startsWith('http://') || raw.startsWith('https://')
+        ? raw
+        : `${LEX_BASE}${raw.startsWith('/') ? '' : '/'}${raw}`;
+      window.open(absoluteUrl, '_blank');
+    } else if (word.video_url) {
       window.open(getVideoUrl(word.video_url), '_blank');
     }
   };
@@ -111,15 +111,12 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
       case 2: // Lärt sig
         return (
           <Box
-            sx={{
-              ...circleStyle,
-              backgroundColor: 'green.200',
-              borderColor: 'green.600',
-              color: 'green.800'
-            }}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             onClick={handleProgressClick}
+            aria-label="Lärd"
+            title="Lärd"
           >
-            🟢
+            <CheckCircle sx={{ color: 'success.main', fontSize: 28 }} />
           </Box>
         );
       default:
@@ -181,7 +178,7 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
           </Typography>
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Typography variant="body2" color="text.secondary">
-              Progress:
+              Status:
             </Typography>
             {renderProgressCircle()}
           </Box>
@@ -197,6 +194,7 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
               controls
               autoPlay
               muted
+              playsInline
               onClick={() => {
                 if (videoRef.current) {
                   videoRef.current.currentTime = 0;
@@ -256,61 +254,6 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
           </Box>
         )}
 
-        {/* Exempel */}
-        {((word.exempel && word.exempel.primära && word.exempel.primära.length > 0) || 
-          (word.exempel && word.exempel.sekundära && word.exempel.sekundära.length > 0)) && (
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Exempel
-            </Typography>
-            {word.exempel && word.exempel.primära && word.exempel.primära.length > 0 && (
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="subtitle2" color="primary" gutterBottom>
-                  Primära exempel:
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {word.exempel.primära.join(', ')}
-                </Typography>
-              </Box>
-            )}
-            {word.exempel && word.exempel.sekundära && word.exempel.sekundära.length > 0 && (
-              <Box>
-                <Typography variant="subtitle2" color="primary" gutterBottom>
-                  Sekundära exempel:
-                </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {word.exempel.sekundära.join(', ')}
-                </Typography>
-              </Box>
-            )}
-          </Box>
-        )}
-
-        {/* Fras-exempel */}
-        {phrases.length > 0 && (
-          <Box sx={{ mb: 3 }}>
-            <Typography variant="h6" gutterBottom>
-              Fras-exempel ({phrases.length})
-            </Typography>
-            {phrases.slice(0, 3).map((phrase, index) => (
-              <Box key={phrase.id} sx={{ mb: 2 }}>
-                <Typography variant="body2" color="text.secondary">
-                  {phrase.fras}
-                </Typography>
-                <Link
-                  href={getVideoUrl(phrase.video_url)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{ display: 'inline-flex', alignItems: 'center', gap: 0.5, mt: 0.5 }}
-                >
-                  <PlayArrow fontSize="small" />
-                  Se video
-                </Link>
-                {index < Math.min(phrases.length, 3) - 1 && <Divider sx={{ mt: 1 }} />}
-              </Box>
-            ))}
-          </Box>
-        )}
 
         {/* Förekomster */}
         <Box sx={{ mb: 3 }}>
@@ -318,20 +261,12 @@ const WordDetailDialog: React.FC<WordDetailDialogProps> = ({
             Förekomster
           </Typography>
           <Typography variant="body2" color="text.secondary">
-            Lexikonet: {word.förekomster.Lexikonet} | Enkäter: {word.förekomster.Enkäter}
+            Lexikonet: {word.förekomster.Lexikonet}
           </Typography>
         </Box>
       </DialogContent>
 
       <DialogActions sx={{ p: 3, pt: 0 }}>
-        <Button 
-          onClick={handleVideoClick}
-          startIcon={<PlayArrow />}
-          variant="contained"
-          color="primary"
-        >
-          Se video
-        </Button>
         <Button 
           onClick={handleLexikonClick}
           startIcon={<OpenInNew />}

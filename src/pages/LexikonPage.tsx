@@ -18,6 +18,7 @@ import {
   Paper,
   FormControl,
   InputLabel,
+  Link,
   Select,
   MenuItem,
   Button
@@ -110,40 +111,11 @@ const LexikonPage: React.FC = () => {
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', // Extremt subtil lila bakgrund
       py: 4
     }}>
       <Container maxWidth="lg">
         {/* Modern header */}
-        <Box sx={{ 
-          textAlign: 'center', 
-          mb: 6,
-          color: 'white'
-        }}>
-          <Box sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 80,
-            height: 80,
-            borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            backdropFilter: 'blur(10px)',
-            mb: 3,
-            border: '2px solid rgba(255, 255, 255, 0.3)'
-          }}>
-            <Book sx={{ fontSize: 40, color: 'white' }} />
-          </Box>
-          <Typography variant="h6" sx={{ 
-            opacity: 0.9,
-            fontWeight: 300,
-            maxWidth: 600,
-            mx: 'auto',
-            color: isDark ? 'white' : 'black'
-          }}>
-            Sök efter ord och lär dig hur de tecknas
-          </Typography>
-        </Box>
+        
 
         {/* Sökfält container */}
         <Paper sx={{ 
@@ -437,6 +409,23 @@ const LexikonPage: React.FC = () => {
               </Box>
             )}
         </Paper>
+
+        {/* Information om källa och licens */}
+        <Box sx={{ mt: 4, p: 2, backgroundColor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.4 }}>
+            Tack till Stockholms Universitet och{' '}
+            <Link href="https://teckensprakslexikon.su.se" target="_blank" rel="noopener noreferrer">
+              teckensprakslexikon.su.se
+            </Link>
+            {' '}som gör detta material tillgängligt. Utan det skulle TSP Skolan inte vara möjligt.
+            <br />
+            Materialet används under{' '}
+            <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.sv" target="_blank" rel="noopener noreferrer">
+              Creative Commons-licens
+            </Link>
+            {' '}med stor tacksamhet.
+          </Typography>
+        </Box>
 
         {/* Dialog för orddetaljer */}
         <WordDetailDialog

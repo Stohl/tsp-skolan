@@ -75,7 +75,26 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   const { wordProgress, setWordLevel, setWordProgress } = useWordProgress();
   
   // Ny struktur för startguiden
-  const [currentStep, setCurrentStep] = useState<'knowledge_level' | 'wordlists' | 'completed'>('knowledge_level');
+  const [currentStep, setCurrentStep] = useState<'intro' | 'knowledge_level' | 'wordlists' | 'completed'>('intro');
+  // Ordning på steg för navigering (exkluderar completed)
+  const stepOrder: Array<'intro' | 'knowledge_level' | 'wordlists'> = ['intro', 'knowledge_level', 'wordlists'];
+  const currentStepIndex = stepOrder.indexOf(currentStep as any);
+
+  const goToStepIndex = (index: number) => {
+    if (index >= 0 && index < stepOrder.length) {
+      setCurrentStep(stepOrder[index]);
+    }
+  };
+
+  const handleNext = () => {
+    if (currentStep === 'wordlists') return; // sista steget innan slutför
+    goToStepIndex(currentStepIndex + 1);
+  };
+
+  const handleBack = () => {
+    if (currentStep === 'intro') return;
+    goToStepIndex(currentStepIndex - 1);
+  };
   const [selectedKnowledgeLevel, setSelectedKnowledgeLevel] = useState<KnowledgeLevel | null>(null);
   const [wordListQuestions, setWordListQuestions] = useState<WordListQuestion[]>([]);
   
@@ -141,7 +160,7 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       id: 'proffs',
       level: 'proffs',
       title: 'Proffs',
-      description: 'Jag kan teckna flytande'
+      description: 'Jag kan teckna'
     }
   ];
 
@@ -477,9 +496,10 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <School color="primary" />
             <Typography variant="h6">
+              {currentStep === 'intro' && 'Välkommen till TSP Skolan'}
               {currentStep === 'knowledge_level' && 'Välkommen till TSP Skolan'}
               {currentStep === 'wordlists' && 'Lämpliga ordlistor'}
-              {currentStep === 'completed' && 'Start-guide slutförd!'}
+              {currentStep === 'completed' && 'Klart att börja öva!'}
             </Typography>
           </Box>
           <Button
@@ -492,17 +512,53 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       </DialogTitle>
 
       <DialogContent>
+        {currentStep === 'intro' && (
+          <>
+            {/* Kort introduktion (sida 1) */}
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
+                Kom igång på 30 sekunder
+              </Typography>
+              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+                TSP Skolan är ett verktyg för att hålla språket levande om du inte kan använda det i vardagen.
+                Du börjar med att välja din nuvarande kunskapsnivå, TSP Skolan föreslår passande ordlistor, och du kan direkt komma igång.
+              </Typography>
+              <List>
+                <ListItem>
+                  <ListItemIcon>
+                    <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+                      1
+                    </Typography>
+                  </ListItemIcon>
+                  <ListItemText primary="Välj din nivå" secondary="Nybörjare till proffs" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+                      2
+                    </Typography>
+                  </ListItemIcon>
+                  <ListItemText primary="Ordlistor föreslås" secondary="Anpassade för dig" />
+                </ListItem>
+                <ListItem>
+                  <ListItemIcon>
+                    <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
+                      3
+                    </Typography>
+                  </ListItemIcon>
+                  <ListItemText primary="Börja öva" secondary="Teckna, se tecken, meningar och bokstavering" />
+                </ListItem>
+              </List>
+            </Box>
+          </>
+        )}
+
         {currentStep === 'knowledge_level' && (
           <>
             {/* Kunskapsnivå-fråga */}
-            <Alert severity="info" sx={{ mb: 3 }}>
-              <Typography variant="body2">
-                Vi vill veta din nuvarande kunskapsnivå för att anpassa appen efter dig.
-              </Typography>
-            </Alert>
 
             <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-              Vilken kunskapsnivå har du i dagsläget?
+              Vilken beskrivning passar dig bäst?
             </Typography>
 
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
@@ -533,9 +589,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
           <>
             {/* Sammanfattning högst upp */}
             <Alert severity="success" sx={{ mb: 3 }}>
-              <Typography variant="h6" gutterBottom>
-                Sammanfattning av ordlistor
-              </Typography>
               {(() => {
                 const groups = getGroupedWordLists();
                 return (
@@ -599,18 +652,14 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
                 variant="outlined"
                 onClick={() => setShowDetailedList(!showDetailedList)}
                 endIcon={showDetailedList ? <ExpandLess /> : <ExpandMore />}
-                sx={{ mb: 2 }}
+                sx={{ mb: 2, textTransform: 'none' }}
               >
-                {showDetailedList ? 'Dölj detaljerad lista' : 'Visa detaljerad lista för ändringar'}
+                {showDetailedList ? 'Dölj detaljerad lista' : 'Visa detaljerad lista om du vill ändra'}
               </Button>
 
               {showDetailedList && (
                 <>
                   <Alert severity="info" sx={{ mb: 3 }}>
-                    <Typography variant="body2" sx={{ mb: 2 }}>
-                      Baserat på din kunskapsnivå har vi förslag på hur du kan placera ordlistorna. 
-                      Du kan ändra dessa om du vill.
-                    </Typography>
                     <Typography variant="body2" sx={{ mb: 1 }}>
                       <strong>Ja (kan redan)</strong> = Ordlistan läggs till i "Lärda"
                     </Typography>
@@ -848,46 +897,40 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
               Perfekt! Start-guiden är klar
             </Typography>
             <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-              Vi har lagt till <strong>{totalWordsAdded} ord</strong> i dina listor baserat på dina svar.
+              Jag har lagt till <strong>{totalWordsAdded} ord</strong>.
             </Typography>
-
-            <Card sx={{ mb: 3 }}>
-              <CardContent>
-                <Typography variant="h6" gutterBottom>
-                  Vad händer nu?
-                </Typography>
-                <List>
-                  <ListItem>
-                    <ListItemIcon>
-                      <PlayArrow color="primary" />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary="Gå till Övning" 
-                      secondary="Börja öva med dina ordlistor"
-                    />
-                  </ListItem>
-                  <ListItem>
-                    <ListItemIcon>
-                      <School color="primary" />
-                    </ListItemIcon>
-                    <ListItemText 
-                      primary="Kolla Ordlistor" 
-                      secondary="Se dina ordlistor och progress"
-                    />
-                  </ListItem>
-                </List>
-              </CardContent>
-            </Card>
           </Box>
         )}
       </DialogContent>
 
-      <DialogActions>
-        {currentStep === 'completed' && (
-          <Button onClick={handleFinish} variant="contained" startIcon={<PlayArrow />}>
-            Börja öva!
-          </Button>
-        )}
+      <DialogActions sx={{ justifyContent: 'flex-end' }}>
+        <Box>
+          {currentStep !== 'intro' && currentStep !== 'completed' && (
+            <Button onClick={handleBack} sx={{ mr: 1 }}>
+              Tillbaka
+            </Button>
+          )}
+          {currentStep === 'intro' && (
+            <Button onClick={handleNext} variant="contained">
+              Kom igång
+            </Button>
+          )}
+          {currentStep === 'knowledge_level' && (
+            <Button onClick={handleNext} variant="contained" disabled={!selectedKnowledgeLevel}>
+              Nästa
+            </Button>
+          )}
+          {currentStep === 'wordlists' && (
+            <Button onClick={handleFinishNewGuide} variant="contained" startIcon={<CheckCircle />}>
+              Slutför
+            </Button>
+          )}
+          {currentStep === 'completed' && (
+            <Button onClick={handleFinish} variant="contained" startIcon={<PlayArrow />}>
+              Börja öva!
+            </Button>
+          )}
+        </Box>
       </DialogActions>
     </Dialog>
   );

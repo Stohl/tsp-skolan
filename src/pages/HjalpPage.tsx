@@ -17,7 +17,8 @@ import {
   Button,
   AppBar,
   Toolbar,
-  IconButton
+  IconButton,
+  Link
 } from '@mui/material';
 import { 
   Help,
@@ -59,7 +60,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
         </Toolbar>
       </AppBar>
 
-      <Box sx={{ minHeight: '100vh', background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', py: 3, pb: 10 }}>
+      <Box sx={{ minHeight: '100vh', py: 3, pb: 10 }}>
         <Container maxWidth="md">
         {/* Huvudrubrik */}
         <Box sx={{ textAlign: 'center', mb: 4 }}>
@@ -438,6 +439,22 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
           </List>
         </CardContent>
       </Card>
+        {/* Information om källa och licens */}
+        <Box sx={{ mt: 4, p: 2, backgroundColor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.4 }}>
+            Tack till Stockholms Universitet och{' '}
+            <Link href="https://teckensprakslexikon.su.se" target="_blank" rel="noopener noreferrer">
+              teckensprakslexikon.su.se
+            </Link>
+            {' '}som gör detta material tillgängligt. Utan det skulle TSP Skolan inte vara möjligt.
+            <br />
+            Materialet används under{' '}
+            <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.sv" target="_blank" rel="noopener noreferrer">
+              Creative Commons-licens
+            </Link>
+            {' '}med stor tacksamhet.
+          </Typography>
+        </Box>
         </Container>
       </Box>
     </>

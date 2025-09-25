@@ -166,8 +166,17 @@ export const useWordProgress = () => {
       stats: { correct: 0, incorrect: 0, lastPracticed: '', difficulty: 50 }
     };
     
-    // Om ordet markeras som "lärd" (nivå 2), ge automatiskt 5 poäng
-    const newPoints = level === 2 ? 5 : current.points;
+    let newPoints = current.points;
+    
+    // Poänglogik baserat på nivåändring:
+    if (level === 2) {
+      // När ordet markeras som "lärd" (nivå 2), ge automatiskt 5 poäng
+      newPoints = 5;
+    } else if (level === 0 && current.level === 2) {
+      // När ordet ändras från "lärd" (nivå 2) till "ej markerad" (nivå 0), sätt poäng till 0
+      newPoints = 0;
+    }
+    // För alla andra ändringar behåller vi befintliga poäng
     
     updateWordProgress(wordId, { 
       level,
@@ -340,3 +349,5 @@ export const useWordProgress = () => {
     markWordGroupAsLearned
   };
 };
+
+

@@ -18,7 +18,8 @@ import {
   Chip,
   Collapse,
   Grid,
-  Paper
+  Paper,
+  Link
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School, CheckCircle, HourglassEmpty } from '@mui/icons-material';
@@ -45,6 +46,10 @@ const ListorPage: React.FC = () => {
 
   // Använd persistent word progress hook
   const { wordProgress, setWordLevel, markWordResult, setWordProgress, getPointsDisplay } = useWordProgress();
+
+  // Theme hook för att få tillgång till tema-inställningar
+  const theme = useTheme();
+  const isDark = theme.palette.mode === 'dark';
 
   // Laddar alla ordlistor när databasen är redo
   useEffect(() => {
@@ -842,46 +847,13 @@ const ListorPage: React.FC = () => {
     );
   };
 
-  const theme = useTheme();
-  const isDark = theme.palette.mode === 'dark';
-
   return (
     <Box sx={{ 
       minHeight: '100vh', 
-      background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)', // Extremt subtil lila bakgrund
       py: 4
     }}>
       <Container maxWidth="lg">
         {/* Modern header */}
-        <Box sx={{ 
-          textAlign: 'center', 
-          mb: 6,
-          color: 'white'
-        }}>
-          <Box sx={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            width: 80,
-            height: 80,
-            borderRadius: '50%',
-            backgroundColor: 'rgba(255, 255, 255, 0.2)',
-            backdropFilter: 'blur(10px)',
-            mb: 3,
-            border: '2px solid rgba(255, 255, 255, 0.3)'
-          }}>
-            <School sx={{ fontSize: 40, color: 'white' }} />
-          </Box>
-          <Typography variant="h6" sx={{ 
-            opacity: 0.9,
-            fontWeight: 300,
-            maxWidth: 600,
-            mx: 'auto',
-            color: isDark ? 'white' : 'black'
-          }}>
-            Hantera dina ordlistor och följ din utveckling
-          </Typography>
-        </Box>
 
         {/* Modern tabs container */}
         <Paper sx={{ 
@@ -931,6 +903,23 @@ const ListorPage: React.FC = () => {
           {activeTab === 0 && renderOrdlistor()}
           {activeTab === 1 && renderAttLaraMig()}
           {activeTab === 2 && renderLarda()}
+        </Box>
+
+        {/* Information om källa och licens */}
+        <Box sx={{ mt: 4, p: 2, backgroundColor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+          <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.4 }}>
+            Tack till Stockholms Universitet och{' '}
+            <Link href="https://teckensprakslexikon.su.se" target="_blank" rel="noopener noreferrer">
+              teckensprakslexikon.su.se
+            </Link>
+            {' '}som gör detta material tillgängligt. Utan det skulle TSP Skolan inte vara möjligt.
+            <br />
+            Materialet används under{' '}
+            <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.sv" target="_blank" rel="noopener noreferrer">
+              Creative Commons-licens
+            </Link>
+            {' '}med stor tacksamhet.
+          </Typography>
         </Box>
 
         {/* Dialog för orddetaljer */}
