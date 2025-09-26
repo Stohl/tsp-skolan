@@ -137,9 +137,9 @@ function AppContent() {
   };
 
   // Funktion för att navigera till ordlistor-sidan
-  const handleShowWordLists = () => {
+  const handleDontAskAgain = () => {
     setShowAddWordsDialog(false);
-    setCurrentPage(1); // Navigera till Ordlistor-sidan (index 1)
+    localStorage.setItem('showAddWordsDialog', 'false');
   };
 
   // Lyssna på custom event för att öppna startguiden
@@ -306,7 +306,7 @@ function AppContent() {
           fullWidth
         >
           <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
-            Lägg till fler ord att lära?
+           Dags att öva på fler ord?
           </DialogTitle>
           <DialogContent>
             <Typography variant="body1" sx={{ textAlign: 'center', mb: 2 }}>
@@ -315,7 +315,7 @@ function AppContent() {
                 const currentProgress = wordProgressData ? JSON.parse(wordProgressData) : {};
                 return Object.values(currentProgress).filter((word: any) => word.level === 1).length;
               })()} ord i "att lära mig". 
-              Vill du lägga till ord från fler ordlistor för att ha mer att öva med?
+              Ska vi lägga till ytterliggare två nya ordlistor som du kan öva med?
             </Typography>
           </DialogContent>
           <DialogActions sx={{ justifyContent: 'center', gap: 1, pb: 3 }}>
@@ -323,21 +323,21 @@ function AppContent() {
               variant="contained"
               color="primary"
               onClick={handleAddWordLists}
-              sx={{ minWidth: 120 }}
+              sx={{ minWidth: 120, textTransform: 'none' }}
             >
               Ja, lägg till
             </Button>
+                <Button
+                  variant="outlined"
+                  onClick={handleDontAskAgain}
+                  sx={{ minWidth: 120, textTransform: 'none' }}
+                >
+                  Fråga inte igen
+                </Button>
             <Button
               variant="outlined"
-              onClick={handleShowWordLists}
-              sx={{ minWidth: 120 }}
-            >
-              Visa ordlistor
-            </Button>
-            <Button
-              variant="text"
               onClick={() => setShowAddWordsDialog(false)}
-              sx={{ minWidth: 120 }}
+              sx={{ minWidth: 120, textTransform: 'none' }}
             >
               Inte nu
             </Button>
