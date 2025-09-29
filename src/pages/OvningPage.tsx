@@ -3104,7 +3104,7 @@ const OvningPage: React.FC = () => {
         isValid: true, // Tillåt ändå
         showWarning: true,
         message: `Du har bara ${totalAvailableWords} ord tillgängliga (${availableLearningWords.length} att lära mig + ${availableLearnedWords.length} lärda).`,
-        suggestion: 'Överväg att köra start-guiden för att lägga till fler ord, eller lägg till ord från lexikonet.'
+        suggestion: 'Överväg att köra start-guiden för att lägga till fler ord, eller lägg till ord från ordlistor.'
       };
     }
     
