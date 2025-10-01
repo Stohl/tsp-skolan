@@ -3606,19 +3606,21 @@ const OvningPage: React.FC = () => {
             const completedLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
               // Kontrollera om alla ord i alla wordLists med detta namn är lärda
               const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
-              // En lista är bara avklarad om den har ord OCH alla ord är lärda
+              // En lista är bara avklarad om den har ord OCH alla ord är lärda OCH den inte är av typen "fortsattning"
               const allLearned = allWordsInList.length > 0 && allWordsInList.every((wordId: string) => wordProgress[wordId]?.level === 2);
-              // console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}`);
-              return allLearned;
+              const isNotFortsattning = wordLists.some((wordList: any) => wordList.difficulty !== 'fortsattning');
+              // console.log(`[DEBUG] List ${listName}: ${allWordsInList.length} words, all learned: ${allLearned}, not fortsattning: ${isNotFortsattning}`);
+              return allLearned && isNotFortsattning;
             }).length;
             
             // Räkna avklarade bokstavering-rutor
             const completedSpellingBoxesCount = completedSpellingBoxes.length;
              
-            // Räkna totalt antal ordlistor (unika namn) - exkludera tomma listor
+            // Räkna totalt antal ordlistor (unika namn) - exkludera tomma listor och "fortsattning" nivån
             const totalLists = Object.entries(wordListGroups).filter(([listName, wordLists]: [string, any]) => {
               const allWordsInList = wordLists.flatMap((wordList: any) => wordList.wordIds || []);
-              return allWordsInList.length > 0; // Bara räkna listor som har ord
+              const isNotFortsattning = wordLists.some((wordList: any) => wordList.difficulty !== 'fortsattning');
+              return allWordsInList.length > 0 && isNotFortsattning; // Bara räkna listor som har ord och inte är "fortsattning"
             }).length;
             
             console.log(`[DEBUG] Completed lists: ${completedLists}, Total lists: ${totalLists}`);

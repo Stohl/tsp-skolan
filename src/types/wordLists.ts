@@ -1,5 +1,5 @@
 // Svårighetsnivåer för ordlistor
-export type DifficultyLevel = 'nyborjare' | 'lite_erfaren' | 'erfaren' | 'proffs';
+export type DifficultyLevel = 'nyborjare' | 'lite_erfaren' | 'erfaren' | 'proffs' | 'fortsattning';
 
 // Förgenererade ordlistor som är hårdkodade i källkoden
 export interface PredefinedWordList {
@@ -1530,31 +1530,38 @@ export const getDifficultyInfo = (difficulty: DifficultyLevel) => {
   switch (difficulty) {
     case 'nyborjare':
       return {
-        label: 'Nybörjare',
+        label: 'Nivå 1',
         icon: '✋',
         color: 'success' as const,
         description: 'Allra vanligaste orden'
       };
     case 'lite_erfaren':
       return {
-        label: 'Lite erfaren',
+        label: 'Nivå 2',
         icon: '🤟',
         color: 'info' as const,
         description: 'Vardagsbegrepp'
       };
     case 'erfaren':
       return {
-        label: 'Erfaren',
+        label: 'Nivå 3',
         icon: '🙌',
         color: 'warning' as const,
         description: 'Abstraktare ord och fler rörelsemoment'
       };
     case 'proffs':
       return {
-        label: 'Proffs',
+        label: 'Nivå 4',
         icon: '🤝',
         color: 'error' as const,
         description: 'Komplexa handformer eller mindre vanliga ord'
+      };
+    case 'fortsattning':
+      return {
+        label: 'Fortsättning',
+        icon: '→',
+        color: 'secondary' as const,
+        description: 'Avancerade och specialiserade ord'
       };
     default:
       return {

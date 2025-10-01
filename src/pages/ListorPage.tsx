@@ -365,8 +365,8 @@ const ListorPage: React.FC = () => {
   // Funktion som renderar innehållet för "Ordlistor"-taben
   const renderOrdlistor = () => {
     // Definiera svårighetsgrader i ordning
-    const difficulties: Array<'nyborjare' | 'lite_erfaren' | 'erfaren' | 'proffs'> = 
-      ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs'];
+    const difficulties: Array<'nyborjare' | 'lite_erfaren' | 'erfaren' | 'proffs' | 'fortsattning'> = 
+      ['nyborjare', 'lite_erfaren', 'erfaren', 'proffs', 'fortsattning'];
     
     // Filtrera ordlistor baserat på vald svårighetsgrad
     const filteredLists = wordLists.filter(list => list.difficulty === difficulties[difficultyTab]);
@@ -776,7 +776,7 @@ const ListorPage: React.FC = () => {
           })
         ) : (
           <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', py: 4 }}>
-            Inga ordlistor hittades för denna svårighetsgrad.
+            Inga ordlistor hittades?
           </Typography>
         )}
       </Box>
