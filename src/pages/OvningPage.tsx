@@ -120,7 +120,7 @@ const FlashcardsExercise: React.FC<{
 
   return (
     <Card sx={{ maxWidth: 600, mx: 'auto', mb: 3, boxShadow: 'none', border: 'none' }}>
-      <CardContent sx={{ textAlign: 'center', p: 1, border: 'none' }}>
+      <CardContent sx={{ textAlign: 'center', p: 0, pt: 0, border: 'none' }}>
         {!showVideo ? (
           // Visa ordet
           <Box sx={{ border: 'none' }}>
@@ -164,7 +164,6 @@ const FlashcardsExercise: React.FC<{
                 </Typography>
               )}
             </Typography>
-            
             <VariantSequencePlayer 
               word={word} 
               wordIndex={wordIndex} 
@@ -323,6 +322,9 @@ const VariantSequencePlayer: React.FC<{
 
   return (
     <Box sx={{ mb: 1.5 }}>
+      <Typography variant="h6" sx={{ textAlign: 'center', mb: 0, fontWeight: 600, lineHeight: 0 }}>
+        Vilket ord?
+      </Typography>
       <Box sx={{ mb: 0.3 }}>
         <Typography variant="caption" color="text.secondary">
           variant {currentVariantIndex + 1} av {variants.length}

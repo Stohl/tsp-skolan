@@ -318,26 +318,26 @@ function AppContent() {
               Ska vi lägga till ytterliggare två nya ordlistor som du kan öva med?
             </Typography>
           </DialogContent>
-          <DialogActions sx={{ justifyContent: 'center', gap: 1, pb: 3 }}>
+          <DialogActions sx={{ flexDirection: 'column', alignItems: 'center', gap: 1, pb: 3, px: 2 }}>
             <Button
               variant="contained"
               color="primary"
               onClick={handleAddWordLists}
-              sx={{ minWidth: 120, textTransform: 'none' }}
+              sx={{ width: '100%', maxWidth: 200, textTransform: 'none' }}
             >
               Ja, lägg till
             </Button>
                 <Button
                   variant="outlined"
                   onClick={handleDontAskAgain}
-                  sx={{ minWidth: 120, textTransform: 'none' }}
+                  sx={{ width: '100%', maxWidth: 200, textTransform: 'none' }}
                 >
                   Fråga inte igen
                 </Button>
             <Button
               variant="outlined"
               onClick={() => setShowAddWordsDialog(false)}
-              sx={{ minWidth: 120, textTransform: 'none' }}
+              sx={{ width: '100%', maxWidth: 200, textTransform: 'none' }}
             >
               Inte nu
             </Button>
