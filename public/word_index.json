@@ -1,10 +1,11 @@
 {
   "metadata": {
     "created": "2025-09-19T12:43:07.821Z",
-    "totalWords": 19082,
+    "totalWords": 4312,
     "wordsWithVariants": 4312,
     "wordsWithRelations": 13116,
-    "description": "Index för ordvarianter och relationer i TSP Skolan ord_database"
+    "description": "Index för ordvarianter och relationer i TSP Skolan ord_database",
+    "lastUpdated": "2025-10-01T14:55:22.779Z"
   },
   "variants": {
     "medhjälp": {
@@ -3422,11 +3423,10 @@
     "modersmål": {
       "variants": [
         "11478",
-        "25081",
         "08719"
       ],
       "primary": "11478",
-      "count": 3
+      "count": 2
     },
     "morfologi": {
       "variants": [
@@ -4551,11 +4551,10 @@
     },
     "tjugo": {
       "variants": [
-        "11898",
-        "25111"
+        "11898"
       ],
       "primary": "11898",
-      "count": 2
+      "count": 1
     },
     "nittio": {
       "variants": [
@@ -5824,11 +5823,10 @@
     },
     "uppsats": {
       "variants": [
-        "12286",
-        "25082"
+        "12286"
       ],
       "primary": "12286",
-      "count": 2
+      "count": 1
     },
     "manus": {
       "variants": [
@@ -12229,11 +12227,10 @@
     "strängnäs": {
       "variants": [
         "14932",
-        "06499",
         "06498"
       ],
       "primary": "14932",
-      "count": 3
+      "count": 2
     },
     "rå": {
       "variants": [
@@ -20602,12 +20599,11 @@
     "flott": {
       "variants": [
         "19510",
-        "25101",
         "04590",
         "04308"
       ],
       "primary": "04308",
-      "count": 4
+      "count": 3
     },
     "komprimera": {
       "variants": [
@@ -21681,12 +21677,11 @@
     },
     "god morgon": {
       "variants": [
-        "20490",
         "05590",
         "08549"
       ],
       "primary": "05590",
-      "count": 3
+      "count": 2
     },
     "elev": {
       "variants": [
@@ -23343,21 +23338,19 @@
     },
     "geografi": {
       "variants": [
-        "25035",
         "00406"
       ],
-      "primary": "25035",
-      "count": 2
+      "primary": "00406",
+      "count": 1
     },
     "historia": {
       "variants": [
-        "25036",
         "04491",
         "00047",
         "00869"
       ],
       "primary": "04491",
-      "count": 4
+      "count": 3
     },
     "fostermamma": {
       "variants": [
@@ -23377,14 +23370,13 @@
     },
     "sjöman": {
       "variants": [
-        "25073",
         "03570",
         "03584",
         "02473",
         "07592"
       ],
-      "primary": "25073",
-      "count": 5
+      "primary": "03570",
+      "count": 4
     },
     "rättvik": {
       "variants": [
@@ -23397,12 +23389,11 @@
     },
     "bråka": {
       "variants": [
-        "25086",
         "02504",
         "07365"
       ],
       "primary": "02504",
-      "count": 3
+      "count": 2
     },
     "sömmerska": {
       "variants": [
@@ -23430,12 +23421,11 @@
     },
     "mallig": {
       "variants": [
-        "25100",
         "08059",
         "03711"
       ],
-      "primary": "25100",
-      "count": 3
+      "primary": "08059",
+      "count": 2
     },
     "lärling": {
       "variants": [
@@ -23591,11 +23581,10 @@
     },
     "bio": {
       "variants": [
-        "25246",
         "04250"
       ],
       "primary": "04250",
-      "count": 2
+      "count": 1
     },
     "empati": {
       "variants": [
@@ -23864,23 +23853,21 @@
     },
     "makt": {
       "variants": [
-        "25401",
         "02276",
         "01976"
       ],
-      "primary": "25401",
-      "count": 3
+      "primary": "02276",
+      "count": 2
     },
     "tomte": {
       "variants": [
-        "25402",
         "02758",
         "02138",
         "07721",
         "07473"
       ],
       "primary": "02758",
-      "count": 5
+      "count": 4
     },
     "visby": {
       "variants": [
@@ -23925,12 +23912,11 @@
     },
     "sällskap": {
       "variants": [
-        "25458",
         "03183",
         "03205"
       ],
-      "primary": "25458",
-      "count": 3
+      "primary": "03183",
+      "count": 2
     },
     "halvlek": {
       "variants": [
@@ -24982,11 +24968,10 @@
     },
     "skorpion": {
       "variants": [
-        "03289",
-        "03526"
+        "03289"
       ],
       "primary": "03289",
-      "count": 2
+      "count": 1
     },
     "spindel": {
       "variants": [
@@ -30997,12 +30982,11 @@
     },
     "jämtland": {
       "variants": [
-        "06322",
         "06321",
         "06320"
       ],
-      "primary": "06322",
-      "count": 3
+      "primary": "06321",
+      "count": 2
     },
     "bli döv": {
       "variants": [
