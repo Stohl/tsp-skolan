@@ -70,9 +70,9 @@ export const getWordListDifficulty = (wordId: string): DifficultyLevel => {
 // Förgenererade ordlistor
 export const predefinedWordLists: PredefinedWordList[] = [
   {
-    id: 'n1_handalfabetet:',
-    name: 'Handalfabetet:',
-    description: 'Handalfabetet: - 5 träffar i lexikonet',
+    id: 'n1_handalfabetet',
+    name: 'Handalfabetet',
+    description: 'Handalfabetet - 5 träffar i lexikonet',
     wordIds: ['09531', '09532', '09011', '09533', '11925', '11926', '11927', '11928', '11929', '11930', '11931', '11932', '11933', '11934', '11935', '11936', '11937', '11938', '11939', '11940', '11941', '11942', '11943', '24685', '11945', '11946', '17309', '11948', '20135'],
     type: 'predefined',
     difficulty: 'nyborjare',
@@ -197,7 +197,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_substantiv_001',
-    name: 'Saker och ting, namn på ting (1)',
+    name: 'Nivå 1 - Saker och ting, namn på ting (1)',
     description: 'Substantiv - 991 träffar i lexikonet',
     wordIds: ['00644', '02158', '00257', '01266', '02557', '00696', '01377', '03700', '04250', '00632', '01384', '02042', '00416', '16261', '04567'],
     type: 'predefined',
@@ -211,7 +211,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_substantiv_002',
-    name: 'Saker och ting, namn på ting (2)',
+    name: 'Nivå 1 - Saker och ting, namn på ting (2)',
     description: 'Substantiv - 117 träffar i lexikonet',
     wordIds: ['02861', '07219', '00496', '16268', '00815', '04121', '15453', '05903', '03455', '19187', '17733', '06179', '01728', '03544', '00148'],
     type: 'predefined',
@@ -225,7 +225,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_substantiv_003',
-    name: 'Saker och ting, namn på ting (3)',
+    name: 'Nivå 1 - Saker och ting, namn på ting (3)',
     description: 'Substantiv - 2 träffar i lexikonet',
     wordIds: ['17335', '03304', '06556', '08829', '03462', '13376', '01921', '19109', '19924', '09944', '02970', '04337', '09226', '20529', '00844'],
     type: 'predefined',
@@ -239,7 +239,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_verb_004',
-    name: 'Något man gör (4)',
+    name: 'Nivå 1 - Något man gör (4)',
     description: 'Verb - 1815 träffar i lexikonet',
     wordIds: ['02238', '16234', '00022', '00204', '05173', '04104', '00563', '04238', '03854', '01547', '00281', '00179', '00360', '04036', '02064'],
     type: 'predefined',
@@ -253,7 +253,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_verb_005',
-    name: 'Något man gör (5)',
+    name: 'Nivå 1 - Något man gör (5)',
     description: 'Verb - 80 träffar i lexikonet',
     wordIds: ['01784', '04009', '00044', '01495', '04950', '04240', '02244', '05574', '19004', '00102', '00491', '20312', '12741', '18174', '26162', '01288', '18168', '03449'],
     type: 'predefined',
@@ -267,7 +267,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_adjektiv_006',
-    name: 'Hur något är (6)',
+    name: 'Nivå 1 - Hur något är (6)',
     description: 'Adjektiv - 417 träffar i lexikonet',
     wordIds: ['00086', '02375', '05158', '00469', '07101', '00966', '00017', '04771', '00248', '05668', '00107', '00004', '17578', '19384', '05358'],
     type: 'predefined',
@@ -281,7 +281,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_adjektiv_007',
-    name: 'Hur något är (7)',
+    name: 'Nivå 1 - Hur något är (7)',
     description: 'Adjektiv - 17 träffar i lexikonet',
     wordIds: ['05246', '06045', '12124', '01121', '00688', '01122', '13524', '02632', '17021', '03514', '01090', '04922'],
     type: 'predefined',
@@ -295,7 +295,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_adverb_008',
-    name: 'Hur, var, när (8)',
+    name: 'Nivå 1 - Hur, var, när (8)',
     description: 'Adverb - 2081 träffar i lexikonet',
     wordIds: ['05133', '02711', '00167', '00646', '11274', '02381', '04569', '00561', '02866', '00432', '00683', '03279', '05459', '12274', '19467', '08535', '01454', '16650', '12317', '09167'],
     type: 'predefined',
@@ -309,7 +309,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_pronomen_009',
-    name: 'Istället för namn (9)',
+    name: 'Nivå 1 - Istället för namn (9)',
     description: 'Pronomen - 5871 träffar i lexikonet',
     wordIds: ['02798', '00187', '02817', '00275', '07844', '03622', '03639', '00124', '00123', '15855', '09027', '18259', '20131', '24957', '05248', '17376'],
     type: 'predefined',
@@ -323,7 +323,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_blandad_010',
-    name: 'Blandade ord (10)',
+    name: 'Nivå 1 - Blandade ord (10)',
     description: 'Blandad - 840 träffar i lexikonet',
     wordIds: ['00321', '00178', '19108', '03960', '00320', '15485', '00335', '07849', '11929', '00787', '03954', '05748', '08286', '08812', '15805', '02852', '11879'],
     type: 'predefined',
@@ -337,7 +337,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n1_blandad_011',
-    name: 'Blandade ord (11)',
+    name: 'Nivå 1 - Blandade ord (11)',
     description: 'Blandad - 48 träffar i lexikonet',
     wordIds: ['08597', '06432', '06397', '03071', '00470'],
     type: 'predefined',
@@ -351,7 +351,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_substantiv_001',
-    name: 'Saker och ting, namn på ting (1)',
+    name: 'Nivå 2 - Saker och ting, namn på ting (1)',
     description: 'Substantiv - 737 träffar i lexikonet',
     wordIds: ['02237', '01366', '02831', '07824', '09044', '00498', '17327', '00188', '08133', '03019', '04408', '02775', '18191', '05036', '01913'],
     type: 'predefined',
@@ -365,7 +365,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_substantiv_002',
-    name: 'Saker och ting, namn på ting (2)',
+    name: 'Nivå 2 - Saker och ting, namn på ting (2)',
     description: 'Substantiv - 119 träffar i lexikonet',
     wordIds: ['03828', '07605', '01939', '01168', '03555', '02208', '04457', '12268', '06035', '01207', '04501', '00390', '07357', '04424', '02251'],
     type: 'predefined',
@@ -379,7 +379,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_substantiv_003',
-    name: 'Saker och ting, namn på ting (3)',
+    name: 'Nivå 2 - Saker och ting, namn på ting (3)',
     description: 'Substantiv - 40 träffar i lexikonet',
     wordIds: ['04007', '00649', '02908', '20348', '10697', '00108', '00554', '05529', '19113', '04663', '19158', '05417', '00774', '00008', '03772'],
     type: 'predefined',
@@ -393,7 +393,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_substantiv_004',
-    name: 'Saker och ting, namn på ting (4)',
+    name: 'Nivå 2 - Saker och ting, namn på ting (4)',
     description: 'Substantiv - 6 träffar i lexikonet',
     wordIds: ['00867', '00941', '17528', '00636', '10553', '11546', '24741', '19790', '00218', '03863', '06761', '04920', '02643', '17712', '04976', '06095', '07366', '24765'],
     type: 'predefined',
@@ -407,7 +407,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_verb_005',
-    name: 'Något man gör (5)',
+    name: 'Nivå 2 - Något man gör (5)',
     description: 'Verb - 546 träffar i lexikonet',
     wordIds: ['02063', '02584', '02749', '00625', '00935', '03181', '00446', '02694', '00277', '03919', '00173', '00666', '04101', '07714', '04489'],
     type: 'predefined',
@@ -421,7 +421,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_verb_006',
-    name: 'Något man gör (6)',
+    name: 'Nivå 2 - Något man gör (6)',
     description: 'Verb - 34 träffar i lexikonet',
     wordIds: ['01723', '01343', '04161', '09672', '07613', '09060', '00082', '01148', '08140', '11465', '05279', '23343', '18848', '00077'],
     type: 'predefined',
@@ -435,7 +435,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_adjektiv_007',
-    name: 'Hur något är (7)',
+    name: 'Nivå 2 - Hur något är (7)',
     description: 'Adjektiv - 570 träffar i lexikonet',
     wordIds: ['02801', '02365', '00256', '02645', '04866', '04602', '00172', '01058', '00322', '02569', '07278', '04803', '12377', '04636', '03375'],
     type: 'predefined',
@@ -449,7 +449,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_adjektiv_008',
-    name: 'Hur något är (8)',
+    name: 'Nivå 2 - Hur något är (8)',
     description: 'Adjektiv - 60 träffar i lexikonet',
     wordIds: ['00340', '07317', '04808', '13484', '01945', '17295', '03609', '07321', '10800', '03617', '01934', '05179', '01752', '00386', '09941', '20500', '04743', '04464', '20332', '15309'],
     type: 'predefined',
@@ -463,7 +463,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_adverb_009',
-    name: 'Hur, var, när (9)',
+    name: 'Nivå 2 - Hur, var, när (9)',
     description: 'Adverb - 298 träffar i lexikonet',
     wordIds: ['04724', '02914', '05500', '00061', '08984', '03211', '00317', '00090', '03169', '10693', '17981', '12746', '03172', '01283', '05515'],
     type: 'predefined',
@@ -477,7 +477,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_blandad_010',
-    name: 'Blandade ord (10)',
+    name: 'Nivå 2 - Blandade ord (10)',
     description: 'Blandad - 456 träffar i lexikonet',
     wordIds: ['15856', '00483', '00812', '01789', '10029', '02855', '16253', '14007', '20418', '11880', '11884', '11911', '18854', '11951', '25111'],
     type: 'predefined',
@@ -491,7 +491,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n2_blandad_011',
-    name: 'Blandade ord (11)',
+    name: 'Nivå 2 - Blandade ord (11)',
     description: 'Blandad - 130 träffar i lexikonet',
     wordIds: ['00152', '10437', '06640', '16388', '19083', '26234', '16551', '15606'],
     type: 'predefined',
@@ -505,7 +505,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_substantiv_001',
-    name: 'Saker och ting, namn på ting (1)',
+    name: 'Nivå 3 - Saker och ting, namn på ting (1)',
     description: 'Substantiv - 646 träffar i lexikonet',
     wordIds: ['02531', '08135', '00304', '00773', '08116', '00623', '05382', '04510', '06912', '00589', '01353', '00472', '04540', '04545', '04008'],
     type: 'predefined',
@@ -519,7 +519,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_substantiv_002',
-    name: 'Saker och ting, namn på ting (2)',
+    name: 'Nivå 3 - Saker och ting, namn på ting (2)',
     description: 'Substantiv - 182 träffar i lexikonet',
     wordIds: ['01038', '05072', '05777', '02890', '05214', '07405', '02203', '14976', '02544', '04748', '15858', '08188', '08853', '13831', '00105'],
     type: 'predefined',
@@ -533,7 +533,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_substantiv_003',
-    name: 'Saker och ting, namn på ting (3)',
+    name: 'Nivå 3 - Saker och ting, namn på ting (3)',
     description: 'Substantiv - 74 träffar i lexikonet',
     wordIds: ['15521', '08100', '04816', '07232', '03074', '00677', '18404', '07756', '17727', '08501', '17734', '03665', '05593', '16317', '19821'],
     type: 'predefined',
@@ -547,7 +547,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_substantiv_004',
-    name: 'Saker och ting, namn på ting (4)',
+    name: 'Nivå 3 - Saker och ting, namn på ting (4)',
     description: 'Substantiv - 33 träffar i lexikonet',
     wordIds: ['16316', '04872', '12318', '08252', '03008', '00176', '08632', '10522', '01894', '15906', '01858', '05854', '00197', '06539', '11059'],
     type: 'predefined',
@@ -561,7 +561,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_substantiv_005',
-    name: 'Saker och ting, namn på ting (5)',
+    name: 'Nivå 3 - Saker och ting, namn på ting (5)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['23019', '26106', '07132', '15888', '14174', '10873', '14292', '12545', '16414', '07663', '16308', '08880', '15942', '17009', '17557'],
     type: 'predefined',
@@ -575,7 +575,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_substantiv_006',
-    name: 'Saker och ting, namn på ting (6)',
+    name: 'Nivå 3 - Saker och ting, namn på ting (6)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['08398', '00214', '07412', '24990', '05637', '17340', '12280', '00343', '15946', '05403', '17510', '13654', '14945', '01215'],
     type: 'predefined',
@@ -589,7 +589,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_verb_007',
-    name: 'Något man gör (7)',
+    name: 'Nivå 3 - Något man gör (7)',
     description: 'Verb - 352 träffar i lexikonet',
     wordIds: ['01267', '02273', '08319', '01571', '02945', '04848', '01092', '09249', '01716', '00207', '00529', '00721', '04350', '10534', '07697'],
     type: 'predefined',
@@ -603,7 +603,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_verb_008',
-    name: 'Något man gör (8)',
+    name: 'Nivå 3 - Något man gör (8)',
     description: 'Verb - 31 träffar i lexikonet',
     wordIds: ['10877', '00578', '08282', '08129', '01815', '15754', '00511', '02417', '17034', '19444', '03726', '00534', '03101'],
     type: 'predefined',
@@ -617,7 +617,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_adjektiv_009',
-    name: 'Hur något är (9)',
+    name: 'Nivå 3 - Hur något är (9)',
     description: 'Adjektiv - 205 träffar i lexikonet',
     wordIds: ['01885', '12125', '05218', '00233', '08001', '07525', '01869', '02465', '01432', '07687', '01098', '00389', '01079', '16303', '11776'],
     type: 'predefined',
@@ -631,7 +631,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_adjektiv_010',
-    name: 'Hur något är (10)',
+    name: 'Nivå 3 - Hur något är (10)',
     description: 'Adjektiv - 22 träffar i lexikonet',
     wordIds: ['00326', '00994', '07660', '17596', '03515', '02644', '12331', '07912', '09695', '04338', '05201', '11157', '17763', '20578', '05502'],
     type: 'predefined',
@@ -645,7 +645,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_adverb_011',
-    name: 'Hur, var, när (11)',
+    name: 'Nivå 3 - Hur, var, när (11)',
     description: 'Adverb - 111 träffar i lexikonet',
     wordIds: ['00582', '01464', '07538', '09561', '04624', '01814', '03957', '00643', '10944', '02229', '17582', '19495', '03139', '00641', '08970', '07645', '05819', '00367', '18180', '24925'],
     type: 'predefined',
@@ -659,7 +659,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_blandad_012',
-    name: 'Blandade ord (12)',
+    name: 'Nivå 3 - Blandade ord (12)',
     description: 'Blandad - 103 träffar i lexikonet',
     wordIds: ['19710', '23029', '04274', '05496', '11941', '05389', '20542', '00464', '00299', '04481', '00374', '04171', '12330', '11940', '15961', '20598', '03024', '08300'],
     type: 'predefined',
@@ -673,7 +673,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n3_blandad_013',
-    name: 'Blandade ord (13)',
+    name: 'Nivå 3 - Blandade ord (13)',
     description: 'Blandad - 133 träffar i lexikonet',
     wordIds: ['11882', '15266', '07809', '16568', '05489', '08869', '08937', '06495', '06549', '17584', '16643', '14206', '05483', '11228', '11518'],
     type: 'predefined',
@@ -687,7 +687,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_substantiv_001',
-    name: 'Saker och ting, namn på ting (1)',
+    name: 'Nivå 4 - Saker och ting, namn på ting (1)',
     description: 'Substantiv - 375 träffar i lexikonet',
     wordIds: ['08045', '00770', '04582', '02839', '04593', '04024', '00319', '06723', '12312', '00945', '10521', '04907', '03156', '00664', '01786'],
     type: 'predefined',
@@ -701,7 +701,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_substantiv_002',
-    name: 'Saker och ting, namn på ting (2)',
+    name: 'Nivå 4 - Saker och ting, namn på ting (2)',
     description: 'Substantiv - 114 träffar i lexikonet',
     wordIds: ['02924', '00573', '01176', '03637', '00111', '11970', '00425', '02992', '01937', '01733', '02402', '07773', '02474', '09050', '11323'],
     type: 'predefined',
@@ -715,7 +715,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_substantiv_003',
-    name: 'Saker och ting, namn på ting (3)',
+    name: 'Nivå 4 - Saker och ting, namn på ting (3)',
     description: 'Substantiv - 45 träffar i lexikonet',
     wordIds: ['04459', '02184', '07272', '14824', '02800', '08423', '00899', '00306', '01295', '05356', '10064', '08511', '08925', '09196', '01742'],
     type: 'predefined',
@@ -729,7 +729,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_substantiv_004',
-    name: 'Saker och ting, namn på ting (4)',
+    name: 'Nivå 4 - Saker och ting, namn på ting (4)',
     description: 'Substantiv - 8 träffar i lexikonet',
     wordIds: ['11109', '03443', '00691', '00931', '11927', '10245', '07936', '13212', '09547', '04187', '24516', '22739', '17960', '25453', '15587'],
     type: 'predefined',
@@ -743,7 +743,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_substantiv_005',
-    name: 'Saker och ting, namn på ting (5)',
+    name: 'Nivå 4 - Saker och ting, namn på ting (5)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['14136', '24214', '24566', '00259', '00435', '24568', '05663', '24253', '14448', '10082', '02753', '07265', '03820', '24240', '04578'],
     type: 'predefined',
@@ -757,7 +757,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_substantiv_006',
-    name: 'Saker och ting, namn på ting (6)',
+    name: 'Nivå 4 - Saker och ting, namn på ting (6)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['10756', '11014', '09402', '08648', '08048', '03302', '10451', '09209', '01050', '19450', '05404', '23217', '20512', '07197', '08268', '16382', '05534'],
     type: 'predefined',
@@ -771,7 +771,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_verb_007',
-    name: 'Något man gör (7)',
+    name: 'Nivå 4 - Något man gör (7)',
     description: 'Verb - 117 träffar i lexikonet',
     wordIds: ['03115', '04209', '02663', '13561', '00996', '03819', '00521', '01607', '04225', '02605', '02260', '00793', '07332', '04358', '19591'],
     type: 'predefined',
@@ -785,7 +785,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_verb_008',
-    name: 'Något man gör (8)',
+    name: 'Nivå 4 - Något man gör (8)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['06703', '04895', '02657', '04087', '08178', '07922', '10518', '05045', '05599', '01916', '05725', '03099'],
     type: 'predefined',
@@ -799,7 +799,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_adjektiv_009',
-    name: 'Hur något är (9)',
+    name: 'Nivå 4 - Hur något är (9)',
     description: 'Adjektiv - 171 träffar i lexikonet',
     wordIds: ['09120', '05431', '20373', '01655', '12302', '07761', '00441', '07572', '01855', '12310', '11176', '03134', '02360', '09766', '07975'],
     type: 'predefined',
@@ -813,7 +813,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_adjektiv_010',
-    name: 'Hur något är (10)',
+    name: 'Nivå 4 - Hur något är (10)',
     description: 'Adjektiv - 8 träffar i lexikonet',
     wordIds: ['10694', '02147', '10536', '07981', '19047', '18849', '02653', '05634', '01065', '14600', '04178', '09115', '05526'],
     type: 'predefined',
@@ -827,7 +827,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_blandad_011',
-    name: 'Blandade ord (11)',
+    name: 'Nivå 4 - Blandade ord (11)',
     description: 'Blandad - 313 träffar i lexikonet',
     wordIds: ['00767', '04850', '09235', '02837', '02929', '24307', '22971', '01807', '04864', '02828', '17306', '11469', '07851', '00290', '09042', '08850', '00192', '12376'],
     type: 'predefined',
@@ -841,7 +841,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n4_blandad_012',
-    name: 'Blandade ord (12)',
+    name: 'Nivå 4 - Blandade ord (12)',
     description: 'Blandad - 101 träffar i lexikonet',
     wordIds: ['03451', '11950', '11885', '01129', '05392', '17798', '14128', '26328', '08264', '17716', '17358', '19386'],
     type: 'predefined',
@@ -855,7 +855,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_001',
-    name: 'Saker och ting, namn på ting (1)',
+    name: 'Fortsättning - Saker och ting, namn på ting (1)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['10069', '11826', '11192', '09245', '02528', '03874', '08764', '24561', '08316', '02157', '12249', '09659', '05730', '02709', '08055'],
     type: 'predefined',
@@ -869,7 +869,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_002',
-    name: 'Saker och ting, namn på ting (2)',
+    name: 'Fortsättning - Saker och ting, namn på ting (2)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['04583', '04554', '02061', '03681', '08117', '12048', '04642', '13889', '07930', '16648', '00391', '04646', '04647', '10508', '01550'],
     type: 'predefined',
@@ -883,7 +883,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_003',
-    name: 'Saker och ting, namn på ting (3)',
+    name: 'Fortsättning - Saker och ting, namn på ting (3)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['15312', '02395', '02089', '10717', '18834', '09321', '04669', '00041', '02404', '05732', '05034', '01803', '19093', '01767', '00610'],
     type: 'predefined',
@@ -897,7 +897,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_004',
-    name: 'Saker och ting, namn på ting (4)',
+    name: 'Fortsättning - Saker och ting, namn på ting (4)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['05611', '03401', '01205', '08775', '01251', '02378', '00449', '11916', '08047', '00611', '03646', '02504', '24114', '02459', '18632'],
     type: 'predefined',
@@ -911,7 +911,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_005',
-    name: 'Saker och ting, namn på ting (5)',
+    name: 'Fortsättning - Saker och ting, namn på ting (5)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['01470', '07384', '07958', '01415', '04694', '04696', '24055', '03044', '02383', '04122', '20136', '13982', '16740', '05240', '00556'],
     type: 'predefined',
@@ -925,7 +925,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_006',
-    name: 'Saker och ting, namn på ting (6)',
+    name: 'Fortsättning - Saker och ting, namn på ting (6)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['11443', '11459', '10062', '11489', '11510', '01055', '08295', '13256', '03906', '08861', '04299', '05547', '08476', '11620', '12251'],
     type: 'predefined',
@@ -939,7 +939,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_007',
-    name: 'Saker och ting, namn på ting (7)',
+    name: 'Fortsättning - Saker och ting, namn på ting (7)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['01750', '08770', '11671', '11721', '20021', '03623', '19090', '03875', '02412', '09989', '04326', '09418', '04588', '00975', '00798'],
     type: 'predefined',
@@ -953,7 +953,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_008',
-    name: 'Saker och ting, namn på ting (8)',
+    name: 'Fortsättning - Saker och ting, namn på ting (8)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['08686', '05631', '03041', '00708', '05325', '08899', '04534', '09318', '09319', '00678', '11310', '07273', '17265', '15848', '03527'],
     type: 'predefined',
@@ -967,7 +967,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_009',
-    name: 'Saker och ting, namn på ting (9)',
+    name: 'Fortsättning - Saker och ting, namn på ting (9)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['03528', '00059', '05712', '01726', '05085', '07528', '04112', '03353', '01923', '03521', '03604', '08071', '05779', '10692', '02207'],
     type: 'predefined',
@@ -981,7 +981,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_010',
-    name: 'Saker och ting, namn på ting (10)',
+    name: 'Fortsättning - Saker och ting, namn på ting (10)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['00737', '07629', '03660', '12289', '18530', '14145', '08166', '17093', '05275', '01567', '00901', '02740', '12253', '11347', '10704'],
     type: 'predefined',
@@ -995,7 +995,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_011',
-    name: 'Saker och ting, namn på ting (11)',
+    name: 'Fortsättning - Saker och ting, namn på ting (11)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['04285', '01462', '06793', '00731', '12087', '00162', '01935', '01936', '04837', '12226', '00200', '03951', '07828', '03829', '10610'],
     type: 'predefined',
@@ -1009,7 +1009,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_012',
-    name: 'Saker och ting, namn på ting (12)',
+    name: 'Fortsättning - Saker och ting, namn på ting (12)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['00609', '10678', '04853', '01579', '00869', '05064', '10346', '00962', '16409', '24739', '00076', '04876', '13735', '04527', '16304'],
     type: 'predefined',
@@ -1023,7 +1023,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_013',
-    name: 'Saker och ting, namn på ting (13)',
+    name: 'Fortsättning - Saker och ting, namn på ting (13)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['05658', '00583', '02270', '02519', '11888', '00845', '07858', '04904', '05612', '04906', '01928', '07459', '10956', '02284', '26315'],
     type: 'predefined',
@@ -1037,7 +1037,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_014',
-    name: 'Saker och ting, namn på ting (14)',
+    name: 'Fortsättning - Saker och ting, namn på ting (14)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['02130', '15391', '03356', '12288', '12101', '02210', '02111', '01601', '04932', '03777', '03672', '19003', '14312', '06930', '05600'],
     type: 'predefined',
@@ -1051,7 +1051,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_015',
-    name: 'Saker och ting, namn på ting (15)',
+    name: 'Fortsättning - Saker och ting, namn på ting (15)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['12873', '01233', '07287', '01549', '01688', '16840', '04938', '05831', '02215', '01491', '00553', '04942', '07288', '13888', '00286'],
     type: 'predefined',
@@ -1065,7 +1065,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_016',
-    name: 'Saker och ting, namn på ting (16)',
+    name: 'Fortsättning - Saker och ting, namn på ting (16)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['03749', '04945', '02925', '14710', '04519', '00864', '07290', '11421', '03967', '03982', '16638', '03310', '07594', '15474', '04668'],
     type: 'predefined',
@@ -1079,7 +1079,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_017',
-    name: 'Saker och ting, namn på ting (17)',
+    name: 'Fortsättning - Saker och ting, namn på ting (17)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['04001', '01480', '05846', '10930', '00128', '02606', '03047', '04483', '00272', '01106', '12446', '17915', '05330', '06973', '07826'],
     type: 'predefined',
@@ -1093,7 +1093,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_018',
-    name: 'Saker och ting, namn på ting (18)',
+    name: 'Fortsättning - Saker och ting, namn på ting (18)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['03809', '17458', '03741', '10933', '25033', '00418', '08471', '09069', '05641', '03018', '09061', '04999', '01167', '01217', '15923'],
     type: 'predefined',
@@ -1107,7 +1107,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_019',
-    name: 'Saker och ting, namn på ting (19)',
+    name: 'Fortsättning - Saker och ting, namn på ting (19)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['17949', '06388', '01553', '15973', '01260', '01831', '08033', '12212', '01520', '05756', '17410', '08636', '02209', '01909', '18603'],
     type: 'predefined',
@@ -1121,7 +1121,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_020',
-    name: 'Saker och ting, namn på ting (20)',
+    name: 'Fortsättning - Saker och ting, namn på ting (20)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['00979', '07246', '03847', '20020', '05118', '02889', '15283', '03219', '02392', '18321', '17293', '05083', '19354', '08299', '07299'],
     type: 'predefined',
@@ -1135,7 +1135,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_021',
-    name: 'Saker och ting, namn på ting (21)',
+    name: 'Fortsättning - Saker och ting, namn på ting (21)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['09064', '08792', '03635', '05096', '02786', '02969', '07606', '15865', '05241', '00283', '01737', '03826', '00957', '11498', '02164'],
     type: 'predefined',
@@ -1149,7 +1149,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_022',
-    name: 'Saker och ting, namn på ting (22)',
+    name: 'Fortsättning - Saker och ting, namn på ting (22)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['08580', '00262', '19168', '11508', '19584', '24931', '01816', '18960', '01709', '19629', '05268', '02445', '18906', '07450', '00263'],
     type: 'predefined',
@@ -1163,7 +1163,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_023',
-    name: 'Saker och ting, namn på ting (23)',
+    name: 'Fortsättning - Saker och ting, namn på ting (23)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['05898', '11019', '02458', '08121', '03378', '03629', '03630', '18736', '01729', '04057', '02825', '09125', '05609', '11523', '12997'],
     type: 'predefined',
@@ -1177,7 +1177,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_024',
-    name: 'Saker och ting, namn på ting (24)',
+    name: 'Fortsättning - Saker och ting, namn på ting (24)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['12482', '03370', '09371', '20504', '03792', '11533', '02077', '02029', '11538', '08308', '07368', '25137', '10067', '01018', '07095'],
     type: 'predefined',
@@ -1191,7 +1191,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_025',
-    name: 'Saker och ting, namn på ting (25)',
+    name: 'Fortsättning - Saker och ting, namn på ting (25)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['02572', '05910', '09156', '11032', '04239', '07379', '01154', '24987', '01498', '04899', '03779', '07584', '15915', '17359', '01720'],
     type: 'predefined',
@@ -1205,7 +1205,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_026',
-    name: 'Saker och ting, namn på ting (26)',
+    name: 'Fortsättning - Saker och ting, namn på ting (26)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['04184', '01465', '26289', '08205', '12309', '03669', '07354', '11568', '14683', '02477', '16291', '00106', '00704', '17996', '09337'],
     type: 'predefined',
@@ -1219,7 +1219,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_027',
-    name: 'Saker och ting, namn på ting (27)',
+    name: 'Fortsättning - Saker och ting, namn på ting (27)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['04254', '03552', '00058', '03070', '18038', '04152', '07990', '07261', '08542', '03986', '03970', '01268', '01739', '02896', '11595'],
     type: 'predefined',
@@ -1233,7 +1233,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_028',
-    name: 'Saker och ting, namn på ting (28)',
+    name: 'Fortsättning - Saker och ting, namn på ting (28)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['08411', '07592', '10765', '03791', '01659', '02472', '02224', '03191', '00617', '17901', '01780', '04019', '07977', '05281', '03722'],
     type: 'predefined',
@@ -1247,7 +1247,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_029',
-    name: 'Saker och ting, namn på ting (29)',
+    name: 'Fortsättning - Saker och ting, namn på ting (29)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['08917', '04397', '03673', '00480', '00481', '15815', '10682', '07637', '01189', '01944', '19609', '12245', '00282', '01875', '03918'],
     type: 'predefined',
@@ -1261,7 +1261,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_030',
-    name: 'Saker och ting, namn på ting (30)',
+    name: 'Fortsättning - Saker och ting, namn på ting (30)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['02521', '03914', '00878', '03648', '17390', '14854', '04115', '12763', '02090', '05644', '11732', '03997', '00993', '00846', '17384'],
     type: 'predefined',
@@ -1275,7 +1275,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_031',
-    name: 'Saker och ting, namn på ting (31)',
+    name: 'Fortsättning - Saker och ting, namn på ting (31)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['07924', '08077', '04603', '01978', '02024', '05121', '11625', '11628', '03859', '24503', '15317', '05352', '02622', '07580', '04357'],
     type: 'predefined',
@@ -1289,7 +1289,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_032',
-    name: 'Saker och ting, namn på ting (32)',
+    name: 'Fortsättning - Saker och ting, namn på ting (32)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['19774', '11131', '23279', '12599', '09206', '23399', '17726', '05369', '10775', '09041', '15259', '03043', '02746', '01759', '02648'],
     type: 'predefined',
@@ -1303,7 +1303,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_033',
-    name: 'Saker och ting, namn på ting (33)',
+    name: 'Fortsättning - Saker och ting, namn på ting (33)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['03152', '17670', '05377', '00303', '04490', '01642', '19398', '05494', '01997', '03411', '09744', '17346', '19872', '05203', '05395'],
     type: 'predefined',
@@ -1317,7 +1317,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_034',
-    name: 'Saker och ting, namn på ting (34)',
+    name: 'Fortsättning - Saker och ting, namn på ting (34)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['05988', '06362', '11214', '16528', '12304', '12043', '12811', '01769', '25710', '13030', '13038', '03098', '03349', '03456', '00959'],
     type: 'predefined',
@@ -1331,7 +1331,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_035',
-    name: 'Saker och ting, namn på ting (35)',
+    name: 'Fortsättning - Saker och ting, namn på ting (35)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['11316', '07644', '05428', '19214', '16225', '09719', '02300', '08810', '18327', '09701', '08758', '12286', '03611', '04373', '24313'],
     type: 'predefined',
@@ -1345,7 +1345,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_036',
-    name: 'Saker och ting, namn på ting (36)',
+    name: 'Fortsättning - Saker och ting, namn på ting (36)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['18500', '03338', '07814', '11961', '05476', '00138', '11729', '08204', '00986', '11448', '05498', '11702', '08550', '08635', '05513'],
     type: 'predefined',
@@ -1359,7 +1359,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_substantiv_037',
-    name: 'Saker och ting, namn på ting (37)',
+    name: 'Fortsättning - Saker och ting, namn på ting (37)',
     description: 'Substantiv - 0 träffar i lexikonet',
     wordIds: ['00588', '25842', '01477', '00236', '01210', '02037', '13623', '03753', '16401', '04655', '25687', '04858', '03653', '01924', '09166', '06609', '05584', '03475', '00995', '14371', '07953', '12989'],
     type: 'predefined',
@@ -1373,7 +1373,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_001',
-    name: 'Något man gör (1)',
+    name: 'Fortsättning - Något man gör (1)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['00332', '24498', '04949', '08062', '04635', '04769', '00333', '14794', '07372', '00365', '09956', '01828', '05664', '00648', '00050'],
     type: 'predefined',
@@ -1387,7 +1387,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_002',
-    name: 'Något man gör (2)',
+    name: 'Fortsättning - Något man gör (2)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['01710', '04433', '02712', '02227', '00580', '02036', '15964', '03581', '03905', '05953', '00372', '02702', '02113', '15816', '01261'],
     type: 'predefined',
@@ -1401,7 +1401,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_003',
-    name: 'Något man gör (3)',
+    name: 'Fortsättning - Något man gör (3)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['12069', '10520', '04201', '05282', '02501', '03760', '08153', '04496', '17145', '08431', '00331', '03671', '12313', '05419', '03184'],
     type: 'predefined',
@@ -1415,7 +1415,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_004',
-    name: 'Något man gör (4)',
+    name: 'Fortsättning - Något man gör (4)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['02616', '01820', '10068', '02590', '02631', '09954', '03065', '03033', '05683', '02892', '00354', '03023', '01218', '18542', '03751'],
     type: 'predefined',
@@ -1429,7 +1429,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_005',
-    name: 'Något man gör (5)',
+    name: 'Fortsättning - Något man gör (5)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['08360', '17838', '24652', '07846', '11794', '01338', '04952', '00889', '03551', '01300', '05844', '04004', '00849', '04191', '00541'],
     type: 'predefined',
@@ -1443,7 +1443,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_006',
-    name: 'Något man gör (6)',
+    name: 'Fortsättning - Något man gör (6)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['01901', '10715', '14679', '01143', '02993', '01822', '05093', '03808', '00585', '02213', '02199', '02820', '01870', '17187', '00835'],
     type: 'predefined',
@@ -1457,7 +1457,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_007',
-    name: 'Något man gör (7)',
+    name: 'Fortsättning - Något man gör (7)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['00726', '01348', '00780', '01721', '05097', '07983', '02555', '04423', '05396', '01614', '04123', '00089', '05540', '07982', '05271'],
     type: 'predefined',
@@ -1471,7 +1471,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_008',
-    name: 'Något man gör (8)',
+    name: 'Fortsättning - Något man gör (8)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['14762', '01745', '06481', '01887', '02747', '17318', '24072', '01226', '01886', '00049', '01503', '01882', '19453', '06302', '18529'],
     type: 'predefined',
@@ -1485,7 +1485,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_009',
-    name: 'Något man gör (9)',
+    name: 'Fortsättning - Något man gör (9)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['01722', '10248', '01147', '05343', '05673', '07976', '02153', '10979', '17620', '02696', '01299', '02506', '02220', '01578', '05247'],
     type: 'predefined',
@@ -1499,7 +1499,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_verb_010',
-    name: 'Något man gör (10)',
+    name: 'Fortsättning - Något man gör (10)',
     description: 'Verb - 0 träffar i lexikonet',
     wordIds: ['09032', '18384', '00182', '00163', '00694', '03387', '02522', '22697', '07638', '00794', '07877', '01497', '00056', '07945', '13852', '12239', '03291', '23079', '05408', '00249', '06012', '02222', '02438', '16369'],
     type: 'predefined',
@@ -1513,7 +1513,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_001',
-    name: 'Hur något är (1)',
+    name: 'Fortsättning - Hur något är (1)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['17302', '02150', '01007', '03295', '10149', '09401', '00568', '01475', '04339', '03377', '10826', '19803', '10905', '01982', '03036'],
     type: 'predefined',
@@ -1527,7 +1527,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_002',
-    name: 'Hur något är (2)',
+    name: 'Fortsättning - Hur något är (2)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['05714', '00535', '03034', '05592', '00659', '04295', '01949', '19994', '02927', '01401', '16026', '04181', '18273', '17361', '04764'],
     type: 'predefined',
@@ -1541,7 +1541,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_003',
-    name: 'Hur något är (3)',
+    name: 'Fortsättning - Hur något är (3)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['04768', '01234', '04308', '17621', '01747', '01034', '00581', '08136', '04232', '04800', '00298', '03260', '01777', '12498', '00379'],
     type: 'predefined',
@@ -1555,7 +1555,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_004',
-    name: 'Hur något är (4)',
+    name: 'Fortsättning - Hur något är (4)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['00071', '04960', '02902', '00231', '10773', '04026', '17918', '02058', '01702', '01505', '17230', '03471', '07847', '04262', '14406'],
     type: 'predefined',
@@ -1569,7 +1569,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_005',
-    name: 'Hur något är (5)',
+    name: 'Fortsättning - Hur något är (5)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['00085', '00512', '00095', '00631', '02842', '13628', '12252', '00777', '05076', '07560', '02363', '03025', '05239', '04596', '06059'],
     type: 'predefined',
@@ -1583,7 +1583,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_006',
-    name: 'Hur något är (6)',
+    name: 'Fortsättning - Hur något är (6)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['23220', '03145', '18190', '08484', '15037', '00079', '00597', '08407', '12900', '02913', '11526', '07482', '00443', '04267', '25726'],
     type: 'predefined',
@@ -1597,7 +1597,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_007',
-    name: 'Hur något är (7)',
+    name: 'Fortsättning - Hur något är (7)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['00890', '16380', '00368', '02354', '00893', '17339', '06108', '03990', '06115', '14743', '00174', '10789', '00596', '01919', '07410'],
     type: 'predefined',
@@ -1611,7 +1611,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_008',
-    name: 'Hur något är (8)',
+    name: 'Fortsättning - Hur något är (8)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['00598', '05642', '05305', '02989', '02219', '14109', '02278', '01794', '05705', '00970', '01741', '02293', '11635', '01211', '07578'],
     type: 'predefined',
@@ -1625,7 +1625,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adjektiv_009',
-    name: 'Hur något är (9)',
+    name: 'Fortsättning - Hur något är (9)',
     description: 'Adjektiv - 0 träffar i lexikonet',
     wordIds: ['07499', '02257', '00453', '05406', '01609', '02355', '04179', '02214', '02991', '17779', '00139', '02001', '03208', '01099', '05464', '00755', '11320', '07440', '01677', '09181', '01078'],
     type: 'predefined',
@@ -1639,7 +1639,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adverb_001',
-    name: 'Hur, var, när (1)',
+    name: 'Fortsättning - Hur, var, när (1)',
     description: 'Adverb - 0 träffar i lexikonet',
     wordIds: ['03143', '00487', '04731', '01764', '04485', '02688', '10033', '02690', '04892', '12521', '08979', '02658', '05708', '03187', '03108'],
     type: 'predefined',
@@ -1653,7 +1653,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_adverb_002',
-    name: 'Hur, var, när (2)',
+    name: 'Fortsättning - Hur, var, när (2)',
     description: 'Adverb - 0 träffar i lexikonet',
     wordIds: ['11085', '04480', '00873', '18671', '03171', '03280', '08728', '09229', '02466', '09987', '00291', '11492', '09190'],
     type: 'predefined',
@@ -1667,7 +1667,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_pronomen_001',
-    name: 'Istället för namn (1)',
+    name: 'Fortsättning - Istället för namn (1)',
     description: 'Pronomen - 0 träffar i lexikonet',
     wordIds: ['04153', '02370', '00186'],
     type: 'predefined',
@@ -1681,7 +1681,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_preposition_001',
-    name: 'Små ord som visar plats eller riktning (1)',
+    name: 'Fortsättning - Små ord som visar plats eller riktning (1)',
     description: 'Preposition - 0 träffar i lexikonet',
     wordIds: ['00297', '00732'],
     type: 'predefined',
@@ -1695,7 +1695,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_konjunktion_001',
-    name: 'Ord som binder ihop (1)',
+    name: 'Fortsättning - Ord som binder ihop (1)',
     description: 'Konjunktion - 0 träffar i lexikonet',
     wordIds: ['08042'],
     type: 'predefined',
@@ -1709,7 +1709,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_interjektion_001',
-    name: 'Utrop! (1)',
+    name: 'Fortsättning - Utrop! (1)',
     description: 'Interjektion - 0 träffar i lexikonet',
     wordIds: ['10083', '20523', '14156', '22765', '04077', '00005', '04324', '02662', '12745', '00528', '24596', '00278'],
     type: 'predefined',
@@ -1723,7 +1723,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
   },
   {
     id: 'n5_räkneord_001',
-    name: 'Hur många, vilken ordning (1)',
+    name: 'Fortsättning - Hur många, vilken ordning (1)',
     description: 'Räkneord - 0 träffar i lexikonet',
     wordIds: ['06782', '11910', '11893', '20277', '11909', '23123', '11955', '06959', '24273', '11912', '11895', '11903', '11902', '11907', '11904', '11901', '11900', '11906', '08933', '11908', '11891', '11913'],
     type: 'predefined',
