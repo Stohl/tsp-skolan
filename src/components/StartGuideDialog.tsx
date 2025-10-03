@@ -87,6 +87,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
   };
 
   const handleNext = () => {
+    // Förenklad version - bara stäng startguiden när man trycker "Kom igång"
+    if (currentStep === 'intro') {
+      handleFinish();
+      return;
+    }
     if (currentStep === 'wordlists') return; // sista steget innan slutför
     goToStepIndex(currentStepIndex + 1);
   };
@@ -465,16 +470,11 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
     handleReset();
   };
 
-  // Avsluta guide
+  // Avsluta guide (förenklad version - ingen progress ändras)
   const handleFinish = () => {
     onComplete();
     handleReset();
-    // Trigger storage event för att uppdatera progress i andra komponenter
-    window.dispatchEvent(new Event('storage'));
-    // Ladda om sidan för att säkerställa att all progress uppdateras
-    setTimeout(() => {
-      window.location.reload();
-    }, 500);
+    // Ingen reload eller storage event - bara stäng startguiden
   };
 
   // Bakåtkompatibilitet - gamla variabler
@@ -512,46 +512,53 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
       </DialogTitle>
 
       <DialogContent>
-        {currentStep === 'intro' && (
-          <>
-            {/* Kort introduktion (sida 1) */}
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="h5" gutterBottom sx={{ fontWeight: 600 }}>
-                Kom igång på 30 sekunder
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-                TSP Skolan är ett verktyg för att hålla språket levande om du inte kan använda det i vardagen.
-                Du börjar med att välja din nuvarande kunskapsnivå, TSP Skolan föreslår passande ordlistor, och du kan direkt komma igång.
-              </Typography>
-              <List>
-                <ListItem>
-                  <ListItemIcon>
-                    <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
-                      1
-                    </Typography>
-                  </ListItemIcon>
-                  <ListItemText primary="Välj din nivå" secondary="Nybörjare till proffs" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
-                      2
-                    </Typography>
-                  </ListItemIcon>
-                  <ListItemText primary="Ordlistor föreslås" secondary="Anpassade för dig" />
-                </ListItem>
-                <ListItem>
-                  <ListItemIcon>
-                    <Typography variant="h6" color="primary" sx={{ fontWeight: 'bold' }}>
-                      3
-                    </Typography>
-                  </ListItemIcon>
-                  <ListItemText primary="Börja öva" secondary="Teckna, se tecken, meningar och bokstavering" />
-                </ListItem>
-              </List>
-            </Box>
-          </>
-        )}
+      {currentStep === 'intro' && (
+    <>
+      {/* Välkomsttext */}
+      <Box sx={{ mb: 3, maxWidth: '700px', mx: 'auto' }}>
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          Den här sidan är utvecklad för att förhoppningsvis göra det lite enklare och lite roligare att lära dig 
+          <b> svenskt teckenspråk</b> – oavsett om du är helt nybörjare eller redan kan lite grann.
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          Ett stort tack riktas till <b>Teckenspråkslexikon vid Stockholms Universitet</b>, 
+          som gjort det möjligt att bygga denna sida. Genom lexikonet får vi inte bara ord, utan även 
+          <b> exempelmeningar</b> som visar hur orden används i riktiga sammanhang.
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          Att välja vilka ord man ska börja med är en hel vetenskap. 
+          Jag landade i att fokusera på ord som bygger fullständiga <b>exempelmeningar </b>
+          så att du kommer igång med meningar som <b>förhoppningsvis går att använda i vardagen</b>.
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          I appen börjar du med att träna på <b>ord</b> genom övningarna: 
+          <br />• <b>Se tecknet</b> – du ser hur ett ord tecknas 
+          <br />• <b>Teckna själv</b> – du får testa att teckna själv
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          När du har lärt dig tillräckligt många ord som bygger upp en fullständig <b>exempelmening </b> 
+          blir meningen tillgänglig för träning. På så sätt går du steg för steg 
+          från enskilda ord till hela meningar.
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary">
+          Det finns också en separat övning för att träna <b>bokstavering</b>. Många ord 
+          i teckenspråk bokstaveras och det kan gå fort!
+        </Typography>
+      </Box>
+
+      {/* Call to action */}
+      <Box sx={{ textAlign: 'center', mt: 3 }}>
+        <Typography variant="body2" color="text.secondary">
+          Klicka på <b>”Kom igång”</b> för att starta din resa med TSP Skolan
+        </Typography>
+      </Box>
+    </>
+  )}
 
         {currentStep === 'knowledge_level' && (
           <>
