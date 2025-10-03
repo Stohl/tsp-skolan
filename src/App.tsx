@@ -329,11 +329,11 @@ function AppContent() {
                 });
                 
                 if (availableWordLists.length === 1) {
-                  return `Ordlistan "${availableWordLists[0].name}" är redo för dig!`;
+                  return `Ordlistan "${availableWordLists[0].name}" är näst på tur!`;
                 } else if (availableWordLists.length >= 2) {
                   return `Ordlistorna "${availableWordLists[0].name}" och "${availableWordLists[1].name}" är redo för dig!`;
                 } else {
-                  return "Nya ordlistor är redo för dig!";
+                  return "Nya ordlistor på tur!";
                 }
               })()}
             </Typography>

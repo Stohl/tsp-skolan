@@ -3259,7 +3259,7 @@ const OvningPage: React.FC = () => {
             Bokstavering
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-            Välj hastighet och ordlängd för att träna bokstavering. Du kommer att se en video och välja rätt ord från fyra alternativ.
+            Välj hastighet och ordlängd för att träna bokstavering.
           </Typography>
         </Box>
 
@@ -4117,14 +4117,6 @@ const OvningPage: React.FC = () => {
                 <Box sx={{ mb: 4, textAlign: 'center' }}>
                   <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
                     Meningar
-                  </Typography>
-                  <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', lineHeight: 1.6 }}>
-                    Svenskt teckenspråkslexikon från Stockholms Universitet har listat många exempelmeningar på olika svårighetsnivåer. Här nedan kan du öva på dessa meningar, men de baseras på vilka ord du har lärt dig. 
-                    <br></br><br></br>
-                    Öva med "Teckna" eller "Se tecken" för att lära dig fler ord och utöka antalet meningar. Det finns även meningar utan svårighetsnivå, dessa rekommenderas inte till nybörjare och visas inte på startsidan.
-                    <br></br><br></br>
-                    Längst ner på sidan finns det du kan lära dig härnäst för att få tillgång till fler meningar att öva på. Klicka då på ordet för att lägga det i "att lära mig"
-                    Besök gärna <a href="https://teckensprakslexikon.su.se/verktyg/meningsnivaer" target="_blank" rel="noopener noreferrer">https://teckensprakslexikon.su.se/verktyg/meningsnivaer</a>  för att lära dig mer.
                   </Typography>
                 </Box>
 

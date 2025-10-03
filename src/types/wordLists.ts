@@ -73,7 +73,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
     id: 'n1_handalfabetet',
     name: 'Handalfabetet',
     description: 'Handalfabetet - 5 träffar i lexikonet',
-    wordIds: ['09531', '09532', '09011', '09533', '11925', '11926', '11927', '11928', '11929', '11930', '11931', '11932', '11933', '11934', '11935', '11936', '11937', '11938', '11939', '11940', '11941', '11942', '11943', '24685', '11945', '11946', '17309', '11948', '20135'],
+    wordIds: ['09531', '09532', '09011', '09533', '11925', '11926', '11927', '11928', '11929', '11930', '11931', '11932', '11933', '11934', '11935', '11936', '11937', '11938', '11939', '11940', '11941', '11942', '11943', '11944', '11945', '11946', '11947', '11948', '08947'],
     type: 'predefined',
     difficulty: 'nyborjare',
     priority: 1,
@@ -2520,7 +2520,7 @@ export const predefinedWordLists: PredefinedWordList[] = [
 export const getAllWordLists = (database: any): WordList[] => {
   // console.log('[DEBUG] getAllWordLists called with database keys:', Object.keys(database).length);
   const dynamicLists: DynamicWordList[] = [
-    {
+    /*{
       id: 'handalfabetet',
       name: 'Handalfabetet',
       description: 'Alla ord med ämnet "Handalfabetet"',
@@ -2531,7 +2531,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       showInStartGuide: true,
       startGuidePosition: 1,
       showWordsInStartGuide: false
-    }/*,
+    },*//*
     {
       id: 'bildelar',
       name: 'Bildelar',

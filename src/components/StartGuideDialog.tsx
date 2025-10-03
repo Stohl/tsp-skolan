@@ -522,12 +522,6 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
         </Typography>
 
         <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
-          Ett stort tack riktas till <b>Teckenspråkslexikon vid Stockholms Universitet</b>, 
-          som gjort det möjligt att bygga denna sida. Genom lexikonet får vi inte bara ord, utan även 
-          <b> exempelmeningar</b> som visar hur orden används i riktiga sammanhang.
-        </Typography>
-
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
           Att välja vilka ord man ska börja med är en hel vetenskap. 
           Jag landade i att fokusera på ord som bygger fullständiga <b>exempelmeningar </b>
           så att du kommer igång med meningar som <b>förhoppningsvis går att använda i vardagen</b>.
@@ -545,18 +539,18 @@ const StartGuideDialog: React.FC<StartGuideDialogProps> = ({ open, onClose, onCo
           från enskilda ord till hela meningar.
         </Typography>
 
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
           Det finns också en separat övning för att träna <b>bokstavering</b>. Många ord 
           i teckenspråk bokstaveras och det kan gå fort!
+        </Typography>
+
+        <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
+          Ett stort tack riktas till <b>Teckenspråkslexikon vid Stockholms Universitet</b>, 
+          som gjort det möjligt att bygga denna sida!
         </Typography>
       </Box>
 
       {/* Call to action */}
-      <Box sx={{ textAlign: 'center', mt: 3 }}>
-        <Typography variant="body2" color="text.secondary">
-          Klicka på <b>”Kom igång”</b> för att starta din resa med TSP Skolan
-        </Typography>
-      </Box>
     </>
   )}
 
