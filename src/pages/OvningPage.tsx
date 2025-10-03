@@ -322,9 +322,6 @@ const VariantSequencePlayer: React.FC<{
 
   return (
     <Box sx={{ mb: 1.5 }}>
-      <Typography variant="h6" sx={{ textAlign: 'center', mb: 0, fontWeight: 600, lineHeight: 0 }}>
-        Vilket ord?
-      </Typography>
       <Box sx={{ mb: 0.3 }}>
         <Typography variant="caption" color="text.secondary">
           variant {currentVariantIndex + 1} av {variants.length}
@@ -1133,7 +1130,7 @@ const SpellingExercise: React.FC<{
         {/* Fråga */}
         <Box sx={{ mb: 2 }}>
           <Typography variant="h5" gutterBottom sx={{ mb: 1 }}>
-            Vilket ord?
+            Vilket ordyyy?
           </Typography>
           
           {word.video_url && (

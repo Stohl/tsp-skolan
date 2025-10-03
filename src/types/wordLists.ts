@@ -2531,7 +2531,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       showInStartGuide: true,
       startGuidePosition: 1,
       showWordsInStartGuide: false
-    },
+    }/*,
     {
       id: 'bildelar',
       name: 'Bildelar',
@@ -2558,7 +2558,7 @@ export const getAllWordLists = (database: any): WordList[] => {
       type: 'dynamic',
       difficulty: 'proffs',
       priority: 0.5
-    }
+    }*/
   ];
 
   // console.log('[DEBUG] predefinedWordLists count:', predefinedWordLists.length);

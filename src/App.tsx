@@ -90,14 +90,16 @@ function AppContent() {
       const allWordLists = getAllWordLists(wordDatabase);
       const availableWordLists = allWordLists.filter(list => {
         const wordsInList = getWordsFromList(list, wordDatabase);
-        // Kontrollera om det finns ord som INTE är lärda (nivå 2)
-        return wordsInList.some(word => currentProgress[word.id]?.level !== 2);
+        // Kontrollera om det finns ord på level 0 (som kan läggas till)
+        return wordsInList.some(word => !currentProgress[word.id] || currentProgress[word.id]?.level === 0);
       });
       
-      console.log(`[DEBUG] Tillgängliga ordlistor: ${availableWordLists.length}, Visa dialog: ${true}`);
+      console.log(`[DEBUG] Tillgängliga ordlistor: ${availableWordLists.length}`);
       
       // Visa dialog om det finns tillgängliga ordlistor
-      setShowAddWordsDialog(true);
+      if (availableWordLists.length > 0) {
+        setShowAddWordsDialog(true);
+      }
     } else {
       console.log(`[DEBUG] Villkor INTE uppfyllda - hasSeenGuide: ${hasSeenGuide}, learningWordsCount: ${learningWordsCount}, showAddWordsDialogSetting: ${showAddWordsDialogSetting}`);
     }
@@ -111,7 +113,8 @@ function AppContent() {
     const allWordLists = getAllWordLists(wordDatabase);
     const availableWordLists = allWordLists.filter(list => {
       const wordsInList = getWordsFromList(list, wordDatabase);
-      return wordsInList.some(word => currentProgress[word.id]?.level !== 2);
+      // Kontrollera om det finns ord på level 0 (som kan läggas till)
+      return wordsInList.some(word => !currentProgress[word.id] || currentProgress[word.id]?.level === 0);
     });
     
     // Sortera efter priority (lägre nummer = högre prioritet)
@@ -306,16 +309,33 @@ function AppContent() {
           fullWidth
         >
           <DialogTitle sx={{ textAlign: 'center', pb: 1 }}>
-           Dags att öva på fler ord?
+            {(() => {
+              const wordProgressData = localStorage.getItem('wordProgress');
+              const currentProgress = wordProgressData ? JSON.parse(wordProgressData) : {};
+              const learnedWords = Object.values(currentProgress).filter((word: any) => word.level === 2).length;
+              return learnedWords === 0 ? "Dags att komma igång!" : `Du har lärt dig ${learnedWords} ord!`;
+            })()}
           </DialogTitle>
           <DialogContent>
             <Typography variant="body1" sx={{ textAlign: 'center', mb: 2 }}>
-              Du har bara {(() => {
+              {(() => {
                 const wordProgressData = localStorage.getItem('wordProgress');
                 const currentProgress = wordProgressData ? JSON.parse(wordProgressData) : {};
-                return Object.values(currentProgress).filter((word: any) => word.level === 1).length;
-              })()} ord i "att lära mig". 
-              Ska vi lägga till ytterliggare två nya ordlistor som du kan öva med?
+                const allWordLists = getAllWordLists(wordDatabase);
+                const availableWordLists = allWordLists.filter(list => {
+                  const wordsInList = getWordsFromList(list, wordDatabase);
+                  // Kontrollera om det finns ord på level 0 (som kan läggas till)
+                  return wordsInList.some(word => !currentProgress[word.id] || currentProgress[word.id]?.level === 0);
+                });
+                
+                if (availableWordLists.length === 1) {
+                  return `Ordlistan "${availableWordLists[0].name}" är redo för dig!`;
+                } else if (availableWordLists.length >= 2) {
+                  return `Ordlistorna "${availableWordLists[0].name}" och "${availableWordLists[1].name}" är redo för dig!`;
+                } else {
+                  return "Nya ordlistor är redo för dig!";
+                }
+              })()}
             </Typography>
           </DialogContent>
           <DialogActions sx={{ flexDirection: 'column', alignItems: 'center', gap: 1, pb: 3, px: 2 }}>
@@ -325,21 +345,7 @@ function AppContent() {
               onClick={handleAddWordLists}
               sx={{ width: '100%', maxWidth: 200, textTransform: 'none' }}
             >
-              Ja, lägg till
-            </Button>
-                <Button
-                  variant="outlined"
-                  onClick={handleDontAskAgain}
-                  sx={{ width: '100%', maxWidth: 200, textTransform: 'none' }}
-                >
-                  Fråga inte igen
-                </Button>
-            <Button
-              variant="outlined"
-              onClick={() => setShowAddWordsDialog(false)}
-              sx={{ width: '100%', maxWidth: 200, textTransform: 'none' }}
-            >
-              Inte nu
+              Perfekt!
             </Button>
           </DialogActions>
         </Dialog>
