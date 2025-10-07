@@ -1,0 +1,4880 @@
+{
+  "media_descriptors": [
+    {
+      "media_url": "https://teckensprakskorpus.su.se/video/sslc02_409.mp4",
+      "mime_type": "video/mp4",
+      "relative_media_url": "sslc02_409.mp4",
+      "type": "video"
+    }
+  ],
+  "tiers": [
+    {
+      "tier_id": "2",
+      "name": "Översättning S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "0",
+      "name": "Glosa_DH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "1",
+      "name": "Glosa_NonDH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "3",
+      "name": "Översättning S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    }
+  ],
+  "linguistic_types": [],
+  "annotations": {
+    "2": [
+      {
+        "annotation_id": "22668131",
+        "start_time": 179.11,
+        "end_time": 179.8,
+        "duration": 0.6899999999999977,
+        "value": "Vad gulligt!",
+        "tier_name": "Översättning S1"
+      }
+    ],
+    "0": [
+      {
+        "annotation_id": "22665546",
+        "start_time": 5.266,
+        "end_time": 5.906,
+        "duration": 0.6399999999999997,
+        "value": "JA@ub@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665556",
+        "start_time": 6.185,
+        "end_time": 6.385,
+        "duration": 0.20000000000000018,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665565",
+        "start_time": 6.4,
+        "end_time": 6.68,
+        "duration": 0.27999999999999936,
+        "value": "LITEN-PERSON@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665573",
+        "start_time": 7.158,
+        "end_time": 7.273,
+        "duration": 0.11499999999999932,
+        "value": "SE-UT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665582",
+        "start_time": 7.438,
+        "end_time": 7.678,
+        "duration": 0.2400000000000002,
+        "value": "SJU_ÅTTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665593",
+        "start_time": 7.918,
+        "end_time": 8.238,
+        "duration": 0.3199999999999994,
+        "value": "ÅR@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665600",
+        "start_time": 8.524,
+        "end_time": 8.964,
+        "duration": 0.4400000000000013,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665610",
+        "start_time": 9.284,
+        "end_time": 9.364,
+        "duration": 0.08000000000000007,
+        "value": "SITTA(VVb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665622",
+        "start_time": 9.563,
+        "end_time": 9.643,
+        "duration": 0.08000000000000007,
+        "value": "TITTA-PÅ@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665629",
+        "start_time": 9.803,
+        "end_time": 10.123,
+        "duration": 0.3199999999999985,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665645",
+        "start_time": 10.363,
+        "end_time": 10.443,
+        "duration": 0.08000000000000007,
+        "value": "HA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665652",
+        "start_time": 10.643,
+        "end_time": 10.763,
+        "duration": 0.11999999999999922,
+        "value": "polyform@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665663",
+        "start_time": 11.041,
+        "end_time": 11.396,
+        "duration": 0.3550000000000004,
+        "value": "GLAS(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665672",
+        "start_time": 11.556,
+        "end_time": 12.276,
+        "duration": 0.7200000000000006,
+        "value": "FORM(55bt)+BESKRIVNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665681",
+        "start_time": 12.716,
+        "end_time": 12.876,
+        "duration": 0.16000000000000014,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665689",
+        "start_time": 13.082,
+        "end_time": 13.402,
+        "duration": 0.3199999999999985,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665697",
+        "start_time": 13.642,
+        "end_time": 14.042,
+        "duration": 0.40000000000000036,
+        "value": "DJUR(JJvs)@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665708",
+        "start_time": 14.362,
+        "end_time": 14.682,
+        "duration": 0.3200000000000003,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665721",
+        "start_time": 15.15,
+        "end_time": 15.59,
+        "duration": 0.4399999999999995,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665727",
+        "start_time": 15.95,
+        "end_time": 16.07,
+        "duration": 0.120000000000001,
+        "value": "SAMTALA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665738",
+        "start_time": 16.212,
+        "end_time": 16.892,
+        "duration": 0.6799999999999997,
+        "value": "GLOSA:(PD)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665745",
+        "start_time": 17.932,
+        "end_time": 18.212,
+        "duration": 0.28000000000000114,
+        "value": "TRÖTT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665756",
+        "start_time": 18.712,
+        "end_time": 18.832,
+        "duration": 0.120000000000001,
+        "value": "glosa@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665762",
+        "start_time": 19.104,
+        "end_time": 19.424,
+        "duration": 0.3200000000000003,
+        "value": "MÖRK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665771",
+        "start_time": 19.464,
+        "end_time": 19.624,
+        "duration": 0.16000000000000014,
+        "value": "LÅTA-VARA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665780",
+        "start_time": 19.88,
+        "end_time": 20.08,
+        "duration": 0.1999999999999993,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665790",
+        "start_time": 20.478,
+        "end_time": 20.598,
+        "duration": 0.11999999999999744,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665796",
+        "start_time": 20.918,
+        "end_time": 21.158,
+        "duration": 0.240000000000002,
+        "value": "LÄGGA-SIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665803",
+        "start_time": 21.572,
+        "end_time": 21.692,
+        "duration": 0.120000000000001,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665814",
+        "start_time": 21.852,
+        "end_time": 22.292,
+        "duration": 0.4400000000000013,
+        "value": "VARELSE(VVb)+BEFINNA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665823",
+        "start_time": 22.826,
+        "end_time": 23.506,
+        "duration": 0.6799999999999997,
+        "value": "SOMNA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665826",
+        "start_time": 23.749,
+        "end_time": 24.309,
+        "duration": 0.5600000000000023,
+        "value": "TIDEN-GÅR@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665838",
+        "start_time": 24.909,
+        "end_time": 25.149,
+        "duration": 0.240000000000002,
+        "value": "FORM(55bt)+BESKRIVNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665846",
+        "start_time": 25.269,
+        "end_time": 25.429,
+        "duration": 0.16000000000000014,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665852",
+        "start_time": 25.669,
+        "end_time": 25.829,
+        "duration": 0.16000000000000014,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665862",
+        "start_time": 25.949,
+        "end_time": 26.309,
+        "duration": 0.35999999999999943,
+        "value": "KVARSTANNA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665873",
+        "start_time": 27.099,
+        "end_time": 27.339,
+        "duration": 0.23999999999999844,
+        "value": "SOMNA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665882",
+        "start_time": 27.449,
+        "end_time": 27.689,
+        "duration": 0.23999999999999844,
+        "value": "TIDEN-GÅR@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665888",
+        "start_time": 28.089,
+        "end_time": 28.369,
+        "duration": 0.28000000000000114,
+        "value": "MORGON",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665899",
+        "start_time": 28.647,
+        "end_time": 28.807,
+        "duration": 0.16000000000000014,
+        "value": "VAKNA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665907",
+        "start_time": 29.485,
+        "end_time": 29.965,
+        "duration": 0.4800000000000004,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665916",
+        "start_time": 30.245,
+        "end_time": 30.645,
+        "duration": 0.3999999999999986,
+        "value": "FINNAS-INTE-KVAR(ea)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665925",
+        "start_time": 31.115,
+        "end_time": 31.165,
+        "duration": 0.05000000000000071,
+        "value": "PI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665932",
+        "start_time": 31.285,
+        "end_time": 31.405,
+        "duration": 0.120000000000001,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665942",
+        "start_time": 31.485,
+        "end_time": 31.605,
+        "duration": 0.120000000000001,
+        "value": "PERF",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665951",
+        "start_time": 31.685,
+        "end_time": 32.205,
+        "duration": 0.5199999999999996,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665960",
+        "start_time": 32.377,
+        "end_time": 32.457,
+        "duration": 0.0799999999999983,
+        "value": "HAND(JJvs)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665972",
+        "start_time": 32.619,
+        "end_time": 32.979,
+        "duration": 0.35999999999999943,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665979",
+        "start_time": 33.019,
+        "end_time": 33.399,
+        "duration": 0.38000000000000256,
+        "value": "BEGE-SIG-IVÄG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665991",
+        "start_time": 33.953,
+        "end_time": 34.073,
+        "duration": 0.11999999999999744,
+        "value": "BORTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22665996",
+        "start_time": 34.353,
+        "end_time": 34.833,
+        "duration": 0.4799999999999969,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666005",
+        "start_time": 35.113,
+        "end_time": 35.173,
+        "duration": 0.060000000000002274,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666012",
+        "start_time": 35.373,
+        "end_time": 35.813,
+        "duration": 0.44000000000000483,
+        "value": "LETA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666020",
+        "start_time": 36.013,
+        "end_time": 36.293,
+        "duration": 0.28000000000000114,
+        "value": "TRÖJA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666026",
+        "start_time": 36.539,
+        "end_time": 37.099,
+        "duration": 0.5599999999999952,
+        "value": "GREPP(AA)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666036",
+        "start_time": 37.339,
+        "end_time": 37.779,
+        "duration": 0.44000000000000483,
+        "value": "STÖVEL(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666045",
+        "start_time": 38.161,
+        "end_time": 38.401,
+        "duration": 0.240000000000002,
+        "value": "GREPP(QQ)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666057",
+        "start_time": 38.521,
+        "end_time": 39.001,
+        "duration": 0.4799999999999969,
+        "value": "GREPP(SS)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666066",
+        "start_time": 39.161,
+        "end_time": 39.281,
+        "duration": 0.11999999999999744,
+        "value": "LETA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666069",
+        "start_time": 39.679,
+        "end_time": 39.839,
+        "duration": 0.1599999999999966,
+        "value": "FINNAS|INTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666084",
+        "start_time": 40.039,
+        "end_time": 40.159,
+        "duration": 0.11999999999999744,
+        "value": "FINNAS|INTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666089",
+        "start_time": 40.279,
+        "end_time": 40.639,
+        "duration": 0.35999999999999943,
+        "value": "GLOSA:(PD)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666100",
+        "start_time": 40.853,
+        "end_time": 41.533,
+        "duration": 0.6799999999999997,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666108",
+        "start_time": 41.931,
+        "end_time": 42.291,
+        "duration": 0.35999999999999943,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666115",
+        "start_time": 42.491,
+        "end_time": 42.611,
+        "duration": 0.11999999999999744,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666127",
+        "start_time": 42.651,
+        "end_time": 43.291,
+        "duration": 0.6399999999999935,
+        "value": "ENTITET(A)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666132",
+        "start_time": 43.571,
+        "end_time": 43.651,
+        "duration": 0.0800000000000054,
+        "value": "GLAS(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666138",
+        "start_time": 43.713,
+        "end_time": 44.273,
+        "duration": 0.5600000000000023,
+        "value": "FORM(SS)+UTSTRÄCKNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666147",
+        "start_time": 44.513,
+        "end_time": 44.998,
+        "duration": 0.48499999999999943,
+        "value": "ENTITET(A)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666159",
+        "start_time": 45.198,
+        "end_time": 45.438,
+        "duration": 0.240000000000002,
+        "value": "ENTITET(SS)+BEFINNA@p>ansikte",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666168",
+        "start_time": 45.518,
+        "end_time": 45.878,
+        "duration": 0.35999999999999943,
+        "value": "FAST(da)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666176",
+        "start_time": 46.078,
+        "end_time": 46.238,
+        "duration": 0.1599999999999966,
+        "value": "ENTITET(SS)+BEFINNA@p>ansikte",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666186",
+        "start_time": 46.5,
+        "end_time": 47.46,
+        "duration": 0.9600000000000009,
+        "value": "ENTITET(GG)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666196",
+        "start_time": 47.839,
+        "end_time": 48.009,
+        "duration": 0.1700000000000017,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666205",
+        "start_time": 48.369,
+        "end_time": 48.639,
+        "duration": 0.2700000000000031,
+        "value": "FÖNSTER(5)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666216",
+        "start_time": 48.919,
+        "end_time": 49.599,
+        "duration": 0.6799999999999997,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666223",
+        "start_time": 49.639,
+        "end_time": 50.119,
+        "duration": 0.4799999999999969,
+        "value": "grepp(g)@hd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666228",
+        "start_time": 50.439,
+        "end_time": 50.959,
+        "duration": 0.5200000000000031,
+        "value": "ROPA@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666238",
+        "start_time": 51.173,
+        "end_time": 51.438,
+        "duration": 0.26500000000000057,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666247",
+        "start_time": 51.758,
+        "end_time": 51.838,
+        "duration": 0.0799999999999983,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666254",
+        "start_time": 52.118,
+        "end_time": 52.478,
+        "duration": 0.35999999999999943,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666265",
+        "start_time": 52.518,
+        "end_time": 52.638,
+        "duration": 0.11999999999999744,
+        "value": "PY@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666274",
+        "start_time": 52.876,
+        "end_time": 53.276,
+        "duration": 0.4000000000000057,
+        "value": "VARELSE(VVb)+BEFINNA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666278",
+        "start_time": 53.604,
+        "end_time": 53.924,
+        "duration": 0.3200000000000003,
+        "value": "FORM(JJbt)+UTSTRÄCKNING@p>hals",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666288",
+        "start_time": 54.312,
+        "end_time": 54.927,
+        "duration": 0.615000000000002,
+        "value": "DJUR(JJvs)@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666305",
+        "start_time": 55.636,
+        "end_time": 56.516,
+        "duration": 0.8799999999999955,
+        "value": "VARELSE(N)+FÖRFLYTTA-FRÅN+VARELSE(N)@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666307",
+        "start_time": 57.676,
+        "end_time": 57.756,
+        "duration": 0.0799999999999983,
+        "value": "GLAS(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666323",
+        "start_time": 57.836,
+        "end_time": 58.076,
+        "duration": 0.240000000000002,
+        "value": "FORM(55bt)+UTSTRÄCKNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666324",
+        "start_time": 58.156,
+        "end_time": 58.436,
+        "duration": 0.28000000000000114,
+        "value": "TRASIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666334",
+        "start_time": 58.77,
+        "end_time": 59.13,
+        "duration": 0.35999999999999943,
+        "value": "ENTITET(SS)+FÖRFLYTTA@p>huvud",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666347",
+        "start_time": 59.736,
+        "end_time": 59.856,
+        "duration": 0.12000000000000455,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666355",
+        "start_time": 60.096,
+        "end_time": 60.536,
+        "duration": 0.44000000000000483,
+        "value": "GREPP(JJbt)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666361",
+        "start_time": 60.696,
+        "end_time": 60.961,
+        "duration": 0.26500000000000057,
+        "value": "AJABAJA@g@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666370",
+        "start_time": 61.096,
+        "end_time": 61.536,
+        "duration": 0.44000000000000483,
+        "value": "SLICKA>kind@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666378",
+        "start_time": 61.95,
+        "end_time": 62.07,
+        "duration": 0.11999999999999744,
+        "value": "AJABAJA@g@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666389",
+        "start_time": 62.19,
+        "end_time": 62.91,
+        "duration": 0.7199999999999989,
+        "value": "GREPP(SS)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666396",
+        "start_time": 63.285,
+        "end_time": 63.805,
+        "duration": 0.5200000000000031,
+        "value": "ROPA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666408",
+        "start_time": 63.925,
+        "end_time": 64.035,
+        "duration": 0.10999999999999943,
+        "value": "ROPA@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666416",
+        "start_time": 64.219,
+        "end_time": 64.499,
+        "duration": 0.28000000000000114,
+        "value": "FÖRFLYTTA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666428",
+        "start_time": 64.665,
+        "end_time": 65.265,
+        "duration": 0.5999999999999943,
+        "value": "LETA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666437",
+        "start_time": 65.455,
+        "end_time": 65.895,
+        "duration": 0.4399999999999977,
+        "value": "SKOG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666445",
+        "start_time": 66.095,
+        "end_time": 66.935,
+        "duration": 0.8400000000000034,
+        "value": "FÖRFLYTTA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666455",
+        "start_time": 67.015,
+        "end_time": 67.815,
+        "duration": 0.7999999999999972,
+        "value": "PEK-BANSTRÄCKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666463",
+        "start_time": 68.745,
+        "end_time": 69.235,
+        "duration": 0.4899999999999949,
+        "value": "pro@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666476",
+        "start_time": 69.865,
+        "end_time": 69.945,
+        "duration": 0.0799999999999983,
+        "value": "SYNS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666482",
+        "start_time": 70.235,
+        "end_time": 70.315,
+        "duration": 0.0799999999999983,
+        "value": "HÅL@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666490",
+        "start_time": 70.355,
+        "end_time": 70.875,
+        "duration": 0.519999999999996,
+        "value": "RUND@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666497",
+        "start_time": 70.955,
+        "end_time": 71.035,
+        "duration": 0.0799999999999983,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666507",
+        "start_time": 71.497,
+        "end_time": 71.682,
+        "duration": 0.18500000000000227,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666518",
+        "start_time": 71.802,
+        "end_time": 72.077,
+        "duration": 0.2749999999999915,
+        "value": "KANSKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666529",
+        "start_time": 72.211,
+        "end_time": 72.276,
+        "duration": 0.06499999999999773,
+        "value": "FINNAS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666540",
+        "start_time": 72.436,
+        "end_time": 72.556,
+        "duration": 0.11999999999999034,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666548",
+        "start_time": 72.752,
+        "end_time": 72.877,
+        "duration": 0.125,
+        "value": "FÖRSÖKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666557",
+        "start_time": 72.997,
+        "end_time": 73.717,
+        "duration": 0.7199999999999989,
+        "value": "ROPA@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666565",
+        "start_time": 73.907,
+        "end_time": 74.267,
+        "duration": 0.35999999999999943,
+        "value": "ENTITET(A)+FÖRFLYTTA@p>näsa",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666577",
+        "start_time": 74.747,
+        "end_time": 75.227,
+        "duration": 0.480000000000004,
+        "value": "MULLVAD@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666585",
+        "start_time": 75.833,
+        "end_time": 76.033,
+        "duration": 0.20000000000000284,
+        "value": "LÅTA-VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666593",
+        "start_time": 76.487,
+        "end_time": 76.767,
+        "duration": 0.28000000000000114,
+        "value": "FÖRFLYTTA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666603",
+        "start_time": 77.007,
+        "end_time": 77.397,
+        "duration": 0.39000000000000057,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666612",
+        "start_time": 77.597,
+        "end_time": 77.957,
+        "duration": 0.35999999999999943,
+        "value": "SPRINGA(VVb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666621",
+        "start_time": 78.117,
+        "end_time": 78.157,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666626",
+        "start_time": 78.233,
+        "end_time": 78.753,
+        "duration": 0.519999999999996,
+        "value": "TRÄD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666634",
+        "start_time": 79.273,
+        "end_time": 79.438,
+        "duration": 0.16500000000000625,
+        "value": "BI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666644",
+        "start_time": 79.718,
+        "end_time": 79.998,
+        "duration": 0.28000000000000114,
+        "value": "polyform@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666653",
+        "start_time": 80.318,
+        "end_time": 80.553,
+        "duration": 0.23499999999999943,
+        "value": "GETING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666667",
+        "start_time": 80.815,
+        "end_time": 81.395,
+        "duration": 0.5799999999999983,
+        "value": "FORM(JJbt)+BESKRIVNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666671",
+        "start_time": 82.114,
+        "end_time": 82.199,
+        "duration": 0.08499999999999375,
+        "value": "GETING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666680",
+        "start_time": 82.319,
+        "end_time": 83.319,
+        "duration": 1.0,
+        "value": "ENTITET(55bt)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666696",
+        "start_time": 83.373,
+        "end_time": 83.453,
+        "duration": 0.0799999999999983,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666702",
+        "start_time": 83.794,
+        "end_time": 84.074,
+        "duration": 0.28000000000000114,
+        "value": "ENTITET(A)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666710",
+        "start_time": 84.415,
+        "end_time": 84.715,
+        "duration": 0.29999999999999716,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666719",
+        "start_time": 84.901,
+        "end_time": 84.981,
+        "duration": 0.0799999999999983,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666728",
+        "start_time": 85.105,
+        "end_time": 85.385,
+        "duration": 0.28000000000000114,
+        "value": "LÅTA-VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666737",
+        "start_time": 85.425,
+        "end_time": 85.825,
+        "duration": 0.4000000000000057,
+        "value": "FÖRFLYTTA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666746",
+        "start_time": 85.935,
+        "end_time": 86.415,
+        "duration": 0.480000000000004,
+        "value": "TRÄD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666753",
+        "start_time": 86.735,
+        "end_time": 86.775,
+        "duration": 0.04000000000000625,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666764",
+        "start_time": 87.015,
+        "end_time": 87.155,
+        "duration": 0.14000000000000057,
+        "value": "HÅL@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666772",
+        "start_time": 87.215,
+        "end_time": 87.335,
+        "duration": 0.11999999999999034,
+        "value": "RUND@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666782",
+        "start_time": 87.375,
+        "end_time": 87.695,
+        "duration": 0.3199999999999932,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666787",
+        "start_time": 88.069,
+        "end_time": 88.199,
+        "duration": 0.12999999999999545,
+        "value": "BESTÄMMA-SIG@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666793",
+        "start_time": 88.319,
+        "end_time": 88.759,
+        "duration": 0.4399999999999977,
+        "value": "KLÄTTRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666804",
+        "start_time": 88.799,
+        "end_time": 89.519,
+        "duration": 0.7199999999999989,
+        "value": "GÅ(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666817",
+        "start_time": 89.605,
+        "end_time": 90.155,
+        "duration": 0.5499999999999972,
+        "value": "TITTA-IN@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666826",
+        "start_time": 90.301,
+        "end_time": 90.501,
+        "duration": 0.20000000000000284,
+        "value": "FÖRSKRÄCKT@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666839",
+        "start_time": 90.675,
+        "end_time": 90.755,
+        "duration": 0.0799999999999983,
+        "value": "CHOCKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666848",
+        "start_time": 91.155,
+        "end_time": 91.555,
+        "duration": 0.4000000000000057,
+        "value": "UGGLA(Lb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666853",
+        "start_time": 91.648,
+        "end_time": 92.168,
+        "duration": 0.5200000000000102,
+        "value": "ENTITET(JJ)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666864",
+        "start_time": 92.608,
+        "end_time": 92.728,
+        "duration": 0.11999999999999034,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666872",
+        "start_time": 92.848,
+        "end_time": 93.728,
+        "duration": 0.8799999999999955,
+        "value": "SPRINGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666885",
+        "start_time": 93.91,
+        "end_time": 94.35,
+        "duration": 0.4399999999999977,
+        "value": "ENTITET(JJ)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666892",
+        "start_time": 94.75,
+        "end_time": 94.95,
+        "duration": 0.20000000000000284,
+        "value": "FÖLJA-EFTER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666899",
+        "start_time": 95.27,
+        "end_time": 95.67,
+        "duration": 0.4000000000000057,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666915",
+        "start_time": 95.963,
+        "end_time": 96.118,
+        "duration": 0.15500000000000114,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666922",
+        "start_time": 96.358,
+        "end_time": 97.238,
+        "duration": 0.8799999999999955,
+        "value": "VARELSE(VVb)+RÖRELSE@p@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666930",
+        "start_time": 97.478,
+        "end_time": 97.678,
+        "duration": 0.20000000000000284,
+        "value": "GETING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666940",
+        "start_time": 98.038,
+        "end_time": 98.518,
+        "duration": 0.480000000000004,
+        "value": "FORM(JJbt)+BESKRIVNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666949",
+        "start_time": 98.66,
+        "end_time": 99.34,
+        "duration": 0.6800000000000068,
+        "value": "VARELSE(VVb)+RÖRELSE@p@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666960",
+        "start_time": 99.69,
+        "end_time": 100.25,
+        "duration": 0.5600000000000023,
+        "value": "ENTITET(S)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666969",
+        "start_time": 101.028,
+        "end_time": 101.078,
+        "duration": 0.04999999999999716,
+        "value": "GETING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666974",
+        "start_time": 101.238,
+        "end_time": 102.158,
+        "duration": 0.9200000000000017,
+        "value": "ENTITET(55)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666982",
+        "start_time": 102.675,
+        "end_time": 102.755,
+        "duration": 0.0799999999999983,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22666989",
+        "start_time": 102.835,
+        "end_time": 103.995,
+        "duration": 1.1600000000000108,
+        "value": "SPRINGA(VVb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667003",
+        "start_time": 104.944,
+        "end_time": 105.304,
+        "duration": 0.35999999999999943,
+        "value": "SPRINGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667007",
+        "start_time": 105.56,
+        "end_time": 106.12,
+        "duration": 0.5600000000000023,
+        "value": "pro@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667017",
+        "start_time": 106.622,
+        "end_time": 106.782,
+        "duration": 0.1599999999999966,
+        "value": "UGGLA(Lb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667024",
+        "start_time": 106.972,
+        "end_time": 107.212,
+        "duration": 0.2400000000000091,
+        "value": "FÖLJA-EFTER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667032",
+        "start_time": 107.412,
+        "end_time": 107.492,
+        "duration": 0.0799999999999983,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667041",
+        "start_time": 107.532,
+        "end_time": 107.652,
+        "duration": 0.12000000000000455,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667051",
+        "start_time": 107.775,
+        "end_time": 108.495,
+        "duration": 0.7199999999999989,
+        "value": "SPRINGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667059",
+        "start_time": 109.455,
+        "end_time": 109.735,
+        "duration": 0.28000000000000114,
+        "value": "LÅTA-VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667070",
+        "start_time": 110.21,
+        "end_time": 110.41,
+        "duration": 0.20000000000000284,
+        "value": "BERG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667076",
+        "start_time": 110.65,
+        "end_time": 111.45,
+        "duration": 0.7999999999999972,
+        "value": "HÖJD@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667082",
+        "start_time": 111.873,
+        "end_time": 112.873,
+        "duration": 1.0,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667091",
+        "start_time": 113.151,
+        "end_time": 113.356,
+        "duration": 0.2049999999999983,
+        "value": "TRÄD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667101",
+        "start_time": 113.716,
+        "end_time": 114.036,
+        "duration": 0.3200000000000074,
+        "value": "FORM(SS)+UTSTRÄCKNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667112",
+        "start_time": 114.321,
+        "end_time": 114.481,
+        "duration": 0.1599999999999966,
+        "value": "PEK@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667119",
+        "start_time": 114.84,
+        "end_time": 115.4,
+        "duration": 0.5600000000000023,
+        "value": "GREPP(GG)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667125",
+        "start_time": 115.72,
+        "end_time": 116.16,
+        "duration": 0.4399999999999977,
+        "value": "ROPA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667134",
+        "start_time": 116.324,
+        "end_time": 117.484,
+        "duration": 1.1599999999999966,
+        "value": "GREPP(GG)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667142",
+        "start_time": 117.699,
+        "end_time": 117.979,
+        "duration": 0.28000000000000114,
+        "value": "FO",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667151",
+        "start_time": 118.059,
+        "end_time": 118.179,
+        "duration": 0.12000000000000455,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667160",
+        "start_time": 118.89,
+        "end_time": 119.355,
+        "duration": 0.4650000000000034,
+        "value": "HJORT(8)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667169",
+        "start_time": 119.84,
+        "end_time": 120.04,
+        "duration": 0.20000000000000284,
+        "value": "BETA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667176",
+        "start_time": 120.446,
+        "end_time": 121.206,
+        "duration": 0.7600000000000051,
+        "value": "HORNKRONA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667181",
+        "start_time": 121.676,
+        "end_time": 122.236,
+        "duration": 0.5600000000000023,
+        "value": "GREPP(GG)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667196",
+        "start_time": 122.416,
+        "end_time": 122.536,
+        "duration": 0.12000000000000455,
+        "value": "VARELSE(NN)+BEFINNA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667206",
+        "start_time": 122.696,
+        "end_time": 123.056,
+        "duration": 0.35999999999999943,
+        "value": "ENTITET(G)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667211",
+        "start_time": 123.534,
+        "end_time": 125.414,
+        "duration": 1.8799999999999955,
+        "value": "VARELSE(Vb)+ENTITET(G)+FÖRFLYTTA@p@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667215",
+        "start_time": 125.82,
+        "end_time": 125.995,
+        "duration": 0.17500000000001137,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667222",
+        "start_time": 126.175,
+        "end_time": 126.975,
+        "duration": 0.7999999999999972,
+        "value": "SPRINGA(VVb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667231",
+        "start_time": 127.463,
+        "end_time": 127.743,
+        "duration": 0.28000000000000114,
+        "value": "PEK-BANSTRÄCKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667243",
+        "start_time": 128.263,
+        "end_time": 128.383,
+        "duration": 0.12000000000000455,
+        "value": "BERG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667250",
+        "start_time": 128.423,
+        "end_time": 128.543,
+        "duration": 0.12000000000000455,
+        "value": "HÖJD@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667259",
+        "start_time": 128.783,
+        "end_time": 129.143,
+        "duration": 0.36000000000001364,
+        "value": "GLOSA:STUP",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667270",
+        "start_time": 130.213,
+        "end_time": 130.373,
+        "duration": 0.1599999999999966,
+        "value": "HJORT(8)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667278",
+        "start_time": 130.573,
+        "end_time": 131.133,
+        "duration": 0.5600000000000023,
+        "value": "SPRINGA(VVb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667286",
+        "start_time": 131.555,
+        "end_time": 131.875,
+        "duration": 0.3199999999999932,
+        "value": "ENTITET(GG)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667298",
+        "start_time": 132.465,
+        "end_time": 133.305,
+        "duration": 0.8400000000000034,
+        "value": "VARELSE(V)+FÖRFLYTTA-FRÅN@p>huvud",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667306",
+        "start_time": 133.768,
+        "end_time": 133.968,
+        "duration": 0.19999999999998863,
+        "value": "VATTEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667313",
+        "start_time": 134.008,
+        "end_time": 134.688,
+        "duration": 0.6799999999999784,
+        "value": "OMRÅDE@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667320",
+        "start_time": 134.968,
+        "end_time": 135.288,
+        "duration": 0.3200000000000216,
+        "value": "VARELSE(V)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667328",
+        "start_time": 135.408,
+        "end_time": 135.758,
+        "duration": 0.35000000000002274,
+        "value": "HUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667337",
+        "start_time": 135.828,
+        "end_time": 135.908,
+        "duration": 0.07999999999998408,
+        "value": "PY",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667346",
+        "start_time": 136.238,
+        "end_time": 136.638,
+        "duration": 0.4000000000000057,
+        "value": "VARELSE(VVb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667355",
+        "start_time": 137.158,
+        "end_time": 137.518,
+        "duration": 0.36000000000001364,
+        "value": "pro@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667362",
+        "start_time": 137.803,
+        "end_time": 138.443,
+        "duration": 0.6400000000000148,
+        "value": "SIMMA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667372",
+        "start_time": 139.083,
+        "end_time": 140.683,
+        "duration": 1.5999999999999943,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667377",
+        "start_time": 140.875,
+        "end_time": 141.235,
+        "duration": 0.36000000000001364,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667384",
+        "start_time": 141.395,
+        "end_time": 142.195,
+        "duration": 0.799999999999983,
+        "value": "TYST",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667393",
+        "start_time": 143.155,
+        "end_time": 143.395,
+        "duration": 0.2400000000000091,
+        "value": "HYSSJA@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667402",
+        "start_time": 143.555,
+        "end_time": 143.675,
+        "duration": 0.12000000000000455,
+        "value": "GEST(J)@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667418",
+        "start_time": 144.435,
+        "end_time": 144.715,
+        "duration": 0.28000000000000114,
+        "value": "berg@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667426",
+        "start_time": 144.955,
+        "end_time": 145.195,
+        "duration": 0.23999999999998067,
+        "value": "TRÄ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667432",
+        "start_time": 145.355,
+        "end_time": 145.915,
+        "duration": 0.5600000000000023,
+        "value": "FORM(5bt)+UTSTRÄCKNING+FORM(5bt)@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667443",
+        "start_time": 146.315,
+        "end_time": 146.755,
+        "duration": 0.4399999999999977,
+        "value": "GÅ(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667451",
+        "start_time": 146.955,
+        "end_time": 147.595,
+        "duration": 0.6399999999999864,
+        "value": "GLOSA:TITTA-FRAM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667457",
+        "start_time": 147.835,
+        "end_time": 148.035,
+        "duration": 0.19999999999998863,
+        "value": "FO",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667469",
+        "start_time": 148.235,
+        "end_time": 148.275,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667474",
+        "start_time": 148.555,
+        "end_time": 149.035,
+        "duration": 0.47999999999998977,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667483",
+        "start_time": 149.235,
+        "end_time": 149.755,
+        "duration": 0.5199999999999818,
+        "value": "ENTITET(GG)+STILLASTÅENDE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667494",
+        "start_time": 149.945,
+        "end_time": 150.105,
+        "duration": 0.1599999999999966,
+        "value": "ANNAN(ea)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667502",
+        "start_time": 150.225,
+        "end_time": 150.345,
+        "duration": 0.12000000000000455,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667513",
+        "start_time": 150.665,
+        "end_time": 151.105,
+        "duration": 0.4399999999999977,
+        "value": "ENTITET(GG)+STILLASTÅENDE@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667521",
+        "start_time": 151.631,
+        "end_time": 152.351,
+        "duration": 0.7199999999999989,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667533",
+        "start_time": 152.476,
+        "end_time": 152.516,
+        "duration": 0.03999999999999204,
+        "value": "SEDAN(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667538",
+        "start_time": 152.756,
+        "end_time": 153.316,
+        "duration": 0.5600000000000023,
+        "value": "GLOSA:HOPPA-HIT.MULTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667547",
+        "start_time": 153.636,
+        "end_time": 154.116,
+        "duration": 0.4800000000000182,
+        "value": "UNGE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667558",
+        "start_time": 154.318,
+        "end_time": 154.558,
+        "duration": 0.23999999999998067,
+        "value": "MÅNGA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667564",
+        "start_time": 154.82,
+        "end_time": 155.06,
+        "duration": 0.2400000000000091,
+        "value": "PERSON.FL@kl",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667577",
+        "start_time": 155.347,
+        "end_time": 156.357,
+        "duration": 1.009999999999991,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667581",
+        "start_time": 156.569,
+        "end_time": 156.769,
+        "duration": 0.20000000000001705,
+        "value": "OK@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667590",
+        "start_time": 156.809,
+        "end_time": 157.209,
+        "duration": 0.4000000000000057,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667601",
+        "start_time": 157.941,
+        "end_time": 158.181,
+        "duration": 0.2400000000000091,
+        "value": "SEDAN(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667612",
+        "start_time": 158.381,
+        "end_time": 158.461,
+        "duration": 0.0800000000000125,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667618",
+        "start_time": 158.763,
+        "end_time": 158.923,
+        "duration": 0.1599999999999966,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667628",
+        "start_time": 159.283,
+        "end_time": 159.403,
+        "duration": 0.12000000000000455,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667639",
+        "start_time": 159.57,
+        "end_time": 159.93,
+        "duration": 0.36000000000001364,
+        "value": "LÅTA-VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667647",
+        "start_time": 160.25,
+        "end_time": 160.45,
+        "duration": 0.19999999999998863,
+        "value": "BEGE-SIG-IVÄG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667651",
+        "start_time": 160.64,
+        "end_time": 160.835,
+        "duration": 0.1950000000000216,
+        "value": "EN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667660",
+        "start_time": 161.017,
+        "end_time": 161.337,
+        "duration": 0.3199999999999932,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667671",
+        "start_time": 161.497,
+        "end_time": 161.897,
+        "duration": 0.39999999999997726,
+        "value": "UNGE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667677",
+        "start_time": 162.377,
+        "end_time": 162.477,
+        "duration": 0.09999999999999432,
+        "value": "VILL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667685",
+        "start_time": 162.637,
+        "end_time": 163.077,
+        "duration": 0.4399999999999977,
+        "value": "FÖLJAS-ÅT|MED",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667690",
+        "start_time": 163.499,
+        "end_time": 163.659,
+        "duration": 0.1599999999999966,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667701",
+        "start_time": 164.178,
+        "end_time": 164.818,
+        "duration": 0.6400000000000148,
+        "value": "SÄTTA-SIG@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667707",
+        "start_time": 165.618,
+        "end_time": 166.178,
+        "duration": 0.5600000000000023,
+        "value": "GÅ(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667718",
+        "start_time": 166.298,
+        "end_time": 166.378,
+        "duration": 0.07999999999998408,
+        "value": "PEK@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667728",
+        "start_time": 166.45,
+        "end_time": 166.97,
+        "duration": 0.5200000000000102,
+        "value": "HEJ-DÅ@g@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667744",
+        "start_time": 167.69,
+        "end_time": 167.77,
+        "duration": 0.0800000000000125,
+        "value": "GRODA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667752",
+        "start_time": 167.93,
+        "end_time": 168.29,
+        "duration": 0.3599999999999852,
+        "value": "FÖRÄLDRAR(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667757",
+        "start_time": 168.61,
+        "end_time": 168.85,
+        "duration": 0.23999999999998067,
+        "value": "SITTA(VVb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667768",
+        "start_time": 169.13,
+        "end_time": 169.33,
+        "duration": 0.20000000000001705,
+        "value": "UNGE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667774",
+        "start_time": 169.53,
+        "end_time": 170.33,
+        "duration": 0.8000000000000114,
+        "value": "SITTA(Vb).FL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667781",
+        "start_time": 170.688,
+        "end_time": 171.168,
+        "duration": 0.4800000000000182,
+        "value": "HEJ-DÅ@g@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667789",
+        "start_time": 171.758,
+        "end_time": 171.878,
+        "duration": 0.11999999999997613,
+        "value": "EN-TILL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667798",
+        "start_time": 172.078,
+        "end_time": 172.313,
+        "duration": 0.23499999999998522,
+        "value": "UNGE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667807",
+        "start_time": 172.553,
+        "end_time": 172.873,
+        "duration": 0.3199999999999932,
+        "value": "BAKOM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667809",
+        "start_time": 172.981,
+        "end_time": 173.101,
+        "duration": 0.12000000000000455,
+        "value": "SITTA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667820",
+        "start_time": 173.461,
+        "end_time": 173.621,
+        "duration": 0.1599999999999966,
+        "value": "SYNS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667827",
+        "start_time": 174.021,
+        "end_time": 174.181,
+        "duration": 0.160000000000025,
+        "value": "TJOCK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667838",
+        "start_time": 174.541,
+        "end_time": 174.741,
+        "duration": 0.20000000000001705,
+        "value": "OMÖJLIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667841",
+        "start_time": 174.995,
+        "end_time": 175.875,
+        "duration": 0.8799999999999955,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667854",
+        "start_time": 176.23,
+        "end_time": 176.47,
+        "duration": 0.2400000000000091,
+        "value": "PASSIVERAD@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667860",
+        "start_time": 177.075,
+        "end_time": 177.155,
+        "duration": 0.0800000000000125,
+        "value": "HEJ-DÅ@g@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "22667866",
+        "start_time": 177.3,
+        "end_time": 178.02,
+        "duration": 0.7199999999999989,
+        "value": "BEGE-SIG-IVÄG",
+        "tier_name": "Glosa_DH S2"
+      }
+    ],
+    "1": [
+      {
+        "annotation_id": "22667887",
+        "start_time": 12.356,
+        "end_time": 13.396,
+        "duration": 1.040000000000001,
+        "value": "form(5bt)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667891",
+        "start_time": 14.282,
+        "end_time": 14.762,
+        "duration": 0.4800000000000004,
+        "value": "BOJ-AVGRÄNS(4f)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667903",
+        "start_time": 25.229,
+        "end_time": 26.469,
+        "duration": 1.240000000000002,
+        "value": "form(5bt)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667909",
+        "start_time": 31.685,
+        "end_time": 32.205,
+        "duration": 0.5199999999999996,
+        "value": "BOJ-AVGRÄNS(5b)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667914",
+        "start_time": 32.497,
+        "end_time": 32.992,
+        "duration": 0.49499999999999744,
+        "value": "hand(jjvs)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667923",
+        "start_time": 43.091,
+        "end_time": 43.291,
+        "duration": 0.19999999999999574,
+        "value": "BOJ-AVGRÄNS@z",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667934",
+        "start_time": 44.353,
+        "end_time": 45.113,
+        "duration": 0.759999999999998,
+        "value": "form(s)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667942",
+        "start_time": 49.679,
+        "end_time": 50.119,
+        "duration": 0.4399999999999977,
+        "value": "VAR",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667954",
+        "start_time": 71.497,
+        "end_time": 71.682,
+        "duration": 0.18500000000000227,
+        "value": "BOJ-AVGRÄNS(5b)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667960",
+        "start_time": 72.171,
+        "end_time": 72.611,
+        "duration": 0.4399999999999977,
+        "value": "BOJ-AVGRÄNS(5b)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667970",
+        "start_time": 73.907,
+        "end_time": 74.267,
+        "duration": 0.35999999999999943,
+        "value": "BOJ-AVGRÄNS(Jf)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667976",
+        "start_time": 88.799,
+        "end_time": 89.519,
+        "duration": 0.7199999999999989,
+        "value": "klättra@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667986",
+        "start_time": 95.883,
+        "end_time": 96.123,
+        "duration": 0.2400000000000091,
+        "value": "PEK",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22667994",
+        "start_time": 99.5,
+        "end_time": 100.38,
+        "duration": 0.8799999999999955,
+        "value": "varelse(vb)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668002",
+        "start_time": 104.235,
+        "end_time": 104.635,
+        "duration": 0.4000000000000057,
+        "value": "BEGE-SIG-IVÄG",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668012",
+        "start_time": 108.652,
+        "end_time": 109.212,
+        "duration": 0.5600000000000023,
+        "value": "BEGE-SIG-IVÄG@z",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668021",
+        "start_time": 111.673,
+        "end_time": 112.913,
+        "duration": 1.2399999999999949,
+        "value": "höjd@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668030",
+        "start_time": 117.564,
+        "end_time": 118.204,
+        "duration": 0.6400000000000006,
+        "value": "grepp(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668034",
+        "start_time": 132.465,
+        "end_time": 133.305,
+        "duration": 0.8400000000000034,
+        "value": "entitet(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668046",
+        "start_time": 142.355,
+        "end_time": 142.475,
+        "duration": 0.12000000000000455,
+        "value": "HÖRA",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668055",
+        "start_time": 142.555,
+        "end_time": 142.715,
+        "duration": 0.1599999999999966,
+        "value": "NÅGON",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668059",
+        "start_time": 142.795,
+        "end_time": 142.995,
+        "duration": 0.20000000000001705,
+        "value": "PEK",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668070",
+        "start_time": 146.235,
+        "end_time": 146.795,
+        "duration": 0.5599999999999739,
+        "value": "form(5bt)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668077",
+        "start_time": 147.715,
+        "end_time": 148.315,
+        "duration": 0.5999999999999943,
+        "value": "glosa:titta-fram@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668087",
+        "start_time": 149.865,
+        "end_time": 150.505,
+        "duration": 0.6399999999999864,
+        "value": "entitet(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668094",
+        "start_time": 164.178,
+        "end_time": 166.218,
+        "duration": 2.039999999999992,
+        "value": "GREPPHÅLLA(5bt)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668103",
+        "start_time": 168.93,
+        "end_time": 173.65,
+        "duration": 4.719999999999999,
+        "value": "sitta(vb)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "22668114",
+        "start_time": 174.835,
+        "end_time": 175.915,
+        "duration": 1.079999999999984,
+        "value": "sitta(vb)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      }
+    ],
+    "3": [
+      {
+        "annotation_id": "22668147",
+        "start_time": 5.289,
+        "end_time": 9.399,
+        "duration": 4.109999999999999,
+        "value": "Ja, det var en liten pojke på en sju-åtta år ungefär som hade en hund.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668155",
+        "start_time": 9.69,
+        "end_time": 14.8,
+        "duration": 5.110000000000001,
+        "value": "De satt och tittade på en pigg liten groda som pojken hade framför sig i en hög glasburk",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668162",
+        "start_time": 15.01,
+        "end_time": 17.3,
+        "duration": 2.290000000000001,
+        "value": "samtidigt som pojken satt och småpratade och grejade lite med den.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668171",
+        "start_time": 17.49,
+        "end_time": 21.31,
+        "duration": 3.8200000000000003,
+        "value": "Medan de satt där började det bli mörkt ute. Pojken blev trött så han gick och la sig.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668178",
+        "start_time": 21.515,
+        "end_time": 24.415,
+        "duration": 2.8999999999999986,
+        "value": "Hunden la sig bredvid, på golvet, och så somnade de båda två och sov hela natten.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668187",
+        "start_time": 24.615,
+        "end_time": 26.505,
+        "duration": 1.8900000000000006,
+        "value": "När de lade sig så hade grodan varit i glasburken",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668191",
+        "start_time": 26.825,
+        "end_time": 30.905,
+        "duration": 4.080000000000002,
+        "value": "men när de vaknade på morgonen, upptäckte de att grodan inte var kvar!",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668202",
+        "start_time": 31.02,
+        "end_time": 34.31,
+        "duration": 3.2900000000000027,
+        "value": "Den måste ha lyckats häva sig upp mot kanten, klättrat över och hoppat iväg.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668211",
+        "start_time": 34.4,
+        "end_time": 34.89,
+        "duration": 0.490000000000002,
+        "value": "Pojken och hunden stod först handfallna en kort stund.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668225",
+        "start_time": 35.1,
+        "end_time": 41.5,
+        "duration": 6.399999999999999,
+        "value": "Sen började de att leta. De lyfte på kläder och de vände och vred på stövlar men hur mycket de än letade så hittade de inte grodan.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668227",
+        "start_time": 41.835,
+        "end_time": 47.415,
+        "duration": 5.579999999999998,
+        "value": "Hunden stack ner nosen i glasburken, som grodan hade varit i, men fastnade med huvudet i burken och lyckades inte komma loss.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668238",
+        "start_time": 47.6,
+        "end_time": 48.17,
+        "duration": 0.5700000000000003,
+        "value": "De såg sig runt om i rummet men de kunde inte hitta grodan.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668244",
+        "start_time": 48.3,
+        "end_time": 51.51,
+        "duration": 3.210000000000001,
+        "value": "Pojken öppnade fönstret och ropade på grodan och tittade efter den där utanför.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668250",
+        "start_time": 51.92,
+        "end_time": 54.8,
+        "duration": 2.8799999999999955,
+        "value": "Hunden, som fortfarande hade glasburken över huvudet som en strut, tittade också ut genom fönstret efter grodan.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668262",
+        "start_time": 54.905,
+        "end_time": 56.715,
+        "duration": 1.8100000000000023,
+        "value": "Plötsligt föll hunden ut från fönstret och landade på marken utanför.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668270",
+        "start_time": 57.565,
+        "end_time": 59.405,
+        "duration": 1.8400000000000034,
+        "value": "I fallet lossnade glasburken från huvudet och gick sönder.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668280",
+        "start_time": 59.63,
+        "end_time": 62.4,
+        "duration": 2.769999999999996,
+        "value": "Pojken tog upp hunden i famnen och förmanade den medan den slickade honom i ansiktet.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668285",
+        "start_time": 62.49,
+        "end_time": 67.69,
+        "duration": 5.199999999999996,
+        "value": "Med hunden i famnen fortsatte pojken att ropa efter grodan samtidigt som han gick in i skogen och fortsatte leta där.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668292",
+        "start_time": 69.605,
+        "end_time": 70.845,
+        "duration": 1.2399999999999949,
+        "value": "Bäst som han gick där, fick han syn på ett lite större hål i marken.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668298",
+        "start_time": 71.03,
+        "end_time": 73.7,
+        "duration": 2.6700000000000017,
+        "value": "Han tänkte att grodan kanske fanns därinne, så han ropade in i hålet flera gånger.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668312",
+        "start_time": 73.82,
+        "end_time": 76.1,
+        "duration": 2.280000000000001,
+        "value": "Då fick han plötsligt en mullvadsnos i ansiktet och backade undan.Det var ju inte en mullvad han letade efter!",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668319",
+        "start_time": 76.405,
+        "end_time": 76.725,
+        "duration": 0.3199999999999932,
+        "value": "Så han fortsatte att gå runt och leta.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668327",
+        "start_time": 76.91,
+        "end_time": 81.5,
+        "duration": 4.590000000000003,
+        "value": "Hunden skuttade fram till ett träd där det hängde en stor bikupa, eller nej, ett stort getingbo var det.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668335",
+        "start_time": 81.97,
+        "end_time": 83.19,
+        "duration": 1.2199999999999989,
+        "value": "Det surrade en massa getingar runt omkring boet",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668337",
+        "start_time": 83.285,
+        "end_time": 84.315,
+        "duration": 1.0300000000000011,
+        "value": "och hunden försökte komma åt det med nosen.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668347",
+        "start_time": 84.615,
+        "end_time": 85.785,
+        "duration": 1.1700000000000017,
+        "value": "Pojken brydde sig inte om vad hunden höll på med utan gick runt och fortsatte leta på egen hand.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668353",
+        "start_time": 85.905,
+        "end_time": 87.745,
+        "duration": 1.8400000000000034,
+        "value": "När han kom fram till ett stort träd, fick han syn på ett hål i stammen en bit upp.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668361",
+        "start_time": 87.92,
+        "end_time": 95.51,
+        "duration": 7.590000000000003,
+        "value": "Han bestämde sig för att klätta upp i trädet för att undersöka hålet närmare. När han kommit upp och kikade in i hålet, blev han livrädd när en stor uggla flög ut rätt emot honom. Pojken kastade sig blixtsnabbt ner och sprang iväg medan ugglan flög efter honom med stora, kraftig vingslag.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668373",
+        "start_time": 95.82,
+        "end_time": 99.31,
+        "duration": 3.490000000000009,
+        "value": "Hunden, i sin tur, hoppade upp och ner framför getingboet.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668380",
+        "start_time": 99.42,
+        "end_time": 100.49,
+        "duration": 1.0699999999999932,
+        "value": "Och plötsligt dunsade boet ner i marken!",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668387",
+        "start_time": 100.8,
+        "end_time": 105.4,
+        "duration": 4.6000000000000085,
+        "value": "De ilskna getingarna flög i i full fart efter hunden som livrädd lade benen på ryggen för att komma undan.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668397",
+        "start_time": 106.125,
+        "end_time": 109.845,
+        "duration": 3.719999999999999,
+        "value": "Ugglan flög efter pojken ett tag men snart märkte pojken att ugglan bytte riktning och då saktade han ner farten och började gå igen.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668403",
+        "start_time": 110.01,
+        "end_time": 114.2,
+        "duration": 4.189999999999998,
+        "value": "Han kom då fram till ett högt berg som han tog sig upp på. Högst uppe på berget, stod det två träd som lutade åt varsitt håll, som ett v.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668412",
+        "start_time": 114.39,
+        "end_time": 116.84,
+        "duration": 2.450000000000003,
+        "value": "Han ställde sig mellan träden och tog tag i dem och spanade ut över nejden och ropade efter grodan flera gånger.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668419",
+        "start_time": 117.02,
+        "end_time": 122.4,
+        "duration": 5.38000000000001,
+        "value": "Förvånat upptäckte han efter en stund att det han stod och höll i sig i inte var några träd utan ett par horn som satt på huvudet på en betande hjort.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668428",
+        "start_time": 122.495,
+        "end_time": 125.505,
+        "duration": 3.009999999999991,
+        "value": "När hjorten hade betat klart och lyfte huvudet från marken, tappade pojken sitt fasta grepp och hängde och dinglade mellan hornen.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668437",
+        "start_time": 125.705,
+        "end_time": 127.805,
+        "duration": 2.1000000000000085,
+        "value": "Hunden kom nu springandes bakifrån och hjorten och hunden sprang sida vid sida i full fart.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668441",
+        "start_time": 128.0,
+        "end_time": 135.12,
+        "duration": 7.1200000000000045,
+        "value": "När de kom fram till bergskrönet, satte hjorten hovarna i marken och tvärnitade. Då flög pojken i en båge över hjortens huvud och landade i vattnet nedanför berget.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668453",
+        "start_time": 135.225,
+        "end_time": 136.805,
+        "duration": 1.5800000000000125,
+        "value": "Hunden gjorde också ett språng genom luften och landade även han i vattnet.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668459",
+        "start_time": 137.41,
+        "end_time": 139.91,
+        "duration": 2.5,
+        "value": "Medan de simmade fram, såg de sig omkring.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668472",
+        "start_time": 140.295,
+        "end_time": 143.695,
+        "duration": 3.4000000000000057,
+        "value": "Plötsligt hörde pojken ett ljud. Han hyschade hunden och sa åt den att vara tyst.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668479",
+        "start_time": 144.0,
+        "end_time": 151.2,
+        "duration": 7.199999999999989,
+        "value": "Vid strandkanten låg det en stor stock nedanför berget. När pojken gick fram till stocken och kikade ner bakom den satt, till hans förvåning, grodan där! Den satt tätt bredvid en annan groda och med glada miner tittade båda upp på pojken.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668484",
+        "start_time": 151.425,
+        "end_time": 155.005,
+        "duration": 3.579999999999984,
+        "value": "När han stod där och tittade på dem, hoppade det plötsligt fram en hel massa grodungar också!",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668497",
+        "start_time": 155.21,
+        "end_time": 157.3,
+        "duration": 2.0900000000000034,
+        "value": "När pojken fick syn på ungarna, förstod han varför grodan hade stuckit iväg från honom.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668504",
+        "start_time": 158.62,
+        "end_time": 160.43,
+        "duration": 1.8100000000000023,
+        "value": "Han bestämde sig för att gå sin väg och lämna grodan och hans familj ifred.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668514",
+        "start_time": 160.52,
+        "end_time": 166.31,
+        "duration": 5.789999999999992,
+        "value": "Men just som han bestämt sig för det, var det en liten grodunge som tydligt visade att den ville följa med honom genom att hoppa upp och sätta sig i hans hand. Pojken lät den sitta kvar och så gick de nöjda iväg.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668522",
+        "start_time": 166.51,
+        "end_time": 171.25,
+        "duration": 4.740000000000009,
+        "value": "Medan de gick, vinkade de till grodmamman och grodpappan och alla grodungarna som satt på en lång rad och vinkade tillbaka.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "22668528",
+        "start_time": 171.485,
+        "end_time": 178.405,
+        "duration": 6.9199999999999875,
+        "value": "Bakom alla grodorna satt det en liten, knubbig grodunge som var för tung för att orka hoppa fram till de andra. Så den satt där, ensam, bakom alla andra och tittade upp i luften medan pojken och grodungen vinkandes gick iväg.",
+        "tier_name": "Översättning S2"
+      }
+    ]
+  },
+  "blocksdata": [
+    {
+      "id": 2,
+      "name": "Översättning S1",
+      "annotations": [
+        {
+          "t": "Vad gulligt!",
+          "s": 179110,
+          "e": 179800,
+          "id": 22668131
+        }
+      ]
+    },
+    {
+      "id": 0,
+      "name": "Glosa_DH S2",
+      "annotations": [
+        {
+          "t": "JA@ub@z",
+          "s": 5266,
+          "e": 5906,
+          "id": 22665546
+        },
+        {
+          "t": "POJKE",
+          "s": 6185,
+          "e": 6385,
+          "id": 22665556
+        },
+        {
+          "t": "LITEN-PERSON@kl",
+          "s": 6400,
+          "e": 6680,
+          "id": 22665565
+        },
+        {
+          "t": "SE-UT",
+          "s": 7158,
+          "e": 7273,
+          "id": 22665573
+        },
+        {
+          "t": "SJU_ÅTTA",
+          "s": 7438,
+          "e": 7678,
+          "id": 22665582
+        },
+        {
+          "t": "ÅR@b",
+          "s": 7918,
+          "e": 8238,
+          "id": 22665593
+        },
+        {
+          "t": "HUND",
+          "s": 8524,
+          "e": 8964,
+          "id": 22665600
+        },
+        {
+          "t": "SITTA(VVb)",
+          "s": 9284,
+          "e": 9364,
+          "id": 22665610
+        },
+        {
+          "t": "TITTA-PÅ@z",
+          "s": 9563,
+          "e": 9643,
+          "id": 22665622
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 9803,
+          "e": 10123,
+          "id": 22665629
+        },
+        {
+          "t": "HA",
+          "s": 10363,
+          "e": 10443,
+          "id": 22665645
+        },
+        {
+          "t": "polyform@&",
+          "s": 10643,
+          "e": 10763,
+          "id": 22665652
+        },
+        {
+          "t": "GLAS(Vb)",
+          "s": 11041,
+          "e": 11396,
+          "id": 22665663
+        },
+        {
+          "t": "FORM(55bt)+BESKRIVNING@p",
+          "s": 11556,
+          "e": 12276,
+          "id": 22665672
+        },
+        {
+          "t": "INUTI",
+          "s": 12716,
+          "e": 12876,
+          "id": 22665681
+        },
+        {
+          "t": "GRODA",
+          "s": 13082,
+          "e": 13402,
+          "id": 22665689
+        },
+        {
+          "t": "DJUR(JJvs)@ka",
+          "s": 13642,
+          "e": 14042,
+          "id": 22665697
+        },
+        {
+          "t": "INUTI",
+          "s": 14362,
+          "e": 14682,
+          "id": 22665708
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 15150,
+          "e": 15590,
+          "id": 22665721
+        },
+        {
+          "t": "SAMTALA",
+          "s": 15950,
+          "e": 16070,
+          "id": 22665727
+        },
+        {
+          "t": "GLOSA:(PD)",
+          "s": 16212,
+          "e": 16892,
+          "id": 22665738
+        },
+        {
+          "t": "TRÖTT",
+          "s": 17932,
+          "e": 18212,
+          "id": 22665745
+        },
+        {
+          "t": "glosa@&",
+          "s": 18712,
+          "e": 18832,
+          "id": 22665756
+        },
+        {
+          "t": "MÖRK",
+          "s": 19104,
+          "e": 19424,
+          "id": 22665762
+        },
+        {
+          "t": "LÅTA-VARA@z",
+          "s": 19464,
+          "e": 19624,
+          "id": 22665771
+        },
+        {
+          "t": "tp@&",
+          "s": 19880,
+          "e": 20080,
+          "id": 22665780
+        },
+        {
+          "t": "POJKE",
+          "s": 20478,
+          "e": 20598,
+          "id": 22665790
+        },
+        {
+          "t": "LÄGGA-SIG",
+          "s": 20918,
+          "e": 21158,
+          "id": 22665796
+        },
+        {
+          "t": "HUND",
+          "s": 21572,
+          "e": 21692,
+          "id": 22665803
+        },
+        {
+          "t": "VARELSE(VVb)+BEFINNA@p",
+          "s": 21852,
+          "e": 22292,
+          "id": 22665814
+        },
+        {
+          "t": "SOMNA",
+          "s": 22826,
+          "e": 23506,
+          "id": 22665823
+        },
+        {
+          "t": "TIDEN-GÅR@z",
+          "s": 23749,
+          "e": 24309,
+          "id": 22665826
+        },
+        {
+          "t": "FORM(55bt)+BESKRIVNING@p",
+          "s": 24909,
+          "e": 25149,
+          "id": 22665838
+        },
+        {
+          "t": "INUTI",
+          "s": 25269,
+          "e": 25429,
+          "id": 22665846
+        },
+        {
+          "t": "GRODA",
+          "s": 25669,
+          "e": 25829,
+          "id": 22665852
+        },
+        {
+          "t": "KVARSTANNA",
+          "s": 25949,
+          "e": 26309,
+          "id": 22665862
+        },
+        {
+          "t": "SOMNA",
+          "s": 27099,
+          "e": 27339,
+          "id": 22665873
+        },
+        {
+          "t": "TIDEN-GÅR@z",
+          "s": 27449,
+          "e": 27689,
+          "id": 22665882
+        },
+        {
+          "t": "MORGON",
+          "s": 28089,
+          "e": 28369,
+          "id": 22665888
+        },
+        {
+          "t": "VAKNA",
+          "s": 28647,
+          "e": 28807,
+          "id": 22665899
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 29485,
+          "e": 29965,
+          "id": 22665907
+        },
+        {
+          "t": "FINNAS-INTE-KVAR(ea)",
+          "s": 30245,
+          "e": 30645,
+          "id": 22665916
+        },
+        {
+          "t": "PI",
+          "s": 31115,
+          "e": 31165,
+          "id": 22665925
+        },
+        {
+          "t": "GRODA",
+          "s": 31285,
+          "e": 31405,
+          "id": 22665932
+        },
+        {
+          "t": "PERF",
+          "s": 31485,
+          "e": 31605,
+          "id": 22665942
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 31685,
+          "e": 32205,
+          "id": 22665951
+        },
+        {
+          "t": "HAND(JJvs)+HANTERA@p",
+          "s": 32377,
+          "e": 32457,
+          "id": 22665960
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 32619,
+          "e": 32979,
+          "id": 22665972
+        },
+        {
+          "t": "BEGE-SIG-IVÄG",
+          "s": 33019,
+          "e": 33399,
+          "id": 22665979
+        },
+        {
+          "t": "BORTA",
+          "s": 33953,
+          "e": 34073,
+          "id": 22665991
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 34353,
+          "e": 34833,
+          "id": 22665996
+        },
+        {
+          "t": "PU@g",
+          "s": 35113,
+          "e": 35173,
+          "id": 22666005
+        },
+        {
+          "t": "LETA",
+          "s": 35373,
+          "e": 35813,
+          "id": 22666012
+        },
+        {
+          "t": "TRÖJA",
+          "s": 36013,
+          "e": 36293,
+          "id": 22666020
+        },
+        {
+          "t": "GREPP(AA)+HANTERA@p",
+          "s": 36539,
+          "e": 37099,
+          "id": 22666026
+        },
+        {
+          "t": "STÖVEL(J)",
+          "s": 37339,
+          "e": 37779,
+          "id": 22666036
+        },
+        {
+          "t": "GREPP(QQ)+HANTERA@p",
+          "s": 38161,
+          "e": 38401,
+          "id": 22666045
+        },
+        {
+          "t": "GREPP(SS)+HANTERA@p",
+          "s": 38521,
+          "e": 39001,
+          "id": 22666057
+        },
+        {
+          "t": "LETA@z",
+          "s": 39161,
+          "e": 39281,
+          "id": 22666066
+        },
+        {
+          "t": "FINNAS|INTE",
+          "s": 39679,
+          "e": 39839,
+          "id": 22666069
+        },
+        {
+          "t": "FINNAS|INTE",
+          "s": 40039,
+          "e": 40159,
+          "id": 22666084
+        },
+        {
+          "t": "GLOSA:(PD)",
+          "s": 40279,
+          "e": 40639,
+          "id": 22666089
+        },
+        {
+          "t": "PU@g",
+          "s": 40853,
+          "e": 41533,
+          "id": 22666100
+        },
+        {
+          "t": "HUND",
+          "s": 41931,
+          "e": 42291,
+          "id": 22666108
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 42491,
+          "e": 42611,
+          "id": 22666115
+        },
+        {
+          "t": "ENTITET(A)+RÖRELSE@p",
+          "s": 42651,
+          "e": 43291,
+          "id": 22666127
+        },
+        {
+          "t": "GLAS(Vb)",
+          "s": 43571,
+          "e": 43651,
+          "id": 22666132
+        },
+        {
+          "t": "FORM(SS)+UTSTRÄCKNING@p",
+          "s": 43713,
+          "e": 44273,
+          "id": 22666138
+        },
+        {
+          "t": "ENTITET(A)+FÖRFLYTTA@p",
+          "s": 44513,
+          "e": 44998,
+          "id": 22666147
+        },
+        {
+          "t": "ENTITET(SS)+BEFINNA@p>ansikte",
+          "s": 45198,
+          "e": 45438,
+          "id": 22666159
+        },
+        {
+          "t": "FAST(da)",
+          "s": 45518,
+          "e": 45878,
+          "id": 22666168
+        },
+        {
+          "t": "ENTITET(SS)+BEFINNA@p>ansikte",
+          "s": 46078,
+          "e": 46238,
+          "id": 22666176
+        },
+        {
+          "t": "ENTITET(GG)+RÖRELSE@p",
+          "s": 46500,
+          "e": 47460,
+          "id": 22666186
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 47839,
+          "e": 48009,
+          "id": 22666196
+        },
+        {
+          "t": "FÖNSTER(5)",
+          "s": 48369,
+          "e": 48639,
+          "id": 22666205
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 48919,
+          "e": 49599,
+          "id": 22666216
+        },
+        {
+          "t": "grepp(g)@hd",
+          "s": 49639,
+          "e": 50119,
+          "id": 22666223
+        },
+        {
+          "t": "ROPA@ka",
+          "s": 50439,
+          "e": 50959,
+          "id": 22666228
+        },
+        {
+          "t": "GRODA",
+          "s": 51173,
+          "e": 51438,
+          "id": 22666238
+        },
+        {
+          "t": "PEK",
+          "s": 51758,
+          "e": 51838,
+          "id": 22666247
+        },
+        {
+          "t": "HUND",
+          "s": 52118,
+          "e": 52478,
+          "id": 22666254
+        },
+        {
+          "t": "PY@z",
+          "s": 52518,
+          "e": 52638,
+          "id": 22666265
+        },
+        {
+          "t": "VARELSE(VVb)+BEFINNA@p",
+          "s": 52876,
+          "e": 53276,
+          "id": 22666274
+        },
+        {
+          "t": "FORM(JJbt)+UTSTRÄCKNING@p>hals",
+          "s": 53604,
+          "e": 53924,
+          "id": 22666278
+        },
+        {
+          "t": "DJUR(JJvs)@ka",
+          "s": 54312,
+          "e": 54927,
+          "id": 22666288
+        },
+        {
+          "t": "VARELSE(N)+FÖRFLYTTA-FRÅN+VARELSE(N)@p",
+          "s": 55636,
+          "e": 56516,
+          "id": 22666305
+        },
+        {
+          "t": "GLAS(Vb)",
+          "s": 57676,
+          "e": 57756,
+          "id": 22666307
+        },
+        {
+          "t": "FORM(55bt)+UTSTRÄCKNING@p",
+          "s": 57836,
+          "e": 58076,
+          "id": 22666323
+        },
+        {
+          "t": "TRASIG",
+          "s": 58156,
+          "e": 58436,
+          "id": 22666324
+        },
+        {
+          "t": "ENTITET(SS)+FÖRFLYTTA@p>huvud",
+          "s": 58770,
+          "e": 59130,
+          "id": 22666334
+        },
+        {
+          "t": "POJKE",
+          "s": 59736,
+          "e": 59856,
+          "id": 22666347
+        },
+        {
+          "t": "GREPP(JJbt)+HANTERA@p",
+          "s": 60096,
+          "e": 60536,
+          "id": 22666355
+        },
+        {
+          "t": "AJABAJA@g@z",
+          "s": 60696,
+          "e": 60961,
+          "id": 22666361
+        },
+        {
+          "t": "SLICKA>kind@rd",
+          "s": 61096,
+          "e": 61536,
+          "id": 22666370
+        },
+        {
+          "t": "AJABAJA@g@z",
+          "s": 61950,
+          "e": 62070,
+          "id": 22666378
+        },
+        {
+          "t": "GREPP(SS)+HANTERA@p",
+          "s": 62190,
+          "e": 62910,
+          "id": 22666389
+        },
+        {
+          "t": "ROPA@rd",
+          "s": 63285,
+          "e": 63805,
+          "id": 22666396
+        },
+        {
+          "t": "ROPA@ka",
+          "s": 63925,
+          "e": 64035,
+          "id": 22666408
+        },
+        {
+          "t": "FÖRFLYTTA(Vb)",
+          "s": 64219,
+          "e": 64499,
+          "id": 22666416
+        },
+        {
+          "t": "LETA@rd",
+          "s": 64665,
+          "e": 65265,
+          "id": 22666428
+        },
+        {
+          "t": "SKOG",
+          "s": 65455,
+          "e": 65895,
+          "id": 22666437
+        },
+        {
+          "t": "FÖRFLYTTA(Vb)",
+          "s": 66095,
+          "e": 66935,
+          "id": 22666445
+        },
+        {
+          "t": "PEK-BANSTRÄCKA",
+          "s": 67015,
+          "e": 67815,
+          "id": 22666455
+        },
+        {
+          "t": "pro@&",
+          "s": 68745,
+          "e": 69235,
+          "id": 22666463
+        },
+        {
+          "t": "SYNS",
+          "s": 69865,
+          "e": 69945,
+          "id": 22666476
+        },
+        {
+          "t": "HÅL@b",
+          "s": 70235,
+          "e": 70315,
+          "id": 22666482
+        },
+        {
+          "t": "RUND@kl",
+          "s": 70355,
+          "e": 70875,
+          "id": 22666490
+        },
+        {
+          "t": "PEK",
+          "s": 70955,
+          "e": 71035,
+          "id": 22666497
+        },
+        {
+          "t": "INUTI",
+          "s": 71497,
+          "e": 71682,
+          "id": 22666507
+        },
+        {
+          "t": "KANSKE",
+          "s": 71802,
+          "e": 72077,
+          "id": 22666518
+        },
+        {
+          "t": "FINNAS",
+          "s": 72211,
+          "e": 72276,
+          "id": 22666529
+        },
+        {
+          "t": "INUTI",
+          "s": 72436,
+          "e": 72556,
+          "id": 22666540
+        },
+        {
+          "t": "FÖRSÖKA",
+          "s": 72752,
+          "e": 72877,
+          "id": 22666548
+        },
+        {
+          "t": "ROPA@ka",
+          "s": 72997,
+          "e": 73717,
+          "id": 22666557
+        },
+        {
+          "t": "ENTITET(A)+FÖRFLYTTA@p>näsa",
+          "s": 73907,
+          "e": 74267,
+          "id": 22666565
+        },
+        {
+          "t": "MULLVAD@b",
+          "s": 74747,
+          "e": 75227,
+          "id": 22666577
+        },
+        {
+          "t": "LÅTA-VARA",
+          "s": 75833,
+          "e": 76033,
+          "id": 22666585
+        },
+        {
+          "t": "FÖRFLYTTA(Vb)",
+          "s": 76487,
+          "e": 76767,
+          "id": 22666593
+        },
+        {
+          "t": "HUND",
+          "s": 77007,
+          "e": 77397,
+          "id": 22666603
+        },
+        {
+          "t": "SPRINGA(VVb)",
+          "s": 77597,
+          "e": 77957,
+          "id": 22666612
+        },
+        {
+          "t": "PEK",
+          "s": 78117,
+          "e": 78157,
+          "id": 22666621
+        },
+        {
+          "t": "TRÄD",
+          "s": 78233,
+          "e": 78753,
+          "id": 22666626
+        },
+        {
+          "t": "BI",
+          "s": 79273,
+          "e": 79438,
+          "id": 22666634
+        },
+        {
+          "t": "polyform@&",
+          "s": 79718,
+          "e": 79998,
+          "id": 22666644
+        },
+        {
+          "t": "GETING",
+          "s": 80318,
+          "e": 80553,
+          "id": 22666653
+        },
+        {
+          "t": "FORM(JJbt)+BESKRIVNING@p",
+          "s": 80815,
+          "e": 81395,
+          "id": 22666667
+        },
+        {
+          "t": "GETING",
+          "s": 82114,
+          "e": 82199,
+          "id": 22666671
+        },
+        {
+          "t": "ENTITET(55bt)+RÖRELSE@p",
+          "s": 82319,
+          "e": 83319,
+          "id": 22666680
+        },
+        {
+          "t": "HUND",
+          "s": 83373,
+          "e": 83453,
+          "id": 22666696
+        },
+        {
+          "t": "ENTITET(A)+RÖRELSE@p",
+          "s": 83794,
+          "e": 84074,
+          "id": 22666702
+        },
+        {
+          "t": "PEK",
+          "s": 84415,
+          "e": 84715,
+          "id": 22666710
+        },
+        {
+          "t": "POJKE",
+          "s": 84901,
+          "e": 84981,
+          "id": 22666719
+        },
+        {
+          "t": "LÅTA-VARA",
+          "s": 85105,
+          "e": 85385,
+          "id": 22666728
+        },
+        {
+          "t": "FÖRFLYTTA(Vb)",
+          "s": 85425,
+          "e": 85825,
+          "id": 22666737
+        },
+        {
+          "t": "TRÄD",
+          "s": 85935,
+          "e": 86415,
+          "id": 22666746
+        },
+        {
+          "t": "PEK",
+          "s": 86735,
+          "e": 86775,
+          "id": 22666753
+        },
+        {
+          "t": "HÅL@b",
+          "s": 87015,
+          "e": 87155,
+          "id": 22666764
+        },
+        {
+          "t": "RUND@kl",
+          "s": 87215,
+          "e": 87335,
+          "id": 22666772
+        },
+        {
+          "t": "PEK",
+          "s": 87375,
+          "e": 87695,
+          "id": 22666782
+        },
+        {
+          "t": "BESTÄMMA-SIG@z",
+          "s": 88069,
+          "e": 88199,
+          "id": 22666787
+        },
+        {
+          "t": "KLÄTTRA",
+          "s": 88319,
+          "e": 88759,
+          "id": 22666793
+        },
+        {
+          "t": "GÅ(N)",
+          "s": 88799,
+          "e": 89519,
+          "id": 22666804
+        },
+        {
+          "t": "TITTA-IN@ka",
+          "s": 89605,
+          "e": 90155,
+          "id": 22666817
+        },
+        {
+          "t": "FÖRSKRÄCKT@ka",
+          "s": 90301,
+          "e": 90501,
+          "id": 22666826
+        },
+        {
+          "t": "CHOCKA",
+          "s": 90675,
+          "e": 90755,
+          "id": 22666839
+        },
+        {
+          "t": "UGGLA(Lb)",
+          "s": 91155,
+          "e": 91555,
+          "id": 22666848
+        },
+        {
+          "t": "ENTITET(JJ)+FÖRFLYTTA@p",
+          "s": 91648,
+          "e": 92168,
+          "id": 22666853
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 92608,
+          "e": 92728,
+          "id": 22666864
+        },
+        {
+          "t": "SPRINGA(G)",
+          "s": 92848,
+          "e": 93728,
+          "id": 22666872
+        },
+        {
+          "t": "ENTITET(JJ)+FÖRFLYTTA@p",
+          "s": 93910,
+          "e": 94350,
+          "id": 22666885
+        },
+        {
+          "t": "FÖLJA-EFTER",
+          "s": 94750,
+          "e": 94950,
+          "id": 22666892
+        },
+        {
+          "t": "PEK",
+          "s": 95270,
+          "e": 95670,
+          "id": 22666899
+        },
+        {
+          "t": "HUND",
+          "s": 95963,
+          "e": 96118,
+          "id": 22666915
+        },
+        {
+          "t": "VARELSE(VVb)+RÖRELSE@p@rd",
+          "s": 96358,
+          "e": 97238,
+          "id": 22666922
+        },
+        {
+          "t": "GETING",
+          "s": 97478,
+          "e": 97678,
+          "id": 22666930
+        },
+        {
+          "t": "FORM(JJbt)+BESKRIVNING@p",
+          "s": 98038,
+          "e": 98518,
+          "id": 22666940
+        },
+        {
+          "t": "VARELSE(VVb)+RÖRELSE@p@rd",
+          "s": 98660,
+          "e": 99340,
+          "id": 22666949
+        },
+        {
+          "t": "ENTITET(S)+FÖRFLYTTA@p",
+          "s": 99690,
+          "e": 100250,
+          "id": 22666960
+        },
+        {
+          "t": "GETING",
+          "s": 101028,
+          "e": 101078,
+          "id": 22666969
+        },
+        {
+          "t": "ENTITET(55)+FÖRFLYTTA@p",
+          "s": 101238,
+          "e": 102158,
+          "id": 22666974
+        },
+        {
+          "t": "HUND",
+          "s": 102675,
+          "e": 102755,
+          "id": 22666982
+        },
+        {
+          "t": "SPRINGA(VVb)",
+          "s": 102835,
+          "e": 103995,
+          "id": 22666989
+        },
+        {
+          "t": "SPRINGA(G)",
+          "s": 104944,
+          "e": 105304,
+          "id": 22667003
+        },
+        {
+          "t": "pro@&",
+          "s": 105560,
+          "e": 106120,
+          "id": 22667007
+        },
+        {
+          "t": "UGGLA(Lb)",
+          "s": 106622,
+          "e": 106782,
+          "id": 22667017
+        },
+        {
+          "t": "FÖLJA-EFTER",
+          "s": 106972,
+          "e": 107212,
+          "id": 22667024
+        },
+        {
+          "t": "POJKE",
+          "s": 107412,
+          "e": 107492,
+          "id": 22667032
+        },
+        {
+          "t": "PEK",
+          "s": 107532,
+          "e": 107652,
+          "id": 22667041
+        },
+        {
+          "t": "SPRINGA(G)",
+          "s": 107775,
+          "e": 108495,
+          "id": 22667051
+        },
+        {
+          "t": "LÅTA-VARA",
+          "s": 109455,
+          "e": 109735,
+          "id": 22667059
+        },
+        {
+          "t": "BERG",
+          "s": 110210,
+          "e": 110410,
+          "id": 22667070
+        },
+        {
+          "t": "HÖJD@kl",
+          "s": 110650,
+          "e": 111450,
+          "id": 22667076
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 111873,
+          "e": 112873,
+          "id": 22667082
+        },
+        {
+          "t": "TRÄD",
+          "s": 113151,
+          "e": 113356,
+          "id": 22667091
+        },
+        {
+          "t": "FORM(SS)+UTSTRÄCKNING@p",
+          "s": 113716,
+          "e": 114036,
+          "id": 22667101
+        },
+        {
+          "t": "PEK@z",
+          "s": 114321,
+          "e": 114481,
+          "id": 22667112
+        },
+        {
+          "t": "GREPP(GG)+HANTERA@p",
+          "s": 114840,
+          "e": 115400,
+          "id": 22667119
+        },
+        {
+          "t": "ROPA",
+          "s": 115720,
+          "e": 116160,
+          "id": 22667125
+        },
+        {
+          "t": "GREPP(GG)+HANTERA@p",
+          "s": 116324,
+          "e": 117484,
+          "id": 22667134
+        },
+        {
+          "t": "FO",
+          "s": 117699,
+          "e": 117979,
+          "id": 22667142
+        },
+        {
+          "t": "PEK",
+          "s": 118059,
+          "e": 118179,
+          "id": 22667151
+        },
+        {
+          "t": "HJORT(8)",
+          "s": 118890,
+          "e": 119355,
+          "id": 22667160
+        },
+        {
+          "t": "BETA",
+          "s": 119840,
+          "e": 120040,
+          "id": 22667169
+        },
+        {
+          "t": "HORNKRONA@z",
+          "s": 120446,
+          "e": 121206,
+          "id": 22667176
+        },
+        {
+          "t": "GREPP(GG)+HANTERA@p",
+          "s": 121676,
+          "e": 122236,
+          "id": 22667181
+        },
+        {
+          "t": "VARELSE(NN)+BEFINNA@p",
+          "s": 122416,
+          "e": 122536,
+          "id": 22667196
+        },
+        {
+          "t": "ENTITET(G)+RÖRELSE@p",
+          "s": 122696,
+          "e": 123056,
+          "id": 22667206
+        },
+        {
+          "t": "VARELSE(Vb)+ENTITET(G)+FÖRFLYTTA@p@z",
+          "s": 123534,
+          "e": 125414,
+          "id": 22667211
+        },
+        {
+          "t": "HUND",
+          "s": 125820,
+          "e": 125995,
+          "id": 22667215
+        },
+        {
+          "t": "SPRINGA(VVb)",
+          "s": 126175,
+          "e": 126975,
+          "id": 22667222
+        },
+        {
+          "t": "PEK-BANSTRÄCKA",
+          "s": 127463,
+          "e": 127743,
+          "id": 22667231
+        },
+        {
+          "t": "BERG",
+          "s": 128263,
+          "e": 128383,
+          "id": 22667243
+        },
+        {
+          "t": "HÖJD@kl",
+          "s": 128423,
+          "e": 128543,
+          "id": 22667250
+        },
+        {
+          "t": "GLOSA:STUP",
+          "s": 128783,
+          "e": 129143,
+          "id": 22667259
+        },
+        {
+          "t": "HJORT(8)",
+          "s": 130213,
+          "e": 130373,
+          "id": 22667270
+        },
+        {
+          "t": "SPRINGA(VVb)",
+          "s": 130573,
+          "e": 131133,
+          "id": 22667278
+        },
+        {
+          "t": "ENTITET(GG)+RÖRELSE@p",
+          "s": 131555,
+          "e": 131875,
+          "id": 22667286
+        },
+        {
+          "t": "VARELSE(V)+FÖRFLYTTA-FRÅN@p>huvud",
+          "s": 132465,
+          "e": 133305,
+          "id": 22667298
+        },
+        {
+          "t": "VATTEN",
+          "s": 133768,
+          "e": 133968,
+          "id": 22667306
+        },
+        {
+          "t": "OMRÅDE@kl",
+          "s": 134008,
+          "e": 134688,
+          "id": 22667313
+        },
+        {
+          "t": "VARELSE(V)+FÖRFLYTTA@p",
+          "s": 134968,
+          "e": 135288,
+          "id": 22667320
+        },
+        {
+          "t": "HUND",
+          "s": 135408,
+          "e": 135758,
+          "id": 22667328
+        },
+        {
+          "t": "PY",
+          "s": 135828,
+          "e": 135908,
+          "id": 22667337
+        },
+        {
+          "t": "VARELSE(VVb)+FÖRFLYTTA@p",
+          "s": 136238,
+          "e": 136638,
+          "id": 22667346
+        },
+        {
+          "t": "pro@&",
+          "s": 137158,
+          "e": 137518,
+          "id": 22667355
+        },
+        {
+          "t": "SIMMA@rd",
+          "s": 137803,
+          "e": 138443,
+          "id": 22667362
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 139083,
+          "e": 140683,
+          "id": 22667372
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 140875,
+          "e": 141235,
+          "id": 22667377
+        },
+        {
+          "t": "TYST",
+          "s": 141395,
+          "e": 142195,
+          "id": 22667384
+        },
+        {
+          "t": "HYSSJA@ka",
+          "s": 143155,
+          "e": 143395,
+          "id": 22667393
+        },
+        {
+          "t": "GEST(J)@ka",
+          "s": 143555,
+          "e": 143675,
+          "id": 22667402
+        },
+        {
+          "t": "berg@&",
+          "s": 144435,
+          "e": 144715,
+          "id": 22667418
+        },
+        {
+          "t": "TRÄ",
+          "s": 144955,
+          "e": 145195,
+          "id": 22667426
+        },
+        {
+          "t": "FORM(5bt)+UTSTRÄCKNING+FORM(5bt)@p",
+          "s": 145355,
+          "e": 145915,
+          "id": 22667432
+        },
+        {
+          "t": "GÅ(N)",
+          "s": 146315,
+          "e": 146755,
+          "id": 22667443
+        },
+        {
+          "t": "GLOSA:TITTA-FRAM",
+          "s": 146955,
+          "e": 147595,
+          "id": 22667451
+        },
+        {
+          "t": "FO",
+          "s": 147835,
+          "e": 148035,
+          "id": 22667457
+        },
+        {
+          "t": "PEK",
+          "s": 148235,
+          "e": 148275,
+          "id": 22667469
+        },
+        {
+          "t": "GRODA",
+          "s": 148555,
+          "e": 149035,
+          "id": 22667474
+        },
+        {
+          "t": "ENTITET(GG)+STILLASTÅENDE@p",
+          "s": 149235,
+          "e": 149755,
+          "id": 22667483
+        },
+        {
+          "t": "ANNAN(ea)",
+          "s": 149945,
+          "e": 150105,
+          "id": 22667494
+        },
+        {
+          "t": "GRODA",
+          "s": 150225,
+          "e": 150345,
+          "id": 22667502
+        },
+        {
+          "t": "ENTITET(GG)+STILLASTÅENDE@p",
+          "s": 150665,
+          "e": 151105,
+          "id": 22667513
+        },
+        {
+          "t": "PEK",
+          "s": 151631,
+          "e": 152351,
+          "id": 22667521
+        },
+        {
+          "t": "SEDAN(L)",
+          "s": 152476,
+          "e": 152516,
+          "id": 22667533
+        },
+        {
+          "t": "GLOSA:HOPPA-HIT.MULTI",
+          "s": 152756,
+          "e": 153316,
+          "id": 22667538
+        },
+        {
+          "t": "UNGE",
+          "s": 153636,
+          "e": 154116,
+          "id": 22667547
+        },
+        {
+          "t": "MÅNGA",
+          "s": 154318,
+          "e": 154558,
+          "id": 22667558
+        },
+        {
+          "t": "PERSON.FL@kl",
+          "s": 154820,
+          "e": 155060,
+          "id": 22667564
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 155347,
+          "e": 156357,
+          "id": 22667577
+        },
+        {
+          "t": "OK@b",
+          "s": 156569,
+          "e": 156769,
+          "id": 22667581
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 156809,
+          "e": 157209,
+          "id": 22667590
+        },
+        {
+          "t": "SEDAN(L)",
+          "s": 157941,
+          "e": 158181,
+          "id": 22667601
+        },
+        {
+          "t": "PU@g",
+          "s": 158381,
+          "e": 158461,
+          "id": 22667612
+        },
+        {
+          "t": "NU@b",
+          "s": 158763,
+          "e": 158923,
+          "id": 22667618
+        },
+        {
+          "t": "POJKE",
+          "s": 159283,
+          "e": 159403,
+          "id": 22667628
+        },
+        {
+          "t": "LÅTA-VARA",
+          "s": 159570,
+          "e": 159930,
+          "id": 22667639
+        },
+        {
+          "t": "BEGE-SIG-IVÄG",
+          "s": 160250,
+          "e": 160450,
+          "id": 22667647
+        },
+        {
+          "t": "EN",
+          "s": 160640,
+          "e": 160835,
+          "id": 22667651
+        },
+        {
+          "t": "GRODA",
+          "s": 161017,
+          "e": 161337,
+          "id": 22667660
+        },
+        {
+          "t": "UNGE",
+          "s": 161497,
+          "e": 161897,
+          "id": 22667671
+        },
+        {
+          "t": "VILL",
+          "s": 162377,
+          "e": 162477,
+          "id": 22667677
+        },
+        {
+          "t": "FÖLJAS-ÅT|MED",
+          "s": 162637,
+          "e": 163077,
+          "id": 22667685
+        },
+        {
+          "t": "POJKE",
+          "s": 163499,
+          "e": 163659,
+          "id": 22667690
+        },
+        {
+          "t": "SÄTTA-SIG@z",
+          "s": 164178,
+          "e": 164818,
+          "id": 22667701
+        },
+        {
+          "t": "GÅ(N)",
+          "s": 165618,
+          "e": 166178,
+          "id": 22667707
+        },
+        {
+          "t": "PEK@z",
+          "s": 166298,
+          "e": 166378,
+          "id": 22667718
+        },
+        {
+          "t": "HEJ-DÅ@g@z",
+          "s": 166450,
+          "e": 166970,
+          "id": 22667728
+        },
+        {
+          "t": "GRODA",
+          "s": 167690,
+          "e": 167770,
+          "id": 22667744
+        },
+        {
+          "t": "FÖRÄLDRAR(J)",
+          "s": 167930,
+          "e": 168290,
+          "id": 22667752
+        },
+        {
+          "t": "SITTA(VVb)",
+          "s": 168610,
+          "e": 168850,
+          "id": 22667757
+        },
+        {
+          "t": "UNGE",
+          "s": 169130,
+          "e": 169330,
+          "id": 22667768
+        },
+        {
+          "t": "SITTA(Vb).FL",
+          "s": 169530,
+          "e": 170330,
+          "id": 22667774
+        },
+        {
+          "t": "HEJ-DÅ@g@z",
+          "s": 170688,
+          "e": 171168,
+          "id": 22667781
+        },
+        {
+          "t": "EN-TILL",
+          "s": 171758,
+          "e": 171878,
+          "id": 22667789
+        },
+        {
+          "t": "UNGE",
+          "s": 172078,
+          "e": 172313,
+          "id": 22667798
+        },
+        {
+          "t": "BAKOM",
+          "s": 172553,
+          "e": 172873,
+          "id": 22667807
+        },
+        {
+          "t": "SITTA(Vb)",
+          "s": 172981,
+          "e": 173101,
+          "id": 22667809
+        },
+        {
+          "t": "SYNS",
+          "s": 173461,
+          "e": 173621,
+          "id": 22667820
+        },
+        {
+          "t": "TJOCK",
+          "s": 174021,
+          "e": 174181,
+          "id": 22667827
+        },
+        {
+          "t": "OMÖJLIG",
+          "s": 174541,
+          "e": 174741,
+          "id": 22667838
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 174995,
+          "e": 175875,
+          "id": 22667841
+        },
+        {
+          "t": "PASSIVERAD@z",
+          "s": 176230,
+          "e": 176470,
+          "id": 22667854
+        },
+        {
+          "t": "HEJ-DÅ@g@z",
+          "s": 177075,
+          "e": 177155,
+          "id": 22667860
+        },
+        {
+          "t": "BEGE-SIG-IVÄG",
+          "s": 177300,
+          "e": 178020,
+          "id": 22667866
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Glosa_NonDH S2",
+      "annotations": [
+        {
+          "t": "form(5bt)@hd",
+          "s": 12356,
+          "e": 13396,
+          "id": 22667887
+        },
+        {
+          "t": "BOJ-AVGRÄNS(4f)",
+          "s": 14282,
+          "e": 14762,
+          "id": 22667891
+        },
+        {
+          "t": "form(5bt)@hd",
+          "s": 25229,
+          "e": 26469,
+          "id": 22667903
+        },
+        {
+          "t": "BOJ-AVGRÄNS(5b)",
+          "s": 31685,
+          "e": 32205,
+          "id": 22667909
+        },
+        {
+          "t": "hand(jjvs)@hd",
+          "s": 32497,
+          "e": 32992,
+          "id": 22667914
+        },
+        {
+          "t": "BOJ-AVGRÄNS@z",
+          "s": 43091,
+          "e": 43291,
+          "id": 22667923
+        },
+        {
+          "t": "form(s)@hd",
+          "s": 44353,
+          "e": 45113,
+          "id": 22667934
+        },
+        {
+          "t": "VAR",
+          "s": 49679,
+          "e": 50119,
+          "id": 22667942
+        },
+        {
+          "t": "BOJ-AVGRÄNS(5b)",
+          "s": 71497,
+          "e": 71682,
+          "id": 22667954
+        },
+        {
+          "t": "BOJ-AVGRÄNS(5b)",
+          "s": 72171,
+          "e": 72611,
+          "id": 22667960
+        },
+        {
+          "t": "BOJ-AVGRÄNS(Jf)",
+          "s": 73907,
+          "e": 74267,
+          "id": 22667970
+        },
+        {
+          "t": "klättra@hd",
+          "s": 88799,
+          "e": 89519,
+          "id": 22667976
+        },
+        {
+          "t": "PEK",
+          "s": 95883,
+          "e": 96123,
+          "id": 22667986
+        },
+        {
+          "t": "varelse(vb)@hd",
+          "s": 99500,
+          "e": 100380,
+          "id": 22667994
+        },
+        {
+          "t": "BEGE-SIG-IVÄG",
+          "s": 104235,
+          "e": 104635,
+          "id": 22668002
+        },
+        {
+          "t": "BEGE-SIG-IVÄG@z",
+          "s": 108652,
+          "e": 109212,
+          "id": 22668012
+        },
+        {
+          "t": "höjd@hd",
+          "s": 111673,
+          "e": 112913,
+          "id": 22668021
+        },
+        {
+          "t": "grepp(g)@hd",
+          "s": 117564,
+          "e": 118204,
+          "id": 22668030
+        },
+        {
+          "t": "entitet(g)@hd",
+          "s": 132465,
+          "e": 133305,
+          "id": 22668034
+        },
+        {
+          "t": "HÖRA",
+          "s": 142355,
+          "e": 142475,
+          "id": 22668046
+        },
+        {
+          "t": "NÅGON",
+          "s": 142555,
+          "e": 142715,
+          "id": 22668055
+        },
+        {
+          "t": "PEK",
+          "s": 142795,
+          "e": 142995,
+          "id": 22668059
+        },
+        {
+          "t": "form(5bt)@hd",
+          "s": 146235,
+          "e": 146795,
+          "id": 22668070
+        },
+        {
+          "t": "glosa:titta-fram@hd",
+          "s": 147715,
+          "e": 148315,
+          "id": 22668077
+        },
+        {
+          "t": "entitet(g)@hd",
+          "s": 149865,
+          "e": 150505,
+          "id": 22668087
+        },
+        {
+          "t": "GREPPHÅLLA(5bt)",
+          "s": 164178,
+          "e": 166218,
+          "id": 22668094
+        },
+        {
+          "t": "sitta(vb)@hd",
+          "s": 168930,
+          "e": 173650,
+          "id": 22668103
+        },
+        {
+          "t": "sitta(vb)@hd",
+          "s": 174835,
+          "e": 175915,
+          "id": 22668114
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Översättning S2",
+      "annotations": [
+        {
+          "t": "Ja, det var en liten pojke på en sju-åtta år ungefär som hade en hund.",
+          "s": 5289,
+          "e": 9399,
+          "id": 22668147
+        },
+        {
+          "t": "De satt och tittade på en pigg liten groda som pojken hade framför sig i en hög glasburk",
+          "s": 9690,
+          "e": 14800,
+          "id": 22668155
+        },
+        {
+          "t": "samtidigt som pojken satt och småpratade och grejade lite med den.",
+          "s": 15010,
+          "e": 17300,
+          "id": 22668162
+        },
+        {
+          "t": "Medan de satt där började det bli mörkt ute. Pojken blev trött så han gick och la sig.",
+          "s": 17490,
+          "e": 21310,
+          "id": 22668171
+        },
+        {
+          "t": "Hunden la sig bredvid, på golvet, och så somnade de båda två och sov hela natten.",
+          "s": 21515,
+          "e": 24415,
+          "id": 22668178
+        },
+        {
+          "t": "När de lade sig så hade grodan varit i glasburken",
+          "s": 24615,
+          "e": 26505,
+          "id": 22668187
+        },
+        {
+          "t": "men när de vaknade på morgonen, upptäckte de att grodan inte var kvar!",
+          "s": 26825,
+          "e": 30905,
+          "id": 22668191
+        },
+        {
+          "t": "Den måste ha lyckats häva sig upp mot kanten, klättrat över och hoppat iväg.",
+          "s": 31020,
+          "e": 34310,
+          "id": 22668202
+        },
+        {
+          "t": "Pojken och hunden stod först handfallna en kort stund.",
+          "s": 34400,
+          "e": 34890,
+          "id": 22668211
+        },
+        {
+          "t": "Sen började de att leta. De lyfte på kläder och de vände och vred på stövlar men hur mycket de än letade så hittade de inte grodan.",
+          "s": 35100,
+          "e": 41500,
+          "id": 22668225
+        },
+        {
+          "t": "Hunden stack ner nosen i glasburken, som grodan hade varit i, men fastnade med huvudet i burken och lyckades inte komma loss.",
+          "s": 41835,
+          "e": 47415,
+          "id": 22668227
+        },
+        {
+          "t": "De såg sig runt om i rummet men de kunde inte hitta grodan.",
+          "s": 47600,
+          "e": 48170,
+          "id": 22668238
+        },
+        {
+          "t": "Pojken öppnade fönstret och ropade på grodan och tittade efter den där utanför.",
+          "s": 48300,
+          "e": 51510,
+          "id": 22668244
+        },
+        {
+          "t": "Hunden, som fortfarande hade glasburken över huvudet som en strut, tittade också ut genom fönstret efter grodan.",
+          "s": 51920,
+          "e": 54800,
+          "id": 22668250
+        },
+        {
+          "t": "Plötsligt föll hunden ut från fönstret och landade på marken utanför.",
+          "s": 54905,
+          "e": 56715,
+          "id": 22668262
+        },
+        {
+          "t": "I fallet lossnade glasburken från huvudet och gick sönder.",
+          "s": 57565,
+          "e": 59405,
+          "id": 22668270
+        },
+        {
+          "t": "Pojken tog upp hunden i famnen och förmanade den medan den slickade honom i ansiktet.",
+          "s": 59630,
+          "e": 62400,
+          "id": 22668280
+        },
+        {
+          "t": "Med hunden i famnen fortsatte pojken att ropa efter grodan samtidigt som han gick in i skogen och fortsatte leta där.",
+          "s": 62490,
+          "e": 67690,
+          "id": 22668285
+        },
+        {
+          "t": "Bäst som han gick där, fick han syn på ett lite större hål i marken.",
+          "s": 69605,
+          "e": 70845,
+          "id": 22668292
+        },
+        {
+          "t": "Han tänkte att grodan kanske fanns därinne, så han ropade in i hålet flera gånger.",
+          "s": 71030,
+          "e": 73700,
+          "id": 22668298
+        },
+        {
+          "t": "Då fick han plötsligt en mullvadsnos i ansiktet och backade undan.Det var ju inte en mullvad han letade efter!",
+          "s": 73820,
+          "e": 76100,
+          "id": 22668312
+        },
+        {
+          "t": "Så han fortsatte att gå runt och leta.",
+          "s": 76405,
+          "e": 76725,
+          "id": 22668319
+        },
+        {
+          "t": "Hunden skuttade fram till ett träd där det hängde en stor bikupa, eller nej, ett stort getingbo var det.",
+          "s": 76910,
+          "e": 81500,
+          "id": 22668327
+        },
+        {
+          "t": "Det surrade en massa getingar runt omkring boet",
+          "s": 81970,
+          "e": 83190,
+          "id": 22668335
+        },
+        {
+          "t": "och hunden försökte komma åt det med nosen.",
+          "s": 83285,
+          "e": 84315,
+          "id": 22668337
+        },
+        {
+          "t": "Pojken brydde sig inte om vad hunden höll på med utan gick runt och fortsatte leta på egen hand.",
+          "s": 84615,
+          "e": 85785,
+          "id": 22668347
+        },
+        {
+          "t": "När han kom fram till ett stort träd, fick han syn på ett hål i stammen en bit upp.",
+          "s": 85905,
+          "e": 87745,
+          "id": 22668353
+        },
+        {
+          "t": "Han bestämde sig för att klätta upp i trädet för att undersöka hålet närmare. När han kommit upp och kikade in i hålet, blev han livrädd när en stor uggla flög ut rätt emot honom. Pojken kastade sig blixtsnabbt ner och sprang iväg medan ugglan flög efter honom med stora, kraftig vingslag.",
+          "s": 87920,
+          "e": 95510,
+          "id": 22668361
+        },
+        {
+          "t": "Hunden, i sin tur, hoppade upp och ner framför getingboet.",
+          "s": 95820,
+          "e": 99310,
+          "id": 22668373
+        },
+        {
+          "t": "Och plötsligt dunsade boet ner i marken!",
+          "s": 99420,
+          "e": 100490,
+          "id": 22668380
+        },
+        {
+          "t": "De ilskna getingarna flög i i full fart efter hunden som livrädd lade benen på ryggen för att komma undan.",
+          "s": 100800,
+          "e": 105400,
+          "id": 22668387
+        },
+        {
+          "t": "Ugglan flög efter pojken ett tag men snart märkte pojken att ugglan bytte riktning och då saktade han ner farten och började gå igen.",
+          "s": 106125,
+          "e": 109845,
+          "id": 22668397
+        },
+        {
+          "t": "Han kom då fram till ett högt berg som han tog sig upp på. Högst uppe på berget, stod det två träd som lutade åt varsitt håll, som ett v.",
+          "s": 110010,
+          "e": 114200,
+          "id": 22668403
+        },
+        {
+          "t": "Han ställde sig mellan träden och tog tag i dem och spanade ut över nejden och ropade efter grodan flera gånger.",
+          "s": 114390,
+          "e": 116840,
+          "id": 22668412
+        },
+        {
+          "t": "Förvånat upptäckte han efter en stund att det han stod och höll i sig i inte var några träd utan ett par horn som satt på huvudet på en betande hjort.",
+          "s": 117020,
+          "e": 122400,
+          "id": 22668419
+        },
+        {
+          "t": "När hjorten hade betat klart och lyfte huvudet från marken, tappade pojken sitt fasta grepp och hängde och dinglade mellan hornen.",
+          "s": 122495,
+          "e": 125505,
+          "id": 22668428
+        },
+        {
+          "t": "Hunden kom nu springandes bakifrån och hjorten och hunden sprang sida vid sida i full fart.",
+          "s": 125705,
+          "e": 127805,
+          "id": 22668437
+        },
+        {
+          "t": "När de kom fram till bergskrönet, satte hjorten hovarna i marken och tvärnitade. Då flög pojken i en båge över hjortens huvud och landade i vattnet nedanför berget.",
+          "s": 128000,
+          "e": 135120,
+          "id": 22668441
+        },
+        {
+          "t": "Hunden gjorde också ett språng genom luften och landade även han i vattnet.",
+          "s": 135225,
+          "e": 136805,
+          "id": 22668453
+        },
+        {
+          "t": "Medan de simmade fram, såg de sig omkring.",
+          "s": 137410,
+          "e": 139910,
+          "id": 22668459
+        },
+        {
+          "t": "Plötsligt hörde pojken ett ljud. Han hyschade hunden och sa åt den att vara tyst.",
+          "s": 140295,
+          "e": 143695,
+          "id": 22668472
+        },
+        {
+          "t": "Vid strandkanten låg det en stor stock nedanför berget. När pojken gick fram till stocken och kikade ner bakom den satt, till hans förvåning, grodan där! Den satt tätt bredvid en annan groda och med glada miner tittade båda upp på pojken.",
+          "s": 144000,
+          "e": 151200,
+          "id": 22668479
+        },
+        {
+          "t": "När han stod där och tittade på dem, hoppade det plötsligt fram en hel massa grodungar också!",
+          "s": 151425,
+          "e": 155005,
+          "id": 22668484
+        },
+        {
+          "t": "När pojken fick syn på ungarna, förstod han varför grodan hade stuckit iväg från honom.",
+          "s": 155210,
+          "e": 157300,
+          "id": 22668497
+        },
+        {
+          "t": "Han bestämde sig för att gå sin väg och lämna grodan och hans familj ifred.",
+          "s": 158620,
+          "e": 160430,
+          "id": 22668504
+        },
+        {
+          "t": "Men just som han bestämt sig för det, var det en liten grodunge som tydligt visade att den ville följa med honom genom att hoppa upp och sätta sig i hans hand. Pojken lät den sitta kvar och så gick de nöjda iväg.",
+          "s": 160520,
+          "e": 166310,
+          "id": 22668514
+        },
+        {
+          "t": "Medan de gick, vinkade de till grodmamman och grodpappan och alla grodungarna som satt på en lång rad och vinkade tillbaka.",
+          "s": 166510,
+          "e": 171250,
+          "id": 22668522
+        },
+        {
+          "t": "Bakom alla grodorna satt det en liten, knubbig grodunge som var för tung för att orka hoppa fram till de andra. Så den satt där, ensam, bakom alla andra och tittade upp i luften medan pojken och grodungen vinkandes gick iväg.",
+          "s": 171485,
+          "e": 178405,
+          "id": 22668528
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "source": "teckensprakskorpus.su.se",
+    "format": "blocksdata",
+    "time_units": "milliseconds",
+    "language": "sv",
+    "extraction_method": "javascript_blocksdata"
+  }
+}

@@ -26,6 +26,7 @@ import {
 import OvningPage from './pages/OvningPage';
 import ListorPage from './pages/ListorPage';
 import LexikonPage from './pages/LexikonPage';
+import KorpusPage from './pages/KorpusPage';
 import InstallningarPage from './pages/InstallningarPage';
 import HjalpPage from './pages/HjalpPage';
 import StartGuideDialog from './components/StartGuideDialog';
@@ -46,6 +47,8 @@ function AppContent() {
   const [currentPage, setCurrentPage] = useState(0);
   // State för att hantera om hjälpsidan ska visas
   const [showHelp, setShowHelp] = useState(false);
+  // State för att hantera om korpus-sidan ska visas
+  const [showKorpus, setShowKorpus] = useState(false);
   // State för att hantera start-guiden
   const [showStartGuide, setShowStartGuide] = useState(false);
   // State för att hantera dialog om att lägga till ordlistor
@@ -167,7 +170,7 @@ function AppContent() {
 
   // Array med alla sidor för enkel rendering
   const pages = [
-    <OvningPage key="ovning" />,
+    <OvningPage key="ovning" onShowKorpus={() => setShowKorpus(true)} />,
     <ListorPage key="listor" />,
     <LexikonPage key="lexikon" />,
     <InstallningarPage key="installningar" onShowHelp={() => setShowHelp(true)} />
@@ -206,10 +209,12 @@ function AppContent() {
         <Box sx={{ 
           flex: 1, 
           overflow: 'auto',
-          pb: showHelp ? 0 : 7 // Ingen padding när hjälpsidan visas eftersom den har egen header
+          pb: showHelp || showKorpus ? 0 : 7 // Ingen padding när hjälp- eller korpus-sidan visas eftersom de har egen header
         }}>
           {showHelp ? (
             <HjalpPage onBack={() => setShowHelp(false)} />
+          ) : showKorpus ? (
+            <KorpusPage onBack={() => setShowKorpus(false)} />
           ) : (
             pages[currentPage]
           )}

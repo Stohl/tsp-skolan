@@ -2037,7 +2037,11 @@ const SentencesPracticeExercise: React.FC<{
 
 
 // Huvudkomponent för övningssidan
-const OvningPage: React.FC = () => {
+interface OvningPageProps {
+  onShowKorpus?: () => void;
+}
+
+const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
   const { wordDatabase, phraseDatabase, wordIndex, isLoading, error } = useDatabase();
   const { getWordsForPractice, markWordResult, setWordLevel, wordProgress, createWordGroups, markWordGroupAsLearned, updateWordProgress } = useWordProgress();
   
@@ -3553,6 +3557,51 @@ const OvningPage: React.FC = () => {
                 </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
                 Se meningar baserat på dina lärda ord och se om du förstår.
+                </Typography>
+              </CardContent>
+            </Card>
+
+          {/* Korpus */}
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'success.main'
+              }
+            }}
+            onClick={() => {
+              if (onShowKorpus) {
+                onShowKorpus();
+              }
+            }}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Typography
+                component="span"
+                sx={{
+                  display: 'inline-block',
+                  fontSize: 40,
+                  lineHeight: 1,
+                  mb: 2
+                }}
+              >
+                🎥
+              </Typography>
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                Korpus
+                </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                Titta på riktiga teckenspråksvideor med annoteringar.
                 </Typography>
               </CardContent>
             </Card>
