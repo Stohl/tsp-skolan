@@ -480,6 +480,8 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
           src={korpusFile.video_url}
           style={{ width: '100%', maxHeight: '50vh', display: 'block' }}
           controls
+          playsInline
+          webkit-playsinline="true"
         />
       </Box>
 
