@@ -78,6 +78,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
   const [currentTime, setCurrentTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const [videoDuration, setVideoDuration] = useState(0);
   
   // Settings för vilka tiers som ska visas
   const [showTiers, setShowTiers] = useState({
@@ -85,6 +86,12 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     nonDh: true,   // Non-Dominant Hand
     translation: true  // Översättning
   });
+  
+  // Track om användaren scrollar manuellt
+  const isUserScrolling = useRef(false);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+  const wasPlayingBeforeScroll = useRef(false);
+  const lastProgrammaticScrollTop = useRef(0);
   
   const { wordProgress } = useWordProgress();
 
@@ -260,82 +267,117 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [korpusData, showTiers]);
 
-  // Auto-scroll till aktiv annotation när tiden ändras
+  // Kontinuerlig, smooth auto-scroll som synkar med video (använder requestAnimationFrame för jämnhet)
   useEffect(() => {
-    // Använd requestAnimationFrame för att säkerställa att DOM är uppdaterad
-    const scrollToActive = () => {
-      if (!annotationContainerRef.current) return;
+    if (!videoRef.current || !annotationContainerRef.current || videoDuration === 0) return;
+
+    let animationFrameId: number;
+    let isRunning = true;
+    let lastScrollTop = 0;
+
+    const smoothScroll = () => {
+      const container = annotationContainerRef.current;
+      const video = videoRef.current;
       
-      const activeElement = annotationContainerRef.current.querySelector('.annotation-active');
-      
-      if (activeElement && !isUserScrolling.current) {
-        activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (!container || !video || !isRunning) return;
+
+      // Hoppa över scroll-uppdatering om användaren scrollar manuellt, men fortsätt loopen
+      if (isUserScrolling.current) {
+        animationFrameId = requestAnimationFrame(smoothScroll);
+        return;
       }
+
+      // Beräkna scroll-position baserat på video-tid (kontinuerligt)
+      const scrollPercentage = video.currentTime / videoDuration;
+      const targetScrollTop = scrollPercentage * (container.scrollHeight - container.clientHeight);
+
+      // Sätt scroll-position endast om den har ändrats (för att undvika onödiga scroll-events)
+      if (Math.abs(targetScrollTop - lastScrollTop) > 0.5) {
+        container.scrollTop = targetScrollTop;
+        lastScrollTop = targetScrollTop;
+        lastProgrammaticScrollTop.current = targetScrollTop;
+      }
+
+      // Fortsätt loopen
+      animationFrameId = requestAnimationFrame(smoothScroll);
     };
-    
-    // Vänta tills nästa frame för att säkerställa att DOM är uppdaterad
-    requestAnimationFrame(scrollToActive);
-  }, [currentTime, annotationGroups]);
 
-  // Track om användaren scrollar manuellt
-  const isUserScrolling = useRef(false);
-  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+    // Starta loopen
+    animationFrameId = requestAnimationFrame(smoothScroll);
 
-  // Lyssna på scroll-events för att synka video med synlig annotation
+    // Cleanup
+    return () => {
+      isRunning = false;
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, [videoDuration, annotationGroups]); // Kör när video är laddad
+
+  // Lyssna på video duration
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const handleLoadedMetadata = () => {
+      setVideoDuration(video.duration);
+    };
+
+    video.addEventListener('loadedmetadata', handleLoadedMetadata);
+
+    return () => {
+      video.removeEventListener('loadedmetadata', handleLoadedMetadata);
+    };
+  }, [korpusData]);
+
+  // Sömlös scroll → video synk (endast från manuell scroll)
   useEffect(() => {
     const container = annotationContainerRef.current;
-    if (!container) return;
+    const video = videoRef.current;
+    if (!container || !video || videoDuration === 0) return;
 
     const handleScroll = () => {
+      // Kolla om scrollen kommer från användaren eller från programmatisk uppdatering
+      // Om scroll-positionen är nära den senaste programmatiska positionen, ignorera
+      const scrollDifference = Math.abs(container.scrollTop - lastProgrammaticScrollTop.current);
+      
+      if (scrollDifference < 5) {
+        // Detta är troligen från programmatisk scroll, ignorera
+        return;
+      }
+
+      // Om det är första scroll-eventet från användaren, pausa videon om den spelar
+      if (!isUserScrolling.current && !video.paused) {
+        wasPlayingBeforeScroll.current = true;
+        video.pause();
+      }
+
       // Markera att användaren scrollar
       isUserScrolling.current = true;
 
-      // Rensa tidigare timeout
+      // Beräkna video-tid baserat på scroll-position
+      const scrollPercentage = container.scrollTop / (container.scrollHeight - container.clientHeight);
+      const videoTime = scrollPercentage * videoDuration;
+
+      // Uppdatera video direkt (utan fördröjning)
+      if (!isNaN(videoTime)) {
+        video.currentTime = videoTime;
+      }
+
+      // Efter 500ms utan scrolling, återuppta video om den spelade innan
       if (scrollTimeout.current) {
         clearTimeout(scrollTimeout.current);
       }
-
-      // Efter 500ms utan scrolling, hitta synlig annotation och hoppa videon dit
       scrollTimeout.current = setTimeout(() => {
         isUserScrolling.current = false;
         
-        // Hitta annotation i mitten av viewporten
-        const containerRect = container.getBoundingClientRect();
-        const centerY = containerRect.top + containerRect.height / 2;
-
-        // Hitta alla annotation-element
-        const annotationElements = Array.from(container.querySelectorAll('[data-start-time]'));
-        
-        // Hitta den annotation som är närmast centrum
-        let closestElement: HTMLElement | null = null;
-        let closestDistance = Infinity;
-
-        annotationElements.forEach((element) => {
-          const htmlElement = element as HTMLElement;
-          const rect = htmlElement.getBoundingClientRect();
-          const elementCenter = rect.top + rect.height / 2;
-          const distance = Math.abs(elementCenter - centerY);
-
-          if (distance < closestDistance) {
-            closestDistance = distance;
-            closestElement = htmlElement;
-          }
-        });
-
-        // Om vi hittat en annotation, hoppa videon dit
-        if (closestElement) {
-          const startTimeStr = (closestElement as HTMLElement).getAttribute('data-start-time');
-          if (startTimeStr && videoRef.current) {
-            const startTime = parseFloat(startTimeStr);
-            if (!isNaN(startTime)) {
-              videoRef.current.currentTime = startTime;
-            }
-          }
+        // Återuppta video om den spelade innan scroll
+        if (wasPlayingBeforeScroll.current) {
+          video.play();
+          wasPlayingBeforeScroll.current = false;
         }
-      }, 500); // Vänta 500ms efter scroll innan vi synkar
+      }, 500);
     };
 
-    container.addEventListener('scroll', handleScroll);
+    container.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
       container.removeEventListener('scroll', handleScroll);
@@ -343,7 +385,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
         clearTimeout(scrollTimeout.current);
       }
     };
-  }, [annotationGroups]);
+  }, [videoDuration]);
 
   if (loading) {
     return (
@@ -441,119 +483,124 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
         />
       </Box>
 
-      {/* Annotations */}
+      {/* Annotations - Sömlöst textflöde */}
       <Box
         ref={annotationContainerRef}
         sx={{
           flex: 1,
           overflow: 'auto',
-          p: 2
+          p: 3,
+          bgcolor: 'background.paper'
         }}
       >
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+        {/* Header */}
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, position: 'sticky', top: 0, bgcolor: 'background.paper', zIndex: 1, pb: 1, borderBottom: 1, borderColor: 'divider' }}>
           <Typography variant="h6">
             Annoteringar
           </Typography>
           <Typography variant="caption" color="text.secondary">
-            Aktuell tid: {formatTime(currentTime)}
+            {formatTime(currentTime)} / {formatTime(videoDuration)}
           </Typography>
         </Box>
         
-        {annotationGroups.map((group, groupIndex) => {
-          const startTime = Math.min(...group.map(a => a.start_time));
-          const endTime = Math.max(...group.map(a => a.end_time));
-          const isActive = currentTime >= startTime && currentTime <= endTime;
-          
-          // Gruppera annoteringar per tier
-          const dhAnnotations = group.filter(a => a.tier_name.includes('Glosa_DH'));
-          const nonDhAnnotations = group.filter(a => a.tier_name.includes('Glosa_NonDH'));
-          const translationAnnotations = group.filter(a => a.tier_name.includes('Översättning'));
-          
-          return (
-            <Paper
-              key={groupIndex}
-              className={isActive ? 'annotation-active' : ''}
-              data-start-time={startTime}
-              sx={{
-                p: 1.5,
-                mb: 1,
-                cursor: 'pointer',
-                border: 1,
-                borderColor: isActive ? 'primary.main' : 'divider',
-                bgcolor: isActive ? 'action.selected' : 'background.paper',
-                transition: 'all 0.2s ease',
-                '&:hover': {
-                  bgcolor: 'action.hover',
-                  borderColor: 'primary.light'
-                }
-              }}
-              onClick={() => seekToTime(startTime)}
-            >
-              {/* Header: Tidsstämpel och AKTIV badge */}
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
-                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
-                  {formatTime(startTime)} - {formatTime(endTime)}
-                </Typography>
-                {isActive && (
-                  <Chip
-                    label="AKTIV"
-                    size="small"
-                    color="primary"
-                    variant="filled"
-                    sx={{ height: 20, fontSize: '0.65rem' }}
-                  />
-                )}
-              </Box>
-
-              {/* Två-kolumners layout */}
-              <Box sx={{ 
-                display: 'grid', 
-                gridTemplateColumns: showTiers.translation ? '1fr 1fr' : '1fr',
-                gap: 2
-              }}>
-                {/* Vänster kolumn: Glosor (DH och NonDH) */}
-                <Box>
-                  {/* DH Annotations */}
+        {/* Två-kolumners layout för glosor och översättningar */}
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: '1fr 1fr',
+          gap: 3,
+          minHeight: videoDuration * 100 // Höjd proportionell till video-längd (100px per sekund)
+        }}>
+          {/* Vänster kolumn: Glosor (DH och NonDH) */}
+          <Box sx={{ position: 'relative', borderRight: 1, borderColor: 'divider', pr: 2 }}>
+            <Typography variant="subtitle2" sx={{ mb: 2, position: 'sticky', top: 0, bgcolor: 'background.paper', pb: 1 }}>
+              Glosor
+            </Typography>
+            {annotationGroups.map((group, groupIndex) => {
+              const startTime = Math.min(...group.map(a => a.start_time));
+              const isActive = currentTime >= startTime && currentTime <= startTime + 0.5;
+              
+              const dhAnnotations = group.filter(a => a.tier_name.includes('Glosa_DH'));
+              const nonDhAnnotations = group.filter(a => a.tier_name.includes('Glosa_NonDH'));
+              
+              // Visa bara om det finns glosa-data
+              if (!showTiers.dh && !showTiers.nonDh) return null;
+              if (dhAnnotations.length === 0 && nonDhAnnotations.length === 0) return null;
+              
+              const topPosition = (startTime / videoDuration) * videoDuration * 100;
+              
+              return (
+                <Box
+                  key={`gloss-${groupIndex}`}
+                  className={isActive ? 'annotation-active' : ''}
+                  data-start-time={startTime}
+                  sx={{
+                    position: 'absolute',
+                    top: `${topPosition}px`,
+                    left: 0,
+                    right: 0,
+                    py: 0.5,
+                    borderLeft: 3,
+                    borderColor: isActive ? 'primary.main' : 'transparent',
+                    bgcolor: isActive ? 'action.selected' : 'transparent',
+                    pl: 1
+                  }}
+                >
                   {showTiers.dh && dhAnnotations.length > 0 && (
-                    <Box sx={{ mb: 0.5 }}>
-                      <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                        DH:
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
-                        {dhAnnotations.map(a => a.value).join(' · ')}
-                      </Typography>
-                    </Box>
+                    <Typography variant="body2" sx={{ fontSize: '0.9rem', fontWeight: 500 }}>
+                      {dhAnnotations.map(a => a.value).join(' ')}
+                    </Typography>
                   )}
-
-                  {/* NonDH Annotations */}
                   {showTiers.nonDh && nonDhAnnotations.length > 0 && (
-                    <Box>
-                      <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
-                        NonDH:
-                      </Typography>
-                      <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
-                        {nonDhAnnotations.map(a => a.value).join(' · ')}
-                      </Typography>
-                    </Box>
+                    <Typography variant="body2" sx={{ fontSize: '0.8rem', color: 'text.secondary' }}>
+                      {nonDhAnnotations.map(a => a.value).join(' ')}
+                    </Typography>
                   )}
                 </Box>
+              );
+            })}
+          </Box>
 
-                {/* Höger kolumn: Översättning */}
-                {showTiers.translation && translationAnnotations.length > 0 && (
-                  <Box sx={{ 
-                    borderLeft: showTiers.dh || showTiers.nonDh ? 1 : 0,
-                    borderColor: 'divider',
-                    pl: showTiers.dh || showTiers.nonDh ? 2 : 0
-                  }}>
-                    <Typography variant="body2" sx={{ fontSize: '0.85rem', fontStyle: 'italic' }}>
-                      {translationAnnotations.map(a => a.value).join(' ')}
-                    </Typography>
-                  </Box>
-                )}
-              </Box>
-            </Paper>
-          );
-        })}
+          {/* Höger kolumn: Översättningar */}
+          <Box sx={{ position: 'relative' }}>
+            <Typography variant="subtitle2" sx={{ mb: 2, position: 'sticky', top: 0, bgcolor: 'background.paper', pb: 1 }}>
+              Översättning
+            </Typography>
+            {annotationGroups.map((group, groupIndex) => {
+              const startTime = Math.min(...group.map(a => a.start_time));
+              const isActive = currentTime >= startTime && currentTime <= startTime + 0.5;
+              
+              const translationAnnotations = group.filter(a => a.tier_name.includes('Översättning'));
+              
+              // Visa bara om översättning finns
+              if (!showTiers.translation || translationAnnotations.length === 0) return null;
+              
+              const topPosition = (startTime / videoDuration) * videoDuration * 100;
+              
+              return (
+                <Box
+                  key={`trans-${groupIndex}`}
+                  className={isActive ? 'annotation-active' : ''}
+                  data-start-time={startTime}
+                  sx={{
+                    position: 'absolute',
+                    top: `${topPosition}px`,
+                    left: 0,
+                    right: 0,
+                    py: 0.5,
+                    borderLeft: 3,
+                    borderColor: isActive ? 'primary.main' : 'transparent',
+                    bgcolor: isActive ? 'action.selected' : 'transparent',
+                    pl: 1
+                  }}
+                >
+                  <Typography variant="body2" sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'text.secondary' }}>
+                    {translationAnnotations.map(a => a.value).join(' ')}
+                  </Typography>
+                </Box>
+              );
+            })}
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
