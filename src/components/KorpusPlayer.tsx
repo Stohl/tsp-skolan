@@ -162,26 +162,25 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     // Sortera efter starttid
     allAnnotations.sort((a, b) => a.start_time - b.start_time);
     
-    // Gruppera annoteringar som överlappar i tid
+    // Gruppera annoteringar som har exakt samma tidsstämpel (samtidiga annoteringar)
     const groups: Annotation[][] = [];
     let currentGroup: Annotation[] = [];
-    let currentEndTime = 0;
+    let currentStartTime: number | null = null;
     
     allAnnotations.forEach(annotation => {
       // Filtrera baserat på tier-inställningar
       if (!shouldShowAnnotation(annotation)) return;
       
-      if (annotation.start_time <= currentEndTime + 0.5) {
-        // Lägg till i nuvarande grupp om det är nära i tid
+      // Om det är samma starttid, lägg till i gruppen
+      if (currentStartTime !== null && Math.abs(annotation.start_time - currentStartTime) < 0.01) {
         currentGroup.push(annotation);
-        currentEndTime = Math.max(currentEndTime, annotation.end_time);
       } else {
         // Ny grupp
         if (currentGroup.length > 0) {
           groups.push(currentGroup);
         }
         currentGroup = [annotation];
-        currentEndTime = annotation.end_time;
+        currentStartTime = annotation.start_time;
       }
     });
     
@@ -269,7 +268,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
       
       const activeElement = annotationContainerRef.current.querySelector('.annotation-active');
       
-      if (activeElement) {
+      if (activeElement && !isUserScrolling.current) {
         activeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
       }
     };
@@ -277,6 +276,74 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     // Vänta tills nästa frame för att säkerställa att DOM är uppdaterad
     requestAnimationFrame(scrollToActive);
   }, [currentTime, annotationGroups]);
+
+  // Track om användaren scrollar manuellt
+  const isUserScrolling = useRef(false);
+  const scrollTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  // Lyssna på scroll-events för att synka video med synlig annotation
+  useEffect(() => {
+    const container = annotationContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      // Markera att användaren scrollar
+      isUserScrolling.current = true;
+
+      // Rensa tidigare timeout
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+
+      // Efter 500ms utan scrolling, hitta synlig annotation och hoppa videon dit
+      scrollTimeout.current = setTimeout(() => {
+        isUserScrolling.current = false;
+        
+        // Hitta annotation i mitten av viewporten
+        const containerRect = container.getBoundingClientRect();
+        const centerY = containerRect.top + containerRect.height / 2;
+
+        // Hitta alla annotation-element
+        const annotationElements = Array.from(container.querySelectorAll('[data-start-time]'));
+        
+        // Hitta den annotation som är närmast centrum
+        let closestElement: HTMLElement | null = null;
+        let closestDistance = Infinity;
+
+        annotationElements.forEach((element) => {
+          const htmlElement = element as HTMLElement;
+          const rect = htmlElement.getBoundingClientRect();
+          const elementCenter = rect.top + rect.height / 2;
+          const distance = Math.abs(elementCenter - centerY);
+
+          if (distance < closestDistance) {
+            closestDistance = distance;
+            closestElement = htmlElement;
+          }
+        });
+
+        // Om vi hittat en annotation, hoppa videon dit
+        if (closestElement) {
+          const startTimeStr = (closestElement as HTMLElement).getAttribute('data-start-time');
+          if (startTimeStr && videoRef.current) {
+            const startTime = parseFloat(startTimeStr);
+            if (!isNaN(startTime)) {
+              videoRef.current.currentTime = startTime;
+            }
+          }
+        }
+      }, 500); // Vänta 500ms efter scroll innan vi synkar
+    };
+
+    container.addEventListener('scroll', handleScroll);
+
+    return () => {
+      container.removeEventListener('scroll', handleScroll);
+      if (scrollTimeout.current) {
+        clearTimeout(scrollTimeout.current);
+      }
+    };
+  }, [annotationGroups]);
 
   if (loading) {
     return (
@@ -406,14 +473,15 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
             <Paper
               key={groupIndex}
               className={isActive ? 'annotation-active' : ''}
+              data-start-time={startTime}
               sx={{
-                p: 2,
-                mb: 2,
+                p: 1.5,
+                mb: 1,
                 cursor: 'pointer',
-                border: 2,
+                border: 1,
                 borderColor: isActive ? 'primary.main' : 'divider',
                 bgcolor: isActive ? 'action.selected' : 'background.paper',
-                transition: 'all 0.3s ease',
+                transition: 'all 0.2s ease',
                 '&:hover': {
                   bgcolor: 'action.hover',
                   borderColor: 'primary.light'
@@ -421,74 +489,68 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               }}
               onClick={() => seekToTime(startTime)}
             >
-              {/* Tidsstämpel */}
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-                <Chip
-                  label={`${formatTime(startTime)} - ${formatTime(endTime)}`}
-                  size="small"
-                  color={isActive ? 'primary' : 'default'}
-                />
+              {/* Header: Tidsstämpel och AKTIV badge */}
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 1 }}>
+                <Typography variant="caption" color="text.secondary" sx={{ fontWeight: 500 }}>
+                  {formatTime(startTime)} - {formatTime(endTime)}
+                </Typography>
                 {isActive && (
                   <Chip
                     label="AKTIV"
                     size="small"
                     color="primary"
                     variant="filled"
+                    sx={{ height: 20, fontSize: '0.65rem' }}
                   />
                 )}
               </Box>
 
-              {/* DH Annotations */}
-              {showTiers.dh && dhAnnotations.length > 0 && (
-                <Box sx={{ mb: 1 }}>
-                  <Typography variant="caption" color="text.secondary">
-                    Dominant hand:
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 0.5 }}>
-                    {dhAnnotations.map((annotation, idx) => (
-                      <Chip
-                        key={idx}
-                        label={annotation.value}
-                        size="small"
-                        color={getWordColor(annotation.value)}
-                        variant="outlined"
-                      />
-                    ))}
-                  </Box>
-                </Box>
-              )}
-
-              {/* NonDH Annotations */}
-              {showTiers.nonDh && nonDhAnnotations.length > 0 && (
-                <Box sx={{ mb: 1 }}>
-                  <Typography variant="caption" color="text.secondary">
-                    Icke-dominant hand:
-                  </Typography>
-                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5, mt: 0.5 }}>
-                    {nonDhAnnotations.map((annotation, idx) => (
-                      <Chip
-                        key={idx}
-                        label={annotation.value}
-                        size="small"
-                        color={getWordColor(annotation.value)}
-                        variant="outlined"
-                      />
-                    ))}
-                  </Box>
-                </Box>
-              )}
-
-              {/* Translation */}
-              {showTiers.translation && translationAnnotations.length > 0 && (
+              {/* Två-kolumners layout */}
+              <Box sx={{ 
+                display: 'grid', 
+                gridTemplateColumns: showTiers.translation ? '1fr 1fr' : '1fr',
+                gap: 2
+              }}>
+                {/* Vänster kolumn: Glosor (DH och NonDH) */}
                 <Box>
-                  <Typography variant="caption" color="text.secondary">
-                    Översättning:
-                  </Typography>
-                  <Typography variant="body2" sx={{ mt: 0.5, fontStyle: 'italic' }}>
-                    {translationAnnotations.map(a => a.value).join(' ')}
-                  </Typography>
+                  {/* DH Annotations */}
+                  {showTiers.dh && dhAnnotations.length > 0 && (
+                    <Box sx={{ mb: 0.5 }}>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+                        DH:
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                        {dhAnnotations.map(a => a.value).join(' · ')}
+                      </Typography>
+                    </Box>
+                  )}
+
+                  {/* NonDH Annotations */}
+                  {showTiers.nonDh && nonDhAnnotations.length > 0 && (
+                    <Box>
+                      <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+                        NonDH:
+                      </Typography>
+                      <Typography variant="body2" sx={{ fontSize: '0.85rem' }}>
+                        {nonDhAnnotations.map(a => a.value).join(' · ')}
+                      </Typography>
+                    </Box>
+                  )}
                 </Box>
-              )}
+
+                {/* Höger kolumn: Översättning */}
+                {showTiers.translation && translationAnnotations.length > 0 && (
+                  <Box sx={{ 
+                    borderLeft: showTiers.dh || showTiers.nonDh ? 1 : 0,
+                    borderColor: 'divider',
+                    pl: showTiers.dh || showTiers.nonDh ? 2 : 0
+                  }}>
+                    <Typography variant="body2" sx={{ fontSize: '0.85rem', fontStyle: 'italic' }}>
+                      {translationAnnotations.map(a => a.value).join(' ')}
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
             </Paper>
           );
         })}
