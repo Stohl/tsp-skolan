@@ -19,10 +19,11 @@ import {
   Collapse,
   Grid,
   Paper,
-  Link
+  Link,
+  IconButton
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School, CheckCircle, HourglassEmpty } from '@mui/icons-material';
+import { List as ListIcon, PlayArrow, ExpandMore, ExpandLess, School, CheckCircle, HourglassEmpty, ArrowBack } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { getAllWordLists, getWordsFromList, WordList, getDifficultyInfo } from '../types/wordLists';
 import { getPhrasesForWord } from '../types/database';
@@ -853,7 +854,15 @@ const ListorPage: React.FC = () => {
       py: 4
     }}>
       <Container maxWidth="lg">
-        {/* Modern header */}
+        {/* Header med tillbaka-knapp */}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <IconButton onClick={() => window.history.back()} sx={{ mr: 2 }}>
+            <ArrowBack />
+          </IconButton>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+            Ordlistor
+          </Typography>
+        </Box>
 
         {/* Modern tabs container */}
         <Paper sx={{ 

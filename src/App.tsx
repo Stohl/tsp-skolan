@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { 
   Box, 
-  BottomNavigation, 
-  BottomNavigationAction, 
-  Paper,
   Container,
   Typography,
   CircularProgress,
@@ -15,10 +12,6 @@ import {
   DialogActions
 } from '@mui/material';
 import { 
-  SportsKabaddiRounded,
-  FormatListBulletedRounded,
-  MenuBookRounded,
-  SettingsRounded,
   Refresh
 } from '@mui/icons-material';
 
@@ -30,6 +23,7 @@ import KorpusPage from './pages/KorpusPage';
 import InstallningarPage from './pages/InstallningarPage';
 import HjalpPage from './pages/HjalpPage';
 import StartGuideDialog from './components/StartGuideDialog';
+import MainMenu from './components/MainMenu';
 
 // Importera Providers
 import { DatabaseProvider, useDatabase } from './contexts/DatabaseContext';
@@ -63,6 +57,8 @@ function AppContent() {
   const [showStartGuide, setShowStartGuide] = useState(false);
   // State för att hantera dialog om att lägga till ordlistor
   const [showAddWordsDialog, setShowAddWordsDialog] = useState(false);
+  // State för att hantera huvudmenyn
+  const [showMenu, setShowMenu] = useState(false);
 
   // Helper-funktioner för att uppdatera både state och browser history
   const navigateToHelp = () => {
@@ -227,7 +223,7 @@ function AppContent() {
 
   // Array med alla sidor för enkel rendering
   const pages = [
-    <OvningPage key="ovning" onShowKorpus={navigateToKorpus} />,
+    <OvningPage key="ovning" onShowKorpus={navigateToKorpus} onOpenMenu={() => setShowMenu(true)} />,
     <ListorPage key="listor" />,
     <LexikonPage key="lexikon" />,
     <InstallningarPage key="installningar" onShowHelp={navigateToHelp} />
@@ -273,11 +269,10 @@ function AppContent() {
         bgcolor: 'background.default'
       }}>
         
-        {/* Innehållsområde som tar upp allt utom bottom navigation */}
+        {/* Innehållsområde */}
         <Box sx={{ 
           flex: 1, 
-          overflow: 'auto',
-          pb: showHelp || showKorpus ? 0 : 7 // Ingen padding när hjälp- eller korpus-sidan visas eftersom de har egen header
+          overflow: 'auto'
         }}>
           {showHelp ? (
             <HjalpPage onBack={navigateBack} />
@@ -288,71 +283,14 @@ function AppContent() {
           )}
         </Box>
 
-        {/* Bottom navigation som alltid syns längst ner */}
-        <Paper 
-          sx={{ 
-            position: 'fixed', 
-            bottom: 0, 
-            left: 0, 
-            right: 0,
-            zIndex: 1000,
-            borderTopLeftRadius: 16,
-            borderTopRightRadius: 16,
-            overflow: 'hidden',
-            backdropFilter: 'blur(10px)',
-            background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.12) 0%, rgba(118, 75, 162, 0.12) 100%)',
-            borderTop: '1px solid rgba(255,255,255,0.4)'
-          }} 
-          elevation={6}
-        >
-          <BottomNavigation
-            value={currentPage}
-            onChange={handlePageChange}
-            showLabels
-            sx={{
-              px: 1,
-              '& .MuiBottomNavigationAction-root': {
-                minWidth: 0,
-                px: 1.5,
-                borderRadius: 10,
-                transition: 'all 0.2s ease',
-                color: 'text.secondary',
-                '& .MuiSvgIcon-root': { fontSize: 26 },
-                '&.Mui-selected': {
-                  color: 'primary.main',
-                  backgroundColor: 'rgba(25, 118, 210, 0.10)',
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(25, 118, 210, 0.08)'
-                }
-              },
-              '& .Mui-selected .MuiBottomNavigationAction-label': {
-                fontWeight: 700
-              }
-            }}
-          >
-            {/* Övning */}
-            <BottomNavigationAction 
-              label="Övning" 
-              icon={<SportsKabaddiRounded />}
-            />
-            {/* Ordlistor */}
-            <BottomNavigationAction 
-              label="Ordlistor" 
-              icon={<FormatListBulletedRounded />}
-            />
-            {/* Lexikon */}
-            <BottomNavigationAction 
-              label="Lexikon" 
-              icon={<MenuBookRounded />}
-            />
-            {/* Inställningar */}
-            <BottomNavigationAction 
-              label="Inställningar" 
-              icon={<SettingsRounded />}
-            />
-          </BottomNavigation>
-        </Paper>
+        {/* Huvudmeny (drawer från höger) */}
+        <MainMenu 
+          open={showMenu} 
+          onClose={() => setShowMenu(false)}
+          onNavigate={(pageIndex) => {
+            handlePageChange({} as React.SyntheticEvent, pageIndex);
+          }}
+        />
       </Box>
 
       {/* Start-guide dialog */}

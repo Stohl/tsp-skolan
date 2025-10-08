@@ -139,12 +139,12 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
           <ArrowBack />
         </IconButton>
         <Typography variant="h4">
-          Korpus-övningar
+          Berättelser
         </Typography>
       </Box>
       
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Välj en video att titta på. Tabellen visar hur många av orden du redan har lärt dig.
+        Välj en video att titta på.
       </Typography>
 
       {/* Statistik */}

@@ -12,7 +12,8 @@ import {
   Switch,
   Container,
   Slider,
-  Link
+  Link,
+  IconButton
 } from '@mui/material';
 import { 
   Settings,
@@ -20,7 +21,8 @@ import {
   Help,
   Info,
   Refresh,
-  FilterList
+  FilterList,
+  ArrowBack
 } from '@mui/icons-material';
 import { useTheme } from '../contexts/ThemeContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -124,6 +126,16 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     <Box sx={{ minHeight: '100vh', py: 3 }}>
       <Container maxWidth="sm">
 
+      {/* Header med tillbaka-knapp */}
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <IconButton onClick={() => window.history.back()} sx={{ mr: 2 }}>
+          <ArrowBack />
+        </IconButton>
+        <Typography variant="h4" sx={{ fontWeight: 700 }}>
+          Inställningar
+        </Typography>
+      </Box>
+
       {/* Lista med inställningsalternativ */}
       <Card>
         <List>
@@ -149,8 +161,8 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
               <FilterList />
             </ListItemIcon>
             <ListItemText 
-              primary="Förslag på fler ordlistor" 
-              secondary={showAddWordsDialog ? 'Dialog visas när du har få ord att lära' : 'Dialog är avstängd'}
+              primary="Fråga om nya/fler ordlistor" 
+              secondary={showAddWordsDialog ? 'Visas när du har få ord att lära dig' : 'Dialog är avstängd'}
             />
             <Switch 
               edge="end" 

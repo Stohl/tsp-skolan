@@ -21,9 +21,10 @@ import {
   Link,
   Select,
   MenuItem,
-  Button
+  Button,
+  IconButton
 } from '@mui/material';
-import { Book, Search, PlayArrow, Add } from '@mui/icons-material';
+import { Book, Search, PlayArrow, Add, ArrowBack } from '@mui/icons-material';
 import { useDatabase } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
 import { searchWords, getAllSubjects, getWordsBySubject, getPhrasesForWord } from '../types/database';
@@ -114,8 +115,15 @@ const LexikonPage: React.FC = () => {
       py: 4
     }}>
       <Container maxWidth="lg">
-        {/* Modern header */}
-        
+        {/* Header med tillbaka-knapp */}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <IconButton onClick={() => window.history.back()} sx={{ mr: 2 }}>
+            <ArrowBack />
+          </IconButton>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
+            Lexikon
+          </Typography>
+        </Box>
 
         {/* Sökfält container */}
         <Paper sx={{ 

@@ -42,7 +42,8 @@ import {
   Quiz,
   Gesture,
   Spellcheck,
-  ChatBubbleOutline
+  ChatBubbleOutline,
+  Menu
 } from '@mui/icons-material';
 import { useDatabase, WordIndex } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -2039,9 +2040,10 @@ const SentencesPracticeExercise: React.FC<{
 // Huvudkomponent för övningssidan
 interface OvningPageProps {
   onShowKorpus?: () => void;
+  onOpenMenu?: () => void;
 }
 
-const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
+const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => {
   const { wordDatabase, phraseDatabase, wordIndex, isLoading, error } = useDatabase();
   const { getWordsForPractice, markWordResult, setWordLevel, wordProgress, createWordGroups, markWordGroupAsLearned, updateWordProgress } = useWordProgress();
   
@@ -3469,11 +3471,26 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
     return (
       <Box sx={{ minHeight: '100vh' }}>
       <Container maxWidth="md" sx={{ py: 4 }}>
-          {/* Header */}
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
+          {/* Header med meny-knapp */}
+          <Box sx={{ position: 'relative', textAlign: 'center', mb: 4 }}>
             <Typography variant="h3" component="h1" sx={{ fontWeight: 700, color: 'primary.main' }}>
               TSP Skolan
             </Typography>
+            {/* Meny-knapp högst upp till höger */}
+            {onOpenMenu && (
+              <IconButton
+                onClick={onOpenMenu}
+                sx={{
+                  position: 'absolute',
+                  right: 0,
+                  top: '50%',
+                  transform: 'translateY(-50%)',
+                  color: 'primary.main'
+                }}
+              >
+                <Menu />
+              </IconButton>
+            )}
           </Box>
 
         <Box sx={{ 
@@ -3665,10 +3682,10 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
                 🎥
               </Typography>
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                Korpus
+                Berättelser
                 </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
-                Titta på riktiga teckenspråksvideor med annoteringar.
+                Titta på berättelser med annoteringar.
                 </Typography>
               </CardContent>
             </Card>
