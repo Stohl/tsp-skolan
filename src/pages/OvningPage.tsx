@@ -43,7 +43,8 @@ import {
   Gesture,
   Spellcheck,
   ChatBubbleOutline,
-  Menu
+  Menu,
+  ArrowBack
 } from '@mui/icons-material';
 import { useDatabase, WordIndex } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -4039,6 +4040,20 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Container maxWidth="md" sx={{ py: 4 }}>
+        {/* Header med tillbaka-knapp */}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <IconButton onClick={() => window.history.back()} sx={{ mr: 2 }}>
+            <ArrowBack />
+          </IconButton>
+          <Typography variant="h5" sx={{ fontWeight: 600 }}>
+            {selectedExerciseType === ExerciseType.FLASHCARDS && 'Teckna själv'}
+            {selectedExerciseType === ExerciseType.QUIZ && 'Se tecknet'}
+            {selectedExerciseType === ExerciseType.SIGN && 'Teckna själv'}
+            {selectedExerciseType === ExerciseType.SPELLING && 'Bokstavering'}
+            {selectedExerciseType === ExerciseType.SENTENCES && 'Meningar'}
+          </Typography>
+        </Box>
+
         {/* Header med progress */}
         <Box sx={{ mb: 0.3 }}>
           {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering, meningar och quiz */}
