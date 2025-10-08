@@ -80,12 +80,43 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
   const [showSettings, setShowSettings] = useState(false);
   const [videoDuration, setVideoDuration] = useState(0);
   
-  // Settings för vilka tiers som ska visas
-  const [showTiers, setShowTiers] = useState({
-    dh: true,      // Dominant Hand
-    nonDh: true,   // Non-Dominant Hand
-    translation: true  // Översättning
+  // Settings för vilka tiers som ska visas i varje kolumn (med localStorage)
+  const [leftTiers, setLeftTiers] = useState<string[]>(() => {
+    const saved = localStorage.getItem('korpus_left_tiers');
+    return saved ? JSON.parse(saved) : ['Glosa_DH S1', 'Glosa_NonDH S1'];
   });
+  
+  const [rightTiers, setRightTiers] = useState<string[]>(() => {
+    const saved = localStorage.getItem('korpus_right_tiers');
+    return saved ? JSON.parse(saved) : ['Översättning S1'];
+  });
+  
+  const [leftSticky, setLeftSticky] = useState(() => {
+    const saved = localStorage.getItem('korpus_left_sticky');
+    return saved ? JSON.parse(saved) : false;
+  });
+  
+  const [rightSticky, setRightSticky] = useState(() => {
+    const saved = localStorage.getItem('korpus_right_sticky');
+    return saved ? JSON.parse(saved) : true;
+  });
+  
+  // Spara inställningar till localStorage när de ändras
+  useEffect(() => {
+    localStorage.setItem('korpus_left_tiers', JSON.stringify(leftTiers));
+  }, [leftTiers]);
+  
+  useEffect(() => {
+    localStorage.setItem('korpus_right_tiers', JSON.stringify(rightTiers));
+  }, [rightTiers]);
+  
+  useEffect(() => {
+    localStorage.setItem('korpus_left_sticky', JSON.stringify(leftSticky));
+  }, [leftSticky]);
+  
+  useEffect(() => {
+    localStorage.setItem('korpus_right_sticky', JSON.stringify(rightSticky));
+  }, [rightSticky]);
   
   // Track om användaren scrollar manuellt
   const isUserScrolling = useRef(false);
@@ -201,9 +232,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
 
   // Kolla om annotation ska visas baserat på tier-inställningar
   const shouldShowAnnotation = (annotation: Annotation): boolean => {
-    if (annotation.tier_name.includes('Glosa_DH') && !showTiers.dh) return false;
-    if (annotation.tier_name.includes('Glosa_NonDH') && !showTiers.nonDh) return false;
-    if (annotation.tier_name.includes('Översättning') && !showTiers.translation) return false;
+    // Visa alltid alla annotations - vi filtrerar vid rendering istället
     return true;
   };
 
@@ -260,12 +289,12 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     return 'default'; // Omarkerad
   };
 
-  // Memoize annotation groups och uppdatera när korpusData eller showTiers ändras
+  // Memoize annotation groups och uppdatera när korpusData ändras
   const annotationGroups = useMemo(() => {
     if (!korpusData) return [];
     return getAllAnnotationsGrouped();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [korpusData, showTiers]);
+  }, [korpusData]);
 
   // Kontinuerlig, smooth auto-scroll som synkar med video (använder requestAnimationFrame för jämnhet)
   useEffect(() => {
@@ -437,38 +466,81 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
         {/* Settings panel */}
         <Collapse in={showSettings}>
           <Box sx={{ mt: 2, pt: 2, borderTop: 1, borderColor: 'divider' }}>
-            <Typography variant="subtitle2" gutterBottom>
-              Visa annoteringar:
-            </Typography>
-            <FormGroup row>
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showTiers.dh}
-                    onChange={(e) => setShowTiers({ ...showTiers, dh: e.target.checked })}
+            <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr' }, gap: 3 }}>
+              {/* Vänster kolumn inställning */}
+              <Box>
+                <Typography variant="subtitle2" gutterBottom>
+                  Vänster kolumn:
+                </Typography>
+                <FormGroup>
+                  {korpusData?.tiers.map((tier) => (
+                    <FormControlLabel
+                      key={`left-${tier.tier_id}`}
+                      control={
+                        <Switch
+                          checked={leftTiers.includes(tier.name)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setLeftTiers([...leftTiers, tier.name]);
+                            } else {
+                              setLeftTiers(leftTiers.filter(t => t !== tier.name));
+                            }
+                          }}
+                        />
+                      }
+                      label={tier.name}
+                    />
+                  ))}
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={leftSticky}
+                        onChange={(e) => setLeftSticky(e.target.checked)}
+                      />
+                    }
+                    label="Sticky (häng kvar)"
+                    sx={{ mt: 1, fontWeight: 'bold' }}
                   />
-                }
-                label="Dominant hand"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showTiers.nonDh}
-                    onChange={(e) => setShowTiers({ ...showTiers, nonDh: e.target.checked })}
+                </FormGroup>
+              </Box>
+
+              {/* Höger kolumn inställning */}
+              <Box>
+                <Typography variant="subtitle2" gutterBottom>
+                  Höger kolumn:
+                </Typography>
+                <FormGroup>
+                  {korpusData?.tiers.map((tier) => (
+                    <FormControlLabel
+                      key={`right-${tier.tier_id}`}
+                      control={
+                        <Switch
+                          checked={rightTiers.includes(tier.name)}
+                          onChange={(e) => {
+                            if (e.target.checked) {
+                              setRightTiers([...rightTiers, tier.name]);
+                            } else {
+                              setRightTiers(rightTiers.filter(t => t !== tier.name));
+                            }
+                          }}
+                        />
+                      }
+                      label={tier.name}
+                    />
+                  ))}
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        checked={rightSticky}
+                        onChange={(e) => setRightSticky(e.target.checked)}
+                      />
+                    }
+                    label="Sticky (häng kvar)"
+                    sx={{ mt: 1, fontWeight: 'bold' }}
                   />
-                }
-                label="Icke-dominant hand"
-              />
-              <FormControlLabel
-                control={
-                  <Switch
-                    checked={showTiers.translation}
-                    onChange={(e) => setShowTiers({ ...showTiers, translation: e.target.checked })}
-                  />
-                }
-                label="Översättning"
-              />
-            </FormGroup>
+                </FormGroup>
+              </Box>
+            </Box>
           </Box>
         </Collapse>
       </Paper>
@@ -502,7 +574,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
           gap: 3,
           minHeight: videoDuration * 100 // Höjd proportionell till video-längd (100px per sekund)
         }}>
-          {/* Vänster kolumn: Glosor (DH och NonDH) */}
+          {/* Vänster kolumn */}
           <Box sx={{ position: 'relative', borderRight: 1, borderColor: 'divider', pr: 2 }}>
             {annotationGroups.map((group, groupIndex) => {
               const startTime = Math.min(...group.map(a => a.start_time));
@@ -510,73 +582,26 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               const duration = endTime - startTime;
               const isActive = currentTime >= startTime && currentTime <= endTime;
               
-              const dhAnnotations = group.filter(a => a.tier_name.includes('Glosa_DH'));
-              const nonDhAnnotations = group.filter(a => a.tier_name.includes('Glosa_NonDH'));
+              // Filtrera annotations baserat på valda tiers för vänster kolumn
+              const selectedAnnotations = group.filter(a => leftTiers.includes(a.tier_name));
               
-              // Visa bara om det finns glosa-data
-              if (!showTiers.dh && !showTiers.nonDh) return null;
-              if (dhAnnotations.length === 0 && nonDhAnnotations.length === 0) return null;
+              if (selectedAnnotations.length === 0) return null;
               
               const topPosition = (startTime / videoDuration) * videoDuration * 100;
-              const height = duration * 100; // Höjd proportionell till duration
+              const height = duration * 100;
+              
+              // Kontrollera om någon av de valda tiers är översättning
+              const isTranslation = selectedAnnotations.some(a => a.tier_name.includes('Översättning'));
               
               return (
                 <Box
-                  key={`gloss-${groupIndex}`}
+                  key={`left-${groupIndex}`}
                   className={isActive ? 'annotation-active' : ''}
                   data-start-time={startTime}
                   sx={{
                     position: 'absolute',
                     top: `${topPosition}px`,
-                    left: 0,
-                    right: 0,
-                    py: 0.5,
-                    pl: 1,
-                    borderLeft: 3,
-                    borderColor: isActive ? 'primary.main' : 'transparent',
-                    bgcolor: isActive ? 'action.selected' : 'transparent'
-                  }}
-                >
-                  {showTiers.dh && dhAnnotations.length > 0 && (
-                    <Typography variant="body1" sx={{ fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' }, fontWeight: 500 }}>
-                      {dhAnnotations.map(a => a.value).join(' ')}
-                    </Typography>
-                  )}
-                  {showTiers.nonDh && nonDhAnnotations.length > 0 && (
-                    <Typography variant="body2" sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, color: 'text.secondary' }}>
-                      {nonDhAnnotations.map(a => a.value).join(' ')}
-                    </Typography>
-                  )}
-                </Box>
-              );
-            })}
-          </Box>
-
-          {/* Höger kolumn: Översättningar */}
-          <Box sx={{ position: 'relative' }}>
-            {annotationGroups.map((group, groupIndex) => {
-              const startTime = Math.min(...group.map(a => a.start_time));
-              const endTime = Math.max(...group.map(a => a.end_time));
-              const duration = endTime - startTime;
-              const isActive = currentTime >= startTime && currentTime <= endTime;
-              
-              const translationAnnotations = group.filter(a => a.tier_name.includes('Översättning'));
-              
-              // Visa bara om översättning finns
-              if (!showTiers.translation || translationAnnotations.length === 0) return null;
-              
-              const topPosition = (startTime / videoDuration) * videoDuration * 100;
-              const height = duration * 100; // Höjd proportionell till duration
-              
-              return (
-                <Box
-                  key={`trans-${groupIndex}`}
-                  className={isActive ? 'annotation-active' : ''}
-                  data-start-time={startTime}
-                  sx={{
-                    position: 'absolute',
-                    top: `${topPosition}px`,
-                    height: `${height}px`,
+                    height: leftSticky ? `${height}px` : 'auto',
                     left: 0,
                     right: 0,
                     borderLeft: 3,
@@ -585,13 +610,87 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   }}
                 >
                   <Box sx={{
-                    position: 'sticky',
+                    position: leftSticky ? 'sticky' : 'static',
                     top: 0,
                     py: 0.5,
                     pl: 1
                   }}>
-                    <Typography variant="body1" sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' }, fontStyle: 'italic', color: 'text.secondary', lineHeight: 1.5 }}>
-                      {translationAnnotations.map(a => a.value).join(' ')}
+                    <Typography variant="body1" sx={{ 
+                      fontSize: isTranslation ? { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' } : { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                      fontStyle: isTranslation ? 'italic' : 'normal',
+                      fontWeight: isTranslation ? 'normal' : 500,
+                      color: isTranslation ? 'text.secondary' : 'text.primary',
+                      lineHeight: 1.5
+                    }}>
+                      {selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
+                        <React.Fragment key={idx}>
+                          {part}
+                          {idx < arr.length - 1 && '+'}
+                          {idx < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
+                    </Typography>
+                  </Box>
+                </Box>
+              );
+            })}
+          </Box>
+
+          {/* Höger kolumn */}
+          <Box sx={{ position: 'relative' }}>
+            {annotationGroups.map((group, groupIndex) => {
+              const startTime = Math.min(...group.map(a => a.start_time));
+              const endTime = Math.max(...group.map(a => a.end_time));
+              const duration = endTime - startTime;
+              const isActive = currentTime >= startTime && currentTime <= endTime;
+              
+              // Filtrera annotations baserat på valda tiers för höger kolumn
+              const selectedAnnotations = group.filter(a => rightTiers.includes(a.tier_name));
+              
+              if (selectedAnnotations.length === 0) return null;
+              
+              const topPosition = (startTime / videoDuration) * videoDuration * 100;
+              const height = duration * 100;
+              
+              // Kontrollera om någon av de valda tiers är översättning
+              const isTranslation = selectedAnnotations.some(a => a.tier_name.includes('Översättning'));
+              
+              return (
+                <Box
+                  key={`right-${groupIndex}`}
+                  className={isActive ? 'annotation-active' : ''}
+                  data-start-time={startTime}
+                  sx={{
+                    position: 'absolute',
+                    top: `${topPosition}px`,
+                    height: rightSticky ? `${height}px` : 'auto',
+                    left: 0,
+                    right: 0,
+                    borderLeft: 3,
+                    borderColor: isActive ? 'primary.main' : 'transparent',
+                    bgcolor: isActive ? 'action.selected' : 'transparent'
+                  }}
+                >
+                  <Box sx={{
+                    position: rightSticky ? 'sticky' : 'static',
+                    top: 0,
+                    py: 0.5,
+                    pl: 1
+                  }}>
+                    <Typography variant="body1" sx={{ 
+                      fontSize: isTranslation ? { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' } : { xs: '1rem', sm: '1.1rem', md: '1.2rem' },
+                      fontStyle: isTranslation ? 'italic' : 'normal',
+                      fontWeight: isTranslation ? 'normal' : 500,
+                      color: isTranslation ? 'text.secondary' : 'text.primary',
+                      lineHeight: 1.5
+                    }}>
+                      {selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
+                        <React.Fragment key={idx}>
+                          {part}
+                          {idx < arr.length - 1 && '+'}
+                          {idx < arr.length - 1 && <br />}
+                        </React.Fragment>
+                      ))}
                     </Typography>
                   </Box>
                 </Box>
