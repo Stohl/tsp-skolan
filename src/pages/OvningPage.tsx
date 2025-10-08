@@ -2420,6 +2420,19 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
   const startSentencesExercise = (levels: string[]) => {
     console.log(`[DEBUG] startSentencesExercise called with levels: ${levels.join(', ')}`);
 
+    // Pusha history state för meningar med valda nivåer
+    window.history.pushState(
+      { 
+        page: 0,
+        showHelp: false, 
+        showKorpus: false, 
+        exerciseType: ExerciseType.SENTENCES,
+        sentenceLevels: levels
+      },
+      '',
+      window.location.href
+    );
+
     // Samla alla tillgängliga meningar för de valda nivåerna
     const allAvailable: any[] = [];
     levels.forEach((lvl) => {
@@ -2583,6 +2596,38 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
     setCurrentWordIndex(0);
     setShowResults(false);
     setResults([]);
+  }, []);
+
+  // Lyssna på browser back/forward för att återställa till övningsval
+  useEffect(() => {
+    const handlePopState = (event: PopStateEvent) => {
+      // Om state indikerar att vi är på övningssidan men utan vald övning
+      if (event.state?.exerciseType === null || !event.state?.exerciseType) {
+        setSelectedExerciseType(null);
+        setSpellingWords([]);
+        setSentencesWords([]);
+        setCurrentWordIndex(0);
+        setShowResults(false);
+        setResults([]);
+      } else if (event.state?.exerciseType === ExerciseType.SPELLING && !event.state?.spellingRange) {
+        // Tillbaka till bokstavering-val (utan specifikt intervall)
+        setSpellingWords([]);
+        setCurrentWordIndex(0);
+        setShowResults(false);
+        setResults([]);
+      } else if (event.state?.exerciseType === ExerciseType.SENTENCES && !event.state?.sentenceLevels) {
+        // Tillbaka till meningar-val (utan specifika nivåer)
+        setSentencesWords([]);
+        setCurrentWordIndex(0);
+        setShowResults(false);
+        setResults([]);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => {
+      window.removeEventListener('popstate', handlePopState);
+    };
   }, []);
 
   // Återställ även när komponenten åter-mountas (när användaren klickar på samma sida igen)
@@ -2842,6 +2887,18 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
       }
     }
     
+    // Pusha history state för övningsvalet
+    window.history.pushState(
+      { 
+        page: 0, // Övningssidan är alltid page 0
+        showHelp: false, 
+        showKorpus: false, 
+        exerciseType: exerciseType 
+      },
+      '',
+      window.location.href
+    );
+
     setSelectedExerciseType(exerciseType);
     setCurrentWordIndex(0);
     setResults([]);
@@ -3026,16 +3083,26 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus }) => {
 
   // Funktion som körs när användaren startar om övningen
   const handleRestart = () => {
-    setSelectedExerciseType(null);
-    setCurrentWordIndex(0);
-    setResults([]);
-    setShowResults(false);
-    setLearningWordsOnly(false);
+    // Gå tillbaka i history för att återställa till övningsval
+    window.history.back();
   };
 
   // Funktion för att starta bokstavering-övning
   const startSpellingExercise = (minLen: number, maxLen: number) => {
     console.log(`[DEBUG] startSpellingExercise called with range: ${minLen}-${maxLen}`);
+    
+    // Pusha history state för bokstavering med valt intervall
+    window.history.pushState(
+      { 
+        page: 0,
+        showHelp: false, 
+        showKorpus: false, 
+        exerciseType: ExerciseType.SPELLING,
+        spellingRange: { minLen, maxLen }
+      },
+      '',
+      window.location.href
+    );
     
     // Rensa staticPracticeWords för att undvika att öppna gamla övningar
     setStaticPracticeWords([]);

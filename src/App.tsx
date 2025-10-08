@@ -44,15 +44,60 @@ function AppContent() {
   const { setWordLevel } = useWordProgress();
   
   // State för att hålla reda på vilken sida som är aktiv
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(() => {
+    // Läs från URL state om det finns
+    const state = window.history.state;
+    return state?.page ?? 0;
+  });
   // State för att hantera om hjälpsidan ska visas
-  const [showHelp, setShowHelp] = useState(false);
+  const [showHelp, setShowHelp] = useState(() => {
+    const state = window.history.state;
+    return state?.showHelp ?? false;
+  });
   // State för att hantera om korpus-sidan ska visas
-  const [showKorpus, setShowKorpus] = useState(false);
+  const [showKorpus, setShowKorpus] = useState(() => {
+    const state = window.history.state;
+    return state?.showKorpus ?? false;
+  });
   // State för att hantera start-guiden
   const [showStartGuide, setShowStartGuide] = useState(false);
   // State för att hantera dialog om att lägga till ordlistor
   const [showAddWordsDialog, setShowAddWordsDialog] = useState(false);
+
+  // Helper-funktioner för att uppdatera både state och browser history
+  const navigateToHelp = () => {
+    window.history.pushState(
+      { page: currentPage, showHelp: true, showKorpus: false },
+      '',
+      window.location.href
+    );
+    setShowHelp(true);
+  };
+
+  const navigateToKorpus = () => {
+    window.history.pushState(
+      { page: currentPage, showHelp: false, showKorpus: true },
+      '',
+      window.location.href
+    );
+    setShowKorpus(true);
+  };
+
+  const navigateBack = () => {
+    window.history.back();
+  };
+
+  // Initiera browser history state vid första laddning
+  React.useEffect(() => {
+    // Om det inte finns något state, skapa initial state
+    if (!window.history.state) {
+      window.history.replaceState(
+        { page: currentPage, showHelp: false, showKorpus: false },
+        '',
+        window.location.href
+      );
+    }
+  }, []);
 
   // Kontrollera om användaren är ny (ingen sparad data)
   React.useEffect(() => {
@@ -159,25 +204,44 @@ function AppContent() {
       setCurrentPage(pageIndex);
     };
 
+    // Hantera browser back/forward
+    const handlePopState = (event: PopStateEvent) => {
+      const state = event.state;
+      if (state) {
+        setCurrentPage(state.page ?? 0);
+        setShowHelp(state.showHelp ?? false);
+        setShowKorpus(state.showKorpus ?? false);
+      }
+    };
+
     window.addEventListener('openStartGuide', handleOpenStartGuide);
     window.addEventListener('navigateToPage', handleNavigateToPage as EventListener);
+    window.addEventListener('popstate', handlePopState);
     
     return () => {
       window.removeEventListener('openStartGuide', handleOpenStartGuide);
       window.removeEventListener('navigateToPage', handleNavigateToPage as EventListener);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, []);
 
   // Array med alla sidor för enkel rendering
   const pages = [
-    <OvningPage key="ovning" onShowKorpus={() => setShowKorpus(true)} />,
+    <OvningPage key="ovning" onShowKorpus={navigateToKorpus} />,
     <ListorPage key="listor" />,
     <LexikonPage key="lexikon" />,
-    <InstallningarPage key="installningar" onShowHelp={() => setShowHelp(true)} />
+    <InstallningarPage key="installningar" onShowHelp={navigateToHelp} />
   ];
 
   // Funktion som körs när användaren klickar på en navigation-knapp
   const handlePageChange = (event: React.SyntheticEvent, newValue: number) => {
+    // Pusha ny history state
+    window.history.pushState(
+      { page: newValue, showHelp: false, showKorpus: false },
+      '',
+      window.location.href
+    );
+
     // Om användaren klickar på samma sida (t.ex. övning när man redan är på övning),
     // tvinga en återställning genom att sätta till -1 först, sedan till rätt värde
     if (newValue === currentPage) {
@@ -190,6 +254,10 @@ function AppContent() {
     // Stäng hjälpsidan om den är öppen när användaren navigerar
     if (showHelp) {
       setShowHelp(false);
+    }
+    // Stäng korpus-sidan om den är öppen när användaren navigerar
+    if (showKorpus) {
+      setShowKorpus(false);
     }
     // Scrolla till toppen av sidan
     window.scrollTo(0, 0);
@@ -212,9 +280,9 @@ function AppContent() {
           pb: showHelp || showKorpus ? 0 : 7 // Ingen padding när hjälp- eller korpus-sidan visas eftersom de har egen header
         }}>
           {showHelp ? (
-            <HjalpPage onBack={() => setShowHelp(false)} />
+            <HjalpPage onBack={navigateBack} />
           ) : showKorpus ? (
-            <KorpusPage onBack={() => setShowKorpus(false)} />
+            <KorpusPage onBack={navigateBack} />
           ) : (
             pages[currentPage]
           )}
