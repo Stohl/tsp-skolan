@@ -538,12 +538,12 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   }}
                 >
                   {showTiers.dh && dhAnnotations.length > 0 && (
-                    <Typography variant="body2" sx={{ fontSize: '0.9rem', fontWeight: 500 }}>
+                    <Typography variant="body1" sx={{ fontSize: { xs: '1rem', sm: '1.1rem', md: '1.2rem' }, fontWeight: 500 }}>
                       {dhAnnotations.map(a => a.value).join(' ')}
                     </Typography>
                   )}
                   {showTiers.nonDh && nonDhAnnotations.length > 0 && (
-                    <Typography variant="body2" sx={{ fontSize: '0.8rem', color: 'text.secondary' }}>
+                    <Typography variant="body2" sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.1rem' }, color: 'text.secondary' }}>
                       {nonDhAnnotations.map(a => a.value).join(' ')}
                     </Typography>
                   )}
@@ -590,7 +590,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                     py: 0.5,
                     pl: 1
                   }}>
-                    <Typography variant="body2" sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'text.secondary' }}>
+                    <Typography variant="body1" sx={{ fontSize: { xs: '1.1rem', sm: '1.2rem', md: '1.3rem' }, fontStyle: 'italic', color: 'text.secondary', lineHeight: 1.5 }}>
                       {translationAnnotations.map(a => a.value).join(' ')}
                     </Typography>
                   </Box>
