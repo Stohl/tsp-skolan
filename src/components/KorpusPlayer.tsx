@@ -495,16 +495,6 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
           bgcolor: 'background.paper'
         }}
       >
-        {/* Header */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3, position: 'sticky', top: 0, bgcolor: 'background.paper', zIndex: 1, pb: 1, borderBottom: 1, borderColor: 'divider' }}>
-          <Typography variant="h6">
-            Annoteringar
-          </Typography>
-          <Typography variant="caption" color="text.secondary">
-            {formatTime(currentTime)} / {formatTime(videoDuration)}
-          </Typography>
-        </Box>
-        
         {/* Två-kolumners layout för glosor och översättningar */}
         <Box sx={{ 
           display: 'grid', 
@@ -514,12 +504,11 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
         }}>
           {/* Vänster kolumn: Glosor (DH och NonDH) */}
           <Box sx={{ position: 'relative', borderRight: 1, borderColor: 'divider', pr: 2 }}>
-            <Typography variant="subtitle2" sx={{ mb: 2, position: 'sticky', top: 0, bgcolor: 'background.paper', pb: 1 }}>
-              Glosor
-            </Typography>
             {annotationGroups.map((group, groupIndex) => {
               const startTime = Math.min(...group.map(a => a.start_time));
-              const isActive = currentTime >= startTime && currentTime <= startTime + 0.5;
+              const endTime = Math.max(...group.map(a => a.end_time));
+              const duration = endTime - startTime;
+              const isActive = currentTime >= startTime && currentTime <= endTime;
               
               const dhAnnotations = group.filter(a => a.tier_name.includes('Glosa_DH'));
               const nonDhAnnotations = group.filter(a => a.tier_name.includes('Glosa_NonDH'));
@@ -529,6 +518,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               if (dhAnnotations.length === 0 && nonDhAnnotations.length === 0) return null;
               
               const topPosition = (startTime / videoDuration) * videoDuration * 100;
+              const height = duration * 100; // Höjd proportionell till duration
               
               return (
                 <Box
@@ -541,10 +531,10 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                     left: 0,
                     right: 0,
                     py: 0.5,
+                    pl: 1,
                     borderLeft: 3,
                     borderColor: isActive ? 'primary.main' : 'transparent',
-                    bgcolor: isActive ? 'action.selected' : 'transparent',
-                    pl: 1
+                    bgcolor: isActive ? 'action.selected' : 'transparent'
                   }}
                 >
                   {showTiers.dh && dhAnnotations.length > 0 && (
@@ -564,12 +554,11 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
 
           {/* Höger kolumn: Översättningar */}
           <Box sx={{ position: 'relative' }}>
-            <Typography variant="subtitle2" sx={{ mb: 2, position: 'sticky', top: 0, bgcolor: 'background.paper', pb: 1 }}>
-              Översättning
-            </Typography>
             {annotationGroups.map((group, groupIndex) => {
               const startTime = Math.min(...group.map(a => a.start_time));
-              const isActive = currentTime >= startTime && currentTime <= startTime + 0.5;
+              const endTime = Math.max(...group.map(a => a.end_time));
+              const duration = endTime - startTime;
+              const isActive = currentTime >= startTime && currentTime <= endTime;
               
               const translationAnnotations = group.filter(a => a.tier_name.includes('Översättning'));
               
@@ -577,6 +566,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               if (!showTiers.translation || translationAnnotations.length === 0) return null;
               
               const topPosition = (startTime / videoDuration) * videoDuration * 100;
+              const height = duration * 100; // Höjd proportionell till duration
               
               return (
                 <Box
@@ -586,18 +576,24 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   sx={{
                     position: 'absolute',
                     top: `${topPosition}px`,
+                    height: `${height}px`,
                     left: 0,
                     right: 0,
-                    py: 0.5,
                     borderLeft: 3,
                     borderColor: isActive ? 'primary.main' : 'transparent',
-                    bgcolor: isActive ? 'action.selected' : 'transparent',
-                    pl: 1
+                    bgcolor: isActive ? 'action.selected' : 'transparent'
                   }}
                 >
-                  <Typography variant="body2" sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'text.secondary' }}>
-                    {translationAnnotations.map(a => a.value).join(' ')}
-                  </Typography>
+                  <Box sx={{
+                    position: 'sticky',
+                    top: 0,
+                    py: 0.5,
+                    pl: 1
+                  }}>
+                    <Typography variant="body2" sx={{ fontSize: '0.85rem', fontStyle: 'italic', color: 'text.secondary' }}>
+                      {translationAnnotations.map(a => a.value).join(' ')}
+                    </Typography>
+                  </Box>
                 </Box>
               );
             })}
