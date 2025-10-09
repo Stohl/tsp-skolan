@@ -54,6 +54,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   const [error, setError] = useState<string | null>(null);
   const [selectedKorpus, setSelectedKorpus] = useState<KorpusFile | null>(null);
   const { wordProgress } = useWordProgress();
+  const [watchedVideos, setWatchedVideos] = useState<Record<string, string>>({});
 
   // Ladda korpus-data
   useEffect(() => {
@@ -75,6 +76,42 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
 
     loadKorpusData();
   }, []);
+
+  // Ladda watched videos från localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('korpus-watched');
+    if (saved) {
+      setWatchedVideos(JSON.parse(saved));
+    }
+  }, []);
+
+  // Formatera watched-datum till text
+  const getWatchedText = (dateString: string | undefined): string => {
+    if (!dateString) return '—';
+    
+    const watched = new Date(dateString);
+    const today = new Date();
+    
+    // Nollställ tid för korrekt jämförelse av dagar
+    today.setHours(0, 0, 0, 0);
+    watched.setHours(0, 0, 0, 0);
+    
+    const diffTime = today.getTime() - watched.getTime();
+    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'Idag';
+    if (diffDays === 1) return 'Igår';
+    if (diffDays === 2) return 'Förrgår';
+    return `För ${diffDays} dagar sedan`;
+  };
+
+  // Markera video som sedd
+  const markAsWatched = (filename: string) => {
+    const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD format
+    const updated = { ...watchedVideos, [filename]: today };
+    setWatchedVideos(updated);
+    localStorage.setItem('korpus-watched', JSON.stringify(updated));
+  };
 
   // Räkna antal lärda ord för en fil
   const getLearnedWordsCount = (glossIds: string[]): number => {
@@ -175,6 +212,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
               <TableCell><strong>Filnamn</strong></TableCell>
               <TableCell align="center"><strong>Antal glosor</strong></TableCell>
               <TableCell align="center"><strong>Lärda ord</strong></TableCell>
+              <TableCell align="center"><strong>Senast sedd</strong></TableCell>
               <TableCell align="center"><strong>Framsteg</strong></TableCell>
             </TableRow>
           </TableHead>
@@ -188,7 +226,10 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                   key={file.filename}
                   hover
                   sx={{ cursor: 'pointer' }}
-                  onClick={() => setSelectedKorpus(file)}
+                  onClick={() => {
+                    markAsWatched(file.filename);
+                    setSelectedKorpus(file);
+                  }}
                 >
                   <TableCell>
                     <Typography variant="body1" sx={{ fontWeight: 500 }}>
@@ -206,6 +247,11 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                   <TableCell align="center">
                     <Typography variant="body2">
                       {learnedCount} / {file.gloss_ids.length}
+                    </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Typography variant="body2" color="text.secondary">
+                      {getWatchedText(watchedVideos[file.filename])}
                     </Typography>
                   </TableCell>
                   <TableCell align="center" sx={{ minWidth: 200 }}>
