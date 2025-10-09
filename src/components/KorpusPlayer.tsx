@@ -100,6 +100,15 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     const saved = localStorage.getItem('korpus_right_sticky');
     return saved ? JSON.parse(saved) : true;
   });
+
+  // State för att dölja översättningar (test-läge)
+  const [hideTranslations, setHideTranslations] = useState(() => {
+    const saved = localStorage.getItem('korpus_hide_translations');
+    return saved ? JSON.parse(saved) : false;
+  });
+
+  // State för att hålla koll på vilka översättningar som har visats
+  const [revealedAnnotations, setRevealedAnnotations] = useState<Set<string>>(new Set());
   
   // Spara inställningar till localStorage när de ändras
   useEffect(() => {
@@ -117,6 +126,10 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
   useEffect(() => {
     localStorage.setItem('korpus_right_sticky', JSON.stringify(rightSticky));
   }, [rightSticky]);
+
+  useEffect(() => {
+    localStorage.setItem('korpus_hide_translations', JSON.stringify(hideTranslations));
+  }, [hideTranslations]);
   
   // Track om användaren scrollar manuellt
   const isUserScrolling = useRef(false);
@@ -169,6 +182,31 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
       video.removeEventListener('pause', handlePause);
     };
   }, [korpusData]); // Lägg till korpusData så listeners sätts upp när videon är laddad
+
+  // Pausa videon när översättning når end_time (om hideTranslations är aktivt)
+  useEffect(() => {
+    if (!hideTranslations || !videoRef.current || !korpusData) return;
+    
+    const video = videoRef.current;
+    const allAnnotations = Object.values(korpusData.annotations).flat();
+    
+    // Hitta vilka översättningar som visas i kolumnerna
+    const visibleTranslationTiers = [
+      ...leftTiers.filter(t => t.includes('Översättning')),
+      ...rightTiers.filter(t => t.includes('Översättning'))
+    ];
+    
+    // Hitta översättning som just nått end_time
+    const justEndedTranslation = allAnnotations.find(a =>
+      visibleTranslationTiers.includes(a.tier_name) &&
+      !revealedAnnotations.has(a.annotation_id) &&
+      Math.abs(currentTime - a.end_time) < 0.15 // Litet tidsfönster
+    );
+    
+    if (justEndedTranslation && isPlaying) {
+      video.pause();
+    }
+  }, [currentTime, hideTranslations, korpusData, leftTiers, rightTiers, revealedAnnotations, isPlaying]);
 
   // Hitta aktiva annoteringar för nuvarande tid
   const getActiveAnnotations = (time: number) => {
@@ -234,6 +272,11 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
   const shouldShowAnnotation = (annotation: Annotation): boolean => {
     // Visa alltid alla annotations - vi filtrerar vid rendering istället
     return true;
+  };
+
+  // Visa en dold översättning
+  const revealTranslation = (annotationId: string) => {
+    setRevealedAnnotations(prev => new Set(prev).add(annotationId));
   };
 
   // Kolla om en annotation är aktiv
@@ -538,6 +581,29 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                 </FormGroup>
               </Box>
             </Box>
+
+            {/* Test-läge för översättningar */}
+            <Box sx={{ mt: 3, pt: 2, borderTop: 1, borderColor: 'divider' }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={hideTranslations}
+                    onChange={(e) => setHideTranslations(e.target.checked)}
+                    color="warning"
+                  />
+                }
+                label={
+                  <Box>
+                    <Typography variant="subtitle2">
+                      Dölj översättningar (test-läge)
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Översättningar döljs och videon pausar. Klicka på "_____" för att visa texten.
+                    </Typography>
+                  </Box>
+                }
+              />
+            </Box>
           </Box>
         </Collapse>
       </Paper>
@@ -617,15 +683,28 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                       fontStyle: isTranslation ? 'italic' : 'normal',
                       fontWeight: isTranslation ? 'normal' : 500,
                       color: isTranslation ? 'text.secondary' : 'text.primary',
-                      lineHeight: 1.5
-                    }}>
-                      {selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
-                        <React.Fragment key={idx}>
-                          {part}
-                          {idx < arr.length - 1 && '+'}
-                          {idx < arr.length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
+                      lineHeight: 1.5,
+                      cursor: isTranslation && hideTranslations ? 'pointer' : 'default',
+                      userSelect: 'none'
+                    }}
+                    onClick={(e) => {
+                      if (isTranslation && hideTranslations) {
+                        e.stopPropagation();
+                        selectedAnnotations.forEach(a => revealTranslation(a.annotation_id));
+                      }
+                    }}
+                    >
+                      {isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id)) ? (
+                        '_____________________'
+                      ) : (
+                        selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
+                          <React.Fragment key={idx}>
+                            {part}
+                            {idx < arr.length - 1 && '+'}
+                            {idx < arr.length - 1 && <br />}
+                          </React.Fragment>
+                        ))
+                      )}
                     </Typography>
                   </Box>
                 </Box>
@@ -679,15 +758,28 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                       fontStyle: isTranslation ? 'italic' : 'normal',
                       fontWeight: isTranslation ? 'normal' : 500,
                       color: isTranslation ? 'text.secondary' : 'text.primary',
-                      lineHeight: 1.5
-                    }}>
-                      {selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
-                        <React.Fragment key={idx}>
-                          {part}
-                          {idx < arr.length - 1 && '+'}
-                          {idx < arr.length - 1 && <br />}
-                        </React.Fragment>
-                      ))}
+                      lineHeight: 1.5,
+                      cursor: isTranslation && hideTranslations ? 'pointer' : 'default',
+                      userSelect: 'none'
+                    }}
+                    onClick={(e) => {
+                      if (isTranslation && hideTranslations) {
+                        e.stopPropagation();
+                        selectedAnnotations.forEach(a => revealTranslation(a.annotation_id));
+                      }
+                    }}
+                    >
+                      {isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id)) ? (
+                        '_____________________'
+                      ) : (
+                        selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
+                          <React.Fragment key={idx}>
+                            {part}
+                            {idx < arr.length - 1 && '+'}
+                            {idx < arr.length - 1 && <br />}
+                          </React.Fragment>
+                        ))
+                      )}
                     </Typography>
                   </Box>
                 </Box>
