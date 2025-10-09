@@ -12,7 +12,6 @@ import {
   CircularProgress,
   Alert,
   Chip,
-  LinearProgress,
   IconButton,
   Link
 } from '@mui/material';
@@ -129,6 +128,14 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
     return glossIds.length > 0 ? (learnedCount / glossIds.length) * 100 : 0;
   };
 
+  // Beräkna antal fyllda rutor baserat på procent
+  const getFilledBoxes = (percentage: number): number => {
+    if (percentage <= 10) return 0;
+    if (percentage <= 25) return 1;
+    if (percentage <= 50) return 2;
+    return 3;
+  };
+
   // Sortera korpus-filer
   const getSortedFiles = () => {
     if (!korpusData) return [];
@@ -171,13 +178,6 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
     }
   };
 
-  // Färg baserat på procent lärda ord
-  const getProgressColor = (percentage: number): 'primary' | 'secondary' | 'error' | 'info' | 'success' | 'warning' => {
-    if (percentage >= 80) return 'success';
-    if (percentage >= 60) return 'info';
-    if (percentage >= 40) return 'warning';
-    return 'error';
-  };
 
   // Om en korpus är vald, visa spelaren
   if (selectedKorpus) {
@@ -308,17 +308,20 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                       {getWatchedText(watchedVideos[file.filename])}
                     </Typography>
                   </TableCell>
-                  <TableCell align="center" sx={{ minWidth: 200 }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <LinearProgress 
-                        variant="determinate" 
-                        value={percentage} 
-                        sx={{ flexGrow: 1, height: 8, borderRadius: 4 }}
-                        color={getProgressColor(percentage)}
-                      />
-                      <Typography variant="body2" sx={{ minWidth: 40 }}>
-                        {Math.round(percentage)}%
-                      </Typography>
+                  <TableCell align="center">
+                    <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
+                      {[1, 2, 3].map(boxNumber => (
+                        <Box 
+                          key={boxNumber}
+                          sx={{ 
+                            width: 24, 
+                            height: 24, 
+                            borderRadius: 1,
+                            bgcolor: boxNumber <= getFilledBoxes(percentage) ? 'success.main' : 'grey.300',
+                            transition: 'background-color 0.3s ease'
+                          }} 
+                        />
+                      ))}
                     </Box>
                   </TableCell>
                 </TableRow>
