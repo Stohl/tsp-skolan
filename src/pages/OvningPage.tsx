@@ -3326,9 +3326,19 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
       <Box sx={{ minHeight: '100vh' }}>
       <Container maxWidth="lg" sx={{ py: 4 }}>
         
-        {/* Modern rutnät-layout */}
         {/* Infotext för bokstavering */}
-        <Box sx={{ mb: 4, textAlign: 'center' }}>
+        <Box sx={{ mb: 4, textAlign: 'center', position: 'relative' }}>
+          <IconButton 
+            onClick={() => window.history.back()} 
+            sx={{ 
+              position: 'absolute', 
+              left: 0, 
+              top: '50%', 
+              transform: 'translateY(-50%)'
+            }}
+          >
+            <ArrowBack />
+          </IconButton>
           <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
             Bokstavering
           </Typography>
@@ -4040,42 +4050,25 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Container maxWidth="md" sx={{ py: 4 }}>
-        {/* Header med tillbaka-knapp */}
-        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-          <IconButton onClick={() => window.history.back()} sx={{ mr: 2 }}>
-            <ArrowBack />
-          </IconButton>
-          <Typography variant="h5" sx={{ fontWeight: 600 }}>
-            {selectedExerciseType === ExerciseType.FLASHCARDS && 'Teckna själv'}
-            {selectedExerciseType === ExerciseType.QUIZ && 'Se tecknet'}
-            {selectedExerciseType === ExerciseType.SIGN && 'Teckna själv'}
-            {selectedExerciseType === ExerciseType.SPELLING && 'Bokstavering'}
-            {selectedExerciseType === ExerciseType.SENTENCES && 'Meningar'}
-          </Typography>
-        </Box>
-
-        {/* Header med progress */}
+        {/* Progress med tillbaka-knapp */}
         <Box sx={{ mb: 0.3 }}>
-          {/* Visa rubrik bara för andra övningstyper än flashcards, bokstavering, meningar och quiz */}
-          {selectedExerciseType !== ExerciseType.FLASHCARDS && selectedExerciseType !== ExerciseType.SPELLING && selectedExerciseType !== ExerciseType.SENTENCES && selectedExerciseType !== ExerciseType.QUIZ && (
-          <Typography variant="h4" gutterBottom align="center">
-            Övning
-          </Typography>
-          )}
-          
           {/* Visa progress bara för andra övningstyper än meningar */}
           {selectedExerciseType !== ExerciseType.SENTENCES && (
             <>
               
               {/* Progress-mätare */}
               {(selectedExerciseType === ExerciseType.FLASHCARDS || selectedExerciseType === ExerciseType.QUIZ) ? (
-                // Uppdelad progress för flashcards och quiz (10 korta horisontella streck)
-                <Box sx={{ mb: 0.1 }}>
+                // Uppdelad progress för flashcards och quiz (10 korta horisontella streck) med tillbaka-knapp
+                <Box sx={{ mb: 0.1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <IconButton onClick={() => window.history.back()} size="small">
+                    <ArrowBack />
+                  </IconButton>
                   <Box sx={{ 
                     display: 'flex', 
                     justifyContent: 'center',
                     alignItems: 'center',
-                    gap: { xs: 0.5, sm: 1 }
+                    gap: { xs: 0.5, sm: 1 },
+                    flex: 1
                   }}>
                     {Array.from({ length: 10 }, (_, index) => {
                       const result = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults[index] : quizResults[index];
@@ -4089,9 +4082,12 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
                   </Box>
                 </Box>
               ) : (
-                // Använd samma segmenterade stil även för Bokstavering och Meningar
-                <Box sx={{ mb: 0.1 }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: { xs: 0.5, sm: 1 } }}>
+                // Använd samma segmenterade stil även för Bokstavering med tillbaka-knapp
+                <Box sx={{ mb: 0.1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  <IconButton onClick={() => window.history.back()} size="small">
+                    <ArrowBack />
+                  </IconButton>
+                  <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: { xs: 0.5, sm: 1 }, flex: 1 }}>
                     {(() => {
                       const isSpelling = (selectedExerciseType as any) === ExerciseType.SPELLING;
                       const items = isSpelling ? spellingWords : sentencesWords;
@@ -4262,7 +4258,18 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
             ) : (
               <>
                 {/* Infotext för meningar */}
-                <Box sx={{ mb: 4, textAlign: 'center' }}>
+                <Box sx={{ mb: 4, textAlign: 'center', position: 'relative' }}>
+                  <IconButton 
+                    onClick={() => window.history.back()} 
+                    sx={{ 
+                      position: 'absolute', 
+                      left: 0, 
+                      top: '50%', 
+                      transform: 'translateY(-50%)'
+                    }}
+                  >
+                    <ArrowBack />
+                  </IconButton>
                   <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
                     Meningar
                   </Typography>

@@ -134,18 +134,25 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   return (
     <Box sx={{ p: 3 }}>
       {/* Header med tillbaka-knapp */}
-      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-        <IconButton onClick={onBack} sx={{ mr: 2 }}>
+      <Box sx={{ mb: 4, textAlign: 'center', position: 'relative' }}>
+        <IconButton 
+          onClick={onBack} 
+          sx={{ 
+            position: 'absolute', 
+            left: 0, 
+            top: '50%', 
+            transform: 'translateY(-50%)'
+          }}
+        >
           <ArrowBack />
         </IconButton>
-        <Typography variant="h4">
+        <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
           Berättelser
         </Typography>
+        <Typography variant="body1" color="text.secondary">
+          Välj en video att titta på.
+        </Typography>
       </Box>
-      
-      <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-        Välj en video att titta på.
-      </Typography>
 
       {/* Statistik */}
       <Box sx={{ mb: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
