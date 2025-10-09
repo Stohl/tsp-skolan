@@ -55,6 +55,8 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   const [selectedKorpus, setSelectedKorpus] = useState<KorpusFile | null>(null);
   const { wordProgress } = useWordProgress();
   const [watchedVideos, setWatchedVideos] = useState<Record<string, string>>({});
+  const [sortBy, setSortBy] = useState<'title' | 'glossCount' | 'watched' | 'progress'>('title');
+  const [sortAscending, setSortAscending] = useState(true);
 
   // Ladda korpus-data
   useEffect(() => {
@@ -125,6 +127,48 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   const getLearnedPercentage = (glossIds: string[]): number => {
     const learnedCount = getLearnedWordsCount(glossIds);
     return glossIds.length > 0 ? (learnedCount / glossIds.length) * 100 : 0;
+  };
+
+  // Sortera korpus-filer
+  const getSortedFiles = () => {
+    if (!korpusData) return [];
+    
+    const sorted = [...korpusData.files].sort((a, b) => {
+      let comparison = 0;
+      
+      switch (sortBy) {
+        case 'title':
+          comparison = a.title.localeCompare(b.title, 'sv');
+          break;
+        case 'glossCount':
+          comparison = a.gloss_count - b.gloss_count;
+          break;
+        case 'watched':
+          const dateA = watchedVideos[a.filename] || '';
+          const dateB = watchedVideos[b.filename] || '';
+          comparison = dateB.localeCompare(dateA); // Nyaste först som default
+          break;
+        case 'progress':
+          const percentA = getLearnedPercentage(a.gloss_ids);
+          const percentB = getLearnedPercentage(b.gloss_ids);
+          comparison = percentA - percentB;
+          break;
+      }
+      
+      return sortAscending ? comparison : -comparison;
+    });
+    
+    return sorted;
+  };
+
+  // Hantera klick på kolumnrubrik för sortering
+  const handleSort = (column: 'title' | 'glossCount' | 'watched' | 'progress') => {
+    if (sortBy === column) {
+      setSortAscending(!sortAscending);
+    } else {
+      setSortBy(column);
+      setSortAscending(true);
+    }
   };
 
   // Färg baserat på procent lärda ord
@@ -208,17 +252,37 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
         <Table>
           <TableHead>
             <TableRow>
-              <TableCell><strong>Titel</strong></TableCell>
-              <TableCell><strong>Filnamn</strong></TableCell>
-              <TableCell align="center"><strong>Antal glosor</strong></TableCell>
-              <TableCell align="center"><strong>Lärda ord</strong></TableCell>
-              <TableCell align="center"><strong>Senast sedd</strong></TableCell>
-              <TableCell align="center"><strong>Framsteg</strong></TableCell>
+              <TableCell 
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('title')}
+              >
+                <strong>Titel {sortBy === 'title' && (sortAscending ? '↑' : '↓')}</strong>
+              </TableCell>
+              <TableCell 
+                align="center"
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('glossCount')}
+              >
+                <strong>Antal glosor {sortBy === 'glossCount' && (sortAscending ? '↑' : '↓')}</strong>
+              </TableCell>
+              <TableCell 
+                align="center"
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('watched')}
+              >
+                <strong>Senast sedd {sortBy === 'watched' && (sortAscending ? '↑' : '↓')}</strong>
+              </TableCell>
+              <TableCell 
+                align="center"
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('progress')}
+              >
+                <strong>Framsteg {sortBy === 'progress' && (sortAscending ? '↑' : '↓')}</strong>
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {korpusData.files.map((file) => {
-              const learnedCount = getLearnedWordsCount(file.gloss_ids);
+            {getSortedFiles().map((file) => {
               const percentage = getLearnedPercentage(file.gloss_ids);
               
               return (
@@ -236,18 +300,8 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                       {file.title}
                     </Typography>
                   </TableCell>
-                  <TableCell>
-                    <Typography variant="body2" color="text.secondary">
-                      {file.filename}
-                    </Typography>
-                  </TableCell>
                   <TableCell align="center">
                     <Chip label={file.gloss_count} size="small" />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Typography variant="body2">
-                      {learnedCount} / {file.gloss_ids.length}
-                    </Typography>
                   </TableCell>
                   <TableCell align="center">
                     <Typography variant="body2" color="text.secondary">
