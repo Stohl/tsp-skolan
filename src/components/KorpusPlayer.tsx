@@ -453,9 +453,6 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
             </IconButton>
             <Box>
               <Typography variant="h6">{korpusFile.title}</Typography>
-              <Typography variant="caption" color="text.secondary">
-                {korpusFile.gloss_count} glosor
-              </Typography>
             </Box>
           </Box>
           <IconButton onClick={() => setShowSettings(!showSettings)}>

@@ -13,7 +13,8 @@ import {
   Alert,
   Chip,
   LinearProgress,
-  IconButton
+  IconButton,
+  Link
 } from '@mui/material';
 import { ArrowBack } from '@mui/icons-material';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -149,22 +150,20 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
           Berättelser
         </Typography>
-        <Typography variant="body1" color="text.secondary">
-          Välj en video att titta på.
+        <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', lineHeight: 1.6 }}>
+          <strong>Detta är en testversion av korpus-filmer.</strong>
         </Typography>
-      </Box>
-
-      {/* Statistik */}
-      <Box sx={{ mb: 3, p: 2, bgcolor: 'grey.50', borderRadius: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          Korpus-statistik
+        <Typography variant="body2" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', mt: 1, lineHeight: 1.6 }}>
+          Filmerna är hämtade från{' '}
+          <Link href="https://teckensprakskorpus.su.se" target="_blank" rel="noopener noreferrer">
+            STS-korpus vid Stockholms Universitet
+          </Link>
+          {' '}och används under{' '}
+          <Link href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.sv" target="_blank" rel="noopener noreferrer">
+            Creative Commons-licens (CC BY-NC-SA 4.0)
+          </Link>
+          . Ett enormt tack till korpussidan och Stockholms Universitet för att göra detta material tillgängligt!
         </Typography>
-        <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap' }}>
-          <Chip label={`${korpusData.total_files} filer`} color="primary" />
-          <Chip label={`${korpusData.total_unique_glosses} unika glosor`} color="secondary" />
-          <Chip label={`${korpusData.matched_glosses} matchade glosor`} color="info" />
-          <Chip label={`Uppdaterad: ${korpusData.last_updated}`} variant="outlined" />
-        </Box>
       </Box>
 
       {/* Tabell med korpus-filer */}
