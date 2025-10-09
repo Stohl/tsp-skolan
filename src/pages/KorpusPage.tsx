@@ -13,9 +13,15 @@ import {
   Alert,
   Chip,
   IconButton,
-  Link
+  Link,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogContentText,
+  DialogActions,
+  Button
 } from '@mui/material';
-import { ArrowBack } from '@mui/icons-material';
+import { ArrowBack, Add } from '@mui/icons-material';
 import { useWordProgress } from '../hooks/usePersistentState';
 import KorpusPlayer from '../components/KorpusPlayer';
 
@@ -52,10 +58,14 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedKorpus, setSelectedKorpus] = useState<KorpusFile | null>(null);
-  const { wordProgress } = useWordProgress();
+  const { wordProgress, setWordLevel, updateWordProgress } = useWordProgress();
   const [watchedVideos, setWatchedVideos] = useState<Record<string, string>>({});
   const [sortBy, setSortBy] = useState<'title' | 'glossCount' | 'watched' | 'progress'>('title');
   const [sortAscending, setSortAscending] = useState(true);
+  const [confirmDialog, setConfirmDialog] = useState<{ open: boolean; file: KorpusFile | null }>({ 
+    open: false, 
+    file: null 
+  });
 
   // Ladda korpus-data
   useEffect(() => {
@@ -178,6 +188,65 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
     }
   };
 
+  // Öppna bekräftelse-dialog
+  const handleAddWordsClick = (file: KorpusFile, event: React.MouseEvent) => {
+    event.stopPropagation(); // Förhindra att videon öppnas
+    setConfirmDialog({ open: true, file });
+  };
+
+  // Lägg till alla ord från videon
+  const handleConfirmAddWords = () => {
+    if (!confirmDialog.file) return;
+    
+    const file = confirmDialog.file;
+    let addedCount = 0;
+    
+    file.gloss_ids.forEach(wordId => {
+      const currentProgress = wordProgress[wordId];
+      
+      // Skippa ord som redan är lärda (level 2)
+      if (currentProgress?.level === 2) {
+        return;
+      }
+      
+      // Sätt ord till level 1 och uppdatera lastPracticed
+      const now = new Date().toISOString();
+      if (currentProgress) {
+        // Uppdatera befintlig progress
+        updateWordProgress(wordId, {
+          ...currentProgress,
+          level: 1,
+          stats: {
+            ...currentProgress.stats,
+            lastPracticed: now
+          }
+        });
+      } else {
+        // Skapa ny progress
+        updateWordProgress(wordId, {
+          level: 1,
+          points: 0,
+          stats: {
+            correct: 0,
+            incorrect: 0,
+            lastPracticed: now,
+            difficulty: 50
+          }
+        });
+      }
+      
+      addedCount++;
+    });
+    
+    // Stäng dialog
+    setConfirmDialog({ open: false, file: null });
+    
+    // Visa bekräftelse (optional - kan tas bort om för mycket)
+    if (addedCount > 0) {
+      alert(`La till ${addedCount} ord från "${file.title}" i "Att lära mig"!`);
+    }
+  };
+
 
   // Om en korpus är vald, visa spelaren
   if (selectedKorpus) {
@@ -215,19 +284,15 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
 
   return (
     <Box sx={{ p: 3 }}>
-      {/* Header med tillbaka-knapp */}
-      <Box sx={{ mb: 4, textAlign: 'center', position: 'relative' }}>
-        <IconButton 
-          onClick={onBack} 
-          sx={{ 
-            position: 'absolute', 
-            left: 0, 
-            top: '50%', 
-            transform: 'translateY(-50%)'
-          }}
-        >
+      {/* Tillbaka-knapp */}
+      <Box sx={{ mb: 2 }}>
+        <IconButton onClick={onBack}>
           <ArrowBack />
         </IconButton>
+      </Box>
+
+      {/* Header */}
+      <Box sx={{ mb: 4, textAlign: 'center' }}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
           Berättelser
         </Typography>
@@ -261,13 +326,6 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
               <TableCell 
                 align="center"
                 sx={{ cursor: 'pointer', userSelect: 'none' }}
-                onClick={() => handleSort('glossCount')}
-              >
-                <strong>Antal glosor {sortBy === 'glossCount' && (sortAscending ? '↑' : '↓')}</strong>
-              </TableCell>
-              <TableCell 
-                align="center"
-                sx={{ cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('watched')}
               >
                 <strong>Senast sedd {sortBy === 'watched' && (sortAscending ? '↑' : '↓')}</strong>
@@ -275,9 +333,19 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
               <TableCell 
                 align="center"
                 sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('glossCount')}
+              >
+                <strong>Antal glosor {sortBy === 'glossCount' && (sortAscending ? '↑' : '↓')}</strong>
+              </TableCell>
+              <TableCell 
+                align="center"
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('progress')}
               >
                 <strong>Framsteg {sortBy === 'progress' && (sortAscending ? '↑' : '↓')}</strong>
+              </TableCell>
+              <TableCell align="center">
+                <strong>Lägg till</strong>
               </TableCell>
             </TableRow>
           </TableHead>
@@ -301,12 +369,12 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Chip label={file.gloss_count} size="small" />
-                  </TableCell>
-                  <TableCell align="center">
                     <Typography variant="body2" color="text.secondary">
                       {getWatchedText(watchedVideos[file.filename])}
                     </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Chip label={file.gloss_count} size="small" />
                   </TableCell>
                   <TableCell align="center">
                     <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
@@ -324,12 +392,53 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                       ))}
                     </Box>
                   </TableCell>
+                  <TableCell align="center">
+                    <IconButton 
+                      color="success" 
+                      onClick={(e) => handleAddWordsClick(file, e)}
+                      sx={{ 
+                        '&:hover': { 
+                          backgroundColor: 'success.50',
+                          transform: 'scale(1.1)'
+                        },
+                        transition: 'all 0.2s ease'
+                      }}
+                    >
+                      <Add sx={{ fontSize: 28 }} />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               );
             })}
           </TableBody>
         </Table>
       </TableContainer>
+
+      {/* Bekräftelse-dialog för att lägga till ord */}
+      <Dialog
+        open={confirmDialog.open}
+        onClose={() => setConfirmDialog({ open: false, file: null })}
+      >
+        <DialogTitle>Lägg till ord från korpus</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Vill du lägga alla funna glosor från <strong>"{confirmDialog.file?.title}"</strong> i listan över ord du vill lära dig?
+          </DialogContentText>
+          {confirmDialog.file && (
+            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+              {confirmDialog.file.gloss_count} glosor kommer att läggas till (ord som redan är lärda påverkas inte).
+            </Typography>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setConfirmDialog({ open: false, file: null })}>
+            Nej
+          </Button>
+          <Button onClick={handleConfirmAddWords} variant="contained" color="success" autoFocus>
+            Ja, lägg till
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
