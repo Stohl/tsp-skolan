@@ -58,7 +58,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [selectedKorpus, setSelectedKorpus] = useState<KorpusFile | null>(null);
-  const { wordProgress, setWordLevel, updateWordProgress } = useWordProgress();
+  const { wordProgress, updateWordProgress } = useWordProgress();
   const [watchedVideos, setWatchedVideos] = useState<Record<string, string>>({});
   const [sortBy, setSortBy] = useState<'title' | 'glossCount' | 'watched' | 'progress'>('title');
   const [sortAscending, setSortAscending] = useState(true);
@@ -138,12 +138,12 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
     return glossIds.length > 0 ? (learnedCount / glossIds.length) * 100 : 0;
   };
 
-  // Beräkna antal fyllda rutor baserat på procent
-  const getFilledBoxes = (percentage: number): number => {
-    if (percentage <= 10) return 0;
-    if (percentage <= 25) return 1;
-    if (percentage <= 50) return 2;
-    return 3;
+  // Få svårighetsfärg baserat på procent lärda ord
+  const getDifficultyColor = (percentage: number): string => {
+    if (percentage <= 15) return '#f44336'; // Röd - Svår
+    if (percentage <= 30) return '#ff9800'; // Orange - Medel
+    if (percentage <= 60) return '#fdd835'; // Gul - Lättare
+    return '#4caf50'; // Grön - Lätt
   };
 
   // Sortera korpus-filer
@@ -284,15 +284,18 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
 
   return (
     <Box sx={{ p: 3 }}>
-      {/* Tillbaka-knapp */}
-      <Box sx={{ mb: 2 }}>
-        <IconButton onClick={onBack}>
+      {/* Header med tillbaka-knapp på samma höjd */}
+      <Box sx={{ position: 'relative', mb: 4, textAlign: 'center' }}>
+        <IconButton 
+          onClick={onBack}
+          sx={{ 
+            position: 'absolute', 
+            left: 0, 
+            top: 0
+          }}
+        >
           <ArrowBack />
         </IconButton>
-      </Box>
-
-      {/* Header */}
-      <Box sx={{ mb: 4, textAlign: 'center' }}>
         <Typography variant="h4" gutterBottom sx={{ fontWeight: 600, color: 'primary.main' }}>
           Berättelser
         </Typography>
@@ -333,16 +336,9 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
               <TableCell 
                 align="center"
                 sx={{ cursor: 'pointer', userSelect: 'none' }}
-                onClick={() => handleSort('glossCount')}
-              >
-                <strong>Antal glosor {sortBy === 'glossCount' && (sortAscending ? '↑' : '↓')}</strong>
-              </TableCell>
-              <TableCell 
-                align="center"
-                sx={{ cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('progress')}
               >
-                <strong>Framsteg {sortBy === 'progress' && (sortAscending ? '↑' : '↓')}</strong>
+                <strong>Svårighet {sortBy === 'progress' && (sortAscending ? '↑' : '↓')}</strong>
               </TableCell>
               <TableCell align="center">
                 <strong>Lägg till</strong>
@@ -351,6 +347,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
           </TableHead>
           <TableBody>
             {getSortedFiles().map((file) => {
+              const learnedCount = getLearnedWordsCount(file.gloss_ids);
               const percentage = getLearnedPercentage(file.gloss_ids);
               
               return (
@@ -374,22 +371,21 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Chip label={file.gloss_count} size="small" />
-                  </TableCell>
-                  <TableCell align="center">
-                    <Box sx={{ display: 'flex', gap: 0.5, justifyContent: 'center' }}>
-                      {[1, 2, 3].map(boxNumber => (
-                        <Box 
-                          key={boxNumber}
-                          sx={{ 
-                            width: 24, 
-                            height: 24, 
-                            borderRadius: 1,
-                            bgcolor: boxNumber <= getFilledBoxes(percentage) ? 'success.main' : 'grey.300',
-                            transition: 'background-color 0.3s ease'
-                          }} 
-                        />
-                      ))}
+                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5 }}>
+                      {/* En avlång ruta med färg baserat på svårighet */}
+                      <Box 
+                        sx={{ 
+                          width: 80, 
+                          height: 24, 
+                          borderRadius: 1,
+                          bgcolor: getDifficultyColor(percentage),
+                          transition: 'background-color 0.3s ease'
+                        }} 
+                      />
+                      {/* Antal lärda / totalt */}
+                      <Typography variant="caption" color="text.secondary">
+                        {learnedCount}/{file.gloss_count}
+                      </Typography>
                     </Box>
                   </TableCell>
                   <TableCell align="center">
@@ -424,11 +420,19 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
           <DialogContentText>
             Vill du lägga alla funna glosor från <strong>"{confirmDialog.file?.title}"</strong> i listan över ord du vill lära dig?
           </DialogContentText>
-          {confirmDialog.file && (
-            <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
-              {confirmDialog.file.gloss_count} glosor kommer att läggas till (ord som redan är lärda påverkas inte).
-            </Typography>
-          )}
+          {confirmDialog.file && (() => {
+            // Räkna hur många ord som faktiskt kommer att läggas till
+            const wordsToAdd = confirmDialog.file.gloss_ids.filter(wordId => {
+              const progress = wordProgress[wordId];
+              return !progress || progress.level < 2; // Inte lärda
+            }).length;
+            
+            return (
+              <Typography variant="body2" color="text.secondary" sx={{ mt: 2 }}>
+                {wordsToAdd} glosor kommer att läggas till.
+              </Typography>
+            );
+          })()}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setConfirmDialog({ open: false, file: null })}>
