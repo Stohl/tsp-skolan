@@ -22,7 +22,9 @@ import {
   Info,
   Refresh,
   FilterList,
-  ArrowBack
+  ArrowBack,
+  Timer,
+  School
 } from '@mui/icons-material';
 import { useTheme } from '../contexts/ThemeContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -48,6 +50,12 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
   // State för att visa/dölja ordlistor-dialog
   const [showAddWordsDialog, setShowAddWordsDialog] = useState<boolean>(true);
   
+  // State för countdown-sekunder i "teckna själv"
+  const [flashcardCountdown, setFlashcardCountdown] = useState<number>(3);
+  
+  // State för "Kör så det ryker!" läge
+  const [turboMode, setTurboMode] = useState<boolean>(false);
+  
   // Ladda inställningar från localStorage vid komponentens mount
   useEffect(() => {
     const savedReviewWords = localStorage.getItem('reviewLearnedWords');
@@ -63,6 +71,16 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const savedShowAddWordsDialog = localStorage.getItem('showAddWordsDialog');
     if (savedShowAddWordsDialog !== null) {
       setShowAddWordsDialog(savedShowAddWordsDialog === 'true');
+    }
+    
+    const savedFlashcardCountdown = localStorage.getItem('flashcardCountdown');
+    if (savedFlashcardCountdown !== null) {
+      setFlashcardCountdown(parseInt(savedFlashcardCountdown));
+    }
+    
+    const savedTurboMode = localStorage.getItem('turboMode');
+    if (savedTurboMode !== null) {
+      setTurboMode(savedTurboMode === 'true');
     }
   }, []);
   
@@ -85,6 +103,20 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const newValue = event.target.checked;
     setShowAddWordsDialog(newValue);
     localStorage.setItem('showAddWordsDialog', newValue.toString());
+  };
+
+  // Hantera ändring av flashcard countdown
+  const handleFlashcardCountdownChange = (event: Event, newValue: number | number[]) => {
+    const value = Array.isArray(newValue) ? newValue[0] : newValue;
+    setFlashcardCountdown(value);
+    localStorage.setItem('flashcardCountdown', value.toString());
+  };
+
+  // Hantera ändring av turbo mode
+  const handleTurboModeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setTurboMode(newValue);
+    localStorage.setItem('turboMode', newValue.toString());
   };
 
   // Funktion för att nollställa alla inställningar och progress
@@ -216,6 +248,69 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
                 }
               </Typography>
             </Box>
+          </ListItem>
+          
+          <Divider />
+          
+          {/* Countdown för "teckna själv" */}
+          <ListItem>
+            <ListItemIcon>
+              <Timer />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Tid innan video visas (Teckna själv)" 
+              secondary={`${flashcardCountdown} sekunder att teckna innan videon visas`}
+            />
+          </ListItem>
+          
+          {/* Slider för countdown */}
+          <ListItem>
+            <Box sx={{ width: '100%', px: 2, pb: 2 }}>
+              <Typography variant="body2" color="text.secondary" gutterBottom>
+                Antal sekunder innan videon visas (0-5)
+              </Typography>
+              <Slider
+                value={flashcardCountdown}
+                onChange={handleFlashcardCountdownChange}
+                min={0}
+                max={5}
+                step={1}
+                marks={[
+                  { value: 0, label: '0' },
+                  { value: 1, label: '1' },
+                  { value: 2, label: '2' },
+                  { value: 3, label: '3' },
+                  { value: 4, label: '4' },
+                  { value: 5, label: '5' }
+                ]}
+                valueLabelDisplay="auto"
+                sx={{ mt: 1 }}
+              />
+              <Typography variant="caption" color="text.secondary">
+                {flashcardCountdown === 0 
+                  ? 'Videon visas direkt - ingen tid att teckna själv' 
+                  : `${flashcardCountdown} sekunder att teckna själv innan videon visas`
+                }
+              </Typography>
+            </Box>
+          </ListItem>
+          
+          <Divider />
+          
+          {/* Turbo mode - Kör så det ryker! */}
+          <ListItem>
+            <ListItemIcon>
+              <School />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Kör så det ryker!" 
+              secondary={turboMode ? '🔥 Direkt till lärda vid rätt, till att lära mig vid fel' : 'Normal inlärningshastighet med poängsystem'}
+            />
+            <Switch 
+              edge="end" 
+              checked={turboMode}
+              onChange={handleTurboModeChange}
+            />
           </ListItem>
         </List>
       </Card>

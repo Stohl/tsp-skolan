@@ -83,6 +83,9 @@ const FlashcardsExercise: React.FC<{
   const [showVideo, setShowVideo] = useState(false);
   const [countdown, setCountdown] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
+  
+  // Hämta inställningar
+  const countdownSeconds = parseInt(localStorage.getItem('flashcardCountdown') || '3');
 
   // Återställ state när ordet ändras
   useEffect(() => {
@@ -94,7 +97,13 @@ const FlashcardsExercise: React.FC<{
   // Starta countdown när komponenten laddas
   useEffect(() => {
     if (!showVideo) {
-      setCountdown(3);
+      // Om countdown är 0, visa videon direkt
+      if (countdownSeconds === 0) {
+        setShowVideo(true);
+        return;
+      }
+      
+      setCountdown(countdownSeconds);
       const timer = setInterval(() => {
         setCountdown(prev => {
           if (prev === null || prev <= 1) {
@@ -108,7 +117,7 @@ const FlashcardsExercise: React.FC<{
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [showVideo]);
+  }, [showVideo, countdownSeconds]);
 
   const handleFlipCard = () => {
     setShowVideo(true);
@@ -1465,14 +1474,14 @@ const SentencesExercise: React.FC<{
       .slice(0, 3); // Ta bara de 3 bästa
 
     // DEBUG: visa för Top 3 vilka (unika) fraser som skulle bli kompletta med detaljer
-    wordCounts.forEach((entry) => {
-      if (entry.phraseDetails.length > 0) {
-        console.log(`[DEBUG][Exercise][Top3] Ord "${entry.word}" (${entry.wordId}) skulle komplettera ${entry.phraseDetails.length} (unika, N1–N4) meningar:`);
-        entry.phraseDetails.forEach((p: PhraseDetail) => {
-          console.log(`  - ${p.id}${p.fras ? ` (${p.fras})` : ''} | nivå: ${p.meningsnivå ?? '—'} | ord: ${p.words.join(', ')} | saknas: ${p.missingWord}`);
-        });
-      }
-    });
+    // wordCounts.forEach((entry) => {
+    //   if (entry.phraseDetails.length > 0) {
+    //     console.log(`[DEBUG][Exercise][Top3] Ord "${entry.word}" (${entry.wordId}) skulle komplettera ${entry.phraseDetails.length} (unika, N1–N4) meningar:`);
+    //     entry.phraseDetails.forEach((p: PhraseDetail) => {
+    //       console.log(`  - ${p.id}${p.fras ? ` (${p.fras})` : ''} | nivå: ${p.meningsnivå ?? '—'} | ord: ${p.words.join(', ')} | saknas: ${p.missingWord}`);
+    //     });
+    //   }
+    // });
 
     return wordCounts;
   };
@@ -2284,24 +2293,25 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
   // DEBUG: visa en sammanfattning av vad Top 3-rutan visar just nu och detaljer per ord
   if (top3Words && top3Words.length > 0) {
-    const summaryWithLiveCounts = top3Words.map(e => {
-      const live = buildPhraseDetailsForWord(e.wordId).filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå)).length;
-      return `${e.word} (${e.wordId}) x${live}`;
-    });
-    console.log('[DEBUG][Exercise][Top3][Shown] Ord:', summaryWithLiveCounts);
-    top3Words.forEach(entry => {
-      const details = buildPhraseDetailsForWord(entry.wordId);
-      // För säkerhets skull, använd samma filter även här så vi inte visar nivå —
-      const filteredDetails = details.filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå));
-      if (filteredDetails.length > 0) {
-        console.log(`[DEBUG][Exercise][Top3][Shown] → "${entry.word}" (${entry.wordId}) meningar:`, filteredDetails.map(d => `${d.id}${d.fras ? ` (${d.fras})` : ''} | nivå: ${d.meningsnivå ?? '—'} | ord: ${d.words.join(', ')} | saknas: ${d.missingWord}`));
-      } else {
-        console.log(`[DEBUG][Exercise][Top3][Shown] → "${entry.word}" (${entry.wordId}) (inga matchande meningar hittades vid on-the-fly kontroll).`);
-      }
-    });
-  } else {
-    console.log('[DEBUG][Exercise][Top3][Shown] Inga kandidater nu (0 nästan kompletta).');
-  }
+    // const summaryWithLiveCounts = top3Words.map(e => {
+    //   const live = buildPhraseDetailsForWord(e.wordId).filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå)).length;
+    //   return `${e.word} (${e.wordId}) x${live}`;
+    // });
+    // console.log('[DEBUG][Exercise][Top3][Shown] Ord:', summaryWithLiveCounts);
+    // top3Words.forEach(entry => {
+    //   const details = buildPhraseDetailsForWord(entry.wordId);
+    //   // För säkerhets skull, använd samma filter även här så vi inte visar nivå —
+    //   const filteredDetails = details.filter(d => d.meningsnivå && ['N1','N2','N3','N4'].includes(d.meningsnivå));
+    //   if (filteredDetails.length > 0) {
+    //     console.log(`[DEBUG][Exercise][Top3][Shown] → "${entry.word}" (${entry.wordId}) meningar:`, filteredDetails.map(d => `${d.id}${d.fras ? ` (${d.fras})` : ''} | nivå: ${d.meningsnivå ?? '—'} | ord: ${d.words.join(', ')} | saknas: ${d.missingWord}`));
+    //   } else {
+    //     console.log(`[DEBUG][Exercise][Top3][Shown] → "${entry.word}" (${entry.wordId}) (inga matchande meningar hittades vid on-the-fly kontroll).`);
+    //   }
+    // });
+  } 
+  // else {
+  //   console.log('[DEBUG][Exercise][Top3][Shown] Inga kandidater nu (0 nästan kompletta).');
+  // }
 
   // Funktion för att lägga till ord i "att lära mig" listan
   const addWordToLearningList = (wordId: string) => {
@@ -2671,8 +2681,16 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     if (Object.keys(wordDatabase).length === 0) return [];
     
     // Hämta inställning för antal lärda ord att repetera
-    const reviewCount = parseInt(localStorage.getItem('reviewLearnedWords') || '2');
+    const reviewCountFromStorage = localStorage.getItem('reviewLearnedWords');
+    const reviewCount = parseInt(reviewCountFromStorage || '2');
     const minLearningWordsNeeded = 10 - reviewCount;
+    
+    console.log('[DEBUG practiceWords] ========================================');
+    console.log('[DEBUG practiceWords] INSTÄLLNING från localStorage:');
+    console.log('[DEBUG practiceWords] - reviewLearnedWords (rådata):', reviewCountFromStorage);
+    console.log('[DEBUG practiceWords] - reviewCount (parsed):', reviewCount);
+    console.log('[DEBUG practiceWords] - minLearningWordsNeeded (10 - reviewCount):', minLearningWordsNeeded);
+    console.log('[DEBUG practiceWords] ========================================');
     
     const wordsWithProgress = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
       ...word,
@@ -2692,6 +2710,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
     // Hämta ord från "att lära mig" (nivå 1) sorterade efter senast övade först, sedan prioritet
     const learningWords = filteredWords.filter(word => word.progress.level === 1);
+    console.log('[DEBUG practiceWords] Learning words (level 1):', learningWords.length);
     
     // Sortera först efter senast övade (nyligen övade först), sedan efter prioritet från wordLists
     const sortedLearningWords = learningWords.sort((a, b) => {
@@ -2713,6 +2732,9 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
     // Hämta slumpade ord från "lärda" (nivå 2) för repetition
     const learnedWords = filteredWords.filter(word => word.progress.level === 2);
+    console.log('[DEBUG practiceWords] Learned words (level 2):', learnedWords.length);
+    console.log('[DEBUG practiceWords] Learned words:', learnedWords.map(w => `${w.ord} (${w.id})`).join(', '));
+    
     // Använd timestamp som seed för mer variation mellan övningar
     const seed = Date.now();
     const shuffledLearnedWords = shuffleArrayWithSeed(learnedWords, seed);
@@ -2720,6 +2742,10 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     // Mjuk validering: Om för få "att lära mig" ord, komplettera med lärda ord
     let selectedLearningWords = sortedLearningWords.slice(0, minLearningWordsNeeded);
     let selectedLearnedWords = shuffledLearnedWords.slice(0, reviewCount);
+    
+    console.log('[DEBUG practiceWords] Selected learning words (before compensation):', selectedLearningWords.length);
+    console.log('[DEBUG practiceWords] Selected learned words (for review):', selectedLearnedWords.length);
+    console.log('[DEBUG practiceWords] Selected learned words:', selectedLearnedWords.map(w => `${w.ord} (${w.id})`).join(', '));
     
     // Om vi har för få "att lära mig" ord, komplettera med lärda ord
     if (selectedLearningWords.length < minLearningWordsNeeded) {
@@ -2756,10 +2782,12 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     // Kombinera och slumpa ordningen för flashcards
     const combinedWords = [...selectedLearningWords, ...selectedLearnedWords];
     
-    // Debug: Logga antal ord i varje kategori
-    console.log(`[DEBUG] Selected learning words: ${selectedLearningWords.length}`);
-    console.log(`[DEBUG] Selected learned words: ${selectedLearnedWords.length}`);
-    console.log(`[DEBUG] Combined words before deduplication: ${combinedWords.length}`);
+    console.log('[DEBUG practiceWords] ========================================');
+    console.log('[DEBUG practiceWords] FINAL SELECTION:');
+    console.log(`[DEBUG practiceWords] Selected learning words: ${selectedLearningWords.length}`);
+    console.log(`[DEBUG practiceWords] Selected learned words: ${selectedLearnedWords.length}`);
+    console.log(`[DEBUG practiceWords] Combined words before deduplication: ${combinedWords.length}`);
+    console.log('[DEBUG practiceWords] Combined words:', combinedWords.map(w => `${w.ord} (level ${w.progress.level})`).join(', '));
     
     // Ta bort duplicerade ord baserat på ID (första steget)
     const uniqueWordsById = combinedWords.filter((word, index, self) => 
@@ -2786,7 +2814,10 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   // Uppdatera staticPracticeWords när practiceWords ändras och vi inte är mitt i en övning
   useEffect(() => {
     if (practiceWords.length > 0 && !showResults && staticPracticeWords.length === 0) {
-      console.log(`[DEBUG] Setting static practice words:`, practiceWords.map(w => `${w.ord} (ID: ${w.id})`));
+      console.log(`[DEBUG] Setting static practice words:`, practiceWords.map(w => `${w.ord} (ID: ${w.id}, level: ${w.progress?.level || 0})`));
+      const level1Count = practiceWords.filter(w => w.progress?.level === 1).length;
+      const level2Count = practiceWords.filter(w => w.progress?.level === 2).length;
+      console.log(`[DEBUG] Static practice words breakdown: ${level1Count} level 1 (att lära mig), ${level2Count} level 2 (lärda)`);
       setStaticPracticeWords(practiceWords);
       setWordsMovedToLearned(new Set()); // Återställ när ny övning börjar
     }
@@ -2958,24 +2989,59 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     
     // Spara inte progress för bokstavering-övningar
     if (selectedExerciseType !== ExerciseType.SPELLING) {
-      // Kontrollera om ordet kommer att flyttas till level 2
-      const currentProgress = wordProgress[currentWord.id];
-      const currentPoints = currentProgress?.points || 0;
-      const currentLevel = currentProgress?.level || 0;
-      const willMoveToLevel2 = isCorrect && currentPoints + 1 >= 5 && currentLevel < 2;
+      // Hämta turbo-mode inställning
+      const turboMode = localStorage.getItem('turboMode') === 'true';
       
-      console.log(`[DEBUG] Word progress check: ${currentWord.ord} (ID: ${currentWord.id})`);
-      console.log(`[DEBUG] - Current points: ${currentPoints}, Current level: ${currentLevel}`);
-      console.log(`[DEBUG] - isCorrect: ${isCorrect}, willMoveToLevel2: ${willMoveToLevel2}`);
-      
-       markWordResult(currentWord.id, isCorrect, wordDatabase, wordIndex);
-      
-      // Om ordet flyttades till level 2, spåra det
-      if (willMoveToLevel2) {
-        console.log(`[DEBUG] Adding ${currentWord.ord} (ID: ${currentWord.id}) to wordsMovedToLearned`);
-        setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
+      if (turboMode) {
+        // TURBO MODE: Direkt till lärda vid rätt svar, direkt till att lära mig vid fel
+        console.log(`[DEBUG] TURBO MODE aktiv!`);
+        if (isCorrect) {
+          // Rätt svar: Direkt till level 2 (lärda) - BARA detta ord, INTE synonymer
+          console.log(`[DEBUG] Turbo: Rätt svar! Flyttar ${currentWord.ord} direkt till level 2 (utan synonymer)`);
+          updateWordProgress(currentWord.id, {
+            level: 2,
+            points: 5,
+            stats: {
+              ...wordProgress[currentWord.id]?.stats,
+              lastPracticed: new Date().toISOString()
+            }
+          });
+          setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
+        } else {
+          // Fel svar: Direkt till level 1 (att lära mig) om det inte redan är det
+          const currentLevel = wordProgress[currentWord.id]?.level || 0;
+          if (currentLevel !== 1) {
+            console.log(`[DEBUG] Turbo: Fel svar! Flyttar ${currentWord.ord} till level 1 (att lära mig)`);
+            updateWordProgress(currentWord.id, {
+              level: 1,
+              points: 0,
+              stats: {
+                ...wordProgress[currentWord.id]?.stats,
+                lastPracticed: new Date().toISOString()
+              }
+            });
+          }
+        }
       } else {
-        console.log(`[DEBUG] NOT adding ${currentWord.ord} (ID: ${currentWord.id}) to wordsMovedToLearned`);
+        // NORMAL MODE: Använd poängsystem
+        const currentProgress = wordProgress[currentWord.id];
+        const currentPoints = currentProgress?.points || 0;
+        const currentLevel = currentProgress?.level || 0;
+        const willMoveToLevel2 = isCorrect && currentPoints + 1 >= 5 && currentLevel < 2;
+        
+        console.log(`[DEBUG] Word progress check: ${currentWord.ord} (ID: ${currentWord.id})`);
+        console.log(`[DEBUG] - Current points: ${currentPoints}, Current level: ${currentLevel}`);
+        console.log(`[DEBUG] - isCorrect: ${isCorrect}, willMoveToLevel2: ${willMoveToLevel2}`);
+        
+        markWordResult(currentWord.id, isCorrect, wordDatabase, wordIndex);
+        
+        // Om ordet flyttades till level 2, spåra det
+        if (willMoveToLevel2) {
+          console.log(`[DEBUG] Adding ${currentWord.ord} (ID: ${currentWord.id}) to wordsMovedToLearned`);
+          setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
+        } else {
+          console.log(`[DEBUG] NOT adding ${currentWord.ord} (ID: ${currentWord.id}) to wordsMovedToLearned`);
+        }
       }
     }
 
@@ -3024,10 +3090,17 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     const currentWord = currentWords[currentWordIndex];
     if (!currentWord) return;
 
-    console.log(`[DEBUG] handleMoveToLearned: Moving ${currentWord.ord} (ID: ${currentWord.id}) to learned level`);
+    console.log(`[DEBUG] handleMoveToLearned: Moving ${currentWord.ord} (ID: ${currentWord.id}) to learned level (without synonyms)`);
 
-         // Använd gruppinlärning - markera ordet och alla synonymer som lärda
-         markWordGroupAsLearned(currentWord.id, wordDatabase, wordIndex);
+    // Flytta bara detta specifika ord till level 2, INTE synonymer
+    updateWordProgress(currentWord.id, {
+      level: 2,
+      points: 5,
+      stats: {
+        ...wordProgress[currentWord.id]?.stats,
+        lastPracticed: new Date().toISOString()
+      }
+    });
     
     // Lägg till i wordsMovedToLearned för att visa i resultatvyn
     setWordsMovedToLearned(prev => new Set(prev).add(currentWord.id));
@@ -3777,16 +3850,8 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
                   backgroundColor: 'success.50',
                   border: '1px solid',
                   borderColor: 'success.200',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    backgroundColor: 'success.100'
-                  }
+                  textAlign: 'center'
                 }}
-                onClick={() => handleExerciseTypeSelect(ExerciseType.FLASHCARDS)}
                 >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'success.main', mb: 1 }}>
                     {level2Words}
@@ -3803,18 +3868,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
                   backgroundColor: 'info.50',
                   border: '1px solid',
                   borderColor: 'info.200',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    backgroundColor: 'info.100'
-                  }
-                }}
-                onClick={() => {
-                  // Navigera till ordlistor-sidan (index 1)
-                  window.dispatchEvent(new CustomEvent('navigateToPage', { detail: 1 }));
+                  textAlign: 'center'
                 }}
                 >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'info.main', mb: 1 }}>
@@ -3832,16 +3886,8 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
                   backgroundColor: 'warning.50',
                   border: '1px solid',
                   borderColor: 'warning.200',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    backgroundColor: 'warning.100'
-                  }
+                  textAlign: 'center'
                 }}
-                onClick={() => handleExerciseTypeSelect(ExerciseType.SPELLING)}
                 >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'warning.main', mb: 1 }}>
                     {completedSpellingBoxesCount}/15
@@ -3858,16 +3904,8 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
                   backgroundColor: 'secondary.50',
                   border: '1px solid',
                   borderColor: 'secondary.200',
-                  textAlign: 'center',
-                  cursor: 'pointer',
-                  transition: 'all 0.2s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                    backgroundColor: 'secondary.100'
-                  }
+                  textAlign: 'center'
                 }}
-                onClick={() => handleExerciseTypeSelect(ExerciseType.SENTENCES)}
                 >
                   <Typography variant="h4" sx={{ fontWeight: 'bold', color: 'secondary.main', mb: 1 }}>
                     {Object.values(getSentencesProgress).reduce((sum, level) => sum + level.correct, 0)}/{Object.values(getSentencesProgress).reduce((sum, level) => sum + level.total, 0)}
@@ -3883,14 +3921,6 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
          {/* Start-guide knapp */}
          <Paper sx={{ mt: 3, p: 3 }}>
-           <Typography variant="h6" gutterBottom>
-             Startguiden
-                    </Typography>
-           <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-             Använd startguiden för att komma igång.  
-             <br></br>
-             OBS Om du kör startgången en andra gång kommer mycket av din statistik att nollställas.
-                    </Typography>
                         <Button
              variant="contained"
              startIcon={<School />}
@@ -3900,7 +3930,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
              }}
              sx={{ mt: 1 }}
            >
-             Öppna start-guide
+             Start-info
                         </Button>
          </Paper>
 
