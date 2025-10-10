@@ -90,7 +90,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                 </ListItemIcon>
                 <ListItemText 
                   primary="Utforska mer" 
-                  secondary="När du lärt dig tillräckligt många ord låses meningar och berättelser upp automatiskt!"
+                  secondary="När du lärt dig tillräckligt många ord gå vidare till meningar och berättelser!"
                 />
               </ListItem>
             </List>
@@ -130,8 +130,6 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                 <Typography variant="body2" color="text.secondary">
                   Du ser videon och väljer rätt ord från fyra alternativ. 
                   Perfekt för att träna ordförståelse och igenkänning.
-                  <br /><br />
-                  <strong>Kräver:</strong> Minst 10 ord i "Att lära mig" eller "Lärda".
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -147,7 +145,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                   Många ord bokstaveras i teckenspråk. Träna på att känna igen bokstäver 
                   i olika hastigheter och längder (2-3 bokstäver → 6+ bokstäver).
                   <br /><br />
-                  <strong>Mål:</strong> Klara alla 15 rutor för att bemästra bokstavering!
+                  <strong>Mål:</strong> Klara alla 15 nivåer för att (kanske) bemästra bokstavering!
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -162,8 +160,6 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                 <Typography variant="body2" color="text.secondary">
                   När du lärt dig tillräckligt många ord blir meningar tillgängliga. 
                   Meningarna är uppdelade i nivåer (N1-N4) baserat på svårighetsgrad.
-                  <br /><br />
-                  <strong>Smart funktion:</strong> Appen visar vilka 3 ord som skulle ge dig flest nya meningar att öva på!
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -176,10 +172,8 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography variant="body2" color="text.secondary">
-                  Titta på riktiga berättelser från STS-korpus med annoteringar (glosor och översättningar). 
-                  Du kan välja vilka annoteringar du vill se och göra dem "sticky" för enklare läsning.
-                  <br /><br />
-                  <strong>Test-läge:</strong> Dölj översättningar och pausa automatiskt för att testa din förståelse!
+                  Titta på berättelser/konversationer från STS-korpus med annoteringar (glosor och översättningar). 
+                  TEST-VERSION! Titta under inställningar när du öppnar en berättelse
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -199,7 +193,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                   <Typography variant="h6" color="text.secondary">0</Typography>
                 </ListItemIcon>
                 <ListItemText 
-                  primary="Omarkerade ord (Level 0)" 
+                  primary="Omarkerade ord" 
                   secondary="Ord som finns i databasen men som du inte har börjat öva på än."
                 />
               </ListItem>
@@ -209,7 +203,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                   <Typography variant="h6" color="primary.main">1</Typography>
                 </ListItemIcon>
                 <ListItemText 
-                  primary="Att lära mig (Level 1)" 
+                  primary="Att lära mig" 
                   secondary="Ord som du aktivt övar på. Dessa visas i övningarna."
                 />
               </ListItem>
@@ -219,7 +213,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                   <Typography variant="h6" color="success.main">2</Typography>
                 </ListItemIcon>
                 <ListItemText 
-                  primary="Lärda ord (Level 2)" 
+                  primary="Lärda ord" 
                   secondary="Ord du behärskar! De repeteras ibland för att du inte ska glömma dem."
                 />
               </ListItem>
@@ -227,7 +221,7 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
 
             <Box sx={{ bgcolor: 'info.50', p: 2, borderRadius: 1, mt: 2 }}>
               <Typography variant="body2" color="text.secondary">
-                <strong>Poängsystem (Normal mode):</strong>
+                <strong>Poängsystem (Normalt):</strong>
                 <br />• Rätt svar = +1 poäng
                 <br />• Fel svar = -1 poäng
                 <br />• Vid 5 poäng → Ordet flyttas till "Lärda ord" 🎉
@@ -286,13 +280,13 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography variant="body2" color="text.secondary">
-                  Aktivera detta för <strong>snabbare inlärning</strong>:
+                  Aktivera detta för <strong>snabbare framsteg i övningar</strong>:
                   <br /><br />
                   • ✅ Rätt svar = Direkt till "Lärda ord" (utan poängsystem)
                   <br />• ❌ Fel svar = Direkt till "Att lära mig" (om det inte redan är där)
                   <br /><br />
-                  <strong>Varning:</strong> Detta är mer aggressivt än normalt läge. 
-                  Använd om du känner dig säker på orden!
+                  <strong>Varning:</strong> Detta är inte för att lära dig snabbare, 
+                  använd om du känner dig säker på orden!
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -428,13 +422,15 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
             <Accordion>
               <AccordionSummary expandIcon={<ExpandMore />}>
                 <Typography variant="subtitle1">
-                  Varför ser jag samma ord flera gånger?
+                  Varför ser jag samma eller liknande tecken flera gånger?
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
                 <Typography variant="body2" color="text.secondary">
-                  Många ord har flera varianter (olika sätt att teckna samma ord). 
+                  Många tecken har flera varianter (olika sätt att teckna samma ord). 
                   Appen visar alla varianter så du lär dig olika sätt att teckna.
+                  Appen VET INTE vilken variant som är mest "korrekt" för dig. Tecken som markerats med "utdött" eller liknande i Teckenspråkslexikonet
+                  ska vara borttagna i appen.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -449,22 +445,6 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
                 <Typography variant="body2" color="text.secondary">
                   Det varierar! Vissa meningar kräver bara 2-3 ord, andra kräver fler. 
                   När du lärt dig tillräckligt många ord för en mening blir den automatiskt tillgänglig.
-                </Typography>
-              </AccordionDetails>
-            </Accordion>
-
-            <Accordion>
-              <AccordionSummary expandIcon={<ExpandMore />}>
-                <Typography variant="subtitle1">
-                  Vad är skillnaden mellan Turbo mode och Normal mode?
-                </Typography>
-              </AccordionSummary>
-              <AccordionDetails>
-                <Typography variant="body2" color="text.secondary">
-                  <strong>Normal mode:</strong> Du behöver svara rätt 5 gånger (5 poäng) innan ett ord flyttas till "Lärda".
-                  <br /><br />
-                  <strong>Turbo mode:</strong> Ett rätt svar = direkt till "Lärda". Ett fel svar = direkt till "Att lära mig". 
-                  Mycket snabbare men mer aggressivt!
                 </Typography>
               </AccordionDetails>
             </Accordion>
