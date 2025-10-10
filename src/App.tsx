@@ -179,8 +179,8 @@ function AppContent() {
     console.log(`[DEBUG] Lade till ${addedWords} ord från ordlistor`);
     setShowAddWordsDialog(false);
     
-    // Uppdatera sidan för att visa nya ord
-    window.dispatchEvent(new Event('storage'));
+    // Ladda om sidan för att visa nya ord
+    window.location.reload();
   };
 
   // Funktion för att navigera till ordlistor-sidan

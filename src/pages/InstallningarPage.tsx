@@ -288,8 +288,8 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
               />
               <Typography variant="caption" color="text.secondary">
                 {flashcardCountdown === 0 
-                  ? 'Videon visas direkt - ingen tid att teckna själv' 
-                  : `${flashcardCountdown} sekunder att teckna själv innan videon visas`
+                  ? 'Videon visas direkt' 
+                  : `${flashcardCountdown} sekunder innan videon visas`
                 }
               </Typography>
             </Box>
@@ -300,11 +300,11 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
           {/* Turbo mode - Kör så det ryker! */}
           <ListItem>
             <ListItemIcon>
-              <School />
+            🔥 
             </ListItemIcon>
             <ListItemText 
               primary="Kör så det ryker!" 
-              secondary={turboMode ? '🔥 Direkt till lärda vid rätt, till att lära mig vid fel' : 'Normal inlärningshastighet med poängsystem'}
+              secondary={turboMode ? 'Direkt till lärda vid rätt, tillbaka till att lära mig vid fel' : 'Normalt inlärningssystem med poäng'}
             />
             <Switch 
               edge="end" 
