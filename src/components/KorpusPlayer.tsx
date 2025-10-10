@@ -279,6 +279,11 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     setRevealedAnnotations(prev => new Set(prev).add(annotationId));
   };
 
+  // Dölj text genom att ersätta varje tecken med "_" (behåll mellanslag)
+  const hideText = (text: string): string => {
+    return text.split('').map(char => char === ' ' ? ' ' : '_').join('');
+  };
+
   // Kolla om en annotation är aktiv
   const isAnnotationActive = (annotation: Annotation): boolean => {
     return currentTime >= annotation.start_time && currentTime <= annotation.end_time;
@@ -655,7 +660,6 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               
               // Kontrollera om någon av de valda tiers är översättning
               const isTranslation = selectedAnnotations.some(a => a.tier_name.includes('Översättning'));
-              const isHidden = isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id));
               
               return (
                 <Box
@@ -665,7 +669,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   sx={{
                     position: 'absolute',
                     top: `${topPosition}px`,
-                    height: (leftSticky && !isHidden) ? `${height}px` : 'auto',
+                    height: leftSticky ? `${height}px` : 'auto',
                     left: 0,
                     right: 0,
                     borderLeft: 3,
@@ -674,7 +678,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   }}
                 >
                   <Box sx={{
-                    position: (leftSticky && !isHidden) ? 'sticky' : 'static',
+                    position: leftSticky ? 'sticky' : 'static',
                     top: 0,
                     py: 0.5,
                     pl: 1
@@ -696,7 +700,14 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                     }}
                     >
                       {isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id)) ? (
-                        '_____________________'
+                        // Dölj text med understreck, behåll mellanslag och radbrytningar
+                        selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
+                          <React.Fragment key={idx}>
+                            {hideText(part)}
+                            {idx < arr.length - 1 && '+'}
+                            {idx < arr.length - 1 && <br />}
+                          </React.Fragment>
+                        ))
                       ) : (
                         selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
                           <React.Fragment key={idx}>
@@ -731,7 +742,6 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               
               // Kontrollera om någon av de valda tiers är översättning
               const isTranslation = selectedAnnotations.some(a => a.tier_name.includes('Översättning'));
-              const isHidden = isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id));
               
               return (
                 <Box
@@ -741,7 +751,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   sx={{
                     position: 'absolute',
                     top: `${topPosition}px`,
-                    height: (rightSticky && !isHidden) ? `${height}px` : 'auto',
+                    height: rightSticky ? `${height}px` : 'auto',
                     left: 0,
                     right: 0,
                     borderLeft: 3,
@@ -750,7 +760,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   }}
                 >
                   <Box sx={{
-                    position: (rightSticky && !isHidden) ? 'sticky' : 'static',
+                    position: rightSticky ? 'sticky' : 'static',
                     top: 0,
                     py: 0.5,
                     pl: 1
@@ -772,7 +782,14 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                     }}
                     >
                       {isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id)) ? (
-                        '_____________________'
+                        // Dölj text med understreck, behåll mellanslag och radbrytningar
+                        selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
+                          <React.Fragment key={idx}>
+                            {hideText(part)}
+                            {idx < arr.length - 1 && '+'}
+                            {idx < arr.length - 1 && <br />}
+                          </React.Fragment>
+                        ))
                       ) : (
                         selectedAnnotations.map(a => a.value).join(' ').split('+').map((part, idx, arr) => (
                           <React.Fragment key={idx}>
