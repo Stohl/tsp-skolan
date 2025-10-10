@@ -32,6 +32,7 @@ interface KorpusFile {
   source_url: string;
   video_url: string;
   json_file: string;
+  s: number; // Antal talare
   gloss_count: number;
   gloss_ids: string[];
 }
@@ -326,6 +327,9 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
               >
                 <strong>Titel {sortBy === 'title' && (sortAscending ? '↑' : '↓')}</strong>
               </TableCell>
+              <TableCell align="center">
+                <strong>Talare</strong>
+              </TableCell>
               <TableCell 
                 align="center"
                 sx={{ cursor: 'pointer', userSelect: 'none' }}
@@ -364,6 +368,14 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                     <Typography variant="body1" sx={{ fontWeight: 500 }}>
                       {file.title}
                     </Typography>
+                  </TableCell>
+                  <TableCell align="center">
+                    <Chip 
+                      label={file.s} 
+                      size="small" 
+                      color={file.s === 1 ? 'default' : 'primary'}
+                      variant={file.s === 1 ? 'outlined' : 'filled'}
+                    />
                   </TableCell>
                   <TableCell align="center">
                     <Typography variant="body2" color="text.secondary">
