@@ -638,16 +638,17 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
           position: 'relative'
         }}
       >
-        {/* Röd linje som visar current position */}
+        {/* Röd linje som visar current position (fixed i viewporten) */}
         <Box sx={{
-          position: 'absolute',
-          top: 15, // Matchar pt från container
+          position: 'fixed',
+          top: '65%', // Längre ner för att undvika video-spelaren
           left: 0,
           right: 0,
-          height: 2,
+          height: 3,
           bgcolor: 'error.main',
-          zIndex: 10,
-          pointerEvents: 'none'
+          zIndex: 1000,
+          pointerEvents: 'none',
+          boxShadow: '0 0 10px rgba(244, 67, 54, 0.8)'
         }} />
 
         {/* Två-kolumners layout för glosor och översättningar */}
