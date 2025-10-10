@@ -651,15 +651,20 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
           boxShadow: '0 0 10px rgba(244, 67, 54, 0.8)'
         }} />
 
-        {/* Två-kolumners layout för glosor och översättningar */}
+        {/* Två-kolumners layout för glosor och översättningar (eller en kolumn om höger är tom) */}
         <Box sx={{ 
           display: 'grid', 
-          gridTemplateColumns: '1fr 1fr',
+          gridTemplateColumns: rightTiers.length === 0 ? '1fr' : '1fr 1fr',
           gap: 3,
           minHeight: videoDuration * 100 // Höjd proportionell till video-längd (100px per sekund)
         }}>
           {/* Vänster kolumn */}
-          <Box sx={{ position: 'relative', borderRight: 1, borderColor: 'divider', pr: 2 }}>
+          <Box sx={{ 
+            position: 'relative', 
+            borderRight: rightTiers.length === 0 ? 0 : 1, 
+            borderColor: 'divider', 
+            pr: rightTiers.length === 0 ? 0 : 2 
+          }}>
             {annotationGroups.map((group, groupIndex) => {
               const startTime = Math.min(...group.map(a => a.start_time));
               const endTime = Math.max(...group.map(a => a.end_time));
@@ -740,7 +745,8 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
             })}
           </Box>
 
-          {/* Höger kolumn */}
+          {/* Höger kolumn (endast om rightTiers har innehåll) */}
+          {rightTiers.length > 0 && (
           <Box sx={{ position: 'relative' }}>
             {annotationGroups.map((group, groupIndex) => {
               const startTime = Math.min(...group.map(a => a.start_time));
@@ -821,6 +827,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               );
             })}
           </Box>
+          )}
         </Box>
       </Box>
     </Box>
