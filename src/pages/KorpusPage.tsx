@@ -21,7 +21,7 @@ import {
   DialogActions,
   Button
 } from '@mui/material';
-import { ArrowBack, Add } from '@mui/icons-material';
+import { ArrowBack, Add, Person, Group } from '@mui/icons-material';
 import { useWordProgress } from '../hooks/usePersistentState';
 import KorpusPlayer from '../components/KorpusPlayer';
 
@@ -369,12 +369,13 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                     </Typography>
                   </TableCell>
                   <TableCell align="center">
-                    <Chip 
-                      label={file.s} 
-                      size="small" 
-                      color={file.s === 1 ? 'default' : 'primary'}
-                      variant={file.s === 1 ? 'outlined' : 'filled'}
-                    />
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
+                      {file.s === 1 ? (
+                        <Person sx={{ fontSize: 24, color: 'text.secondary' }} />
+                      ) : (
+                        <Group sx={{ fontSize: 24, color: 'text.secondary' }} />
+                      )}
+                    </Box>
                   </TableCell>
                   <TableCell align="center">
                     <Typography variant="body2" color="text.secondary">
