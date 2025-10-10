@@ -10,27 +10,18 @@ import {
   ListItemText,
   ListItemIcon,
   Divider,
-  Chip,
   Accordion,
   AccordionSummary,
   AccordionDetails,
-  Button,
-  AppBar,
-  Toolbar,
   IconButton,
   Link
 } from '@mui/material';
 import { 
-  Help,
-  Quiz,
-  School,
-  Gesture,
-  Spellcheck,
   ExpandMore,
   CheckCircle,
-  Info,
-  Warning,
   ArrowBack,
+  School,
+  Timer,
   Refresh
 } from '@mui/icons-material';
 
@@ -42,409 +33,454 @@ interface HjalpPageProps {
 // Hjälpsida - förklarar hur appen fungerar
 const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
   return (
-    <>
-      {/* Header med tillbaka-knapp */}
-      <AppBar position="static" color="primary">
-        <Toolbar>
-          <IconButton 
-            edge="start" 
-            color="inherit" 
-            onClick={onBack}
-            sx={{ mr: 2 }}
-          >
+    <Box sx={{ minHeight: '100vh', py: 3 }}>
+      <Container maxWidth="md">
+        {/* Header med tillbaka-knapp */}
+        <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+          <IconButton onClick={onBack} sx={{ mr: 2 }}>
             <ArrowBack />
           </IconButton>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h4" sx={{ fontWeight: 700 }}>
             Hjälp & Guide
-          </Typography>
-        </Toolbar>
-      </AppBar>
-
-      <Box sx={{ minHeight: '100vh', py: 3, pb: 10 }}>
-        <Container maxWidth="md">
-        {/* Huvudrubrik */}
-        <Box sx={{ textAlign: 'center', mb: 4 }}>
-          <Help sx={{ fontSize: 60, color: 'primary.main', mb: 2 }} />
-          <Typography variant="h4" gutterBottom>
-            Hjälp & Guide
-          </Typography>
-          <Typography variant="body1" color="text.secondary">
-            Lär dig hur du använder TSP Skolan för att lära dig teckenspråk
           </Typography>
         </Box>
 
-      {/* Snabbguide */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            🚀 Snabbstart
-          </Typography>
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="1. Gå till Listor" 
-                secondary="Välj en ordlista som passar din nivå"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="2. Markera ord" 
-                secondary="Klicka på progress-cirklarna för att markera ord som 'vill lära mig'"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="3. Öva" 
-                secondary="Gå till Övning och välj en övningstyp som passar dig"
-              />
-            </ListItem>
-          </List>
-        </CardContent>
-      </Card>
+        {/* Välkomsttext */}
+        <Card sx={{ mb: 3, bgcolor: 'primary.50', borderColor: 'primary.main', border: 1 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom sx={{ color: 'primary.main' }}>
+              👋 Välkommen till TSP Skolan!
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              TSP Skolan hjälper dig att lära dig svenskt teckenspråk genom varierade övningar, 
+              meningar och riktiga berättelser. Materialet kommer från Teckenspråkslexikon vid 
+              Stockholms Universitet.
+            </Typography>
+          </CardContent>
+        </Card>
 
-      {/* Svårighetsnivåer */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            📊 Svårighetsnivåer
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Ordlistorna är uppdelade i fyra svårighetsnivåer:
-          </Typography>
-          
-          <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-            <Chip icon={<span>✋</span>} label="Handstart" color="success" />
-            <Chip icon={<span>🤟</span>} label="Fingervana" color="info" />
-            <Chip icon={<span>🙌</span>} label="Tecknare" color="warning" />
-            <Chip icon={<span>🤝</span>} label="Samspelare" color="error" />
-          </Box>
+        {/* Snabbstart */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              🚀 Så här kommer du igång
+            </Typography>
+            <List>
+              <ListItem>
+                <ListItemIcon>
+                  <Typography variant="h6" color="primary.main">1</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Starta övningar" 
+                  secondary="Första gången du öppnar appen läggs automatiskt ord till i 'Att lära mig'. Välj en övning (Teckna själv eller Se tecknet) för att börja."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Typography variant="h6" color="primary.main">2</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Öva regelbundet" 
+                  secondary="Övningarna består av 10 ord. Svara rätt 5 gånger så flyttas ordet till 'Lärda ord'."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Typography variant="h6" color="primary.main">3</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Utforska mer" 
+                  secondary="När du lärt dig tillräckligt många ord låses meningar och berättelser upp automatiskt!"
+                />
+              </ListItem>
+            </List>
+          </CardContent>
+        </Card>
 
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '24px' }}>✋</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="Handstart" 
-                secondary="Allra vanligaste orden - perfekt för nybörjare"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '24px' }}>🤟</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="Fingervana" 
-                secondary="Vardagsbegrepp - när du börjar känna dig bekväm"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '24px' }}>🙌</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="Tecknare" 
-                secondary="Abstraktare ord och fler rörelsemoment"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '24px' }}>🤝</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="Samspelare" 
-                secondary="Komplexa handformer eller mindre vanliga ord"
-              />
-            </ListItem>
-          </List>
-        </CardContent>
-      </Card>
+        {/* Övningstyper */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              🎯 Övningstyper
+            </Typography>
+            
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  🙌 Teckna själv
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Du ser ordet (t.ex. "HUND"). Du har några sekunder på dig att teckna själv. 
+                  Sedan visas videon automatiskt så du kan jämföra.
+                  <br /><br />
+                  <strong>Tips:</strong> Du kan ändra hur lång tid du har innan videon visas under Inställningar.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-      {/* Övningstyper */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            🎯 Övningstyper
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Olika sätt att öva och lära dig teckenspråk:
-          </Typography>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  👀 Se tecknet
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Du ser videon och väljer rätt ord från fyra alternativ. 
+                  Perfekt för att träna ordförståelse och igenkänning.
+                  <br /><br />
+                  <strong>Kräver:</strong> Minst 10 ord i "Att lära mig" eller "Lärda".
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <School color="primary" />
-                <Typography variant="subtitle1">Kortövning</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body2">
-                Se videon och bedöm om du kunde teckna ordet. Perfekt för snabba repetitioner.
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  ✍️ Bokstavering
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Många ord bokstaveras i teckenspråk. Träna på att känna igen bokstäver 
+                  i olika hastigheter och längder (2-3 bokstäver → 6+ bokstäver).
+                  <br /><br />
+                  <strong>Mål:</strong> Klara alla 15 rutor för att bemästra bokstavering!
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  💬 Meningar
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  När du lärt dig tillräckligt många ord blir meningar tillgängliga. 
+                  Meningarna är uppdelade i nivåer (N1-N4) baserat på svårighetsgrad.
+                  <br /><br />
+                  <strong>Smart funktion:</strong> Appen visar vilka 3 ord som skulle ge dig flest nya meningar att öva på!
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  🎥 Berättelser
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Titta på riktiga berättelser från STS-korpus med annoteringar (glosor och översättningar). 
+                  Du kan välja vilka annoteringar du vill se och göra dem "sticky" för enklare läsning.
+                  <br /><br />
+                  <strong>Test-läge:</strong> Dölj översättningar och pausa automatiskt för att testa din förståelse!
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </CardContent>
+        </Card>
+
+        {/* Progress-system */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              📊 Hur ord-systemet fungerar
+            </Typography>
+            
+            <List>
+              <ListItem>
+                <ListItemIcon>
+                  <Typography variant="h6" color="text.secondary">0</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Omarkerade ord (Level 0)" 
+                  secondary="Ord som finns i databasen men som du inte har börjat öva på än."
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemIcon>
+                  <Typography variant="h6" color="primary.main">1</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Att lära mig (Level 1)" 
+                  secondary="Ord som du aktivt övar på. Dessa visas i övningarna."
+                />
+              </ListItem>
+              <Divider />
+              <ListItem>
+                <ListItemIcon>
+                  <Typography variant="h6" color="success.main">2</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Lärda ord (Level 2)" 
+                  secondary="Ord du behärskar! De repeteras ibland för att du inte ska glömma dem."
+                />
+              </ListItem>
+            </List>
+
+            <Box sx={{ bgcolor: 'info.50', p: 2, borderRadius: 1, mt: 2 }}>
+              <Typography variant="body2" color="text.secondary">
+                <strong>Poängsystem (Normal mode):</strong>
+                <br />• Rätt svar = +1 poäng
+                <br />• Fel svar = -1 poäng
+                <br />• Vid 5 poäng → Ordet flyttas till "Lärda ord" 🎉
               </Typography>
-            </AccordionDetails>
-          </Accordion>
+            </Box>
+          </CardContent>
+        </Card>
 
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Quiz color="secondary" />
-                <Typography variant="subtitle1">Flervalsquiz</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body2">
-                Se videon och välj rätt ord från fyra alternativ. Kräver minst 10 ord för att fungera optimalt.
+        {/* Inställningar */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              ⚙️ Viktiga inställningar
+            </Typography>
+            
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  <Refresh sx={{ verticalAlign: 'middle', mr: 1, fontSize: 20 }} />
+                  Repetition av lärda ord
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Bestäm hur många lärda ord (0-5) som ska repeteras i varje övning. 
+                  Detta hjälper dig att inte glömma ord du redan lärt dig.
+                  <br /><br />
+                  <strong>Rekommendation:</strong> 2 ord är en bra balans mellan nya och gamla ord.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  <Timer sx={{ verticalAlign: 'middle', mr: 1, fontSize: 20 }} />
+                  Tid innan video (Teckna själv)
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Bestäm hur många sekunder (0-5) du har på dig att teckna innan videon visas.
+                  <br /><br />
+                  • 0 sekunder = videon visas direkt (som "Se tecknet")
+                  <br />• 3 sekunder = standard, lagom tid att teckna
+                  <br />• 5 sekunder = mer tid att fundera och teckna
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
+                  🔥 Kör så det ryker! (Turbo mode)
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Aktivera detta för <strong>snabbare inlärning</strong>:
+                  <br /><br />
+                  • ✅ Rätt svar = Direkt till "Lärda ord" (utan poängsystem)
+                  <br />• ❌ Fel svar = Direkt till "Att lära mig" (om det inte redan är där)
+                  <br /><br />
+                  <strong>Varning:</strong> Detta är mer aggressivt än normalt läge. 
+                  Använd om du känner dig säker på orden!
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </CardContent>
+        </Card>
+
+        {/* Knappar och funktioner */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              🔘 Knappar och funktioner
+            </Typography>
+            
+            <List>
+              <ListItem>
+                <ListItemIcon>
+                  <CheckCircle color="success" />
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Placera i lärda ord (grön knapp)" 
+                  secondary="Flyttar ordet direkt till 'Lärda ord' om du redan kan det. Hoppar över poängsystemet."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemIcon>
+                  <Typography sx={{ fontSize: 24 }}>➕</Typography>
+                </ListItemIcon>
+                <ListItemText 
+                  primary="Lägg till ord från berättelser" 
+                  secondary="I Berättelser-listan kan du klicka på gröna '+' för att lägga alla glosor från en video i 'Att lära mig'."
+                />
+              </ListItem>
+            </List>
+          </CardContent>
+        </Card>
+
+        {/* Popup-rutan */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              💡 Popup-rutan för nya ord
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              När du har färre än 20 ord i "Att lära mig" kan en popup-ruta dyka upp som föreslår 
+              nya ordlistor att lägga till.
+            </Typography>
+            
+            <Box sx={{ bgcolor: 'info.50', p: 2, borderRadius: 1 }}>
+              <Typography variant="body2" color="text.secondary">
+                <strong>Rubriken ändras:</strong>
+                <br />• "Dags att komma igång!" (om du har 0 lärda ord)
+                <br />• "Du har lärt dig X ord!" (om du har lärda ord)
                 <br /><br />
-                <strong>💡 Tips:</strong> Om du inte har tillräckligt många ord markerade som "vill lära mig", 
-                så kommer quizet automatiskt att lägga till ord som du redan har lärt dig för att skapa variation.
+                <strong>Tips:</strong> Du kan stänga av popup-rutan i Inställningar om du vill välja ordlistor själv.
               </Typography>
-            </AccordionDetails>
-          </Accordion>
+            </Box>
+          </CardContent>
+        </Card>
 
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Gesture color="success" />
-                <Typography variant="subtitle1">Teckna</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body2">
-                Se ordet och teckna det själv. Sedan kan du kolla videon för att se om du tecknade rätt.
+        {/* Tips för bästa resultat */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              💡 Tips för bästa resultat
+            </Typography>
+            <List>
+              <ListItem>
+                <ListItemText 
+                  primary="🎯 Börja med grunderna" 
+                  secondary="Följ ordlistornas prioritet - de första ordlistorna innehåller ord som bygger meningar."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText 
+                  primary="🔄 Öva regelbundet" 
+                  secondary="Korta, dagliga övningar är effektivare än långa sessioner."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText 
+                  primary="🎨 Variera övningarna" 
+                  secondary="Växla mellan 'Teckna själv', 'Se tecknet', och 'Meningar' för variation."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText 
+                  primary="📚 Använd Lexikonet" 
+                  secondary="Sök efter ord du är nyfiken på och lägg dem till 'Att lära mig'."
+                />
+              </ListItem>
+              <ListItem>
+                <ListItemText 
+                  primary="🎥 Titta på berättelser" 
+                  secondary="När du lärt dig fler ord, utforska Berättelser för att se teckenspråk i verkliga sammanhang."
+                />
+              </ListItem>
+            </List>
+          </CardContent>
+        </Card>
+
+        {/* Nollställning */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              🔄 Nollställ allt
+            </Typography>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              Hittar du under <strong>Inställningar → Nollställ allt</strong>
+            </Typography>
+            
+            <Box sx={{ bgcolor: 'error.50', p: 2, borderRadius: 1, borderColor: 'error.main', border: 1 }}>
+              <Typography variant="body2" sx={{ color: 'error.dark', fontWeight: 600 }}>
+                ⚠️ Varning: Detta raderar ALL data permanent!
               </Typography>
-            </AccordionDetails>
-          </Accordion>
-
-          <Accordion>
-            <AccordionSummary expandIcon={<ExpandMore />}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <Spellcheck color="warning" />
-                <Typography variant="subtitle1">Bokstavering</Typography>
-              </Box>
-            </AccordionSummary>
-            <AccordionDetails>
-              <Typography variant="body2">
-                Se videon och välj rätt bokstavssekvens. Olika längder för olika svårighetsnivåer.
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
+                • Alla ord i "Att lära mig" och "Lärda"
+                <br />• All övningshistorik och progress
+                <br />• Alla inställningar
+                <br />• Bokstavering-framsteg
+                <br />• Korpus-visningshistorik
               </Typography>
-            </AccordionDetails>
-          </Accordion>
-        </CardContent>
-      </Card>
+            </Box>
+          </CardContent>
+        </Card>
 
-      {/* Flervalsquiz förklaring */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            🧠 Flervalsquiz - Så fungerar det
-          </Typography>
-          
-          <Box sx={{ bgcolor: 'info.light', p: 2, borderRadius: 1, mb: 2 }}>
-            <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
-              <Info sx={{ verticalAlign: 'middle', mr: 1 }} />
-              Viktigt att veta om flervalsquizet:
+        {/* Vanliga frågor */}
+        <Card sx={{ mb: 3 }}>
+          <CardContent>
+            <Typography variant="h6" gutterBottom>
+              ❓ Vanliga frågor
             </Typography>
-          </Box>
+            
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1">
+                  Varför ser jag samma ord flera gånger?
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Många ord har flera varianter (olika sätt att teckna samma ord). 
+                  Appen visar alla varianter så du lär dig olika sätt att teckna.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Minst 10 ord krävs" 
-                secondary="Quizet behöver minst 10 ord för att kunna skapa varierade frågor med fyra alternativ"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Smart ordval" 
-                secondary="Om du har färre än 10 ord markerade som 'vill lära mig', så lägger quizet automatiskt till ord som du redan har lärt dig"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Prioritering" 
-                secondary="Ord som du vill lära dig prioriteras över ord du redan kan"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Warning color="warning" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Tydlig feedback" 
-                secondary="Om du försöker starta quiz med för få ord får du ett meddelande som förklarar vad som behövs"
-              />
-            </ListItem>
-          </List>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1">
+                  Hur många ord behöver jag för meningar?
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  Det varierar! Vissa meningar kräver bara 2-3 ord, andra kräver fler. 
+                  När du lärt dig tillräckligt många ord för en mening blir den automatiskt tillgänglig.
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
 
-          <Box sx={{ bgcolor: 'success.light', p: 2, borderRadius: 1, mt: 2 }}>
-            <Typography variant="body2">
-              <strong>💡 Pro tip:</strong> Markera fler ord som "vill lära mig" eller "lärda" 
-              för att få bättre variation i quizet!
-            </Typography>
-          </Box>
-        </CardContent>
-      </Card>
+            <Accordion>
+              <AccordionSummary expandIcon={<ExpandMore />}>
+                <Typography variant="subtitle1">
+                  Vad är skillnaden mellan Turbo mode och Normal mode?
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Typography variant="body2" color="text.secondary">
+                  <strong>Normal mode:</strong> Du behöver svara rätt 5 gånger (5 poäng) innan ett ord flyttas till "Lärda".
+                  <br /><br />
+                  <strong>Turbo mode:</strong> Ett rätt svar = direkt till "Lärda". Ett fel svar = direkt till "Att lära mig". 
+                  Mycket snabbare men mer aggressivt!
+                </Typography>
+              </AccordionDetails>
+            </Accordion>
+          </CardContent>
+        </Card>
 
-      {/* Progress system */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            📈 Progress & Poäng
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Så fungerar progress-systemet:
-          </Typography>
-          
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '20px' }}>⚪</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="⚪ Ej markerad" 
-                secondary="Ordet har inte markerats än"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '20px' }}>🟡</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="🟡 Vill lära mig" 
-                secondary="Du vill lära dig detta ord"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <span style={{ fontSize: '20px' }}>🟢</span>
-              </ListItemIcon>
-              <ListItemText 
-                primary="🟢 Lärt mig" 
-                secondary="Du har lärt dig ordet (5 poäng)"
-              />
-            </ListItem>
-          </List>
-
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            <strong>Poängsystem:</strong> +1 för rätt svar, -1 för fel svar. När du når 5 poäng markeras ordet som "lärt mig".
-          </Typography>
-        </CardContent>
-      </Card>
-
-      {/* Nollställ funktion */}
-      <Card sx={{ mb: 3 }}>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            🔄 Nollställ allt
-          </Typography>
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-            Om du vill börja om från början eller rensa all sparad data:
-          </Typography>
-          
-          <Box sx={{ bgcolor: 'warning.light', p: 2, borderRadius: 1, mb: 2 }}>
-            <Typography variant="body2">
-              <Warning sx={{ verticalAlign: 'middle', mr: 1 }} />
-              <strong>Viktigt:</strong> Denna funktion tar bort ALL sparad data permanent!
-            </Typography>
-          </Box>
-
-          <List>
-            <ListItem>
-              <ListItemIcon>
-                <Refresh color="warning" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Gå till Inställningar" 
-                secondary="Klicka på 'Nollställ allt' längst ner i inställningslistan"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <Warning color="error" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Bekräfta åtgärden" 
-                secondary="Du får en varning om vad som kommer att hända"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemIcon>
-                <CheckCircle color="success" />
-              </ListItemIcon>
-              <ListItemText 
-                primary="Allt nollställs" 
-                secondary="Alla ordlistor, progress och inställningar rensas"
-              />
-            </ListItem>
-          </List>
-
-          <Typography variant="body2" sx={{ mt: 2 }}>
-            <strong>Vad som nollställs:</strong>
-            <br />• Alla ordlistor och progress (⚪🟡🟢)
-            <br />• Alla inställningar (tema, notifikationer, etc.)
-            <br />• All sparad data i appen
-            <br />• Appen startar om från början
-          </Typography>
-        </CardContent>
-      </Card>
-
-      {/* Tips */}
-      <Card>
-        <CardContent>
-          <Typography variant="h6" gutterBottom>
-            💡 Tips för bästa resultat
-          </Typography>
-          <List>
-            <ListItem>
-              <ListItemText 
-                primary="🎯 Börja med Handstart" 
-                secondary="Börja alltid med de enklaste orden för att bygga grunden"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText 
-                primary="📚 Använd Lexikonet" 
-                secondary="Sök efter ord du inte känner igen för att lära dig mer"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText 
-                primary="🔄 Öva regelbundet" 
-                secondary="Korta, regelbundna övningar är bättre än långa sessioner"
-              />
-            </ListItem>
-            <ListItem>
-              <ListItemText 
-                primary="🎨 Växla övningstyper" 
-                secondary="Använd olika övningstyper för att hålla det intressant"
-              />
-            </ListItem>
-          </List>
-        </CardContent>
-      </Card>
         {/* Information om källa och licens */}
-        <Box sx={{ mt: 4, p: 2, backgroundColor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
+        <Box sx={{ p: 2, backgroundColor: 'background.paper', borderRadius: 2, border: '1px solid', borderColor: 'divider' }}>
           <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem', lineHeight: 1.4 }}>
             Tack till Stockholms Universitet och{' '}
             <Link href="https://teckensprakslexikon.su.se" target="_blank" rel="noopener noreferrer">
               teckensprakslexikon.su.se
+            </Link>
+            {' '}samt{' '}
+            <Link href="https://teckensprakskorpus.su.se" target="_blank" rel="noopener noreferrer">
+              STS-korpus
             </Link>
             {' '}som gör detta material tillgängligt. Utan det skulle TSP Skolan inte vara möjligt.
             <br />
@@ -455,9 +491,8 @@ const HjalpPage: React.FC<HjalpPageProps> = ({ onBack }) => {
             {' '}med stor tacksamhet.
           </Typography>
         </Box>
-        </Container>
-      </Box>
-    </>
+      </Container>
+    </Box>
   );
 };
 
