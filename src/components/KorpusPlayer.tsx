@@ -655,6 +655,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               
               // Kontrollera om någon av de valda tiers är översättning
               const isTranslation = selectedAnnotations.some(a => a.tier_name.includes('Översättning'));
+              const isHidden = isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id));
               
               return (
                 <Box
@@ -664,7 +665,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   sx={{
                     position: 'absolute',
                     top: `${topPosition}px`,
-                    height: leftSticky ? `${height}px` : 'auto',
+                    height: (leftSticky && !isHidden) ? `${height}px` : 'auto',
                     left: 0,
                     right: 0,
                     borderLeft: 3,
@@ -673,7 +674,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   }}
                 >
                   <Box sx={{
-                    position: leftSticky ? 'sticky' : 'static',
+                    position: (leftSticky && !isHidden) ? 'sticky' : 'static',
                     top: 0,
                     py: 0.5,
                     pl: 1
@@ -730,6 +731,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
               
               // Kontrollera om någon av de valda tiers är översättning
               const isTranslation = selectedAnnotations.some(a => a.tier_name.includes('Översättning'));
+              const isHidden = isTranslation && hideTranslations && selectedAnnotations.some(a => !revealedAnnotations.has(a.annotation_id));
               
               return (
                 <Box
@@ -739,7 +741,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   sx={{
                     position: 'absolute',
                     top: `${topPosition}px`,
-                    height: rightSticky ? `${height}px` : 'auto',
+                    height: (rightSticky && !isHidden) ? `${height}px` : 'auto',
                     left: 0,
                     right: 0,
                     borderLeft: 3,
@@ -748,7 +750,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
                   }}
                 >
                   <Box sx={{
-                    position: rightSticky ? 'sticky' : 'static',
+                    position: (rightSticky && !isHidden) ? 'sticky' : 'static',
                     top: 0,
                     py: 0.5,
                     pl: 1
