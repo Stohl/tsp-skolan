@@ -139,14 +139,6 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
     return glossIds.length > 0 ? (learnedCount / glossIds.length) * 100 : 0;
   };
 
-  // Få svårighetsfärg baserat på procent lärda ord
-  const getDifficultyColor = (percentage: number): string => {
-    if (percentage <= 15) return '#f44336'; // Röd - Svår
-    if (percentage <= 30) return '#ff9800'; // Orange - Medel
-    if (percentage <= 60) return '#fdd835'; // Gul - Lättare
-    return '#4caf50'; // Grön - Lätt
-  };
-
   // Sortera korpus-filer
   const getSortedFiles = () => {
     if (!korpusData) return [];
@@ -349,7 +341,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                 sx={{ cursor: 'pointer', userSelect: 'none' }}
                 onClick={() => handleSort('progress')}
               >
-                <strong>Svårighet {sortBy === 'progress' && (sortAscending ? '↑' : '↓')}</strong>
+                <strong>Andel lärda ord {sortBy === 'progress' && (sortAscending ? '↑' : '↓')}</strong>
               </TableCell>
               <TableCell align="center">
                 <strong>Lägg till</strong>
@@ -391,16 +383,10 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
                   </TableCell>
                   <TableCell align="center">
                     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 0.5 }}>
-                      {/* En avlång ruta med färg baserat på svårighet */}
-                      <Box 
-                        sx={{ 
-                          width: 80, 
-                          height: 24, 
-                          borderRadius: 1,
-                          bgcolor: getDifficultyColor(percentage),
-                          transition: 'background-color 0.3s ease'
-                        }} 
-                      />
+                      {/* Procent i blå färg */}
+                      <Typography variant="h6" sx={{ fontWeight: 600, color: 'primary.main' }}>
+                        {Math.round(percentage)}%
+                      </Typography>
                       {/* Antal lärda / totalt */}
                       <Typography variant="caption" color="text.secondary">
                         {learnedCount}/{file.gloss_count}
