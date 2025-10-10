@@ -32,7 +32,7 @@ interface KorpusFile {
   source_url: string;
   video_url: string;
   json_file: string;
-  s: number; // Antal talare
+  s: number; // Antal tecknare
   gloss_count: number;
   gloss_ids: string[];
 }
@@ -61,7 +61,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   const [selectedKorpus, setSelectedKorpus] = useState<KorpusFile | null>(null);
   const { wordProgress, updateWordProgress } = useWordProgress();
   const [watchedVideos, setWatchedVideos] = useState<Record<string, string>>({});
-  const [sortBy, setSortBy] = useState<'title' | 'glossCount' | 'watched' | 'progress'>('title');
+  const [sortBy, setSortBy] = useState<'title' | 'speakers' | 'glossCount' | 'watched' | 'progress'>('title');
   const [sortAscending, setSortAscending] = useState(true);
   const [confirmDialog, setConfirmDialog] = useState<{ open: boolean; file: KorpusFile | null }>({ 
     open: false, 
@@ -158,6 +158,9 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
         case 'title':
           comparison = a.title.localeCompare(b.title, 'sv');
           break;
+        case 'speakers':
+          comparison = a.s - b.s;
+          break;
         case 'glossCount':
           comparison = a.gloss_count - b.gloss_count;
           break;
@@ -180,7 +183,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
   };
 
   // Hantera klick på kolumnrubrik för sortering
-  const handleSort = (column: 'title' | 'glossCount' | 'watched' | 'progress') => {
+  const handleSort = (column: 'title' | 'speakers' | 'glossCount' | 'watched' | 'progress') => {
     if (sortBy === column) {
       setSortAscending(!sortAscending);
     } else {
@@ -327,8 +330,12 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
               >
                 <strong>Titel {sortBy === 'title' && (sortAscending ? '↑' : '↓')}</strong>
               </TableCell>
-              <TableCell align="center">
-                <strong>Talare</strong>
+              <TableCell 
+                align="center"
+                sx={{ cursor: 'pointer', userSelect: 'none' }}
+                onClick={() => handleSort('speakers')}
+              >
+                <strong>Tecknare {sortBy === 'speakers' && (sortAscending ? '↑' : '↓')}</strong>
               </TableCell>
               <TableCell 
                 align="center"
