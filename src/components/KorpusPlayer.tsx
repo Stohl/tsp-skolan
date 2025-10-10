@@ -631,10 +631,25 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
         sx={{
           flex: 1,
           overflow: 'auto',
-          p: 3,
-          bgcolor: 'background.paper'
+          pt: 15, // Extra padding top så första annotation inte hamnar under videon
+          px: 3,
+          pb: 3,
+          bgcolor: 'background.paper',
+          position: 'relative'
         }}
       >
+        {/* Röd linje som visar current position */}
+        <Box sx={{
+          position: 'absolute',
+          top: 15, // Matchar pt från container
+          left: 0,
+          right: 0,
+          height: 2,
+          bgcolor: 'error.main',
+          zIndex: 10,
+          pointerEvents: 'none'
+        }} />
+
         {/* Två-kolumners layout för glosor och översättningar */}
         <Box sx={{ 
           display: 'grid', 
