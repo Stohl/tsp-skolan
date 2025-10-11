@@ -185,7 +185,7 @@ export const useWordProgress = () => {
         ...current.stats,
         // Sätt INTE lastPracticed när ord läggs till första gången (level 0 -> 1)
         // Då sorteras de enbart efter priority istället för timestamp
-        lastPracticed: current.lastPracticed || current.stats.lastPracticed || ''
+        lastPracticed: current.stats.lastPracticed || ''
       }
     });
   };

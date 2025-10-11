@@ -97,6 +97,15 @@ const FlashcardsExercise: React.FC<{
   // Starta countdown när komponenten laddas
   useEffect(() => {
     if (!showVideo) {
+      // Om ordet aldrig övats (lastPracticed är tomt), visa videon direkt
+      const hasBeenPracticed = word.progress?.stats?.lastPracticed && word.progress.stats.lastPracticed !== '';
+      
+      if (!hasBeenPracticed) {
+        console.log(`[DEBUG] Flashcards: First time seeing word ${word.ord}, showing video directly`);
+        setShowVideo(true);
+        return;
+      }
+      
       // Om countdown är 0, visa videon direkt
       if (countdownSeconds === 0) {
         setShowVideo(true);
@@ -117,7 +126,7 @@ const FlashcardsExercise: React.FC<{
       }, 1000);
       return () => clearInterval(timer);
     }
-  }, [showVideo, countdownSeconds]);
+  }, [showVideo, countdownSeconds, word.progress]);
 
   const handleFlipCard = () => {
     setShowVideo(true);
