@@ -618,10 +618,18 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
         <video
           ref={videoRef}
           src={korpusFile.video_url}
-          style={{ width: '100%', maxHeight: '50vh', display: 'block' }}
-          controls
+          style={{ width: '100%', maxHeight: '50vh', display: 'block', cursor: 'pointer' }}
           playsInline
           webkit-playsinline="true"
+          onClick={() => {
+            if (videoRef.current) {
+              if (videoRef.current.paused) {
+                videoRef.current.play();
+              } else {
+                videoRef.current.pause();
+              }
+            }
+          }}
         />
       </Box>
 

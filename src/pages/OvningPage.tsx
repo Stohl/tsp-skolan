@@ -1141,7 +1141,7 @@ const SpellingExercise: React.FC<{
         {/* Fråga */}
         <Box sx={{ mb: 2 }}>
           <Typography variant="h5" gutterBottom sx={{ mb: 1 }}>
-            Vilket ordyyy?
+            Vilket ord?
           </Typography>
           
           {word.video_url && (
