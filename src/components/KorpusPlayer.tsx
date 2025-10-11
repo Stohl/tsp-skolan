@@ -144,7 +144,7 @@ const KorpusPlayer: React.FC<KorpusPlayerProps> = ({ korpusFile, onBack }) => {
     const loadKorpusData = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/korpus/${korpusFile.json_file}`);
+        const response = await fetch(`${process.env.PUBLIC_URL}/korpus/${korpusFile.json_file}`);
         if (!response.ok) {
           throw new Error('Kunde inte ladda korpus-data');
         }

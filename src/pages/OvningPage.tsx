@@ -1273,7 +1273,7 @@ const SentencesExercise: React.FC<{
   useEffect(() => {
     const loadPhraseIndex = async () => {
       try {
-        const response = await fetch('/phrase_index.json');
+        const response = await fetch(`${process.env.PUBLIC_URL}/phrase_index.json`);
         const data = await response.json();
         setPhraseIndex(data);
       } catch (error) {
@@ -2101,7 +2101,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   useEffect(() => {
     const loadPhraseIndex = async () => {
       try {
-        const response = await fetch('/phrase_index.json');
+        const response = await fetch(`${process.env.PUBLIC_URL}/phrase_index.json`);
         const data = await response.json();
         setPhraseIndex(data);
       } catch (error) {

@@ -66,7 +66,7 @@ interface DatabaseProviderProps {
 
 // Funktion för att ladda word index
 const loadWordIndex = async (): Promise<WordIndex> => {
-  const response = await fetch('/word_index.json');
+  const response = await fetch(`${process.env.PUBLIC_URL}/word_index.json`);
   if (!response.ok) {
     throw new Error(`Kunde inte ladda word_index.json: ${response.statusText}`);
   }

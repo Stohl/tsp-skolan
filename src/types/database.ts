@@ -50,7 +50,7 @@ export interface PhraseDatabase {
 // Funktion för att ladda orddatabasen
 export const loadWordDatabase = async (): Promise<WordDatabase> => {
   try {
-    const response = await fetch('/ord_database.json');
+    const response = await fetch(`${process.env.PUBLIC_URL}/ord_database.json`);
     if (!response.ok) {
       throw new Error('Kunde inte ladda orddatabasen');
     }
@@ -64,7 +64,7 @@ export const loadWordDatabase = async (): Promise<WordDatabase> => {
 // Funktion för att ladda frasdatabasen
 export const loadPhraseDatabase = async (): Promise<PhraseDatabase> => {
   try {
-    const response = await fetch('/fras_database.json');
+    const response = await fetch(`${process.env.PUBLIC_URL}/fras_database.json`);
     if (!response.ok) {
       throw new Error('Kunde inte ladda frasdatabasen');
     }

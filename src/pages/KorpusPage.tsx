@@ -73,7 +73,7 @@ const KorpusPage: React.FC<KorpusPageProps> = ({ onBack }) => {
     const loadKorpusData = async () => {
       try {
         setLoading(true);
-        const response = await fetch('/korpus_index.json');
+        const response = await fetch(`${process.env.PUBLIC_URL}/korpus_index.json`);
         if (!response.ok) {
           throw new Error('Kunde inte ladda korpus-data');
         }
