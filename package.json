@@ -2,7 +2,7 @@
   "name": "tsp-skolan-webpage",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://stohl.github.io/tsp-skolan",
+  "homepage": ".",
   "dependencies": {
     "@babel/preset-env": "^7.28.3",
     "@babel/preset-react": "^7.27.1",
