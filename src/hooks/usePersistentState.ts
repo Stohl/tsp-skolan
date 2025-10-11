@@ -183,7 +183,9 @@ export const useWordProgress = () => {
       points: newPoints,
       stats: {
         ...current.stats,
-        lastPracticed: new Date().toISOString() // Sätt nuvarande tid när nivå ändras
+        // Sätt INTE lastPracticed när ord läggs till första gången (level 0 -> 1)
+        // Då sorteras de enbart efter priority istället för timestamp
+        lastPracticed: current.lastPracticed || current.stats.lastPracticed || ''
       }
     });
   };
