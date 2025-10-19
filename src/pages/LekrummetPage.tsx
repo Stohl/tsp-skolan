@@ -258,6 +258,42 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     setShowCreateDialog(false);
   };
 
+  // Funktioner för att hantera egna ordlistor
+  const handleShareList = (list: CustomWordList) => {
+    const baseUrl = window.location.origin + window.location.pathname;
+    const wordIds = list.wordIds.map(id => `wordid=${id}`).join('&');
+    const shareUrl = `${baseUrl}?wordlist=${encodeURIComponent(list.name)}&${wordIds}`;
+    
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      alert(`Länk till ordlistan "${list.name}" kopierad till urklipp!`);
+    }).catch(() => {
+      // Fallback för äldre webbläsare
+      const textArea = document.createElement('textarea');
+      textArea.value = shareUrl;
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      alert(`Länk till ordlistan "${list.name}" kopierad till urklipp!`);
+    });
+  };
+
+  const handleEditList = (list: CustomWordList) => {
+    setNewListName(list.name);
+    setNewListDescription(list.description);
+    setSelectedWordIds([...list.wordIds]);
+    setShowCreateDialog(true);
+    // Ta bort den gamla listan när vi sparar den nya
+    setCustomWordLists(customWordLists.filter(l => l.id !== list.id));
+  };
+
+  const handleDeleteList = (list: CustomWordList) => {
+    if (window.confirm(`Är du säker på att du vill ta bort ordlistan "${list.name}"?`)) {
+      const updatedLists = customWordLists.filter(l => l.id !== list.id);
+      saveCustomWordLists(updatedLists);
+    }
+  };
+
   // Ta emot delad ordlista
   const handleAcceptSharedList = () => {
     if (!sharedWordList) return;
@@ -352,13 +388,13 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                       secondary={`${wordCount} ord • ${new Date(list.createdAt).toLocaleDateString()}`}
                     />
                     <ListItemSecondaryAction>
-                      <IconButton size="small" sx={{ mr: 1 }}>
+                      <IconButton size="small" sx={{ mr: 1 }} onClick={() => handleShareList(list)}>
                         <Share />
                       </IconButton>
-                      <IconButton size="small" sx={{ mr: 1 }}>
+                      <IconButton size="small" sx={{ mr: 1 }} onClick={() => handleEditList(list)}>
                         <Edit />
                       </IconButton>
-                      <IconButton size="small" color="error">
+                      <IconButton size="small" color="error" onClick={() => handleDeleteList(list)}>
                         <Delete />
                       </IconButton>
                     </ListItemSecondaryAction>
@@ -514,6 +550,76 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                     />
                   </ListItem>
                 ))}
+              </List>
+            </>
+          )}
+          
+          {/* Sök och lägg till ordlistor */}
+          <Typography variant="h6" sx={{ mb: 2, mt: 3 }}>
+            Eller lägg till hela ordlistor
+          </Typography>
+          <TextField
+            fullWidth
+            placeholder="Sök ordlistor..."
+            value={wordSearchQuery}
+            onChange={(e) => setWordSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ mb: 2 }}
+          />
+          
+          {appWordLists.filter(list => 
+            list.name.toLowerCase().includes(wordSearchQuery.toLowerCase()) ||
+            list.description.toLowerCase().includes(wordSearchQuery.toLowerCase())
+          ).length > 0 && (
+            <>
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                Tillgängliga ordlistor:
+              </Typography>
+              <List sx={{ maxHeight: 200, overflow: 'auto', mb: 2 }}>
+                {appWordLists
+                  .filter(list => 
+                    list.name.toLowerCase().includes(wordSearchQuery.toLowerCase()) ||
+                    list.description.toLowerCase().includes(wordSearchQuery.toLowerCase())
+                  )
+                  .slice(0, 5) // Bara första 5 resultaten
+                  .map((list) => {
+                    const words = getWordsFromList(list, wordDatabase);
+                    const alreadySelected = words.every(word => selectedWordIds.includes(word.id));
+                    const partiallySelected = words.some(word => selectedWordIds.includes(word.id));
+                    
+                    return (
+                      <ListItem key={list.id} sx={{ px: 0 }}>
+                        <Checkbox
+                          checked={alreadySelected}
+                          indeterminate={partiallySelected && !alreadySelected}
+                          onChange={() => {
+                            if (alreadySelected) {
+                              // Ta bort alla ord från denna lista
+                              const wordsToRemove = words.map(w => w.id);
+                              setSelectedWordIds(prev => prev.filter(id => !wordsToRemove.includes(id)));
+                            } else {
+                              // Lägg till alla ord från denna lista (ta bort dubletter)
+                              const wordsToAdd = words.map(w => w.id);
+                              setSelectedWordIds(prev => {
+                                const combined = [...prev, ...wordsToAdd];
+                                return combined.filter((id, index) => combined.indexOf(id) === index);
+                              });
+                            }
+                          }}
+                        />
+                        <ListItemText
+                          primary={list.name}
+                          secondary={`${words.length} ord • ${list.description}`}
+                        />
+                      </ListItem>
+                    );
+                  })}
               </List>
             </>
           )}
