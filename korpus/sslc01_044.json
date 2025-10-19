@@ -1,0 +1,3472 @@
+{
+  "media_descriptors": [
+    {
+      "media_url": "https://teckensprakskorpus.su.se/video/sslc01_044.mp4",
+      "mime_type": "video/mp4",
+      "relative_media_url": "sslc01_044.mp4",
+      "type": "video"
+    }
+  ],
+  "tiers": [
+    {
+      "tier_id": "0",
+      "name": "Glosa_DH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "2",
+      "name": "Glosa_NonDH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "4",
+      "name": "Översättning S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "1",
+      "name": "Glosa_DH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "3",
+      "name": "Glosa_NonDH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "5",
+      "name": "Översättning S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    }
+  ],
+  "linguistic_types": [],
+  "annotations": {
+    "0": [
+      {
+        "annotation_id": "41748705",
+        "start_time": 4.92,
+        "end_time": 5.24,
+        "duration": 0.3200000000000003,
+        "value": "FRÄMST",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748706",
+        "start_time": 5.6,
+        "end_time": 5.92,
+        "duration": 0.3200000000000003,
+        "value": "ORSAK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748707",
+        "start_time": 6.2,
+        "end_time": 6.64,
+        "duration": 0.4399999999999995,
+        "value": "SOCIAL(S)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748708",
+        "start_time": 7.08,
+        "end_time": 7.48,
+        "duration": 0.40000000000000036,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748709",
+        "start_time": 7.64,
+        "end_time": 7.68,
+        "duration": 0.040000000000000036,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748710",
+        "start_time": 7.88,
+        "end_time": 8.0,
+        "duration": 0.1200000000000001,
+        "value": "KOMMA-DIT(Lb)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748711",
+        "start_time": 8.2,
+        "end_time": 8.32,
+        "duration": 0.120000000000001,
+        "value": "MÅNGA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748712",
+        "start_time": 8.44,
+        "end_time": 9.12,
+        "duration": 0.6799999999999997,
+        "value": "TRÄFFAS.FL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748713",
+        "start_time": 9.36,
+        "end_time": 9.4,
+        "duration": 0.040000000000000924,
+        "value": "SJÄLV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748714",
+        "start_time": 9.48,
+        "end_time": 9.56,
+        "duration": 0.08000000000000007,
+        "value": "OCKSÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748715",
+        "start_time": 9.6,
+        "end_time": 9.64,
+        "duration": 0.040000000000000924,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748716",
+        "start_time": 9.8,
+        "end_time": 10.16,
+        "duration": 0.35999999999999943,
+        "value": "AKTIV.GÖRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748717",
+        "start_time": 10.44,
+        "end_time": 10.6,
+        "duration": 0.16000000000000014,
+        "value": "PEK>pekf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748718",
+        "start_time": 10.72,
+        "end_time": 11.32,
+        "duration": 0.5999999999999996,
+        "value": "FÖRELÄSA(ml)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748719",
+        "start_time": 11.48,
+        "end_time": 11.68,
+        "duration": 0.1999999999999993,
+        "value": "AKTIV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748720",
+        "start_time": 11.8,
+        "end_time": 12.04,
+        "duration": 0.23999999999999844,
+        "value": "INNE(N)^BANDY(Q)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748721",
+        "start_time": 12.16,
+        "end_time": 12.24,
+        "duration": 0.08000000000000007,
+        "value": "OCKSÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748722",
+        "start_time": 12.4,
+        "end_time": 12.56,
+        "duration": 0.16000000000000014,
+        "value": "SLUTA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748723",
+        "start_time": 12.64,
+        "end_time": 12.8,
+        "duration": 0.16000000000000014,
+        "value": "GLOSA:(KVAR)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748724",
+        "start_time": 13.28,
+        "end_time": 13.4,
+        "duration": 0.120000000000001,
+        "value": "FÖRUT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748725",
+        "start_time": 13.6,
+        "end_time": 13.68,
+        "duration": 0.08000000000000007,
+        "value": "VARA-MED",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748726",
+        "start_time": 13.84,
+        "end_time": 13.96,
+        "duration": 0.120000000000001,
+        "value": "SPEL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748727",
+        "start_time": 14.12,
+        "end_time": 14.44,
+        "duration": 0.3200000000000003,
+        "value": "INNE(N)^BANDY(Q)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748728",
+        "start_time": 14.68,
+        "end_time": 14.72,
+        "duration": 0.040000000000000924,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748729",
+        "start_time": 14.96,
+        "end_time": 15.08,
+        "duration": 0.11999999999999922,
+        "value": "SPORT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748730",
+        "start_time": 15.24,
+        "end_time": 15.72,
+        "duration": 0.4800000000000004,
+        "value": "GLOSA:(BRED)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748731",
+        "start_time": 16.0,
+        "end_time": 16.08,
+        "duration": 0.0799999999999983,
+        "value": "ALLTID",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748732",
+        "start_time": 16.24,
+        "end_time": 16.36,
+        "duration": 0.120000000000001,
+        "value": "KVÄLL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748733",
+        "start_time": 16.56,
+        "end_time": 16.64,
+        "duration": 0.08000000000000185,
+        "value": "GRUPP",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748734",
+        "start_time": 16.72,
+        "end_time": 17.28,
+        "duration": 0.5600000000000023,
+        "value": "TECKNA-SPRÅKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748735",
+        "start_time": 17.48,
+        "end_time": 17.52,
+        "duration": 0.03999999999999915,
+        "value": "VARA|PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748736",
+        "start_time": 17.76,
+        "end_time": 17.96,
+        "duration": 0.1999999999999993,
+        "value": "SOCIAL(S)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748737",
+        "start_time": 18.16,
+        "end_time": 18.8,
+        "duration": 0.6400000000000006,
+        "value": "TECKNA-SPRÅKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748738",
+        "start_time": 18.96,
+        "end_time": 19.0,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748739",
+        "start_time": 19.16,
+        "end_time": 19.36,
+        "duration": 0.1999999999999993,
+        "value": "DÄRFÖR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748740",
+        "start_time": 19.48,
+        "end_time": 19.52,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748741",
+        "start_time": 19.72,
+        "end_time": 20.16,
+        "duration": 0.4400000000000013,
+        "value": "VARA-MED.MULTI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748742",
+        "start_time": 20.52,
+        "end_time": 20.6,
+        "duration": 0.08000000000000185,
+        "value": "OCKSÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748743",
+        "start_time": 20.72,
+        "end_time": 20.92,
+        "duration": 0.20000000000000284,
+        "value": "FÅ1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748744",
+        "start_time": 21.2,
+        "end_time": 21.4,
+        "duration": 0.1999999999999993,
+        "value": "INFORMATION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748745",
+        "start_time": 21.52,
+        "end_time": 21.56,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748746",
+        "start_time": 21.84,
+        "end_time": 22.28,
+        "duration": 0.4400000000000013,
+        "value": "VISSTE-INTE(8o)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748747",
+        "start_time": 22.88,
+        "end_time": 22.96,
+        "duration": 0.08000000000000185,
+        "value": "ALLTID",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748748",
+        "start_time": 23.16,
+        "end_time": 23.28,
+        "duration": 0.120000000000001,
+        "value": "BÄST(J>B)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748749",
+        "start_time": 24.08,
+        "end_time": 24.32,
+        "duration": 0.240000000000002,
+        "value": "TYPISK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748750",
+        "start_time": 24.6,
+        "end_time": 24.76,
+        "duration": 0.16000000000000014,
+        "value": "SÅ-ATT-SÄGA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748751",
+        "start_time": 24.96,
+        "end_time": 25.16,
+        "duration": 0.1999999999999993,
+        "value": "DÖV(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748752",
+        "start_time": 25.52,
+        "end_time": 25.72,
+        "duration": 0.1999999999999993,
+        "value": "informera@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748753",
+        "start_time": 25.96,
+        "end_time": 26.16,
+        "duration": 0.1999999999999993,
+        "value": "INFORMERA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748754",
+        "start_time": 26.32,
+        "end_time": 26.4,
+        "duration": 0.0799999999999983,
+        "value": "grepp@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748755",
+        "start_time": 26.56,
+        "end_time": 27.12,
+        "duration": 0.5600000000000023,
+        "value": "TECKNA-FLYT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748756",
+        "start_time": 27.32,
+        "end_time": 27.76,
+        "duration": 0.4400000000000013,
+        "value": "GREPP(AA)+HANTERA@p",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748757",
+        "start_time": 27.96,
+        "end_time": 28.0,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748758",
+        "start_time": 28.08,
+        "end_time": 28.48,
+        "duration": 0.40000000000000213,
+        "value": "GREPP(AA)+HANTERA@p",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748759",
+        "start_time": 28.76,
+        "end_time": 29.0,
+        "duration": 0.23999999999999844,
+        "value": "ÄN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748760",
+        "start_time": 29.24,
+        "end_time": 29.48,
+        "duration": 0.240000000000002,
+        "value": "TEXT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748761",
+        "start_time": 29.64,
+        "end_time": 29.8,
+        "duration": 0.16000000000000014,
+        "value": "AKTIV.GÖRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748762",
+        "start_time": 30.08,
+        "end_time": 30.28,
+        "duration": 0.20000000000000284,
+        "value": "KONTROLLERA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748763",
+        "start_time": 30.92,
+        "end_time": 31.08,
+        "duration": 0.1599999999999966,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748764",
+        "start_time": 31.28,
+        "end_time": 31.48,
+        "duration": 0.1999999999999993,
+        "value": "TRÄFFAS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748765",
+        "start_time": 31.76,
+        "end_time": 31.92,
+        "duration": 0.16000000000000014,
+        "value": "FÅ1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748766",
+        "start_time": 32.04,
+        "end_time": 32.12,
+        "duration": 0.0799999999999983,
+        "value": "NY",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748767",
+        "start_time": 32.24,
+        "end_time": 32.6,
+        "duration": 0.35999999999999943,
+        "value": "INFORMATION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748768",
+        "start_time": 32.8,
+        "end_time": 32.92,
+        "duration": 0.12000000000000455,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748769",
+        "start_time": 33.2,
+        "end_time": 33.28,
+        "duration": 0.0799999999999983,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748770",
+        "start_time": 33.48,
+        "end_time": 33.72,
+        "duration": 0.240000000000002,
+        "value": "VISSTE-INTE(8o)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748771",
+        "start_time": 34.4,
+        "end_time": 34.72,
+        "duration": 0.3200000000000003,
+        "value": "KOPPLA-AV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748772",
+        "start_time": 35.04,
+        "end_time": 35.52,
+        "duration": 0.480000000000004,
+        "value": "TECKNA-FLYT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748773",
+        "start_time": 35.72,
+        "end_time": 36.76,
+        "duration": 1.0399999999999991,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748774",
+        "start_time": 36.92,
+        "end_time": 37.08,
+        "duration": 0.1599999999999966,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748775",
+        "start_time": 37.24,
+        "end_time": 37.4,
+        "duration": 0.1599999999999966,
+        "value": "AKTIV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748776",
+        "start_time": 37.64,
+        "end_time": 37.68,
+        "duration": 0.03999999999999915,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748777",
+        "start_time": 37.84,
+        "end_time": 38.16,
+        "duration": 0.3199999999999932,
+        "value": "KOMMA-DIT(Lb).MULTI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748778",
+        "start_time": 68.24,
+        "end_time": 68.8,
+        "duration": 0.5600000000000023,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748779",
+        "start_time": 75.42,
+        "end_time": 75.54,
+        "duration": 0.12000000000000455,
+        "value": "OCKSÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748780",
+        "start_time": 75.7,
+        "end_time": 76.42,
+        "duration": 0.7199999999999989,
+        "value": "KONTAKTA^NÄT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748781",
+        "start_time": 76.62,
+        "end_time": 76.7,
+        "duration": 0.0799999999999983,
+        "value": "NY@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748782",
+        "start_time": 76.9,
+        "end_time": 77.5,
+        "duration": 0.5999999999999943,
+        "value": "ANSIKTE(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748783",
+        "start_time": 77.66,
+        "end_time": 77.86,
+        "duration": 0.20000000000000284,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748784",
+        "start_time": 78.1,
+        "end_time": 78.18,
+        "duration": 0.0800000000000125,
+        "value": "INTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748785",
+        "start_time": 78.42,
+        "end_time": 78.62,
+        "duration": 0.20000000000000284,
+        "value": "MÅSTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748786",
+        "start_time": 78.86,
+        "end_time": 79.02,
+        "duration": 0.1599999999999966,
+        "value": "TRÄFFAS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748787",
+        "start_time": 79.06,
+        "end_time": 79.1,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748788",
+        "start_time": 79.34,
+        "end_time": 79.5,
+        "duration": 0.1599999999999966,
+        "value": "GAMMAL(5)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748789",
+        "start_time": 79.7,
+        "end_time": 79.78,
+        "duration": 0.0799999999999983,
+        "value": "VÄN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748790",
+        "start_time": 79.98,
+        "end_time": 80.06,
+        "duration": 0.0799999999999983,
+        "value": "FRÅN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748791",
+        "start_time": 80.18,
+        "end_time": 80.5,
+        "duration": 0.3199999999999932,
+        "value": "TID-FRAMÅT-TILL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748792",
+        "start_time": 80.56,
+        "end_time": 80.6,
+        "duration": 0.03999999999999204,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748793",
+        "start_time": 80.84,
+        "end_time": 81.12,
+        "duration": 0.28000000000000114,
+        "value": "VÄXA-UPP",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748794",
+        "start_time": 81.32,
+        "end_time": 81.44,
+        "duration": 0.12000000000000455,
+        "value": "UTAN(ml)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748795",
+        "start_time": 81.68,
+        "end_time": 81.8,
+        "duration": 0.11999999999999034,
+        "value": "NY@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748796",
+        "start_time": 82.0,
+        "end_time": 82.32,
+        "duration": 0.3199999999999932,
+        "value": "OCKSÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748797",
+        "start_time": 82.44,
+        "end_time": 83.0,
+        "duration": 0.5600000000000023,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748798",
+        "start_time": 83.4,
+        "end_time": 83.76,
+        "duration": 0.35999999999999943,
+        "value": "LEDA-TILL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748799",
+        "start_time": 84.0,
+        "end_time": 84.04,
+        "duration": 0.04000000000000625,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748800",
+        "start_time": 84.16,
+        "end_time": 84.52,
+        "duration": 0.35999999999999943,
+        "value": "RESA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748801",
+        "start_time": 84.76,
+        "end_time": 84.96,
+        "duration": 0.19999999999998863,
+        "value": "TRÄFFAS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748802",
+        "start_time": 85.12,
+        "end_time": 85.2,
+        "duration": 0.0799999999999983,
+        "value": "ANNAN(ea)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748803",
+        "start_time": 85.4,
+        "end_time": 85.68,
+        "duration": 0.28000000000000114,
+        "value": "BORTA-ANNAN-PLATS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748804",
+        "start_time": 85.76,
+        "end_time": 85.84,
+        "duration": 0.0799999999999983,
+        "value": "ANNAN(ea)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748805",
+        "start_time": 86.04,
+        "end_time": 86.28,
+        "duration": 0.23999999999999488,
+        "value": "LAND",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748806",
+        "start_time": 86.48,
+        "end_time": 87.0,
+        "duration": 0.519999999999996,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748807",
+        "start_time": 88.41,
+        "end_time": 88.45,
+        "duration": 0.04000000000000625,
+        "value": "EN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748808",
+        "start_time": 88.57,
+        "end_time": 88.65,
+        "duration": 0.0800000000000125,
+        "value": "HELT@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748809",
+        "start_time": 88.77,
+        "end_time": 88.81,
+        "duration": 0.04000000000000625,
+        "value": "ENKEL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748810",
+        "start_time": 89.05,
+        "end_time": 89.33,
+        "duration": 0.28000000000000114,
+        "value": "SOCIAL(S)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748811",
+        "start_time": 91.89,
+        "end_time": 92.05,
+        "duration": 0.1599999999999966,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748812",
+        "start_time": 92.45,
+        "end_time": 92.77,
+        "duration": 0.3199999999999932,
+        "value": "KUNSKAP^SKAP@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748813",
+        "start_time": 93.0,
+        "end_time": 93.48,
+        "duration": 0.480000000000004,
+        "value": "TIDEN-GÅR(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748814",
+        "start_time": 93.72,
+        "end_time": 93.8,
+        "duration": 0.0799999999999983,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748815",
+        "start_time": 94.16,
+        "end_time": 94.36,
+        "duration": 0.20000000000000284,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748816",
+        "start_time": 94.6,
+        "end_time": 94.76,
+        "duration": 0.1600000000000108,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748817",
+        "start_time": 95.08,
+        "end_time": 95.16,
+        "duration": 0.0799999999999983,
+        "value": "NY@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748818",
+        "start_time": 95.28,
+        "end_time": 95.48,
+        "duration": 0.20000000000000284,
+        "value": "DÖV(J)|DAG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748819",
+        "start_time": 95.6,
+        "end_time": 95.84,
+        "duration": 0.2400000000000091,
+        "value": "ÖREBRO@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748820",
+        "start_time": 95.96,
+        "end_time": 96.0,
+        "duration": 0.04000000000000625,
+        "value": "VAD",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748821",
+        "start_time": 96.2,
+        "end_time": 96.38,
+        "duration": 0.1799999999999926,
+        "value": "TA-UPP",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748822",
+        "start_time": 96.4,
+        "end_time": 96.54,
+        "duration": 0.14000000000000057,
+        "value": "OM@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748823",
+        "start_time": 96.8,
+        "end_time": 96.84,
+        "duration": 0.04000000000000625,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748824",
+        "start_time": 96.96,
+        "end_time": 97.56,
+        "duration": 0.6000000000000085,
+        "value": "SPÄNNANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748825",
+        "start_time": 97.64,
+        "end_time": 97.68,
+        "duration": 0.04000000000000625,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748826",
+        "start_time": 97.88,
+        "end_time": 98.04,
+        "duration": 0.1600000000000108,
+        "value": "KOMMA-DIT(Lb)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748827",
+        "start_time": 98.28,
+        "end_time": 98.4,
+        "duration": 0.12000000000000455,
+        "value": "ALLTID",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748828",
+        "start_time": 98.64,
+        "end_time": 98.88,
+        "duration": 0.23999999999999488,
+        "value": "NYTT@b.ITER",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748829",
+        "start_time": 99.08,
+        "end_time": 99.68,
+        "duration": 0.6000000000000085,
+        "value": "INTRYCK.ITER",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748830",
+        "start_time": 99.92,
+        "end_time": 100.04,
+        "duration": 0.12000000000000455,
+        "value": "ALDRIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748831",
+        "start_time": 100.24,
+        "end_time": 100.36,
+        "duration": 0.12000000000000455,
+        "value": "SOM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41748832",
+        "start_time": 100.52,
+        "end_time": 101.84,
+        "duration": 1.3200000000000074,
+        "value": "SAMMA.ITER",
+        "tier_name": "Glosa_DH S1"
+      }
+    ],
+    "2": [
+      {
+        "annotation_id": "41748909",
+        "start_time": 10.36,
+        "end_time": 10.6,
+        "duration": 0.2400000000000002,
+        "value": "BOJ-LIST-EN",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "41748910",
+        "start_time": 14.64,
+        "end_time": 14.76,
+        "duration": 0.11999999999999922,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "41748911",
+        "start_time": 33.04,
+        "end_time": 33.28,
+        "duration": 0.240000000000002,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      }
+    ],
+    "4": [
+      {
+        "annotation_id": "41748915",
+        "start_time": 4.54,
+        "end_time": 9.32,
+        "duration": 4.78,
+        "value": "Den FRÄMSTA orsaken är det sociala eeh att träffa folk,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748916",
+        "start_time": 9.36,
+        "end_time": 13.04,
+        "duration": 3.6799999999999997,
+        "value": "när jag själv till exempel föreläser eller spelar innebandy, fast det har jag slutat med nu,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748917",
+        "start_time": 13.1,
+        "end_time": 15.74,
+        "duration": 2.6400000000000006,
+        "value": "men tidigare spelade jag innebandy och höll även på med andra sporter,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748918",
+        "start_time": 15.77,
+        "end_time": 18.87,
+        "duration": 3.1000000000000014,
+        "value": "då träffades vi på kvällarna och satt och pratade, just det sociala",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748919",
+        "start_time": 18.91,
+        "end_time": 20.39,
+        "duration": 1.4800000000000004,
+        "value": "var ju anledningen till att jag var med",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748920",
+        "start_time": 20.47,
+        "end_time": 22.51,
+        "duration": 2.0400000000000027,
+        "value": "och så fick man veta så mycket som man inte kände till,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748921",
+        "start_time": 22.57,
+        "end_time": 28.59,
+        "duration": 6.02,
+        "value": "det mest vanliga för oss döva är att utbyta information med varandra genom att berätta",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748922",
+        "start_time": 28.66,
+        "end_time": 31.06,
+        "duration": 2.3999999999999986,
+        "value": "och inte att vi läser oss till det",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748923",
+        "start_time": 31.11,
+        "end_time": 36.12,
+        "duration": 5.009999999999998,
+        "value": "så när vi träffades handlade det om att man fick veta nya saker samtidigt som man kopplade av eftersom vi talade samma språk,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748924",
+        "start_time": 36.16,
+        "end_time": 38.55,
+        "duration": 2.3900000000000006,
+        "value": "ja så det var en hel del aktiviteter.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748925",
+        "start_time": 68.14,
+        "end_time": 68.99,
+        "duration": 0.8499999999999943,
+        "value": "Eeh...",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748926",
+        "start_time": 75.3,
+        "end_time": 78.07,
+        "duration": 2.769999999999996,
+        "value": "Nya kontakter, nätverka, se nya ansikten,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748927",
+        "start_time": 78.12,
+        "end_time": 81.17,
+        "duration": 3.049999999999997,
+        "value": "för man måste ju inte träffa dom som man har känt i alla år",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748928",
+        "start_time": 81.21,
+        "end_time": 87.53,
+        "duration": 6.320000000000007,
+        "value": "utan man kan ju träffa nya personer och det kanske leder till att man reser och träffar den personen i ett annat land till exempel.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748929",
+        "start_time": 87.84,
+        "end_time": 89.95,
+        "duration": 2.1099999999999994,
+        "value": "Ja det är helt enkelt det sociala det handlar om.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748930",
+        "start_time": 91.74,
+        "end_time": 93.97,
+        "duration": 2.230000000000004,
+        "value": "Ja kunskap och utveckling,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748931",
+        "start_time": 94.06,
+        "end_time": 99.79,
+        "duration": 5.730000000000004,
+        "value": "som nu senast på Dövas dag i Örebro, innehållet var spännande och det var många nya saker som togs upp,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41748932",
+        "start_time": 99.85,
+        "end_time": 102.86,
+        "duration": 3.010000000000005,
+        "value": "det är ju aldrig så att samma saker tas upp år efter år.",
+        "tier_name": "Översättning S1"
+      }
+    ],
+    "1": [
+      {
+        "annotation_id": "41748833",
+        "start_time": 39.6,
+        "end_time": 39.64,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748834",
+        "start_time": 39.92,
+        "end_time": 40.04,
+        "duration": 0.11999999999999744,
+        "value": "PI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748835",
+        "start_time": 40.32,
+        "end_time": 40.48,
+        "duration": 0.1599999999999966,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748836",
+        "start_time": 40.88,
+        "end_time": 41.08,
+        "duration": 0.19999999999999574,
+        "value": "ÅLDER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748837",
+        "start_time": 41.32,
+        "end_time": 41.44,
+        "duration": 0.11999999999999744,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748838",
+        "start_time": 41.72,
+        "end_time": 42.12,
+        "duration": 0.3999999999999986,
+        "value": "VÄXA-UPP",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748839",
+        "start_time": 42.28,
+        "end_time": 42.32,
+        "duration": 0.03999999999999915,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748840",
+        "start_time": 42.52,
+        "end_time": 43.0,
+        "duration": 0.4799999999999969,
+        "value": "SPORT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748841",
+        "start_time": 43.12,
+        "end_time": 43.16,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748842",
+        "start_time": 43.48,
+        "end_time": 43.68,
+        "duration": 0.20000000000000284,
+        "value": "FOKUSERA(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748843",
+        "start_time": 43.8,
+        "end_time": 43.92,
+        "duration": 0.12000000000000455,
+        "value": "VARA-MED",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748844",
+        "start_time": 44.16,
+        "end_time": 44.68,
+        "duration": 0.5200000000000031,
+        "value": "DÖV(L)^SPELA(O)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748845",
+        "start_time": 45.48,
+        "end_time": 45.72,
+        "duration": 0.240000000000002,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748846",
+        "start_time": 46.16,
+        "end_time": 46.44,
+        "duration": 0.28000000000000114,
+        "value": "SM@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748847",
+        "start_time": 46.6,
+        "end_time": 46.72,
+        "duration": 0.11999999999999744,
+        "value": "PEK>pekf",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748848",
+        "start_time": 46.8,
+        "end_time": 47.0,
+        "duration": 0.20000000000000284,
+        "value": "NM@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748849",
+        "start_time": 47.16,
+        "end_time": 47.72,
+        "duration": 0.5600000000000023,
+        "value": "VARA-MED.ITER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748850",
+        "start_time": 47.88,
+        "end_time": 48.08,
+        "duration": 0.19999999999999574,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748851",
+        "start_time": 48.92,
+        "end_time": 49.04,
+        "duration": 0.11999999999999744,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748852",
+        "start_time": 49.12,
+        "end_time": 49.16,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748853",
+        "start_time": 49.44,
+        "end_time": 49.8,
+        "duration": 0.35999999999999943,
+        "value": "ÄLDRE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748854",
+        "start_time": 50.28,
+        "end_time": 50.32,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748855",
+        "start_time": 50.68,
+        "end_time": 51.52,
+        "duration": 0.8400000000000034,
+        "value": "ÄMNE-ÅT-SIDAN@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748856",
+        "start_time": 51.96,
+        "end_time": 52.08,
+        "duration": 0.11999999999999744,
+        "value": "GE(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748857",
+        "start_time": 52.24,
+        "end_time": 52.28,
+        "duration": 0.03999999999999915,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748858",
+        "start_time": 52.52,
+        "end_time": 52.6,
+        "duration": 0.0799999999999983,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748859",
+        "start_time": 52.76,
+        "end_time": 53.28,
+        "duration": 0.5200000000000031,
+        "value": "GRUND",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748860",
+        "start_time": 53.44,
+        "end_time": 53.56,
+        "duration": 0.12000000000000455,
+        "value": "BETYDA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748861",
+        "start_time": 53.88,
+        "end_time": 54.04,
+        "duration": 0.1599999999999966,
+        "value": "AUTOMATISK(5)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748862",
+        "start_time": 54.12,
+        "end_time": 54.16,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748863",
+        "start_time": 54.36,
+        "end_time": 54.56,
+        "duration": 0.20000000000000284,
+        "value": "VARA-MED",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748864",
+        "start_time": 54.68,
+        "end_time": 54.72,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748865",
+        "start_time": 54.96,
+        "end_time": 55.16,
+        "duration": 0.19999999999999574,
+        "value": "UNG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748866",
+        "start_time": 55.76,
+        "end_time": 55.96,
+        "duration": 0.20000000000000284,
+        "value": "TRÄFFAS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748867",
+        "start_time": 56.16,
+        "end_time": 56.28,
+        "duration": 0.12000000000000455,
+        "value": "ÄLDRE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748868",
+        "start_time": 56.48,
+        "end_time": 56.52,
+        "duration": 0.04000000000000625,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748869",
+        "start_time": 56.72,
+        "end_time": 57.4,
+        "duration": 0.6799999999999997,
+        "value": "UPPFATTA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748870",
+        "start_time": 57.56,
+        "end_time": 57.64,
+        "duration": 0.0799999999999983,
+        "value": "SJÄLV",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748871",
+        "start_time": 57.8,
+        "end_time": 58.36,
+        "duration": 0.5600000000000023,
+        "value": "VÄXA-UPP",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748872",
+        "start_time": 58.44,
+        "end_time": 58.48,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748873",
+        "start_time": 58.68,
+        "end_time": 58.76,
+        "duration": 0.0799999999999983,
+        "value": "INNEBANDY@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748874",
+        "start_time": 58.96,
+        "end_time": 59.0,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748875",
+        "start_time": 59.28,
+        "end_time": 59.48,
+        "duration": 0.19999999999999574,
+        "value": "STOPP@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748876",
+        "start_time": 59.76,
+        "end_time": 60.04,
+        "duration": 0.28000000000000114,
+        "value": "AVKLARAD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748877",
+        "start_time": 60.2,
+        "end_time": 60.28,
+        "duration": 0.0799999999999983,
+        "value": "MER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748878",
+        "start_time": 60.52,
+        "end_time": 60.56,
+        "duration": 0.03999999999999915,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748879",
+        "start_time": 60.92,
+        "end_time": 61.04,
+        "duration": 0.11999999999999744,
+        "value": "FOKUSERA(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748880",
+        "start_time": 61.36,
+        "end_time": 61.8,
+        "duration": 0.4399999999999977,
+        "value": "DÖV(J)|DAG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748881",
+        "start_time": 62.28,
+        "end_time": 62.48,
+        "duration": 0.19999999999999574,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748882",
+        "start_time": 62.72,
+        "end_time": 63.36,
+        "duration": 0.6400000000000006,
+        "value": "FILM^FESTIVAL(It)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748883",
+        "start_time": 63.76,
+        "end_time": 63.8,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748884",
+        "start_time": 64.04,
+        "end_time": 64.2,
+        "duration": 0.1599999999999966,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748885",
+        "start_time": 64.4,
+        "end_time": 64.76,
+        "duration": 0.35999999999999943,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748886",
+        "start_time": 64.84,
+        "end_time": 64.88,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748887",
+        "start_time": 65.0,
+        "end_time": 65.04,
+        "duration": 0.04000000000000625,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748888",
+        "start_time": 65.2,
+        "end_time": 65.24,
+        "duration": 0.03999999999999204,
+        "value": "TRÄFFAS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748889",
+        "start_time": 65.36,
+        "end_time": 65.48,
+        "duration": 0.12000000000000455,
+        "value": "ANNAN(ea)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748890",
+        "start_time": 65.68,
+        "end_time": 65.96,
+        "duration": 0.2799999999999869,
+        "value": "FOLK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748891",
+        "start_time": 66.28,
+        "end_time": 66.4,
+        "duration": 0.12000000000000455,
+        "value": "ANNAN(ea)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748892",
+        "start_time": 66.56,
+        "end_time": 67.16,
+        "duration": 0.5999999999999943,
+        "value": "INTRESSE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748893",
+        "start_time": 67.36,
+        "end_time": 67.64,
+        "duration": 0.28000000000000114,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748894",
+        "start_time": 69.16,
+        "end_time": 69.48,
+        "duration": 0.3200000000000074,
+        "value": "ALLA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748895",
+        "start_time": 69.74,
+        "end_time": 70.02,
+        "duration": 0.28000000000000114,
+        "value": "NIVÅ.MULTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748896",
+        "start_time": 70.18,
+        "end_time": 70.22,
+        "duration": 0.03999999999999204,
+        "value": "POSS1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748897",
+        "start_time": 70.38,
+        "end_time": 70.42,
+        "duration": 0.04000000000000625,
+        "value": "ÅLDER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748898",
+        "start_time": 70.62,
+        "end_time": 70.86,
+        "duration": 0.23999999999999488,
+        "value": "NIVÅ.FL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748899",
+        "start_time": 71.06,
+        "end_time": 71.1,
+        "duration": 0.03999999999999204,
+        "value": "PERF",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748900",
+        "start_time": 71.42,
+        "end_time": 71.46,
+        "duration": 0.03999999999999204,
+        "value": "ALLTID",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748901",
+        "start_time": 71.78,
+        "end_time": 72.06,
+        "duration": 0.28000000000000114,
+        "value": "POSS1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748902",
+        "start_time": 72.58,
+        "end_time": 72.7,
+        "duration": 0.12000000000000455,
+        "value": "STOR",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748903",
+        "start_time": 72.82,
+        "end_time": 73.06,
+        "duration": 0.2400000000000091,
+        "value": "INTRESSE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748904",
+        "start_time": 73.3,
+        "end_time": 73.62,
+        "duration": 0.3200000000000074,
+        "value": "TRÄFFAS.MULTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748905",
+        "start_time": 73.78,
+        "end_time": 73.9,
+        "duration": 0.12000000000000455,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748906",
+        "start_time": 74.1,
+        "end_time": 74.38,
+        "duration": 0.28000000000000114,
+        "value": "FOLK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748907",
+        "start_time": 74.82,
+        "end_time": 75.26,
+        "duration": 0.44000000000001194,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41748908",
+        "start_time": 81.48,
+        "end_time": 81.64,
+        "duration": 0.1599999999999966,
+        "value": "PRECIS",
+        "tier_name": "Glosa_DH S2"
+      }
+    ],
+    "3": [
+      {
+        "annotation_id": "41748912",
+        "start_time": 46.6,
+        "end_time": 46.72,
+        "duration": 0.11999999999999744,
+        "value": "BOJ-LIST-EN",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41748913",
+        "start_time": 48.36,
+        "end_time": 48.8,
+        "duration": 0.4399999999999977,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41748914",
+        "start_time": 62.24,
+        "end_time": 62.48,
+        "duration": 0.23999999999999488,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S2"
+      }
+    ],
+    "5": [
+      {
+        "annotation_id": "41748933",
+        "start_time": 39.09,
+        "end_time": 43.15,
+        "duration": 4.059999999999995,
+        "value": "Det har varit olika genom åren, när jag var yngre var det mycket sport,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748934",
+        "start_time": 43.2,
+        "end_time": 48.77,
+        "duration": 5.57,
+        "value": "jag har varit med på olika tävlingar för döva, till exempel SM och NM många gånger",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748935",
+        "start_time": 48.8,
+        "end_time": 51.89,
+        "duration": 3.0900000000000034,
+        "value": "fast nu när jag är lite äldre så har jag slutat med det",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748936",
+        "start_time": 51.94,
+        "end_time": 53.38,
+        "duration": 1.4400000000000048,
+        "value": "men det gav mig en bra grund,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748937",
+        "start_time": 53.41,
+        "end_time": 57.44,
+        "duration": 4.030000000000001,
+        "value": "jag var ung när jag började så jag lärde mig mycket av dom som var äldre",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748938",
+        "start_time": 57.49,
+        "end_time": 59.98,
+        "duration": 2.489999999999995,
+        "value": "sen när jag själv blev äldre kände jag att det var dags att sluta med innebandyn",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748939",
+        "start_time": 60.02,
+        "end_time": 63.66,
+        "duration": 3.6399999999999935,
+        "value": "så nu är jag till exempel med på Dövas dag (ett årligt, rikstäckande arrangemang för döva) och filmfestivalen (Dövfilmfestivalen),",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748940",
+        "start_time": 63.69,
+        "end_time": 67.82,
+        "duration": 4.1299999999999955,
+        "value": "det tycker jag är roligt, att åka iväg och träffa människor med andra intressen,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748941",
+        "start_time": 68.01,
+        "end_time": 74.83,
+        "duration": 6.819999999999993,
+        "value": "genom åren har mitt stora intresse varit att träffa olika människor,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748942",
+        "start_time": 74.89,
+        "end_time": 75.79,
+        "duration": 0.9000000000000057,
+        "value": "ja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41748943",
+        "start_time": 100.9,
+        "end_time": 102.11,
+        "duration": 1.2099999999999937,
+        "value": "Nej.",
+        "tier_name": "Översättning S2"
+      }
+    ]
+  },
+  "blocksdata": [
+    {
+      "id": 0,
+      "name": "Glosa_DH S1",
+      "annotations": [
+        {
+          "t": "FRÄMST",
+          "s": 4920,
+          "e": 5240,
+          "id": 41748705
+        },
+        {
+          "t": "ORSAK",
+          "s": 5600,
+          "e": 5920,
+          "id": 41748706
+        },
+        {
+          "t": "SOCIAL(S)",
+          "s": 6200,
+          "e": 6640,
+          "id": 41748707
+        },
+        {
+          "t": "tp@&",
+          "s": 7080,
+          "e": 7480,
+          "id": 41748708
+        },
+        {
+          "t": "PRO1",
+          "s": 7640,
+          "e": 7680,
+          "id": 41748709
+        },
+        {
+          "t": "KOMMA-DIT(Lb)",
+          "s": 7880,
+          "e": 8000,
+          "id": 41748710
+        },
+        {
+          "t": "MÅNGA",
+          "s": 8200,
+          "e": 8320,
+          "id": 41748711
+        },
+        {
+          "t": "TRÄFFAS.FL",
+          "s": 8440,
+          "e": 9120,
+          "id": 41748712
+        },
+        {
+          "t": "SJÄLV",
+          "s": 9360,
+          "e": 9400,
+          "id": 41748713
+        },
+        {
+          "t": "OCKSÅ",
+          "s": 9480,
+          "e": 9560,
+          "id": 41748714
+        },
+        {
+          "t": "PRO1",
+          "s": 9600,
+          "e": 9640,
+          "id": 41748715
+        },
+        {
+          "t": "AKTIV.GÖRA",
+          "s": 9800,
+          "e": 10160,
+          "id": 41748716
+        },
+        {
+          "t": "PEK>pekf",
+          "s": 10440,
+          "e": 10600,
+          "id": 41748717
+        },
+        {
+          "t": "FÖRELÄSA(ml)",
+          "s": 10720,
+          "e": 11320,
+          "id": 41748718
+        },
+        {
+          "t": "AKTIV",
+          "s": 11480,
+          "e": 11680,
+          "id": 41748719
+        },
+        {
+          "t": "INNE(N)^BANDY(Q)",
+          "s": 11800,
+          "e": 12040,
+          "id": 41748720
+        },
+        {
+          "t": "OCKSÅ",
+          "s": 12160,
+          "e": 12240,
+          "id": 41748721
+        },
+        {
+          "t": "SLUTA",
+          "s": 12400,
+          "e": 12560,
+          "id": 41748722
+        },
+        {
+          "t": "GLOSA:(KVAR)",
+          "s": 12640,
+          "e": 12800,
+          "id": 41748723
+        },
+        {
+          "t": "FÖRUT",
+          "s": 13280,
+          "e": 13400,
+          "id": 41748724
+        },
+        {
+          "t": "VARA-MED",
+          "s": 13600,
+          "e": 13680,
+          "id": 41748725
+        },
+        {
+          "t": "SPEL",
+          "s": 13840,
+          "e": 13960,
+          "id": 41748726
+        },
+        {
+          "t": "INNE(N)^BANDY(Q)",
+          "s": 14120,
+          "e": 14440,
+          "id": 41748727
+        },
+        {
+          "t": "PEK>långf",
+          "s": 14680,
+          "e": 14720,
+          "id": 41748728
+        },
+        {
+          "t": "SPORT",
+          "s": 14960,
+          "e": 15080,
+          "id": 41748729
+        },
+        {
+          "t": "GLOSA:(BRED)",
+          "s": 15240,
+          "e": 15720,
+          "id": 41748730
+        },
+        {
+          "t": "ALLTID",
+          "s": 16000,
+          "e": 16080,
+          "id": 41748731
+        },
+        {
+          "t": "KVÄLL",
+          "s": 16240,
+          "e": 16360,
+          "id": 41748732
+        },
+        {
+          "t": "GRUPP",
+          "s": 16560,
+          "e": 16640,
+          "id": 41748733
+        },
+        {
+          "t": "TECKNA-SPRÅKA",
+          "s": 16720,
+          "e": 17280,
+          "id": 41748734
+        },
+        {
+          "t": "VARA|PEK",
+          "s": 17480,
+          "e": 17520,
+          "id": 41748735
+        },
+        {
+          "t": "SOCIAL(S)",
+          "s": 17760,
+          "e": 17960,
+          "id": 41748736
+        },
+        {
+          "t": "TECKNA-SPRÅKA",
+          "s": 18160,
+          "e": 18800,
+          "id": 41748737
+        },
+        {
+          "t": "PRO1",
+          "s": 18960,
+          "e": 19000,
+          "id": 41748738
+        },
+        {
+          "t": "DÄRFÖR",
+          "s": 19160,
+          "e": 19360,
+          "id": 41748739
+        },
+        {
+          "t": "PRO1",
+          "s": 19480,
+          "e": 19520,
+          "id": 41748740
+        },
+        {
+          "t": "VARA-MED.MULTI",
+          "s": 19720,
+          "e": 20160,
+          "id": 41748741
+        },
+        {
+          "t": "OCKSÅ",
+          "s": 20520,
+          "e": 20600,
+          "id": 41748742
+        },
+        {
+          "t": "FÅ1",
+          "s": 20720,
+          "e": 20920,
+          "id": 41748743
+        },
+        {
+          "t": "INFORMATION",
+          "s": 21200,
+          "e": 21400,
+          "id": 41748744
+        },
+        {
+          "t": "PRO1",
+          "s": 21520,
+          "e": 21560,
+          "id": 41748745
+        },
+        {
+          "t": "VISSTE-INTE(8o)",
+          "s": 21840,
+          "e": 22280,
+          "id": 41748746
+        },
+        {
+          "t": "ALLTID",
+          "s": 22880,
+          "e": 22960,
+          "id": 41748747
+        },
+        {
+          "t": "BÄST(J>B)",
+          "s": 23160,
+          "e": 23280,
+          "id": 41748748
+        },
+        {
+          "t": "TYPISK",
+          "s": 24080,
+          "e": 24320,
+          "id": 41748749
+        },
+        {
+          "t": "SÅ-ATT-SÄGA",
+          "s": 24600,
+          "e": 24760,
+          "id": 41748750
+        },
+        {
+          "t": "DÖV(L)",
+          "s": 24960,
+          "e": 25160,
+          "id": 41748751
+        },
+        {
+          "t": "informera@&",
+          "s": 25520,
+          "e": 25720,
+          "id": 41748752
+        },
+        {
+          "t": "INFORMERA",
+          "s": 25960,
+          "e": 26160,
+          "id": 41748753
+        },
+        {
+          "t": "grepp@&",
+          "s": 26320,
+          "e": 26400,
+          "id": 41748754
+        },
+        {
+          "t": "TECKNA-FLYT",
+          "s": 26560,
+          "e": 27120,
+          "id": 41748755
+        },
+        {
+          "t": "GREPP(AA)+HANTERA@p",
+          "s": 27320,
+          "e": 27760,
+          "id": 41748756
+        },
+        {
+          "t": "PRO1",
+          "s": 27960,
+          "e": 28000,
+          "id": 41748757
+        },
+        {
+          "t": "GREPP(AA)+HANTERA@p",
+          "s": 28080,
+          "e": 28480,
+          "id": 41748758
+        },
+        {
+          "t": "ÄN",
+          "s": 28760,
+          "e": 29000,
+          "id": 41748759
+        },
+        {
+          "t": "TEXT",
+          "s": 29240,
+          "e": 29480,
+          "id": 41748760
+        },
+        {
+          "t": "AKTIV.GÖRA",
+          "s": 29640,
+          "e": 29800,
+          "id": 41748761
+        },
+        {
+          "t": "KONTROLLERA",
+          "s": 30080,
+          "e": 30280,
+          "id": 41748762
+        },
+        {
+          "t": "PEK",
+          "s": 30920,
+          "e": 31080,
+          "id": 41748763
+        },
+        {
+          "t": "TRÄFFAS",
+          "s": 31280,
+          "e": 31480,
+          "id": 41748764
+        },
+        {
+          "t": "FÅ1",
+          "s": 31760,
+          "e": 31920,
+          "id": 41748765
+        },
+        {
+          "t": "NY",
+          "s": 32040,
+          "e": 32120,
+          "id": 41748766
+        },
+        {
+          "t": "INFORMATION",
+          "s": 32240,
+          "e": 32600,
+          "id": 41748767
+        },
+        {
+          "t": "tp@&",
+          "s": 32800,
+          "e": 32920,
+          "id": 41748768
+        },
+        {
+          "t": "PEK>långf",
+          "s": 33200,
+          "e": 33280,
+          "id": 41748769
+        },
+        {
+          "t": "VISSTE-INTE(8o)",
+          "s": 33480,
+          "e": 33720,
+          "id": 41748770
+        },
+        {
+          "t": "KOPPLA-AV",
+          "s": 34400,
+          "e": 34720,
+          "id": 41748771
+        },
+        {
+          "t": "TECKNA-FLYT",
+          "s": 35040,
+          "e": 35520,
+          "id": 41748772
+        },
+        {
+          "t": "tp@&",
+          "s": 35720,
+          "e": 36760,
+          "id": 41748773
+        },
+        {
+          "t": "PU@g",
+          "s": 36920,
+          "e": 37080,
+          "id": 41748774
+        },
+        {
+          "t": "AKTIV",
+          "s": 37240,
+          "e": 37400,
+          "id": 41748775
+        },
+        {
+          "t": "MYCKET",
+          "s": 37640,
+          "e": 37680,
+          "id": 41748776
+        },
+        {
+          "t": "KOMMA-DIT(Lb).MULTI",
+          "s": 37840,
+          "e": 38160,
+          "id": 41748777
+        },
+        {
+          "t": "PU@g",
+          "s": 68240,
+          "e": 68800,
+          "id": 41748778
+        },
+        {
+          "t": "OCKSÅ",
+          "s": 75420,
+          "e": 75540,
+          "id": 41748779
+        },
+        {
+          "t": "KONTAKTA^NÄT",
+          "s": 75700,
+          "e": 76420,
+          "id": 41748780
+        },
+        {
+          "t": "NY@b",
+          "s": 76620,
+          "e": 76700,
+          "id": 41748781
+        },
+        {
+          "t": "ANSIKTE(L)",
+          "s": 76900,
+          "e": 77500,
+          "id": 41748782
+        },
+        {
+          "t": "tp@&",
+          "s": 77660,
+          "e": 77860,
+          "id": 41748783
+        },
+        {
+          "t": "INTE",
+          "s": 78100,
+          "e": 78180,
+          "id": 41748784
+        },
+        {
+          "t": "MÅSTE",
+          "s": 78420,
+          "e": 78620,
+          "id": 41748785
+        },
+        {
+          "t": "TRÄFFAS",
+          "s": 78860,
+          "e": 79020,
+          "id": 41748786
+        },
+        {
+          "t": "PEK",
+          "s": 79060,
+          "e": 79100,
+          "id": 41748787
+        },
+        {
+          "t": "GAMMAL(5)",
+          "s": 79340,
+          "e": 79500,
+          "id": 41748788
+        },
+        {
+          "t": "VÄN",
+          "s": 79700,
+          "e": 79780,
+          "id": 41748789
+        },
+        {
+          "t": "FRÅN",
+          "s": 79980,
+          "e": 80060,
+          "id": 41748790
+        },
+        {
+          "t": "TID-FRAMÅT-TILL",
+          "s": 80180,
+          "e": 80500,
+          "id": 41748791
+        },
+        {
+          "t": "PRO1",
+          "s": 80560,
+          "e": 80600,
+          "id": 41748792
+        },
+        {
+          "t": "VÄXA-UPP",
+          "s": 80840,
+          "e": 81120,
+          "id": 41748793
+        },
+        {
+          "t": "UTAN(ml)",
+          "s": 81320,
+          "e": 81440,
+          "id": 41748794
+        },
+        {
+          "t": "NY@b",
+          "s": 81680,
+          "e": 81800,
+          "id": 41748795
+        },
+        {
+          "t": "OCKSÅ",
+          "s": 82000,
+          "e": 82320,
+          "id": 41748796
+        },
+        {
+          "t": "PU@g",
+          "s": 82440,
+          "e": 83000,
+          "id": 41748797
+        },
+        {
+          "t": "LEDA-TILL",
+          "s": 83400,
+          "e": 83760,
+          "id": 41748798
+        },
+        {
+          "t": "PRO1",
+          "s": 84000,
+          "e": 84040,
+          "id": 41748799
+        },
+        {
+          "t": "RESA",
+          "s": 84160,
+          "e": 84520,
+          "id": 41748800
+        },
+        {
+          "t": "TRÄFFAS",
+          "s": 84760,
+          "e": 84960,
+          "id": 41748801
+        },
+        {
+          "t": "ANNAN(ea)",
+          "s": 85120,
+          "e": 85200,
+          "id": 41748802
+        },
+        {
+          "t": "BORTA-ANNAN-PLATS",
+          "s": 85400,
+          "e": 85680,
+          "id": 41748803
+        },
+        {
+          "t": "ANNAN(ea)",
+          "s": 85760,
+          "e": 85840,
+          "id": 41748804
+        },
+        {
+          "t": "LAND",
+          "s": 86040,
+          "e": 86280,
+          "id": 41748805
+        },
+        {
+          "t": "PU@g",
+          "s": 86480,
+          "e": 87000,
+          "id": 41748806
+        },
+        {
+          "t": "EN",
+          "s": 88410,
+          "e": 88450,
+          "id": 41748807
+        },
+        {
+          "t": "HELT@b",
+          "s": 88570,
+          "e": 88650,
+          "id": 41748808
+        },
+        {
+          "t": "ENKEL",
+          "s": 88770,
+          "e": 88810,
+          "id": 41748809
+        },
+        {
+          "t": "SOCIAL(S)",
+          "s": 89050,
+          "e": 89330,
+          "id": 41748810
+        },
+        {
+          "t": "PU@g",
+          "s": 91890,
+          "e": 92050,
+          "id": 41748811
+        },
+        {
+          "t": "KUNSKAP^SKAP@b",
+          "s": 92450,
+          "e": 92770,
+          "id": 41748812
+        },
+        {
+          "t": "TIDEN-GÅR(L)",
+          "s": 93000,
+          "e": 93480,
+          "id": 41748813
+        },
+        {
+          "t": "PU@g",
+          "s": 93720,
+          "e": 93800,
+          "id": 41748814
+        },
+        {
+          "t": "PU@g",
+          "s": 94160,
+          "e": 94360,
+          "id": 41748815
+        },
+        {
+          "t": "NU@b",
+          "s": 94600,
+          "e": 94760,
+          "id": 41748816
+        },
+        {
+          "t": "NY@b",
+          "s": 95080,
+          "e": 95160,
+          "id": 41748817
+        },
+        {
+          "t": "DÖV(J)|DAG",
+          "s": 95280,
+          "e": 95480,
+          "id": 41748818
+        },
+        {
+          "t": "ÖREBRO@en",
+          "s": 95600,
+          "e": 95840,
+          "id": 41748819
+        },
+        {
+          "t": "VAD",
+          "s": 95960,
+          "e": 96000,
+          "id": 41748820
+        },
+        {
+          "t": "TA-UPP",
+          "s": 96200,
+          "e": 96380,
+          "id": 41748821
+        },
+        {
+          "t": "OM@b",
+          "s": 96400,
+          "e": 96540,
+          "id": 41748822
+        },
+        {
+          "t": "PRO1",
+          "s": 96800,
+          "e": 96840,
+          "id": 41748823
+        },
+        {
+          "t": "SPÄNNANDE",
+          "s": 96960,
+          "e": 97560,
+          "id": 41748824
+        },
+        {
+          "t": "PRO1",
+          "s": 97640,
+          "e": 97680,
+          "id": 41748825
+        },
+        {
+          "t": "KOMMA-DIT(Lb)",
+          "s": 97880,
+          "e": 98040,
+          "id": 41748826
+        },
+        {
+          "t": "ALLTID",
+          "s": 98280,
+          "e": 98400,
+          "id": 41748827
+        },
+        {
+          "t": "NYTT@b.ITER",
+          "s": 98640,
+          "e": 98880,
+          "id": 41748828
+        },
+        {
+          "t": "INTRYCK.ITER",
+          "s": 99080,
+          "e": 99680,
+          "id": 41748829
+        },
+        {
+          "t": "ALDRIG",
+          "s": 99920,
+          "e": 100040,
+          "id": 41748830
+        },
+        {
+          "t": "SOM",
+          "s": 100240,
+          "e": 100360,
+          "id": 41748831
+        },
+        {
+          "t": "SAMMA.ITER",
+          "s": 100520,
+          "e": 101840,
+          "id": 41748832
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Glosa_NonDH S1",
+      "annotations": [
+        {
+          "t": "BOJ-LIST-EN",
+          "s": 10360,
+          "e": 10600,
+          "id": 41748909
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 14640,
+          "e": 14760,
+          "id": 41748910
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 33040,
+          "e": 33280,
+          "id": 41748911
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Översättning S1",
+      "annotations": [
+        {
+          "t": "Den FRÄMSTA orsaken är det sociala eeh att träffa folk,",
+          "s": 4540,
+          "e": 9320,
+          "id": 41748915
+        },
+        {
+          "t": "när jag själv till exempel föreläser eller spelar innebandy, fast det har jag slutat med nu,",
+          "s": 9360,
+          "e": 13040,
+          "id": 41748916
+        },
+        {
+          "t": "men tidigare spelade jag innebandy och höll även på med andra sporter,",
+          "s": 13100,
+          "e": 15740,
+          "id": 41748917
+        },
+        {
+          "t": "då träffades vi på kvällarna och satt och pratade, just det sociala",
+          "s": 15770,
+          "e": 18870,
+          "id": 41748918
+        },
+        {
+          "t": "var ju anledningen till att jag var med",
+          "s": 18910,
+          "e": 20390,
+          "id": 41748919
+        },
+        {
+          "t": "och så fick man veta så mycket som man inte kände till,",
+          "s": 20470,
+          "e": 22510,
+          "id": 41748920
+        },
+        {
+          "t": "det mest vanliga för oss döva är att utbyta information med varandra genom att berätta",
+          "s": 22570,
+          "e": 28590,
+          "id": 41748921
+        },
+        {
+          "t": "och inte att vi läser oss till det",
+          "s": 28660,
+          "e": 31060,
+          "id": 41748922
+        },
+        {
+          "t": "så när vi träffades handlade det om att man fick veta nya saker samtidigt som man kopplade av eftersom vi talade samma språk,",
+          "s": 31110,
+          "e": 36120,
+          "id": 41748923
+        },
+        {
+          "t": "ja så det var en hel del aktiviteter.",
+          "s": 36160,
+          "e": 38550,
+          "id": 41748924
+        },
+        {
+          "t": "Eeh...",
+          "s": 68140,
+          "e": 68990,
+          "id": 41748925
+        },
+        {
+          "t": "Nya kontakter, nätverka, se nya ansikten,",
+          "s": 75300,
+          "e": 78070,
+          "id": 41748926
+        },
+        {
+          "t": "för man måste ju inte träffa dom som man har känt i alla år",
+          "s": 78120,
+          "e": 81170,
+          "id": 41748927
+        },
+        {
+          "t": "utan man kan ju träffa nya personer och det kanske leder till att man reser och träffar den personen i ett annat land till exempel.",
+          "s": 81210,
+          "e": 87530,
+          "id": 41748928
+        },
+        {
+          "t": "Ja det är helt enkelt det sociala det handlar om.",
+          "s": 87840,
+          "e": 89950,
+          "id": 41748929
+        },
+        {
+          "t": "Ja kunskap och utveckling,",
+          "s": 91740,
+          "e": 93970,
+          "id": 41748930
+        },
+        {
+          "t": "som nu senast på Dövas dag i Örebro, innehållet var spännande och det var många nya saker som togs upp,",
+          "s": 94060,
+          "e": 99790,
+          "id": 41748931
+        },
+        {
+          "t": "det är ju aldrig så att samma saker tas upp år efter år.",
+          "s": 99850,
+          "e": 102860,
+          "id": 41748932
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Glosa_DH S2",
+      "annotations": [
+        {
+          "t": "PRO1",
+          "s": 39600,
+          "e": 39640,
+          "id": 41748833
+        },
+        {
+          "t": "PI",
+          "s": 39920,
+          "e": 40040,
+          "id": 41748834
+        },
+        {
+          "t": "OLIKA",
+          "s": 40320,
+          "e": 40480,
+          "id": 41748835
+        },
+        {
+          "t": "ÅLDER",
+          "s": 40880,
+          "e": 41080,
+          "id": 41748836
+        },
+        {
+          "t": "PRO1",
+          "s": 41320,
+          "e": 41440,
+          "id": 41748837
+        },
+        {
+          "t": "VÄXA-UPP",
+          "s": 41720,
+          "e": 42120,
+          "id": 41748838
+        },
+        {
+          "t": "MYCKET",
+          "s": 42280,
+          "e": 42320,
+          "id": 41748839
+        },
+        {
+          "t": "SPORT",
+          "s": 42520,
+          "e": 43000,
+          "id": 41748840
+        },
+        {
+          "t": "PRO1",
+          "s": 43120,
+          "e": 43160,
+          "id": 41748841
+        },
+        {
+          "t": "FOKUSERA(J)",
+          "s": 43480,
+          "e": 43680,
+          "id": 41748842
+        },
+        {
+          "t": "VARA-MED",
+          "s": 43800,
+          "e": 43920,
+          "id": 41748843
+        },
+        {
+          "t": "DÖV(L)^SPELA(O)",
+          "s": 44160,
+          "e": 44680,
+          "id": 41748844
+        },
+        {
+          "t": "OLIKA",
+          "s": 45480,
+          "e": 45720,
+          "id": 41748845
+        },
+        {
+          "t": "SM@b",
+          "s": 46160,
+          "e": 46440,
+          "id": 41748846
+        },
+        {
+          "t": "PEK>pekf",
+          "s": 46600,
+          "e": 46720,
+          "id": 41748847
+        },
+        {
+          "t": "NM@b",
+          "s": 46800,
+          "e": 47000,
+          "id": 41748848
+        },
+        {
+          "t": "VARA-MED.ITER",
+          "s": 47160,
+          "e": 47720,
+          "id": 41748849
+        },
+        {
+          "t": "MYCKET",
+          "s": 47880,
+          "e": 48080,
+          "id": 41748850
+        },
+        {
+          "t": "NU@b",
+          "s": 48920,
+          "e": 49040,
+          "id": 41748851
+        },
+        {
+          "t": "PRO1",
+          "s": 49120,
+          "e": 49160,
+          "id": 41748852
+        },
+        {
+          "t": "ÄLDRE",
+          "s": 49440,
+          "e": 49800,
+          "id": 41748853
+        },
+        {
+          "t": "PRO1",
+          "s": 50280,
+          "e": 50320,
+          "id": 41748854
+        },
+        {
+          "t": "ÄMNE-ÅT-SIDAN@z",
+          "s": 50680,
+          "e": 51520,
+          "id": 41748855
+        },
+        {
+          "t": "GE(J)",
+          "s": 51960,
+          "e": 52080,
+          "id": 41748856
+        },
+        {
+          "t": "MYCKET",
+          "s": 52240,
+          "e": 52280,
+          "id": 41748857
+        },
+        {
+          "t": "BRA",
+          "s": 52520,
+          "e": 52600,
+          "id": 41748858
+        },
+        {
+          "t": "GRUND",
+          "s": 52760,
+          "e": 53280,
+          "id": 41748859
+        },
+        {
+          "t": "BETYDA",
+          "s": 53440,
+          "e": 53560,
+          "id": 41748860
+        },
+        {
+          "t": "AUTOMATISK(5)",
+          "s": 53880,
+          "e": 54040,
+          "id": 41748861
+        },
+        {
+          "t": "PRO1",
+          "s": 54120,
+          "e": 54160,
+          "id": 41748862
+        },
+        {
+          "t": "VARA-MED",
+          "s": 54360,
+          "e": 54560,
+          "id": 41748863
+        },
+        {
+          "t": "PRO1",
+          "s": 54680,
+          "e": 54720,
+          "id": 41748864
+        },
+        {
+          "t": "UNG",
+          "s": 54960,
+          "e": 55160,
+          "id": 41748865
+        },
+        {
+          "t": "TRÄFFAS",
+          "s": 55760,
+          "e": 55960,
+          "id": 41748866
+        },
+        {
+          "t": "ÄLDRE",
+          "s": 56160,
+          "e": 56280,
+          "id": 41748867
+        },
+        {
+          "t": "MYCKET",
+          "s": 56480,
+          "e": 56520,
+          "id": 41748868
+        },
+        {
+          "t": "UPPFATTA@rd",
+          "s": 56720,
+          "e": 57400,
+          "id": 41748869
+        },
+        {
+          "t": "SJÄLV",
+          "s": 57560,
+          "e": 57640,
+          "id": 41748870
+        },
+        {
+          "t": "VÄXA-UPP",
+          "s": 57800,
+          "e": 58360,
+          "id": 41748871
+        },
+        {
+          "t": "PRO1",
+          "s": 58440,
+          "e": 58480,
+          "id": 41748872
+        },
+        {
+          "t": "INNEBANDY@z",
+          "s": 58680,
+          "e": 58760,
+          "id": 41748873
+        },
+        {
+          "t": "PRO1",
+          "s": 58960,
+          "e": 59000,
+          "id": 41748874
+        },
+        {
+          "t": "STOPP@z",
+          "s": 59280,
+          "e": 59480,
+          "id": 41748875
+        },
+        {
+          "t": "AVKLARAD",
+          "s": 59760,
+          "e": 60040,
+          "id": 41748876
+        },
+        {
+          "t": "MER",
+          "s": 60200,
+          "e": 60280,
+          "id": 41748877
+        },
+        {
+          "t": "MYCKET",
+          "s": 60520,
+          "e": 60560,
+          "id": 41748878
+        },
+        {
+          "t": "FOKUSERA(J)",
+          "s": 60920,
+          "e": 61040,
+          "id": 41748879
+        },
+        {
+          "t": "DÖV(J)|DAG",
+          "s": 61360,
+          "e": 61800,
+          "id": 41748880
+        },
+        {
+          "t": "PEK>långf",
+          "s": 62280,
+          "e": 62480,
+          "id": 41748881
+        },
+        {
+          "t": "FILM^FESTIVAL(It)",
+          "s": 62720,
+          "e": 63360,
+          "id": 41748882
+        },
+        {
+          "t": "PRO1",
+          "s": 63760,
+          "e": 63800,
+          "id": 41748883
+        },
+        {
+          "t": "ROLIG",
+          "s": 64040,
+          "e": 64200,
+          "id": 41748884
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 64400,
+          "e": 64760,
+          "id": 41748885
+        },
+        {
+          "t": "PEK",
+          "s": 64840,
+          "e": 64880,
+          "id": 41748886
+        },
+        {
+          "t": "PEK",
+          "s": 65000,
+          "e": 65040,
+          "id": 41748887
+        },
+        {
+          "t": "TRÄFFAS",
+          "s": 65200,
+          "e": 65240,
+          "id": 41748888
+        },
+        {
+          "t": "ANNAN(ea)",
+          "s": 65360,
+          "e": 65480,
+          "id": 41748889
+        },
+        {
+          "t": "FOLK",
+          "s": 65680,
+          "e": 65960,
+          "id": 41748890
+        },
+        {
+          "t": "ANNAN(ea)",
+          "s": 66280,
+          "e": 66400,
+          "id": 41748891
+        },
+        {
+          "t": "INTRESSE",
+          "s": 66560,
+          "e": 67160,
+          "id": 41748892
+        },
+        {
+          "t": "PU@g",
+          "s": 67360,
+          "e": 67640,
+          "id": 41748893
+        },
+        {
+          "t": "ALLA",
+          "s": 69160,
+          "e": 69480,
+          "id": 41748894
+        },
+        {
+          "t": "NIVÅ.MULTI",
+          "s": 69740,
+          "e": 70020,
+          "id": 41748895
+        },
+        {
+          "t": "POSS1",
+          "s": 70180,
+          "e": 70220,
+          "id": 41748896
+        },
+        {
+          "t": "ÅLDER",
+          "s": 70380,
+          "e": 70420,
+          "id": 41748897
+        },
+        {
+          "t": "NIVÅ.FL",
+          "s": 70620,
+          "e": 70860,
+          "id": 41748898
+        },
+        {
+          "t": "PERF",
+          "s": 71060,
+          "e": 71100,
+          "id": 41748899
+        },
+        {
+          "t": "ALLTID",
+          "s": 71420,
+          "e": 71460,
+          "id": 41748900
+        },
+        {
+          "t": "POSS1",
+          "s": 71780,
+          "e": 72060,
+          "id": 41748901
+        },
+        {
+          "t": "STOR",
+          "s": 72580,
+          "e": 72700,
+          "id": 41748902
+        },
+        {
+          "t": "INTRESSE",
+          "s": 72820,
+          "e": 73060,
+          "id": 41748903
+        },
+        {
+          "t": "TRÄFFAS.MULTI",
+          "s": 73300,
+          "e": 73620,
+          "id": 41748904
+        },
+        {
+          "t": "OLIKA",
+          "s": 73780,
+          "e": 73900,
+          "id": 41748905
+        },
+        {
+          "t": "FOLK",
+          "s": 74100,
+          "e": 74380,
+          "id": 41748906
+        },
+        {
+          "t": "PU@g",
+          "s": 74820,
+          "e": 75260,
+          "id": 41748907
+        },
+        {
+          "t": "PRECIS",
+          "s": 81480,
+          "e": 81640,
+          "id": 41748908
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Glosa_NonDH S2",
+      "annotations": [
+        {
+          "t": "BOJ-LIST-EN",
+          "s": 46600,
+          "e": 46720,
+          "id": 41748912
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 48360,
+          "e": 48800,
+          "id": 41748913
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 62240,
+          "e": 62480,
+          "id": 41748914
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Översättning S2",
+      "annotations": [
+        {
+          "t": "Det har varit olika genom åren, när jag var yngre var det mycket sport,",
+          "s": 39090,
+          "e": 43150,
+          "id": 41748933
+        },
+        {
+          "t": "jag har varit med på olika tävlingar för döva, till exempel SM och NM många gånger",
+          "s": 43200,
+          "e": 48770,
+          "id": 41748934
+        },
+        {
+          "t": "fast nu när jag är lite äldre så har jag slutat med det",
+          "s": 48800,
+          "e": 51890,
+          "id": 41748935
+        },
+        {
+          "t": "men det gav mig en bra grund,",
+          "s": 51940,
+          "e": 53380,
+          "id": 41748936
+        },
+        {
+          "t": "jag var ung när jag började så jag lärde mig mycket av dom som var äldre",
+          "s": 53410,
+          "e": 57440,
+          "id": 41748937
+        },
+        {
+          "t": "sen när jag själv blev äldre kände jag att det var dags att sluta med innebandyn",
+          "s": 57490,
+          "e": 59980,
+          "id": 41748938
+        },
+        {
+          "t": "så nu är jag till exempel med på Dövas dag (ett årligt, rikstäckande arrangemang för döva) och filmfestivalen (Dövfilmfestivalen),",
+          "s": 60020,
+          "e": 63660,
+          "id": 41748939
+        },
+        {
+          "t": "det tycker jag är roligt, att åka iväg och träffa människor med andra intressen,",
+          "s": 63690,
+          "e": 67820,
+          "id": 41748940
+        },
+        {
+          "t": "genom åren har mitt stora intresse varit att träffa olika människor,",
+          "s": 68010,
+          "e": 74830,
+          "id": 41748941
+        },
+        {
+          "t": "ja.",
+          "s": 74890,
+          "e": 75790,
+          "id": 41748942
+        },
+        {
+          "t": "Nej.",
+          "s": 100900,
+          "e": 102110,
+          "id": 41748943
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "source": "teckensprakskorpus.su.se",
+    "format": "blocksdata",
+    "time_units": "milliseconds",
+    "language": "sv",
+    "extraction_method": "javascript_blocksdata"
+  }
+}

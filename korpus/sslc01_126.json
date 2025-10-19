@@ -1,0 +1,949 @@
+{
+  "media_descriptors": [
+    {
+      "media_url": "https://teckensprakskorpus.su.se/video/sslc01_126.mp4",
+      "mime_type": "video/mp4",
+      "relative_media_url": "sslc01_126.mp4",
+      "type": "video"
+    }
+  ],
+  "tiers": [
+    {
+      "tier_id": "0",
+      "name": "Glosa_DH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "3",
+      "name": "Översättning S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "1",
+      "name": "Glosa_DH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "2",
+      "name": "Glosa_NonDH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "4",
+      "name": "Översättning S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    }
+  ],
+  "linguistic_types": [],
+  "annotations": {
+    "0": [
+      {
+        "annotation_id": "27937880",
+        "start_time": 4.447,
+        "end_time": 4.807,
+        "duration": 0.3600000000000003,
+        "value": "ENTUSIASTISK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937887",
+        "start_time": 4.88,
+        "end_time": 4.96,
+        "duration": 0.08000000000000007,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937893",
+        "start_time": 5.226,
+        "end_time": 5.755,
+        "duration": 0.5289999999999999,
+        "value": "BOWLING",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937899",
+        "start_time": 6.05,
+        "end_time": 6.21,
+        "duration": 0.16000000000000014,
+        "value": "ENTUSIASTISK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937906",
+        "start_time": 6.475,
+        "end_time": 6.675,
+        "duration": 0.20000000000000018,
+        "value": "BOWLING",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937911",
+        "start_time": 6.863,
+        "end_time": 6.983,
+        "duration": 0.11999999999999922,
+        "value": "HOS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937917",
+        "start_time": 7.247,
+        "end_time": 7.527,
+        "duration": 0.28000000000000025,
+        "value": "HÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937926",
+        "start_time": 7.651,
+        "end_time": 7.731,
+        "duration": 0.08000000000000007,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937932",
+        "start_time": 7.916,
+        "end_time": 8.156,
+        "duration": 0.2400000000000002,
+        "value": "KLUBB",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937938",
+        "start_time": 8.337,
+        "end_time": 8.497,
+        "duration": 0.16000000000000014,
+        "value": "HETA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937941",
+        "start_time": 8.704,
+        "end_time": 10.424,
+        "duration": 1.7199999999999989,
+        "value": "HANTVERKARNAS@b@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937948",
+        "start_time": 10.949,
+        "end_time": 11.437,
+        "duration": 0.48799999999999955,
+        "value": "BOWLING^KLUBB",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937955",
+        "start_time": 12.063,
+        "end_time": 12.383,
+        "duration": 0.3199999999999985,
+        "value": "KALMAR@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937964",
+        "start_time": 12.757,
+        "end_time": 12.917,
+        "duration": 0.16000000000000014,
+        "value": "PERF",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937967",
+        "start_time": 13.037,
+        "end_time": 13.157,
+        "duration": 0.11999999999999922,
+        "value": "GÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937972",
+        "start_time": 13.375,
+        "end_time": 13.535,
+        "duration": 0.16000000000000014,
+        "value": "FEM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937981",
+        "start_time": 13.632,
+        "end_time": 13.992,
+        "duration": 0.3600000000000012,
+        "value": "ÅR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937988",
+        "start_time": 14.162,
+        "end_time": 14.282,
+        "duration": 0.11999999999999922,
+        "value": "PERF",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937990",
+        "start_time": 14.315,
+        "end_time": 14.395,
+        "duration": 0.08000000000000007,
+        "value": "GÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27937998",
+        "start_time": 14.493,
+        "end_time": 14.573,
+        "duration": 0.08000000000000007,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938006",
+        "start_time": 14.828,
+        "end_time": 15.188,
+        "duration": 0.3600000000000012,
+        "value": "TRIVAS(J)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938009",
+        "start_time": 15.386,
+        "end_time": 15.466,
+        "duration": 0.08000000000000007,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938016",
+        "start_time": 15.586,
+        "end_time": 15.746,
+        "duration": 0.16000000000000014,
+        "value": "HÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938022",
+        "start_time": 15.92,
+        "end_time": 16.24,
+        "duration": 0.3199999999999985,
+        "value": "VARELSE(55)+RÖRELSE@p",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938026",
+        "start_time": 16.551,
+        "end_time": 16.831,
+        "duration": 0.28000000000000114,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938033",
+        "start_time": 21.313,
+        "end_time": 22.033,
+        "duration": 0.7200000000000024,
+        "value": "SAMMA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938037",
+        "start_time": 22.156,
+        "end_time": 22.876,
+        "duration": 0.7200000000000024,
+        "value": "GESTIKULERA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938043",
+        "start_time": 22.984,
+        "end_time": 23.104,
+        "duration": 0.11999999999999744,
+        "value": "LITE(7b)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938052",
+        "start_time": 23.18,
+        "end_time": 23.7,
+        "duration": 0.5199999999999996,
+        "value": "GESTIKULERA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938055",
+        "start_time": 23.995,
+        "end_time": 24.195,
+        "duration": 0.1999999999999993,
+        "value": "SKRIVA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938060",
+        "start_time": 24.332,
+        "end_time": 24.692,
+        "duration": 0.35999999999999943,
+        "value": "SAMTALA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938066",
+        "start_time": 24.817,
+        "end_time": 24.897,
+        "duration": 0.0799999999999983,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938071",
+        "start_time": 25.097,
+        "end_time": 25.337,
+        "duration": 0.23999999999999844,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "27938080",
+        "start_time": 25.417,
+        "end_time": 25.577,
+        "duration": 0.16000000000000014,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S1"
+      }
+    ],
+    "3": [
+      {
+        "annotation_id": "27938187",
+        "start_time": 4.41,
+        "end_time": 12.65,
+        "duration": 8.24,
+        "value": "Jag gillar verkligen bowling, jag spelar tillsammans med hörande för en klubb i Kalmar som heter Hantverkarnas BK,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "27938195",
+        "start_time": 12.684,
+        "end_time": 17.234,
+        "duration": 4.5500000000000025,
+        "value": "jag har varit med där i fem år nu. Jag trivs bra tillsammans med hörande, vi har kul.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "27938202",
+        "start_time": 20.73,
+        "end_time": 25.82,
+        "duration": 5.09,
+        "value": "Nä, alltså vi gestikulerar och ibland skriver vi, det fungerar bra.",
+        "tier_name": "Översättning S1"
+      }
+    ],
+    "1": [
+      {
+        "annotation_id": "27938089",
+        "start_time": 5.059,
+        "end_time": 5.259,
+        "duration": 0.20000000000000018,
+        "value": "glosa@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938095",
+        "start_time": 18.367,
+        "end_time": 18.487,
+        "duration": 0.11999999999999744,
+        "value": "BETYDA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938098",
+        "start_time": 18.598,
+        "end_time": 18.678,
+        "duration": 0.08000000000000185,
+        "value": "PEK>person",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938105",
+        "start_time": 18.758,
+        "end_time": 18.998,
+        "duration": 0.240000000000002,
+        "value": "BEHÄRSKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938111",
+        "start_time": 19.31,
+        "end_time": 19.51,
+        "duration": 0.20000000000000284,
+        "value": "PRATA(5)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938119",
+        "start_time": 19.59,
+        "end_time": 19.67,
+        "duration": 0.08000000000000185,
+        "value": "ELLER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938127",
+        "start_time": 19.904,
+        "end_time": 20.144,
+        "duration": 0.23999999999999844,
+        "value": "SKRIVA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938134",
+        "start_time": 21.019,
+        "end_time": 21.859,
+        "duration": 0.8400000000000034,
+        "value": "GESTIKULERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938138",
+        "start_time": 23.344,
+        "end_time": 23.504,
+        "duration": 0.16000000000000014,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "27938146",
+        "start_time": 27.627,
+        "end_time": 27.747,
+        "duration": 0.120000000000001,
+        "value": "OK@b",
+        "tier_name": "Glosa_DH S2"
+      }
+    ],
+    "2": [
+      {
+        "annotation_id": "27938159",
+        "start_time": 5.834,
+        "end_time": 5.954,
+        "duration": 0.1200000000000001,
+        "value": "PEK>person",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "27938164",
+        "start_time": 6.176,
+        "end_time": 6.376,
+        "duration": 0.20000000000000018,
+        "value": "BOWLING",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "27938172",
+        "start_time": 20.235,
+        "end_time": 20.795,
+        "duration": 0.5600000000000023,
+        "value": "ENTITET(J)+FÖRFLYTTA@p@rd",
+        "tier_name": "Glosa_NonDH S2"
+      }
+    ],
+    "4": [
+      {
+        "annotation_id": "27938212",
+        "start_time": 4.93,
+        "end_time": 6.82,
+        "duration": 1.8900000000000006,
+        "value": "Jo // Ja, kör du.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938218",
+        "start_time": 8.18,
+        "end_time": 8.81,
+        "duration": 0.6300000000000008,
+        "value": "Jaja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938224",
+        "start_time": 10.0,
+        "end_time": 10.76,
+        "duration": 0.7599999999999998,
+        "value": "Okej.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938232",
+        "start_time": 11.76,
+        "end_time": 12.35,
+        "duration": 0.5899999999999999,
+        "value": "Jaja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938238",
+        "start_time": 13.934,
+        "end_time": 14.564,
+        "duration": 0.6300000000000008,
+        "value": "Jaja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938245",
+        "start_time": 15.564,
+        "end_time": 16.604,
+        "duration": 1.0399999999999991,
+        "value": "Jaja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938252",
+        "start_time": 18.144,
+        "end_time": 22.474,
+        "duration": 4.330000000000002,
+        "value": "Talar du tydligt eller skriver ni till varandra eller gestikulerar ni?",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938259",
+        "start_time": 22.99,
+        "end_time": 24.06,
+        "duration": 1.0700000000000003,
+        "value": "Vad bra.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938266",
+        "start_time": 24.95,
+        "end_time": 25.74,
+        "duration": 0.7899999999999991,
+        "value": "Jaja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "27938273",
+        "start_time": 27.65,
+        "end_time": 28.35,
+        "duration": 0.7000000000000028,
+        "value": "Okej.",
+        "tier_name": "Översättning S2"
+      }
+    ]
+  },
+  "blocksdata": [
+    {
+      "id": 0,
+      "name": "Glosa_DH S1",
+      "annotations": [
+        {
+          "t": "ENTUSIASTISK",
+          "s": 4447,
+          "e": 4807,
+          "id": 27937880
+        },
+        {
+          "t": "PRO1",
+          "s": 4880,
+          "e": 4960,
+          "id": 27937887
+        },
+        {
+          "t": "BOWLING",
+          "s": 5226,
+          "e": 5755,
+          "id": 27937893
+        },
+        {
+          "t": "ENTUSIASTISK",
+          "s": 6050,
+          "e": 6210,
+          "id": 27937899
+        },
+        {
+          "t": "BOWLING",
+          "s": 6475,
+          "e": 6675,
+          "id": 27937906
+        },
+        {
+          "t": "HOS",
+          "s": 6863,
+          "e": 6983,
+          "id": 27937911
+        },
+        {
+          "t": "HÖRANDE",
+          "s": 7247,
+          "e": 7527,
+          "id": 27937917
+        },
+        {
+          "t": "PRO1",
+          "s": 7651,
+          "e": 7731,
+          "id": 27937926
+        },
+        {
+          "t": "KLUBB",
+          "s": 7916,
+          "e": 8156,
+          "id": 27937932
+        },
+        {
+          "t": "HETA",
+          "s": 8337,
+          "e": 8497,
+          "id": 27937938
+        },
+        {
+          "t": "HANTVERKARNAS@b@en",
+          "s": 8704,
+          "e": 10424,
+          "id": 27937941
+        },
+        {
+          "t": "BOWLING^KLUBB",
+          "s": 10949,
+          "e": 11437,
+          "id": 27937948
+        },
+        {
+          "t": "KALMAR@en",
+          "s": 12063,
+          "e": 12383,
+          "id": 27937955
+        },
+        {
+          "t": "PERF",
+          "s": 12757,
+          "e": 12917,
+          "id": 27937964
+        },
+        {
+          "t": "GÅ",
+          "s": 13037,
+          "e": 13157,
+          "id": 27937967
+        },
+        {
+          "t": "FEM",
+          "s": 13375,
+          "e": 13535,
+          "id": 27937972
+        },
+        {
+          "t": "ÅR",
+          "s": 13632,
+          "e": 13992,
+          "id": 27937981
+        },
+        {
+          "t": "PERF",
+          "s": 14162,
+          "e": 14282,
+          "id": 27937988
+        },
+        {
+          "t": "GÅ",
+          "s": 14315,
+          "e": 14395,
+          "id": 27937990
+        },
+        {
+          "t": "PU@g",
+          "s": 14493,
+          "e": 14573,
+          "id": 27937998
+        },
+        {
+          "t": "TRIVAS(J)",
+          "s": 14828,
+          "e": 15188,
+          "id": 27938006
+        },
+        {
+          "t": "BRA",
+          "s": 15386,
+          "e": 15466,
+          "id": 27938009
+        },
+        {
+          "t": "HÖRANDE",
+          "s": 15586,
+          "e": 15746,
+          "id": 27938016
+        },
+        {
+          "t": "VARELSE(55)+RÖRELSE@p",
+          "s": 15920,
+          "e": 16240,
+          "id": 27938022
+        },
+        {
+          "t": "ROLIG",
+          "s": 16551,
+          "e": 16831,
+          "id": 27938026
+        },
+        {
+          "t": "SAMMA",
+          "s": 21313,
+          "e": 22033,
+          "id": 27938033
+        },
+        {
+          "t": "GESTIKULERA",
+          "s": 22156,
+          "e": 22876,
+          "id": 27938037
+        },
+        {
+          "t": "LITE(7b)",
+          "s": 22984,
+          "e": 23104,
+          "id": 27938043
+        },
+        {
+          "t": "GESTIKULERA",
+          "s": 23180,
+          "e": 23700,
+          "id": 27938052
+        },
+        {
+          "t": "SKRIVA",
+          "s": 23995,
+          "e": 24195,
+          "id": 27938055
+        },
+        {
+          "t": "SAMTALA",
+          "s": 24332,
+          "e": 24692,
+          "id": 27938060
+        },
+        {
+          "t": "PU@g",
+          "s": 24817,
+          "e": 24897,
+          "id": 27938066
+        },
+        {
+          "t": "BRA",
+          "s": 25097,
+          "e": 25337,
+          "id": 27938071
+        },
+        {
+          "t": "PU@g",
+          "s": 25417,
+          "e": 25577,
+          "id": 27938080
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Översättning S1",
+      "annotations": [
+        {
+          "t": "Jag gillar verkligen bowling, jag spelar tillsammans med hörande för en klubb i Kalmar som heter Hantverkarnas BK,",
+          "s": 4410,
+          "e": 12650,
+          "id": 27938187
+        },
+        {
+          "t": "jag har varit med där i fem år nu. Jag trivs bra tillsammans med hörande, vi har kul.",
+          "s": 12684,
+          "e": 17234,
+          "id": 27938195
+        },
+        {
+          "t": "Nä, alltså vi gestikulerar och ibland skriver vi, det fungerar bra.",
+          "s": 20730,
+          "e": 25820,
+          "id": 27938202
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Glosa_DH S2",
+      "annotations": [
+        {
+          "t": "glosa@&",
+          "s": 5059,
+          "e": 5259,
+          "id": 27938089
+        },
+        {
+          "t": "BETYDA",
+          "s": 18367,
+          "e": 18487,
+          "id": 27938095
+        },
+        {
+          "t": "PEK>person",
+          "s": 18598,
+          "e": 18678,
+          "id": 27938098
+        },
+        {
+          "t": "BEHÄRSKA",
+          "s": 18758,
+          "e": 18998,
+          "id": 27938105
+        },
+        {
+          "t": "PRATA(5)",
+          "s": 19310,
+          "e": 19510,
+          "id": 27938111
+        },
+        {
+          "t": "ELLER",
+          "s": 19590,
+          "e": 19670,
+          "id": 27938119
+        },
+        {
+          "t": "SKRIVA",
+          "s": 19904,
+          "e": 20144,
+          "id": 27938127
+        },
+        {
+          "t": "GESTIKULERA",
+          "s": 21019,
+          "e": 21859,
+          "id": 27938134
+        },
+        {
+          "t": "BRA",
+          "s": 23344,
+          "e": 23504,
+          "id": 27938138
+        },
+        {
+          "t": "OK@b",
+          "s": 27627,
+          "e": 27747,
+          "id": 27938146
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Glosa_NonDH S2",
+      "annotations": [
+        {
+          "t": "PEK>person",
+          "s": 5834,
+          "e": 5954,
+          "id": 27938159
+        },
+        {
+          "t": "BOWLING",
+          "s": 6176,
+          "e": 6376,
+          "id": 27938164
+        },
+        {
+          "t": "ENTITET(J)+FÖRFLYTTA@p@rd",
+          "s": 20235,
+          "e": 20795,
+          "id": 27938172
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Översättning S2",
+      "annotations": [
+        {
+          "t": "Jo // Ja, kör du.",
+          "s": 4930,
+          "e": 6820,
+          "id": 27938212
+        },
+        {
+          "t": "Jaja.",
+          "s": 8180,
+          "e": 8810,
+          "id": 27938218
+        },
+        {
+          "t": "Okej.",
+          "s": 10000,
+          "e": 10760,
+          "id": 27938224
+        },
+        {
+          "t": "Jaja.",
+          "s": 11760,
+          "e": 12350,
+          "id": 27938232
+        },
+        {
+          "t": "Jaja.",
+          "s": 13934,
+          "e": 14564,
+          "id": 27938238
+        },
+        {
+          "t": "Jaja.",
+          "s": 15564,
+          "e": 16604,
+          "id": 27938245
+        },
+        {
+          "t": "Talar du tydligt eller skriver ni till varandra eller gestikulerar ni?",
+          "s": 18144,
+          "e": 22474,
+          "id": 27938252
+        },
+        {
+          "t": "Vad bra.",
+          "s": 22990,
+          "e": 24060,
+          "id": 27938259
+        },
+        {
+          "t": "Jaja.",
+          "s": 24950,
+          "e": 25740,
+          "id": 27938266
+        },
+        {
+          "t": "Okej.",
+          "s": 27650,
+          "e": 28350,
+          "id": 27938273
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "source": "teckensprakskorpus.su.se",
+    "format": "blocksdata",
+    "time_units": "milliseconds",
+    "language": "sv",
+    "extraction_method": "javascript_blocksdata"
+  }
+}

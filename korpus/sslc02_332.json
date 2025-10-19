@@ -1,0 +1,5009 @@
+{
+  "media_descriptors": [
+    {
+      "media_url": "https://teckensprakskorpus.su.se/video/sslc02_332.mp4",
+      "mime_type": "video/mp4",
+      "relative_media_url": "sslc02_332.mp4",
+      "type": "video"
+    }
+  ],
+  "tiers": [
+    {
+      "tier_id": "0",
+      "name": "Glosa_DH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "3",
+      "name": "Översättning S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "1",
+      "name": "Glosa_DH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "2",
+      "name": "Glosa_NonDH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "4",
+      "name": "Översättning S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    }
+  ],
+  "linguistic_types": [],
+  "annotations": {
+    "0": [
+      {
+        "annotation_id": "41639438",
+        "start_time": 163.32,
+        "end_time": 163.36,
+        "duration": 0.040000000000020464,
+        "value": "LITE(7b)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41639441",
+        "start_time": 163.52,
+        "end_time": 163.92,
+        "duration": 0.39999999999997726,
+        "value": "SORG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "41639443",
+        "start_time": 164.0,
+        "end_time": 164.16,
+        "duration": 0.1599999999999966,
+        "value": "LITE(7b)",
+        "tier_name": "Glosa_DH S1"
+      }
+    ],
+    "3": [
+      {
+        "annotation_id": "41640354",
+        "start_time": 163.016,
+        "end_time": 164.926,
+        "duration": 1.9099999999999966,
+        "value": "Vad sorgligt.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "41640357",
+        "start_time": 165.006,
+        "end_time": 166.546,
+        "duration": 1.539999999999992,
+        "value": "Haha.",
+        "tier_name": "Översättning S1"
+      }
+    ],
+    "1": [
+      {
+        "annotation_id": "41639447",
+        "start_time": 5.627,
+        "end_time": 5.867,
+        "duration": 0.2400000000000002,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639450",
+        "start_time": 6.307,
+        "end_time": 7.107,
+        "duration": 0.7999999999999998,
+        "value": "SNÖ(5)^MAN@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639453",
+        "start_time": 7.747,
+        "end_time": 7.987,
+        "duration": 0.2400000000000002,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639456",
+        "start_time": 8.227,
+        "end_time": 8.507,
+        "duration": 0.27999999999999936,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639460",
+        "start_time": 8.747,
+        "end_time": 8.867,
+        "duration": 0.120000000000001,
+        "value": "LÄGGA-SIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639462",
+        "start_time": 8.947,
+        "end_time": 9.747,
+        "duration": 0.8000000000000007,
+        "value": "LIGGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639466",
+        "start_time": 9.907,
+        "end_time": 10.187,
+        "duration": 0.27999999999999936,
+        "value": "SOVA(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639468",
+        "start_time": 10.227,
+        "end_time": 10.707,
+        "duration": 0.4800000000000004,
+        "value": "VAKNA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639471",
+        "start_time": 10.912,
+        "end_time": 11.232,
+        "duration": 0.3199999999999985,
+        "value": "MORGON",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639474",
+        "start_time": 11.293,
+        "end_time": 11.388,
+        "duration": 0.09500000000000064,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639477",
+        "start_time": 11.66,
+        "end_time": 11.9,
+        "duration": 0.2400000000000002,
+        "value": "STIGA-UPP",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639480",
+        "start_time": 12.38,
+        "end_time": 12.62,
+        "duration": 0.23999999999999844,
+        "value": "wtyp:",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639482",
+        "start_time": 12.905,
+        "end_time": 13.7,
+        "duration": 0.7949999999999999,
+        "value": "SNÖA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639485",
+        "start_time": 13.78,
+        "end_time": 14.34,
+        "duration": 0.5600000000000005,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639488",
+        "start_time": 14.46,
+        "end_time": 14.66,
+        "duration": 0.1999999999999993,
+        "value": "TA-SIG-DIT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639490",
+        "start_time": 14.781,
+        "end_time": 15.461,
+        "duration": 0.6799999999999997,
+        "value": "KLÄ-PÅ-NEDERDEL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639493",
+        "start_time": 15.741,
+        "end_time": 16.101,
+        "duration": 0.35999999999999943,
+        "value": "KLÄ-PÅ-ÖVERDEL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639495",
+        "start_time": 16.541,
+        "end_time": 16.741,
+        "duration": 0.1999999999999993,
+        "value": "VARM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639498",
+        "start_time": 16.781,
+        "end_time": 17.181,
+        "duration": 0.40000000000000213,
+        "value": "KLÄDER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639501",
+        "start_time": 17.502,
+        "end_time": 17.982,
+        "duration": 0.4800000000000004,
+        "value": "MÖSSA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639504",
+        "start_time": 18.142,
+        "end_time": 18.342,
+        "duration": 0.1999999999999993,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639507",
+        "start_time": 18.422,
+        "end_time": 18.662,
+        "duration": 0.23999999999999844,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639510",
+        "start_time": 18.782,
+        "end_time": 18.862,
+        "duration": 0.0799999999999983,
+        "value": "MAMMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639513",
+        "start_time": 18.982,
+        "end_time": 19.022,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639518",
+        "start_time": 19.142,
+        "end_time": 19.502,
+        "duration": 0.35999999999999943,
+        "value": "UTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639521",
+        "start_time": 19.542,
+        "end_time": 19.697,
+        "duration": 0.15499999999999758,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639522",
+        "start_time": 19.782,
+        "end_time": 20.062,
+        "duration": 0.28000000000000114,
+        "value": "HAND(JJbt)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639525",
+        "start_time": 20.502,
+        "end_time": 21.702,
+        "duration": 1.2000000000000028,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639529",
+        "start_time": 21.817,
+        "end_time": 21.977,
+        "duration": 0.16000000000000014,
+        "value": "MAMMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639531",
+        "start_time": 22.017,
+        "end_time": 22.257,
+        "duration": 0.240000000000002,
+        "value": "JA@ub@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639534",
+        "start_time": 22.299,
+        "end_time": 22.539,
+        "duration": 0.240000000000002,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639537",
+        "start_time": 22.859,
+        "end_time": 22.979,
+        "duration": 0.11999999999999744,
+        "value": "MÖSSA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639540",
+        "start_time": 23.009,
+        "end_time": 23.049,
+        "duration": 0.03999999999999915,
+        "value": "SKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639543",
+        "start_time": 23.129,
+        "end_time": 23.209,
+        "duration": 0.0799999999999983,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639546",
+        "start_time": 23.339,
+        "end_time": 23.459,
+        "duration": 0.120000000000001,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639550",
+        "start_time": 23.664,
+        "end_time": 23.824,
+        "duration": 0.16000000000000014,
+        "value": "HÄMTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639553",
+        "start_time": 23.944,
+        "end_time": 24.064,
+        "duration": 0.120000000000001,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639556",
+        "start_time": 24.544,
+        "end_time": 24.864,
+        "duration": 0.3200000000000003,
+        "value": "KLÄ-PÅ-HUVUDDEL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639559",
+        "start_time": 25.529,
+        "end_time": 25.809,
+        "duration": 0.28000000000000114,
+        "value": "SPRINGA(Lb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639562",
+        "start_time": 26.049,
+        "end_time": 26.569,
+        "duration": 0.5199999999999996,
+        "value": "ENTITET(5bt)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639565",
+        "start_time": 27.169,
+        "end_time": 27.289,
+        "duration": 0.120000000000001,
+        "value": "MÖSSA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639568",
+        "start_time": 27.329,
+        "end_time": 27.609,
+        "duration": 0.28000000000000114,
+        "value": "LÅTA-VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639572",
+        "start_time": 28.089,
+        "end_time": 28.609,
+        "duration": 0.5200000000000031,
+        "value": "HAND(JJbt)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639575",
+        "start_time": 28.729,
+        "end_time": 28.969,
+        "duration": 0.240000000000002,
+        "value": "RULLA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639578",
+        "start_time": 29.169,
+        "end_time": 30.37,
+        "duration": 1.2010000000000005,
+        "value": "GLOSA:(JÄSA)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639583",
+        "start_time": 30.414,
+        "end_time": 30.694,
+        "duration": 0.2799999999999976,
+        "value": "FORM(JJbt)+BESKRIVNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639585",
+        "start_time": 30.774,
+        "end_time": 30.854,
+        "duration": 0.0799999999999983,
+        "value": "PF@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639588",
+        "start_time": 31.014,
+        "end_time": 31.534,
+        "duration": 0.5199999999999996,
+        "value": "HUNGRIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639591",
+        "start_time": 31.654,
+        "end_time": 32.134,
+        "duration": 0.4800000000000004,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639594",
+        "start_time": 32.174,
+        "end_time": 32.694,
+        "duration": 0.5200000000000031,
+        "value": "BEGE-SIG-HEM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639598",
+        "start_time": 33.014,
+        "end_time": 33.174,
+        "duration": 0.1599999999999966,
+        "value": "SÄTTA-SIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639601",
+        "start_time": 33.334,
+        "end_time": 33.534,
+        "duration": 0.19999999999999574,
+        "value": "ÄTA-GÖRA(Q)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639604",
+        "start_time": 33.614,
+        "end_time": 34.174,
+        "duration": 0.5600000000000023,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639607",
+        "start_time": 34.254,
+        "end_time": 34.734,
+        "duration": 0.480000000000004,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639611",
+        "start_time": 34.774,
+        "end_time": 35.014,
+        "duration": 0.240000000000002,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639614",
+        "start_time": 35.18,
+        "end_time": 36.34,
+        "duration": 1.1600000000000037,
+        "value": "ÄTA-GÖRA(Q)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639617",
+        "start_time": 36.46,
+        "end_time": 36.5,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639621",
+        "start_time": 36.62,
+        "end_time": 36.9,
+        "duration": 0.28000000000000114,
+        "value": "UT@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639624",
+        "start_time": 37.061,
+        "end_time": 37.101,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639627",
+        "start_time": 37.181,
+        "end_time": 37.621,
+        "duration": 0.44000000000000483,
+        "value": "FORTSÄTTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639630",
+        "start_time": 37.701,
+        "end_time": 37.781,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639632",
+        "start_time": 37.821,
+        "end_time": 37.941,
+        "duration": 0.12000000000000455,
+        "value": "KLÄ-PÅ-ÖVERDEL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639635",
+        "start_time": 38.096,
+        "end_time": 38.176,
+        "duration": 0.0800000000000054,
+        "value": "SEDAN(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639638",
+        "start_time": 38.301,
+        "end_time": 38.741,
+        "duration": 0.4399999999999977,
+        "value": "KLÄ-PÅ-HUVUDDEL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639640",
+        "start_time": 38.996,
+        "end_time": 39.476,
+        "duration": 0.4799999999999969,
+        "value": "FÖRFLYTTA-DIT(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639643",
+        "start_time": 39.556,
+        "end_time": 40.036,
+        "duration": 0.480000000000004,
+        "value": "SPRINGA(Lb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639646",
+        "start_time": 40.156,
+        "end_time": 40.356,
+        "duration": 0.20000000000000284,
+        "value": "ETCETERA(da)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639649",
+        "start_time": 40.516,
+        "end_time": 41.076,
+        "duration": 0.5600000000000023,
+        "value": "PLACERA(55b)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639652",
+        "start_time": 41.557,
+        "end_time": 41.917,
+        "duration": 0.35999999999999943,
+        "value": "FUNDERA@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639655",
+        "start_time": 41.962,
+        "end_time": 42.042,
+        "duration": 0.0799999999999983,
+        "value": "BARA(B)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639658",
+        "start_time": 42.227,
+        "end_time": 42.372,
+        "duration": 0.14500000000000313,
+        "value": "GREPPHÅLLA(55bt)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639660",
+        "start_time": 42.532,
+        "end_time": 42.812,
+        "duration": 0.28000000000000114,
+        "value": "TRÅKIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639663",
+        "start_time": 43.134,
+        "end_time": 43.654,
+        "duration": 0.5200000000000031,
+        "value": "ÖGON",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639668",
+        "start_time": 44.071,
+        "end_time": 44.391,
+        "duration": 0.3200000000000003,
+        "value": "MUN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639671",
+        "start_time": 44.591,
+        "end_time": 44.711,
+        "duration": 0.11999999999999744,
+        "value": "ENTITET(O)+BEFINNA@p>näsa",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639675",
+        "start_time": 44.791,
+        "end_time": 44.951,
+        "duration": 0.1600000000000037,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639678",
+        "start_time": 45.071,
+        "end_time": 45.751,
+        "duration": 0.6799999999999997,
+        "value": "FUNDERA@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639682",
+        "start_time": 45.911,
+        "end_time": 45.991,
+        "duration": 0.0799999999999983,
+        "value": "FÖRFLYTTA-HIT(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639686",
+        "start_time": 46.111,
+        "end_time": 46.271,
+        "duration": 0.1600000000000037,
+        "value": "GÅ-IN(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639689",
+        "start_time": 46.756,
+        "end_time": 47.036,
+        "duration": 0.28000000000000114,
+        "value": "TOMAT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639692",
+        "start_time": 48.276,
+        "end_time": 48.396,
+        "duration": 0.11999999999999744,
+        "value": "SEDAN(L)@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639695",
+        "start_time": 48.67,
+        "end_time": 48.95,
+        "duration": 0.28000000000000114,
+        "value": "MUN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639698",
+        "start_time": 48.99,
+        "end_time": 49.11,
+        "duration": 0.11999999999999744,
+        "value": "VAD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639701",
+        "start_time": 49.565,
+        "end_time": 49.665,
+        "duration": 0.10000000000000142,
+        "value": "GREPP(7a)+HANTERA@p>mun",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639704",
+        "start_time": 49.75,
+        "end_time": 50.07,
+        "duration": 0.3200000000000003,
+        "value": "KOL@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639707",
+        "start_time": 50.19,
+        "end_time": 50.27,
+        "duration": 0.0800000000000054,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639710",
+        "start_time": 50.35,
+        "end_time": 50.91,
+        "duration": 0.5599999999999952,
+        "value": "GREPP(5bt)+HANTERA+GREPP(5bt)@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639712",
+        "start_time": 51.015,
+        "end_time": 51.095,
+        "duration": 0.0799999999999983,
+        "value": "GREPP(55bt)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639715",
+        "start_time": 51.415,
+        "end_time": 51.615,
+        "duration": 0.20000000000000284,
+        "value": "GREPP(A)+HANTERA@p>mun",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639717",
+        "start_time": 51.735,
+        "end_time": 52.495,
+        "duration": 0.759999999999998,
+        "value": "GREPP(A)+HANTERA@p.MULTI>bröst",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639720",
+        "start_time": 52.935,
+        "end_time": 53.095,
+        "duration": 0.1599999999999966,
+        "value": "glosa@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639722",
+        "start_time": 53.295,
+        "end_time": 53.455,
+        "duration": 0.1599999999999966,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639725",
+        "start_time": 53.535,
+        "end_time": 53.695,
+        "duration": 0.1600000000000037,
+        "value": "MAMMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639728",
+        "start_time": 53.775,
+        "end_time": 53.935,
+        "duration": 0.1600000000000037,
+        "value": "VILL|HA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639731",
+        "start_time": 54.03,
+        "end_time": 54.455,
+        "duration": 0.42499999999999716,
+        "value": "MÖSSA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639733",
+        "start_time": 54.495,
+        "end_time": 54.575,
+        "duration": 0.0800000000000054,
+        "value": "NÅGOT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639735",
+        "start_time": 54.775,
+        "end_time": 54.975,
+        "duration": 0.20000000000000284,
+        "value": "HATT(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639740",
+        "start_time": 55.135,
+        "end_time": 55.255,
+        "duration": 0.12000000000000455,
+        "value": "NÅGON",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639743",
+        "start_time": 55.417,
+        "end_time": 55.617,
+        "duration": 0.19999999999999574,
+        "value": "MAMMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639746",
+        "start_time": 55.857,
+        "end_time": 56.177,
+        "duration": 0.3200000000000003,
+        "value": "GREPP(AA)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639749",
+        "start_time": 56.417,
+        "end_time": 56.657,
+        "duration": 0.23999999999999488,
+        "value": "HATT(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639751",
+        "start_time": 56.897,
+        "end_time": 57.137,
+        "duration": 0.240000000000002,
+        "value": "GREPP(AA)+HANTERA@p>huvud",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639753",
+        "start_time": 57.297,
+        "end_time": 57.657,
+        "duration": 0.35999999999999943,
+        "value": "HALSDUK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639756",
+        "start_time": 57.737,
+        "end_time": 57.937,
+        "duration": 0.19999999999999574,
+        "value": "GREPP(S)+HANTERA@p>hals",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639759",
+        "start_time": 58.057,
+        "end_time": 58.297,
+        "duration": 0.23999999999999488,
+        "value": "BRA-PERFEKT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639762",
+        "start_time": 58.577,
+        "end_time": 58.657,
+        "duration": 0.0799999999999983,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639765",
+        "start_time": 58.937,
+        "end_time": 59.657,
+        "duration": 0.7199999999999989,
+        "value": "GNUGGA-HÄNDER@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639769",
+        "start_time": 59.777,
+        "end_time": 60.017,
+        "duration": 0.240000000000002,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639771",
+        "start_time": 60.097,
+        "end_time": 60.337,
+        "duration": 0.240000000000002,
+        "value": "GNUGGA-HÄNDER@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639774",
+        "start_time": 60.457,
+        "end_time": 60.857,
+        "duration": 0.3999999999999986,
+        "value": "VARELSE(N)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639778",
+        "start_time": 61.017,
+        "end_time": 61.337,
+        "duration": 0.3200000000000003,
+        "value": "GÅ-IN(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639780",
+        "start_time": 62.057,
+        "end_time": 62.497,
+        "duration": 0.4399999999999977,
+        "value": "KVÄLL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639783",
+        "start_time": 62.698,
+        "end_time": 62.858,
+        "duration": 0.1599999999999966,
+        "value": "FÖRÄLDRAR(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639786",
+        "start_time": 62.978,
+        "end_time": 63.258,
+        "duration": 0.28000000000000114,
+        "value": "SITTA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639790",
+        "start_time": 63.418,
+        "end_time": 63.578,
+        "duration": 0.1600000000000037,
+        "value": "TV@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639791",
+        "start_time": 63.738,
+        "end_time": 64.138,
+        "duration": 0.4000000000000057,
+        "value": "KNAPPA-FJÄRRKONTROLL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639794",
+        "start_time": 64.218,
+        "end_time": 64.378,
+        "duration": 0.1599999999999966,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639797",
+        "start_time": 64.498,
+        "end_time": 65.578,
+        "duration": 1.0799999999999983,
+        "value": "TITTA-UT@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639800",
+        "start_time": 65.738,
+        "end_time": 66.298,
+        "duration": 0.5600000000000023,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639803",
+        "start_time": 66.458,
+        "end_time": 66.818,
+        "duration": 0.35999999999999943,
+        "value": "TITTA-UT@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639807",
+        "start_time": 66.858,
+        "end_time": 66.938,
+        "duration": 0.0799999999999983,
+        "value": "JÄMN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639809",
+        "start_time": 67.058,
+        "end_time": 67.218,
+        "duration": 0.1599999999999966,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639812",
+        "start_time": 67.338,
+        "end_time": 67.538,
+        "duration": 0.20000000000000284,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639814",
+        "start_time": 67.658,
+        "end_time": 67.698,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639817",
+        "start_time": 67.738,
+        "end_time": 67.818,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639821",
+        "start_time": 67.898,
+        "end_time": 68.058,
+        "duration": 0.1600000000000108,
+        "value": "GÖRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639824",
+        "start_time": 68.179,
+        "end_time": 68.299,
+        "duration": 0.12000000000000455,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639827",
+        "start_time": 68.5,
+        "end_time": 68.66,
+        "duration": 0.1599999999999966,
+        "value": "TITTA-UT@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639830",
+        "start_time": 68.7,
+        "end_time": 68.74,
+        "duration": 0.03999999999999204,
+        "value": "MAMMA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639833",
+        "start_time": 68.82,
+        "end_time": 69.02,
+        "duration": 0.20000000000000284,
+        "value": "JA@ub@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639836",
+        "start_time": 69.14,
+        "end_time": 69.34,
+        "duration": 0.20000000000000284,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639839",
+        "start_time": 69.46,
+        "end_time": 69.78,
+        "duration": 0.3200000000000074,
+        "value": "LUGNA@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639842",
+        "start_time": 70.42,
+        "end_time": 70.54,
+        "duration": 0.12000000000000455,
+        "value": "SKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639844",
+        "start_time": 70.58,
+        "end_time": 70.98,
+        "duration": 0.4000000000000057,
+        "value": "SOVA(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639847",
+        "start_time": 71.26,
+        "end_time": 71.66,
+        "duration": 0.3999999999999915,
+        "value": "LIGGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639850",
+        "start_time": 71.78,
+        "end_time": 72.26,
+        "duration": 0.480000000000004,
+        "value": "SOVA(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639853",
+        "start_time": 72.34,
+        "end_time": 73.26,
+        "duration": 0.9200000000000017,
+        "value": "LIGGA-SÖMNLÖS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639857",
+        "start_time": 73.34,
+        "end_time": 73.62,
+        "duration": 0.28000000000000114,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639860",
+        "start_time": 74.14,
+        "end_time": 74.38,
+        "duration": 0.23999999999999488,
+        "value": "KONTROLLERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639864",
+        "start_time": 74.54,
+        "end_time": 74.7,
+        "duration": 0.1599999999999966,
+        "value": "SNÖ(5)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639866",
+        "start_time": 74.78,
+        "end_time": 75.34,
+        "duration": 0.5600000000000023,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639869",
+        "start_time": 75.42,
+        "end_time": 75.54,
+        "duration": 0.12000000000000455,
+        "value": "FINNAS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639872",
+        "start_time": 75.62,
+        "end_time": 75.821,
+        "duration": 0.2009999999999934,
+        "value": "KVAR",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639875",
+        "start_time": 76.381,
+        "end_time": 76.821,
+        "duration": 0.4399999999999977,
+        "value": "LIGGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639878",
+        "start_time": 76.901,
+        "end_time": 77.981,
+        "duration": 1.0799999999999983,
+        "value": "LIGGA-SÖMNLÖS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639881",
+        "start_time": 78.181,
+        "end_time": 78.461,
+        "duration": 0.28000000000000114,
+        "value": "LÅTA-VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639883",
+        "start_time": 78.701,
+        "end_time": 79.261,
+        "duration": 0.5600000000000023,
+        "value": "KLÄ-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639886",
+        "start_time": 79.381,
+        "end_time": 79.941,
+        "duration": 0.5600000000000023,
+        "value": "VARELSE(N)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639889",
+        "start_time": 81.076,
+        "end_time": 81.276,
+        "duration": 0.20000000000000284,
+        "value": "TOM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639892",
+        "start_time": 83.556,
+        "end_time": 83.916,
+        "duration": 0.35999999999999943,
+        "value": "JASÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639894",
+        "start_time": 84.156,
+        "end_time": 84.516,
+        "duration": 0.35999999999999943,
+        "value": "FÖRFLYTTA-HIT(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639898",
+        "start_time": 84.716,
+        "end_time": 85.316,
+        "duration": 0.6000000000000085,
+        "value": "HEJ@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639901",
+        "start_time": 86.116,
+        "end_time": 86.676,
+        "duration": 0.5600000000000023,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639903",
+        "start_time": 86.796,
+        "end_time": 87.116,
+        "duration": 0.3199999999999932,
+        "value": "PRATA(5)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639907",
+        "start_time": 87.436,
+        "end_time": 88.196,
+        "duration": 0.7599999999999909,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639909",
+        "start_time": 88.516,
+        "end_time": 88.916,
+        "duration": 0.3999999999999915,
+        "value": "HEJ@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639911",
+        "start_time": 89.076,
+        "end_time": 89.196,
+        "duration": 0.12000000000000455,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639914",
+        "start_time": 89.396,
+        "end_time": 89.756,
+        "duration": 0.35999999999999943,
+        "value": "ENTUSIASTISK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639916",
+        "start_time": 89.956,
+        "end_time": 91.236,
+        "duration": 1.2800000000000011,
+        "value": "SKAKA-HAND@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639919",
+        "start_time": 91.556,
+        "end_time": 91.836,
+        "duration": 0.28000000000000114,
+        "value": "GÅ-IN(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639921",
+        "start_time": 92.471,
+        "end_time": 92.911,
+        "duration": 0.4399999999999977,
+        "value": "FÖLJAS-ÅT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639923",
+        "start_time": 93.071,
+        "end_time": 93.311,
+        "duration": 0.2400000000000091,
+        "value": "PÅKALLA-UPPMÄRKSAMHET@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639926",
+        "start_time": 93.391,
+        "end_time": 93.751,
+        "duration": 0.35999999999999943,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639929",
+        "start_time": 93.791,
+        "end_time": 93.911,
+        "duration": 0.12000000000000455,
+        "value": "TITTA-PÅ-OMKRING@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639932",
+        "start_time": 94.111,
+        "end_time": 94.391,
+        "duration": 0.28000000000000114,
+        "value": "UNDERLIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639935",
+        "start_time": 94.671,
+        "end_time": 95.191,
+        "duration": 0.519999999999996,
+        "value": "HUS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639938",
+        "start_time": 95.391,
+        "end_time": 95.711,
+        "duration": 0.3199999999999932,
+        "value": "FINNAS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639941",
+        "start_time": 96.031,
+        "end_time": 96.391,
+        "duration": 0.35999999999999943,
+        "value": "BLOMMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639944",
+        "start_time": 96.671,
+        "end_time": 97.392,
+        "duration": 0.7209999999999894,
+        "value": "TAVLA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639947",
+        "start_time": 97.672,
+        "end_time": 97.872,
+        "duration": 0.20000000000000284,
+        "value": "ETCETERA(da)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639951",
+        "start_time": 98.032,
+        "end_time": 98.352,
+        "duration": 0.3200000000000074,
+        "value": "UNDERLIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639954",
+        "start_time": 98.472,
+        "end_time": 98.672,
+        "duration": 0.20000000000000284,
+        "value": "VATTEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639957",
+        "start_time": 99.432,
+        "end_time": 100.192,
+        "duration": 0.7599999999999909,
+        "value": "BRINNA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639959",
+        "start_time": 100.472,
+        "end_time": 100.592,
+        "duration": 0.12000000000000455,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639962",
+        "start_time": 100.672,
+        "end_time": 100.952,
+        "duration": 0.28000000000000114,
+        "value": "VISA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639964",
+        "start_time": 101.032,
+        "end_time": 101.152,
+        "duration": 0.12000000000000455,
+        "value": "JA@ub@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639967",
+        "start_time": 101.192,
+        "end_time": 101.472,
+        "duration": 0.28000000000000114,
+        "value": "PEK.FL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639970",
+        "start_time": 101.592,
+        "end_time": 101.752,
+        "duration": 0.1599999999999966,
+        "value": "FUNGERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639973",
+        "start_time": 101.792,
+        "end_time": 101.872,
+        "duration": 0.0799999999999983,
+        "value": "SÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639976",
+        "start_time": 101.912,
+        "end_time": 102.472,
+        "duration": 0.5599999999999881,
+        "value": "KÖK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639978",
+        "start_time": 102.672,
+        "end_time": 102.992,
+        "duration": 0.3200000000000074,
+        "value": "VATTEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639981",
+        "start_time": 103.313,
+        "end_time": 103.553,
+        "duration": 0.23999999999999488,
+        "value": "TÄNDA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639985",
+        "start_time": 103.593,
+        "end_time": 103.873,
+        "duration": 0.28000000000000114,
+        "value": "ALLTIHOP",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639988",
+        "start_time": 103.993,
+        "end_time": 104.113,
+        "duration": 0.12000000000000455,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639991",
+        "start_time": 104.233,
+        "end_time": 104.633,
+        "duration": 0.3999999999999915,
+        "value": "FASCINERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639994",
+        "start_time": 104.753,
+        "end_time": 105.553,
+        "duration": 0.7999999999999972,
+        "value": "BRINNA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639996",
+        "start_time": 105.673,
+        "end_time": 105.913,
+        "duration": 0.23999999999999488,
+        "value": "TITTA-PÅ-OMKRING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41639999",
+        "start_time": 106.033,
+        "end_time": 106.833,
+        "duration": 0.7999999999999972,
+        "value": "FASCINERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640001",
+        "start_time": 107.033,
+        "end_time": 107.113,
+        "duration": 0.0799999999999983,
+        "value": "pek@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640004",
+        "start_time": 107.233,
+        "end_time": 107.393,
+        "duration": 0.1599999999999966,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640008",
+        "start_time": 107.753,
+        "end_time": 107.953,
+        "duration": 0.20000000000000284,
+        "value": "glosa@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640011",
+        "start_time": 107.993,
+        "end_time": 108.113,
+        "duration": 0.12000000000000455,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640013",
+        "start_time": 108.353,
+        "end_time": 108.473,
+        "duration": 0.12000000000000455,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640016",
+        "start_time": 109.201,
+        "end_time": 109.601,
+        "duration": 0.4000000000000057,
+        "value": "FÖLJAS-ÅT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640018",
+        "start_time": 109.721,
+        "end_time": 109.921,
+        "duration": 0.20000000000000284,
+        "value": "VISA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640022",
+        "start_time": 110.081,
+        "end_time": 110.641,
+        "duration": 0.5600000000000023,
+        "value": "RUM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640026",
+        "start_time": 110.801,
+        "end_time": 111.961,
+        "duration": 1.1599999999999966,
+        "value": "FÖLJAS-ÅT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640029",
+        "start_time": 112.081,
+        "end_time": 112.201,
+        "duration": 0.11999999999999034,
+        "value": "HUS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640030",
+        "start_time": 112.321,
+        "end_time": 113.281,
+        "duration": 0.960000000000008,
+        "value": "VARELSE(N)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640033",
+        "start_time": 113.961,
+        "end_time": 114.241,
+        "duration": 0.28000000000000114,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640037",
+        "start_time": 114.321,
+        "end_time": 114.361,
+        "duration": 0.04000000000000625,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640040",
+        "start_time": 114.481,
+        "end_time": 114.641,
+        "duration": 0.1600000000000108,
+        "value": "VISA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640043",
+        "start_time": 114.761,
+        "end_time": 114.841,
+        "duration": 0.0799999999999983,
+        "value": "OBJPRO",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640046",
+        "start_time": 114.961,
+        "end_time": 115.081,
+        "duration": 0.12000000000000455,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640049",
+        "start_time": 115.201,
+        "end_time": 115.441,
+        "duration": 0.2400000000000091,
+        "value": "UTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640050",
+        "start_time": 115.521,
+        "end_time": 115.601,
+        "duration": 0.0799999999999983,
+        "value": "PRO1@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640053",
+        "start_time": 116.403,
+        "end_time": 116.523,
+        "duration": 0.11999999999999034,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640056",
+        "start_time": 116.643,
+        "end_time": 116.883,
+        "duration": 0.23999999999999488,
+        "value": "JASÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640058",
+        "start_time": 116.923,
+        "end_time": 117.043,
+        "duration": 0.12000000000000455,
+        "value": "SKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640061",
+        "start_time": 117.363,
+        "end_time": 117.923,
+        "duration": 0.5600000000000023,
+        "value": "VARELSE(LL)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640064",
+        "start_time": 118.243,
+        "end_time": 118.523,
+        "duration": 0.28000000000000114,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640066",
+        "start_time": 118.723,
+        "end_time": 118.923,
+        "duration": 0.20000000000000284,
+        "value": "FLYGA(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640069",
+        "start_time": 119.043,
+        "end_time": 119.723,
+        "duration": 0.6799999999999926,
+        "value": "VARELSE(V)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640072",
+        "start_time": 119.923,
+        "end_time": 120.043,
+        "duration": 0.12000000000000455,
+        "value": "ÖVER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640073",
+        "start_time": 120.163,
+        "end_time": 120.603,
+        "duration": 0.4399999999999977,
+        "value": "STAN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640076",
+        "start_time": 120.723,
+        "end_time": 121.563,
+        "duration": 0.8400000000000034,
+        "value": "VARELSE(V)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640080",
+        "start_time": 121.723,
+        "end_time": 122.324,
+        "duration": 0.6009999999999991,
+        "value": "VARELSE(V)+FÖRFLYTTA-TILL+ENTITET(J)@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640082",
+        "start_time": 122.483,
+        "end_time": 122.643,
+        "duration": 0.1599999999999966,
+        "value": "VATTEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640085",
+        "start_time": 122.763,
+        "end_time": 123.563,
+        "duration": 0.7999999999999972,
+        "value": "FORM(55)+BESKRIVNING@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640088",
+        "start_time": 123.723,
+        "end_time": 123.803,
+        "duration": 0.0799999999999983,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640091",
+        "start_time": 123.963,
+        "end_time": 124.443,
+        "duration": 0.480000000000004,
+        "value": "STÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640094",
+        "start_time": 124.763,
+        "end_time": 126.884,
+        "duration": 2.120999999999995,
+        "value": "LÄGGA-ARM-OM@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640096",
+        "start_time": 127.093,
+        "end_time": 127.293,
+        "duration": 0.20000000000000284,
+        "value": "GREPP(GG)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640099",
+        "start_time": 127.413,
+        "end_time": 127.693,
+        "duration": 0.28000000000000114,
+        "value": "TILLBAKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640102",
+        "start_time": 127.813,
+        "end_time": 128.013,
+        "duration": 0.20000000000000284,
+        "value": "BEGE-SIG-HEM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640105",
+        "start_time": 128.293,
+        "end_time": 129.373,
+        "duration": 1.079999999999984,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640107",
+        "start_time": 129.813,
+        "end_time": 130.093,
+        "duration": 0.28000000000000114,
+        "value": "KOMMA-FRAM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640110",
+        "start_time": 130.293,
+        "end_time": 130.533,
+        "duration": 0.23999999999998067,
+        "value": "HEMMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640113",
+        "start_time": 131.345,
+        "end_time": 131.385,
+        "duration": 0.03999999999999204,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640116",
+        "start_time": 131.486,
+        "end_time": 131.646,
+        "duration": 0.1599999999999966,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640119",
+        "start_time": 131.766,
+        "end_time": 132.086,
+        "duration": 0.3200000000000216,
+        "value": "TACK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640122",
+        "start_time": 132.206,
+        "end_time": 132.646,
+        "duration": 0.4399999999999977,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640125",
+        "start_time": 132.766,
+        "end_time": 132.846,
+        "duration": 0.0800000000000125,
+        "value": "MED",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640127",
+        "start_time": 133.046,
+        "end_time": 133.327,
+        "duration": 0.2810000000000059,
+        "value": "OBJPRO",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640131",
+        "start_time": 133.88,
+        "end_time": 134.04,
+        "duration": 0.1599999999999966,
+        "value": "GÅ-IN(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640132",
+        "start_time": 134.2,
+        "end_time": 134.52,
+        "duration": 0.3200000000000216,
+        "value": "HUS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640135",
+        "start_time": 134.68,
+        "end_time": 134.8,
+        "duration": 0.12000000000000455,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640138",
+        "start_time": 134.92,
+        "end_time": 135.2,
+        "duration": 0.28000000000000114,
+        "value": "UTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640141",
+        "start_time": 135.36,
+        "end_time": 135.52,
+        "duration": 0.1599999999999966,
+        "value": "FÖLJAS-ÅT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640144",
+        "start_time": 135.56,
+        "end_time": 136.281,
+        "duration": 0.7210000000000036,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640146",
+        "start_time": 136.361,
+        "end_time": 137.081,
+        "duration": 0.7199999999999989,
+        "value": "KRAMA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640149",
+        "start_time": 137.281,
+        "end_time": 137.641,
+        "duration": 0.3599999999999852,
+        "value": "SNÖ(5)^GUBBE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640152",
+        "start_time": 137.721,
+        "end_time": 138.001,
+        "duration": 0.28000000000000114,
+        "value": "GLOSA:(LÅTA-VARA)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640155",
+        "start_time": 139.121,
+        "end_time": 139.201,
+        "duration": 0.07999999999998408,
+        "value": "GÅ-IN(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640157",
+        "start_time": 139.241,
+        "end_time": 139.401,
+        "duration": 0.1599999999999966,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640159",
+        "start_time": 141.821,
+        "end_time": 142.301,
+        "duration": 0.47999999999998977,
+        "value": "GÅ.KONT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640162",
+        "start_time": 142.461,
+        "end_time": 142.901,
+        "duration": 0.4399999999999977,
+        "value": "GÅ-IN(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640165",
+        "start_time": 143.221,
+        "end_time": 144.022,
+        "duration": 0.8009999999999877,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640166",
+        "start_time": 144.421,
+        "end_time": 144.981,
+        "duration": 0.5600000000000023,
+        "value": "UPPRÄTT(J)@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640171",
+        "start_time": 145.166,
+        "end_time": 145.206,
+        "duration": 0.03999999999999204,
+        "value": "POJKE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640174",
+        "start_time": 145.286,
+        "end_time": 146.246,
+        "duration": 0.960000000000008,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640176",
+        "start_time": 146.326,
+        "end_time": 146.406,
+        "duration": 0.0800000000000125,
+        "value": "LEDSEN@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640178",
+        "start_time": 146.566,
+        "end_time": 147.006,
+        "duration": 0.4399999999999977,
+        "value": "VARELSE(V)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640180",
+        "start_time": 147.206,
+        "end_time": 147.326,
+        "duration": 0.12000000000000455,
+        "value": "SITTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640183",
+        "start_time": 147.406,
+        "end_time": 147.966,
+        "duration": 0.5600000000000023,
+        "value": "LIGGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640185",
+        "start_time": 148.206,
+        "end_time": 148.486,
+        "duration": 0.28000000000000114,
+        "value": "SOVA(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640189",
+        "start_time": 148.566,
+        "end_time": 149.886,
+        "duration": 1.3199999999999932,
+        "value": "LIGGA-SÖMNLÖS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640192",
+        "start_time": 150.046,
+        "end_time": 150.326,
+        "duration": 0.28000000000000114,
+        "value": "SOVA(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640195",
+        "start_time": 150.486,
+        "end_time": 150.926,
+        "duration": 0.4399999999999977,
+        "value": "LIGGA-SÖMNLÖS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640199",
+        "start_time": 151.086,
+        "end_time": 152.966,
+        "duration": 1.8799999999999955,
+        "value": "VAKNA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640202",
+        "start_time": 153.325,
+        "end_time": 153.525,
+        "duration": 0.20000000000001705,
+        "value": "SITTA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640205",
+        "start_time": 153.565,
+        "end_time": 154.285,
+        "duration": 0.7199999999999989,
+        "value": "NEJ(N)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640208",
+        "start_time": 155.005,
+        "end_time": 155.525,
+        "duration": 0.5200000000000102,
+        "value": "SPRINGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640211",
+        "start_time": 155.765,
+        "end_time": 155.925,
+        "duration": 0.160000000000025,
+        "value": "FÖRÄLDRAR(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640214",
+        "start_time": 155.956,
+        "end_time": 156.436,
+        "duration": 0.4800000000000182,
+        "value": "VÄNDA-SIG-OM@ka",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640217",
+        "start_time": 156.556,
+        "end_time": 156.756,
+        "duration": 0.19999999999998863,
+        "value": "VAD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640220",
+        "start_time": 156.956,
+        "end_time": 157.316,
+        "duration": 0.36000000000001364,
+        "value": "HÄNDA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640223",
+        "start_time": 157.436,
+        "end_time": 157.836,
+        "duration": 0.4000000000000057,
+        "value": "SPRINGA(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640226",
+        "start_time": 158.799,
+        "end_time": 160.519,
+        "duration": 1.7199999999999989,
+        "value": "SMÄLTA(4f)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "41640228",
+        "start_time": 160.919,
+        "end_time": 161.839,
+        "duration": 0.9199999999999875,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_DH S2"
+      }
+    ],
+    "2": [
+      {
+        "annotation_id": "41640234",
+        "start_time": 12.06,
+        "end_time": 12.84,
+        "duration": 0.7799999999999994,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640237",
+        "start_time": 12.88,
+        "end_time": 14.58,
+        "duration": 1.6999999999999993,
+        "value": "grepp(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640239",
+        "start_time": 25.184,
+        "end_time": 25.505,
+        "duration": 0.32099999999999795,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640242",
+        "start_time": 43.134,
+        "end_time": 43.136,
+        "duration": 0.0020000000000024443,
+        "value": "EN-LISTA",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640245",
+        "start_time": 43.136,
+        "end_time": 43.536,
+        "duration": 0.3999999999999986,
+        "value": "EN-LISTA",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640249",
+        "start_time": 43.736,
+        "end_time": 44.176,
+        "duration": 0.44000000000000483,
+        "value": "TVÅ-LISTA",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640252",
+        "start_time": 44.336,
+        "end_time": 44.776,
+        "duration": 0.44000000000000483,
+        "value": "TRE-LISTA",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640255",
+        "start_time": 46.316,
+        "end_time": 46.736,
+        "duration": 0.4199999999999946,
+        "value": "GREPP(S)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640257",
+        "start_time": 46.746,
+        "end_time": 47.076,
+        "duration": 0.3299999999999983,
+        "value": "grepp(s)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640260",
+        "start_time": 47.236,
+        "end_time": 47.876,
+        "duration": 0.6400000000000006,
+        "value": "GREPP(S)+HANTERA@p>näsa",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640264",
+        "start_time": 51.15,
+        "end_time": 52.55,
+        "duration": 1.3999999999999986,
+        "value": "grepp(5bt)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640266",
+        "start_time": 73.66,
+        "end_time": 74.1,
+        "duration": 0.4399999999999977,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640268",
+        "start_time": 74.135,
+        "end_time": 75.82,
+        "duration": 1.684999999999988,
+        "value": "grepp(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640271",
+        "start_time": 75.86,
+        "end_time": 76.221,
+        "duration": 0.3610000000000042,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640275",
+        "start_time": 80.141,
+        "end_time": 80.261,
+        "duration": 0.11999999999999034,
+        "value": "zzz@z",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640279",
+        "start_time": 80.356,
+        "end_time": 80.786,
+        "duration": 0.4300000000000068,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640283",
+        "start_time": 81.316,
+        "end_time": 81.916,
+        "duration": 0.5999999999999943,
+        "value": "FORM(J)+UTSTRÄCKNING@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640285",
+        "start_time": 82.076,
+        "end_time": 82.676,
+        "duration": 0.6000000000000085,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640289",
+        "start_time": 83.076,
+        "end_time": 83.521,
+        "duration": 0.4450000000000074,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640292",
+        "start_time": 83.536,
+        "end_time": 84.476,
+        "duration": 0.9399999999999977,
+        "value": "grepp(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640294",
+        "start_time": 85.516,
+        "end_time": 88.316,
+        "duration": 2.799999999999997,
+        "value": "grepp(g)@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640297",
+        "start_time": 90.796,
+        "end_time": 91.316,
+        "duration": 0.519999999999996,
+        "value": "KALLA-PÅ@rd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640300",
+        "start_time": 91.916,
+        "end_time": 92.156,
+        "duration": 0.2400000000000091,
+        "value": "KALLA-PÅ(J)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640303",
+        "start_time": 98.792,
+        "end_time": 99.312,
+        "duration": 0.519999999999996,
+        "value": "GREPP(Q)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640306",
+        "start_time": 108.713,
+        "end_time": 109.073,
+        "duration": 0.35999999999999943,
+        "value": "KALLA-PÅ@rd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640309",
+        "start_time": 113.52,
+        "end_time": 113.8,
+        "duration": 0.28000000000000114,
+        "value": "KALLA-PÅ@rd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640312",
+        "start_time": 115.681,
+        "end_time": 116.001,
+        "duration": 0.3200000000000074,
+        "value": "KALLA-PÅ@rd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640315",
+        "start_time": 125.483,
+        "end_time": 125.683,
+        "duration": 0.20000000000000284,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640320",
+        "start_time": 125.763,
+        "end_time": 126.043,
+        "duration": 0.28000000000000114,
+        "value": "MYSIG",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640322",
+        "start_time": 138.761,
+        "end_time": 139.001,
+        "duration": 0.2400000000000091,
+        "value": "IVÄG-MED-ER@ka",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640326",
+        "start_time": 139.444,
+        "end_time": 139.644,
+        "duration": 0.20000000000001705,
+        "value": "IVÄG-MED-ER@ka",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640328",
+        "start_time": 139.821,
+        "end_time": 139.981,
+        "duration": 0.1599999999999966,
+        "value": "SOVA(7v)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640331",
+        "start_time": 140.101,
+        "end_time": 140.181,
+        "duration": 0.0800000000000125,
+        "value": "NU@b",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640334",
+        "start_time": 140.261,
+        "end_time": 140.661,
+        "duration": 0.4000000000000057,
+        "value": "IVÄG-MED-ER@ka",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640337",
+        "start_time": 140.821,
+        "end_time": 140.861,
+        "duration": 0.03999999999999204,
+        "value": "POJKE",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640340",
+        "start_time": 140.941,
+        "end_time": 141.621,
+        "duration": 0.6800000000000068,
+        "value": "TITTA-PÅ",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640343",
+        "start_time": 151.765,
+        "end_time": 152.976,
+        "duration": 1.2110000000000127,
+        "value": "SOLSTRÅLA",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640346",
+        "start_time": 154.525,
+        "end_time": 154.925,
+        "duration": 0.4000000000000057,
+        "value": "VARELSE(Vb)+FÖRFLYTTA@p",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "41640349",
+        "start_time": 158.039,
+        "end_time": 158.599,
+        "duration": 0.5600000000000023,
+        "value": "GREPP(G)+HANTERA@p",
+        "tier_name": "Glosa_NonDH S2"
+      }
+    ],
+    "4": [
+      {
+        "annotation_id": "41640362",
+        "start_time": 5.26,
+        "end_time": 7.36,
+        "duration": 2.1000000000000005,
+        "value": "Jag har 'Snömannen',",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640365",
+        "start_time": 7.47,
+        "end_time": 12.62,
+        "duration": 5.1499999999999995,
+        "value": "det är en pojke som ligger och sover och när han vaknar så går han upp och drar undan gardinen",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640367",
+        "start_time": 12.665,
+        "end_time": 17.825,
+        "duration": 5.16,
+        "value": "och får se att det snöar och tar då glatt på sig sina kläder, varma kläder och en mössa",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640370",
+        "start_time": 17.865,
+        "end_time": 21.555,
+        "duration": 3.6900000000000013,
+        "value": "och går till sin mamma och säger att han ska gå ut och göra en snögubbe,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640373",
+        "start_time": 21.6,
+        "end_time": 27.63,
+        "duration": 6.029999999999998,
+        "value": "\"ja gör det\" säger mamma \"men hämta en mössa\" så det gör han och springer sen ut och tappar mössan i vinden men bryr sig inte om det,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640376",
+        "start_time": 27.675,
+        "end_time": 32.735,
+        "duration": 5.059999999999999,
+        "value": "så börjar han att rulla snöbollar och bygga en snögubbe och efter ett tag känner han att han är hungrig så han går hem,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640379",
+        "start_time": 32.775,
+        "end_time": 36.125,
+        "duration": 3.3500000000000014,
+        "value": "när han sitter där och äter så tittar han hela tiden ut på snögubben,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640383",
+        "start_time": 36.16,
+        "end_time": 39.76,
+        "duration": 3.6000000000000014,
+        "value": "så bestämmer han sig för att gå ut och fortsätta så han tar på sig sina kläder och sin mössa",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640386",
+        "start_time": 39.81,
+        "end_time": 41.78,
+        "duration": 1.9699999999999989,
+        "value": "och när han sen har satt på huvudet så tittar han på snögubben,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640389",
+        "start_time": 41.845,
+        "end_time": 44.975,
+        "duration": 3.1300000000000026,
+        "value": "han tycker att den ser tråkig ut utan ögon, näsa och mun och undrar vad han ska använda till det",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640392",
+        "start_time": 45.06,
+        "end_time": 52.57,
+        "duration": 7.509999999999998,
+        "value": "så kommer han på att han ska ha en tomat till näsa så det hämtar han och till mun och knappar använder han kol",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640395",
+        "start_time": 52.585,
+        "end_time": 58.28,
+        "duration": 5.695,
+        "value": "eeh sen säger han till sin mamma att han behöver en mössa eller hatt till snögubben och så får han en hatt och en halsduk som han sätter på",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640398",
+        "start_time": 58.345,
+        "end_time": 61.65,
+        "duration": 3.3049999999999997,
+        "value": "och då känner han sig jättenöjd och så går han in,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640401",
+        "start_time": 61.695,
+        "end_time": 66.68,
+        "duration": 4.9850000000000065,
+        "value": "på kvällen sitter föräldrarna och tittar på tv men pojken tittar hela tiden ut genom fönstret, på snögubben",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640403",
+        "start_time": 66.72,
+        "end_time": 69.86,
+        "duration": 3.1400000000000006,
+        "value": "och så säger han till sin mamma \"den har jag gjort\", \" jaja\" säger mamma,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640406",
+        "start_time": 69.92,
+        "end_time": 73.14,
+        "duration": 3.219999999999999,
+        "value": "sen är det dags för pojken att gå och lägga sig men han kan inte somna utan ligger bara och vrider sig,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640409",
+        "start_time": 73.19,
+        "end_time": 77.81,
+        "duration": 4.6200000000000045,
+        "value": "så går han upp för att titta till snögubben och får se att han står kvar då går han och lägger sig igen men kan fortfarande inte somna",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640412",
+        "start_time": 77.89,
+        "end_time": 82.22,
+        "duration": 4.329999999999998,
+        "value": "så han går upp, tar på sig morgonrocken och går ner för trapporna men när han tittar ut så är där helt tomt",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640415",
+        "start_time": 82.255,
+        "end_time": 87.52,
+        "duration": 5.265000000000001,
+        "value": "så han öppnar dörren och där står snögubben och så säger han \"hej\" och pojken tänker \"snögubben kan prata\"",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640417",
+        "start_time": 87.587,
+        "end_time": 92.037,
+        "duration": 4.450000000000003,
+        "value": "och blir sen glad, tar snögubben i hand och bjuder in honom",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640420",
+        "start_time": 92.082,
+        "end_time": 95.052,
+        "duration": 2.970000000000013,
+        "value": "så går dom in i huset och snögubben tycker det är ett märkligt ställe,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640421",
+        "start_time": 95.097,
+        "end_time": 100.287,
+        "duration": 5.190000000000012,
+        "value": "där finns blommor och tavlor, vatten som kommer ur en kran och en brasa,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640424",
+        "start_time": 100.322,
+        "end_time": 107.407,
+        "duration": 7.084999999999994,
+        "value": "pojken förklarar hur det hela fungerar i köket, med vattnet och hur man tänder en eld och allt möjligt annat och snögubben är helt fascinerad av allt han ser,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640428",
+        "start_time": 107.442,
+        "end_time": 113.222,
+        "duration": 5.780000000000001,
+        "value": "dom går vidare och pojken visar de olika rummen som finns i huset,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640432",
+        "start_time": 113.272,
+        "end_time": 116.192,
+        "duration": 2.9199999999999875,
+        "value": "sen säger snögubben att han vill visa pojken vad som finns därute,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640435",
+        "start_time": 116.252,
+        "end_time": 123.562,
+        "duration": 7.310000000000002,
+        "value": "pojken ser lite förvånad ut men följer med och så tar snögubben hans hand och dom flyger iväg över stan och landar vid vattnet och vågorna böljar,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640438",
+        "start_time": 123.607,
+        "end_time": 126.887,
+        "duration": 3.280000000000001,
+        "value": "pojken är helt tagen och snögubben lägger armen om honom och säger \"mysigt va?\"",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640441",
+        "start_time": 126.907,
+        "end_time": 130.537,
+        "duration": 3.6300000000000097,
+        "value": "och sen så flyger dom hem igen,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640445",
+        "start_time": 130.742,
+        "end_time": 136.007,
+        "duration": 5.265000000000015,
+        "value": "pojken tackar snögubben så mycket och säger att han har haft så roligt med honom både inne i huset och sen ute",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640448",
+        "start_time": 136.054,
+        "end_time": 140.764,
+        "duration": 4.710000000000008,
+        "value": "så ger han snögubben en bamsekram och så säger snögubben \"så ja, det är dags för dig att gå in och lägga dig\",",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640452",
+        "start_time": 140.804,
+        "end_time": 144.114,
+        "duration": 3.3100000000000023,
+        "value": "\"jaja\" säger pojken och går motvilligt in och stänger dörren långsamt efter sig",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640455",
+        "start_time": 144.169,
+        "end_time": 146.159,
+        "duration": 1.9899999999999807,
+        "value": "och så ställer sig snögubben på sin plats igen och pojken tittar ut på honom med ett leende",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640459",
+        "start_time": 146.204,
+        "end_time": 151.624,
+        "duration": 5.4199999999999875,
+        "value": "och så går han och lägger sig och sover men sover oroligt ända tills han vaknar",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640462",
+        "start_time": 151.664,
+        "end_time": 157.279,
+        "duration": 5.615000000000009,
+        "value": "och då lyser solen honom i ansiktet och han tänker \"NEJ!\" så rusar han ner för trapporna och förbi sina föräldrar som undrar vad som står på,",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640465",
+        "start_time": 157.311,
+        "end_time": 162.421,
+        "duration": 5.109999999999985,
+        "value": "fram till dörren, sliter upp den och får se att snögubben har smält bort och han blir SÅ ledsen.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "41640467",
+        "start_time": 164.141,
+        "end_time": 166.311,
+        "duration": 2.170000000000016,
+        "value": "Ja haha.",
+        "tier_name": "Översättning S2"
+      }
+    ]
+  },
+  "blocksdata": [
+    {
+      "id": 0,
+      "name": "Glosa_DH S1",
+      "annotations": [
+        {
+          "t": "LITE(7b)",
+          "s": 163320,
+          "e": 163360,
+          "id": 41639438
+        },
+        {
+          "t": "SORG",
+          "s": 163520,
+          "e": 163920,
+          "id": 41639441
+        },
+        {
+          "t": "LITE(7b)",
+          "s": 164000,
+          "e": 164160,
+          "id": 41639443
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Översättning S1",
+      "annotations": [
+        {
+          "t": "Vad sorgligt.",
+          "s": 163016,
+          "e": 164926,
+          "id": 41640354
+        },
+        {
+          "t": "Haha.",
+          "s": 165006,
+          "e": 166546,
+          "id": 41640357
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Glosa_DH S2",
+      "annotations": [
+        {
+          "t": "PRO1",
+          "s": 5627,
+          "e": 5867,
+          "id": 41639447
+        },
+        {
+          "t": "SNÖ(5)^MAN@en",
+          "s": 6307,
+          "e": 7107,
+          "id": 41639450
+        },
+        {
+          "t": "PEK",
+          "s": 7747,
+          "e": 7987,
+          "id": 41639453
+        },
+        {
+          "t": "POJKE",
+          "s": 8227,
+          "e": 8507,
+          "id": 41639456
+        },
+        {
+          "t": "LÄGGA-SIG",
+          "s": 8747,
+          "e": 8867,
+          "id": 41639460
+        },
+        {
+          "t": "LIGGA(G)",
+          "s": 8947,
+          "e": 9747,
+          "id": 41639462
+        },
+        {
+          "t": "SOVA(7v)",
+          "s": 9907,
+          "e": 10187,
+          "id": 41639466
+        },
+        {
+          "t": "VAKNA",
+          "s": 10227,
+          "e": 10707,
+          "id": 41639468
+        },
+        {
+          "t": "MORGON",
+          "s": 10912,
+          "e": 11232,
+          "id": 41639471
+        },
+        {
+          "t": "NU@b",
+          "s": 11293,
+          "e": 11388,
+          "id": 41639474
+        },
+        {
+          "t": "STIGA-UPP",
+          "s": 11660,
+          "e": 11900,
+          "id": 41639477
+        },
+        {
+          "t": "wtyp:",
+          "s": 12380,
+          "e": 12620,
+          "id": 41639480
+        },
+        {
+          "t": "SNÖA",
+          "s": 12905,
+          "e": 13700,
+          "id": 41639482
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 13780,
+          "e": 14340,
+          "id": 41639485
+        },
+        {
+          "t": "TA-SIG-DIT",
+          "s": 14460,
+          "e": 14660,
+          "id": 41639488
+        },
+        {
+          "t": "KLÄ-PÅ-NEDERDEL",
+          "s": 14781,
+          "e": 15461,
+          "id": 41639490
+        },
+        {
+          "t": "KLÄ-PÅ-ÖVERDEL",
+          "s": 15741,
+          "e": 16101,
+          "id": 41639493
+        },
+        {
+          "t": "VARM",
+          "s": 16541,
+          "e": 16741,
+          "id": 41639495
+        },
+        {
+          "t": "KLÄDER",
+          "s": 16781,
+          "e": 17181,
+          "id": 41639498
+        },
+        {
+          "t": "MÖSSA(G)",
+          "s": 17502,
+          "e": 17982,
+          "id": 41639501
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 18142,
+          "e": 18342,
+          "id": 41639504
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 18422,
+          "e": 18662,
+          "id": 41639507
+        },
+        {
+          "t": "MAMMA",
+          "s": 18782,
+          "e": 18862,
+          "id": 41639510
+        },
+        {
+          "t": "PRO1",
+          "s": 18982,
+          "e": 19022,
+          "id": 41639513
+        },
+        {
+          "t": "UTE",
+          "s": 19142,
+          "e": 19502,
+          "id": 41639518
+        },
+        {
+          "t": "PRO1",
+          "s": 19542,
+          "e": 19697,
+          "id": 41639521
+        },
+        {
+          "t": "HAND(JJbt)+HANTERA@p",
+          "s": 19782,
+          "e": 20062,
+          "id": 41639522
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 20502,
+          "e": 21702,
+          "id": 41639525
+        },
+        {
+          "t": "MAMMA",
+          "s": 21817,
+          "e": 21977,
+          "id": 41639529
+        },
+        {
+          "t": "JA@ub@z",
+          "s": 22017,
+          "e": 22257,
+          "id": 41639531
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 22299,
+          "e": 22539,
+          "id": 41639534
+        },
+        {
+          "t": "MÖSSA(G)",
+          "s": 22859,
+          "e": 22979,
+          "id": 41639537
+        },
+        {
+          "t": "SKA",
+          "s": 23009,
+          "e": 23049,
+          "id": 41639540
+        },
+        {
+          "t": "PEK",
+          "s": 23129,
+          "e": 23209,
+          "id": 41639543
+        },
+        {
+          "t": "PEK",
+          "s": 23339,
+          "e": 23459,
+          "id": 41639546
+        },
+        {
+          "t": "HÄMTA",
+          "s": 23664,
+          "e": 23824,
+          "id": 41639550
+        },
+        {
+          "t": "PEK",
+          "s": 23944,
+          "e": 24064,
+          "id": 41639553
+        },
+        {
+          "t": "KLÄ-PÅ-HUVUDDEL",
+          "s": 24544,
+          "e": 24864,
+          "id": 41639556
+        },
+        {
+          "t": "SPRINGA(Lb)",
+          "s": 25529,
+          "e": 25809,
+          "id": 41639559
+        },
+        {
+          "t": "ENTITET(5bt)+FÖRFLYTTA@p",
+          "s": 26049,
+          "e": 26569,
+          "id": 41639562
+        },
+        {
+          "t": "MÖSSA(G)",
+          "s": 27169,
+          "e": 27289,
+          "id": 41639565
+        },
+        {
+          "t": "LÅTA-VARA",
+          "s": 27329,
+          "e": 27609,
+          "id": 41639568
+        },
+        {
+          "t": "HAND(JJbt)+HANTERA@p",
+          "s": 28089,
+          "e": 28609,
+          "id": 41639572
+        },
+        {
+          "t": "RULLA",
+          "s": 28729,
+          "e": 28969,
+          "id": 41639575
+        },
+        {
+          "t": "GLOSA:(JÄSA)",
+          "s": 29169,
+          "e": 30370,
+          "id": 41639578
+        },
+        {
+          "t": "FORM(JJbt)+BESKRIVNING@p",
+          "s": 30414,
+          "e": 30694,
+          "id": 41639583
+        },
+        {
+          "t": "PF@g",
+          "s": 30774,
+          "e": 30854,
+          "id": 41639585
+        },
+        {
+          "t": "HUNGRIG",
+          "s": 31014,
+          "e": 31534,
+          "id": 41639588
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 31654,
+          "e": 32134,
+          "id": 41639591
+        },
+        {
+          "t": "BEGE-SIG-HEM",
+          "s": 32174,
+          "e": 32694,
+          "id": 41639594
+        },
+        {
+          "t": "SÄTTA-SIG",
+          "s": 33014,
+          "e": 33174,
+          "id": 41639598
+        },
+        {
+          "t": "ÄTA-GÖRA(Q)",
+          "s": 33334,
+          "e": 33534,
+          "id": 41639601
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 33614,
+          "e": 34174,
+          "id": 41639604
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 34254,
+          "e": 34734,
+          "id": 41639607
+        },
+        {
+          "t": "PEK",
+          "s": 34774,
+          "e": 35014,
+          "id": 41639611
+        },
+        {
+          "t": "ÄTA-GÖRA(Q)",
+          "s": 35180,
+          "e": 36340,
+          "id": 41639614
+        },
+        {
+          "t": "PRO1",
+          "s": 36460,
+          "e": 36500,
+          "id": 41639617
+        },
+        {
+          "t": "UT@b",
+          "s": 36620,
+          "e": 36900,
+          "id": 41639621
+        },
+        {
+          "t": "PRO1",
+          "s": 37061,
+          "e": 37101,
+          "id": 41639624
+        },
+        {
+          "t": "FORTSÄTTA",
+          "s": 37181,
+          "e": 37621,
+          "id": 41639627
+        },
+        {
+          "t": "PRO1",
+          "s": 37701,
+          "e": 37781,
+          "id": 41639630
+        },
+        {
+          "t": "KLÄ-PÅ-ÖVERDEL",
+          "s": 37821,
+          "e": 37941,
+          "id": 41639632
+        },
+        {
+          "t": "SEDAN(L)",
+          "s": 38096,
+          "e": 38176,
+          "id": 41639635
+        },
+        {
+          "t": "KLÄ-PÅ-HUVUDDEL",
+          "s": 38301,
+          "e": 38741,
+          "id": 41639638
+        },
+        {
+          "t": "FÖRFLYTTA-DIT(L)",
+          "s": 38996,
+          "e": 39476,
+          "id": 41639640
+        },
+        {
+          "t": "SPRINGA(Lb)",
+          "s": 39556,
+          "e": 40036,
+          "id": 41639643
+        },
+        {
+          "t": "ETCETERA(da)",
+          "s": 40156,
+          "e": 40356,
+          "id": 41639646
+        },
+        {
+          "t": "PLACERA(55b)",
+          "s": 40516,
+          "e": 41076,
+          "id": 41639649
+        },
+        {
+          "t": "FUNDERA@ka",
+          "s": 41557,
+          "e": 41917,
+          "id": 41639652
+        },
+        {
+          "t": "BARA(B)",
+          "s": 41962,
+          "e": 42042,
+          "id": 41639655
+        },
+        {
+          "t": "GREPPHÅLLA(55bt)",
+          "s": 42227,
+          "e": 42372,
+          "id": 41639658
+        },
+        {
+          "t": "TRÅKIG",
+          "s": 42532,
+          "e": 42812,
+          "id": 41639660
+        },
+        {
+          "t": "ÖGON",
+          "s": 43134,
+          "e": 43654,
+          "id": 41639663
+        },
+        {
+          "t": "MUN",
+          "s": 44071,
+          "e": 44391,
+          "id": 41639668
+        },
+        {
+          "t": "ENTITET(O)+BEFINNA@p>näsa",
+          "s": 44591,
+          "e": 44711,
+          "id": 41639671
+        },
+        {
+          "t": "HUR",
+          "s": 44791,
+          "e": 44951,
+          "id": 41639675
+        },
+        {
+          "t": "FUNDERA@ka",
+          "s": 45071,
+          "e": 45751,
+          "id": 41639678
+        },
+        {
+          "t": "FÖRFLYTTA-HIT(L)",
+          "s": 45911,
+          "e": 45991,
+          "id": 41639682
+        },
+        {
+          "t": "GÅ-IN(N)",
+          "s": 46111,
+          "e": 46271,
+          "id": 41639686
+        },
+        {
+          "t": "TOMAT",
+          "s": 46756,
+          "e": 47036,
+          "id": 41639689
+        },
+        {
+          "t": "SEDAN(L)@z",
+          "s": 48276,
+          "e": 48396,
+          "id": 41639692
+        },
+        {
+          "t": "MUN",
+          "s": 48670,
+          "e": 48950,
+          "id": 41639695
+        },
+        {
+          "t": "VAD",
+          "s": 48990,
+          "e": 49110,
+          "id": 41639698
+        },
+        {
+          "t": "GREPP(7a)+HANTERA@p>mun",
+          "s": 49565,
+          "e": 49665,
+          "id": 41639701
+        },
+        {
+          "t": "KOL@b",
+          "s": 49750,
+          "e": 50070,
+          "id": 41639704
+        },
+        {
+          "t": "PRO1",
+          "s": 50190,
+          "e": 50270,
+          "id": 41639707
+        },
+        {
+          "t": "GREPP(5bt)+HANTERA+GREPP(5bt)@p",
+          "s": 50350,
+          "e": 50910,
+          "id": 41639710
+        },
+        {
+          "t": "GREPP(55bt)+HANTERA@p",
+          "s": 51015,
+          "e": 51095,
+          "id": 41639712
+        },
+        {
+          "t": "GREPP(A)+HANTERA@p>mun",
+          "s": 51415,
+          "e": 51615,
+          "id": 41639715
+        },
+        {
+          "t": "GREPP(A)+HANTERA@p.MULTI>bröst",
+          "s": 51735,
+          "e": 52495,
+          "id": 41639717
+        },
+        {
+          "t": "glosa@&",
+          "s": 52935,
+          "e": 53095,
+          "id": 41639720
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 53295,
+          "e": 53455,
+          "id": 41639722
+        },
+        {
+          "t": "MAMMA",
+          "s": 53535,
+          "e": 53695,
+          "id": 41639725
+        },
+        {
+          "t": "VILL|HA",
+          "s": 53775,
+          "e": 53935,
+          "id": 41639728
+        },
+        {
+          "t": "MÖSSA(G)",
+          "s": 54030,
+          "e": 54455,
+          "id": 41639731
+        },
+        {
+          "t": "NÅGOT",
+          "s": 54495,
+          "e": 54575,
+          "id": 41639733
+        },
+        {
+          "t": "HATT(J)",
+          "s": 54775,
+          "e": 54975,
+          "id": 41639735
+        },
+        {
+          "t": "NÅGON",
+          "s": 55135,
+          "e": 55255,
+          "id": 41639740
+        },
+        {
+          "t": "MAMMA",
+          "s": 55417,
+          "e": 55617,
+          "id": 41639743
+        },
+        {
+          "t": "GREPP(AA)+HANTERA@p",
+          "s": 55857,
+          "e": 56177,
+          "id": 41639746
+        },
+        {
+          "t": "HATT(J)",
+          "s": 56417,
+          "e": 56657,
+          "id": 41639749
+        },
+        {
+          "t": "GREPP(AA)+HANTERA@p>huvud",
+          "s": 56897,
+          "e": 57137,
+          "id": 41639751
+        },
+        {
+          "t": "HALSDUK",
+          "s": 57297,
+          "e": 57657,
+          "id": 41639753
+        },
+        {
+          "t": "GREPP(S)+HANTERA@p>hals",
+          "s": 57737,
+          "e": 57937,
+          "id": 41639756
+        },
+        {
+          "t": "BRA-PERFEKT",
+          "s": 58057,
+          "e": 58297,
+          "id": 41639759
+        },
+        {
+          "t": "POJKE",
+          "s": 58577,
+          "e": 58657,
+          "id": 41639762
+        },
+        {
+          "t": "GNUGGA-HÄNDER@ka",
+          "s": 58937,
+          "e": 59657,
+          "id": 41639765
+        },
+        {
+          "t": "ROLIG",
+          "s": 59777,
+          "e": 60017,
+          "id": 41639769
+        },
+        {
+          "t": "GNUGGA-HÄNDER@ka",
+          "s": 60097,
+          "e": 60337,
+          "id": 41639771
+        },
+        {
+          "t": "VARELSE(N)+FÖRFLYTTA@p",
+          "s": 60457,
+          "e": 60857,
+          "id": 41639774
+        },
+        {
+          "t": "GÅ-IN(N)",
+          "s": 61017,
+          "e": 61337,
+          "id": 41639778
+        },
+        {
+          "t": "KVÄLL",
+          "s": 62057,
+          "e": 62497,
+          "id": 41639780
+        },
+        {
+          "t": "FÖRÄLDRAR(L)",
+          "s": 62698,
+          "e": 62858,
+          "id": 41639783
+        },
+        {
+          "t": "SITTA(Vb)",
+          "s": 62978,
+          "e": 63258,
+          "id": 41639786
+        },
+        {
+          "t": "TV@b",
+          "s": 63418,
+          "e": 63578,
+          "id": 41639790
+        },
+        {
+          "t": "KNAPPA-FJÄRRKONTROLL",
+          "s": 63738,
+          "e": 64138,
+          "id": 41639791
+        },
+        {
+          "t": "POJKE",
+          "s": 64218,
+          "e": 64378,
+          "id": 41639794
+        },
+        {
+          "t": "TITTA-UT@ka",
+          "s": 64498,
+          "e": 65578,
+          "id": 41639797
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 65738,
+          "e": 66298,
+          "id": 41639800
+        },
+        {
+          "t": "TITTA-UT@ka",
+          "s": 66458,
+          "e": 66818,
+          "id": 41639803
+        },
+        {
+          "t": "JÄMN",
+          "s": 66858,
+          "e": 66938,
+          "id": 41639807
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 67058,
+          "e": 67218,
+          "id": 41639809
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 67338,
+          "e": 67538,
+          "id": 41639812
+        },
+        {
+          "t": "PEK",
+          "s": 67658,
+          "e": 67698,
+          "id": 41639814
+        },
+        {
+          "t": "PRO1",
+          "s": 67738,
+          "e": 67818,
+          "id": 41639817
+        },
+        {
+          "t": "GÖRA",
+          "s": 67898,
+          "e": 68058,
+          "id": 41639821
+        },
+        {
+          "t": "PEK",
+          "s": 68179,
+          "e": 68299,
+          "id": 41639824
+        },
+        {
+          "t": "TITTA-UT@ka",
+          "s": 68500,
+          "e": 68660,
+          "id": 41639827
+        },
+        {
+          "t": "MAMMA@z",
+          "s": 68700,
+          "e": 68740,
+          "id": 41639830
+        },
+        {
+          "t": "JA@ub@z",
+          "s": 68820,
+          "e": 69020,
+          "id": 41639833
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 69140,
+          "e": 69340,
+          "id": 41639836
+        },
+        {
+          "t": "LUGNA@g",
+          "s": 69460,
+          "e": 69780,
+          "id": 41639839
+        },
+        {
+          "t": "SKA",
+          "s": 70420,
+          "e": 70540,
+          "id": 41639842
+        },
+        {
+          "t": "SOVA(7v)",
+          "s": 70580,
+          "e": 70980,
+          "id": 41639844
+        },
+        {
+          "t": "LIGGA(G)",
+          "s": 71260,
+          "e": 71660,
+          "id": 41639847
+        },
+        {
+          "t": "SOVA(7v)",
+          "s": 71780,
+          "e": 72260,
+          "id": 41639850
+        },
+        {
+          "t": "LIGGA-SÖMNLÖS",
+          "s": 72340,
+          "e": 73260,
+          "id": 41639853
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 73340,
+          "e": 73620,
+          "id": 41639857
+        },
+        {
+          "t": "KONTROLLERA",
+          "s": 74140,
+          "e": 74380,
+          "id": 41639860
+        },
+        {
+          "t": "SNÖ(5)",
+          "s": 74540,
+          "e": 74700,
+          "id": 41639864
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 74780,
+          "e": 75340,
+          "id": 41639866
+        },
+        {
+          "t": "FINNAS",
+          "s": 75420,
+          "e": 75540,
+          "id": 41639869
+        },
+        {
+          "t": "KVAR",
+          "s": 75620,
+          "e": 75821,
+          "id": 41639872
+        },
+        {
+          "t": "LIGGA(G)",
+          "s": 76381,
+          "e": 76821,
+          "id": 41639875
+        },
+        {
+          "t": "LIGGA-SÖMNLÖS",
+          "s": 76901,
+          "e": 77981,
+          "id": 41639878
+        },
+        {
+          "t": "LÅTA-VARA",
+          "s": 78181,
+          "e": 78461,
+          "id": 41639881
+        },
+        {
+          "t": "KLÄ-PÅ",
+          "s": 78701,
+          "e": 79261,
+          "id": 41639883
+        },
+        {
+          "t": "VARELSE(N)+FÖRFLYTTA@p",
+          "s": 79381,
+          "e": 79941,
+          "id": 41639886
+        },
+        {
+          "t": "TOM",
+          "s": 81076,
+          "e": 81276,
+          "id": 41639889
+        },
+        {
+          "t": "JASÅ",
+          "s": 83556,
+          "e": 83916,
+          "id": 41639892
+        },
+        {
+          "t": "FÖRFLYTTA-HIT(L)",
+          "s": 84156,
+          "e": 84516,
+          "id": 41639894
+        },
+        {
+          "t": "HEJ@g",
+          "s": 84716,
+          "e": 85316,
+          "id": 41639898
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 86116,
+          "e": 86676,
+          "id": 41639901
+        },
+        {
+          "t": "PRATA(5)",
+          "s": 86796,
+          "e": 87116,
+          "id": 41639903
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 87436,
+          "e": 88196,
+          "id": 41639907
+        },
+        {
+          "t": "HEJ@g",
+          "s": 88516,
+          "e": 88916,
+          "id": 41639909
+        },
+        {
+          "t": "POJKE",
+          "s": 89076,
+          "e": 89196,
+          "id": 41639911
+        },
+        {
+          "t": "ENTUSIASTISK",
+          "s": 89396,
+          "e": 89756,
+          "id": 41639914
+        },
+        {
+          "t": "SKAKA-HAND@ka",
+          "s": 89956,
+          "e": 91236,
+          "id": 41639916
+        },
+        {
+          "t": "GÅ-IN(N)",
+          "s": 91556,
+          "e": 91836,
+          "id": 41639919
+        },
+        {
+          "t": "FÖLJAS-ÅT",
+          "s": 92471,
+          "e": 92911,
+          "id": 41639921
+        },
+        {
+          "t": "PÅKALLA-UPPMÄRKSAMHET@g",
+          "s": 93071,
+          "e": 93311,
+          "id": 41639923
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 93391,
+          "e": 93751,
+          "id": 41639926
+        },
+        {
+          "t": "TITTA-PÅ-OMKRING@z",
+          "s": 93791,
+          "e": 93911,
+          "id": 41639929
+        },
+        {
+          "t": "UNDERLIG",
+          "s": 94111,
+          "e": 94391,
+          "id": 41639932
+        },
+        {
+          "t": "HUS",
+          "s": 94671,
+          "e": 95191,
+          "id": 41639935
+        },
+        {
+          "t": "FINNAS",
+          "s": 95391,
+          "e": 95711,
+          "id": 41639938
+        },
+        {
+          "t": "BLOMMA",
+          "s": 96031,
+          "e": 96391,
+          "id": 41639941
+        },
+        {
+          "t": "TAVLA",
+          "s": 96671,
+          "e": 97392,
+          "id": 41639944
+        },
+        {
+          "t": "ETCETERA(da)",
+          "s": 97672,
+          "e": 97872,
+          "id": 41639947
+        },
+        {
+          "t": "UNDERLIG",
+          "s": 98032,
+          "e": 98352,
+          "id": 41639951
+        },
+        {
+          "t": "VATTEN",
+          "s": 98472,
+          "e": 98672,
+          "id": 41639954
+        },
+        {
+          "t": "BRINNA@rd",
+          "s": 99432,
+          "e": 100192,
+          "id": 41639957
+        },
+        {
+          "t": "POJKE",
+          "s": 100472,
+          "e": 100592,
+          "id": 41639959
+        },
+        {
+          "t": "VISA",
+          "s": 100672,
+          "e": 100952,
+          "id": 41639962
+        },
+        {
+          "t": "JA@ub@z",
+          "s": 101032,
+          "e": 101152,
+          "id": 41639964
+        },
+        {
+          "t": "PEK.FL",
+          "s": 101192,
+          "e": 101472,
+          "id": 41639967
+        },
+        {
+          "t": "FUNGERA",
+          "s": 101592,
+          "e": 101752,
+          "id": 41639970
+        },
+        {
+          "t": "SÅ",
+          "s": 101792,
+          "e": 101872,
+          "id": 41639973
+        },
+        {
+          "t": "KÖK",
+          "s": 101912,
+          "e": 102472,
+          "id": 41639976
+        },
+        {
+          "t": "VATTEN",
+          "s": 102672,
+          "e": 102992,
+          "id": 41639978
+        },
+        {
+          "t": "TÄNDA",
+          "s": 103313,
+          "e": 103553,
+          "id": 41639981
+        },
+        {
+          "t": "ALLTIHOP",
+          "s": 103593,
+          "e": 103873,
+          "id": 41639985
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 103993,
+          "e": 104113,
+          "id": 41639988
+        },
+        {
+          "t": "FASCINERA",
+          "s": 104233,
+          "e": 104633,
+          "id": 41639991
+        },
+        {
+          "t": "BRINNA@rd",
+          "s": 104753,
+          "e": 105553,
+          "id": 41639994
+        },
+        {
+          "t": "TITTA-PÅ-OMKRING",
+          "s": 105673,
+          "e": 105913,
+          "id": 41639996
+        },
+        {
+          "t": "FASCINERA",
+          "s": 106033,
+          "e": 106833,
+          "id": 41639999
+        },
+        {
+          "t": "pek@&",
+          "s": 107033,
+          "e": 107113,
+          "id": 41640001
+        },
+        {
+          "t": "tp@&",
+          "s": 107233,
+          "e": 107393,
+          "id": 41640004
+        },
+        {
+          "t": "glosa@&",
+          "s": 107753,
+          "e": 107953,
+          "id": 41640008
+        },
+        {
+          "t": "tp@&",
+          "s": 107993,
+          "e": 108113,
+          "id": 41640011
+        },
+        {
+          "t": "POJKE",
+          "s": 108353,
+          "e": 108473,
+          "id": 41640013
+        },
+        {
+          "t": "FÖLJAS-ÅT",
+          "s": 109201,
+          "e": 109601,
+          "id": 41640016
+        },
+        {
+          "t": "VISA",
+          "s": 109721,
+          "e": 109921,
+          "id": 41640018
+        },
+        {
+          "t": "RUM",
+          "s": 110081,
+          "e": 110641,
+          "id": 41640022
+        },
+        {
+          "t": "FÖLJAS-ÅT",
+          "s": 110801,
+          "e": 111961,
+          "id": 41640026
+        },
+        {
+          "t": "HUS",
+          "s": 112081,
+          "e": 112201,
+          "id": 41640029
+        },
+        {
+          "t": "VARELSE(N)+FÖRFLYTTA@p",
+          "s": 112321,
+          "e": 113281,
+          "id": 41640030
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 113961,
+          "e": 114241,
+          "id": 41640033
+        },
+        {
+          "t": "PRO1",
+          "s": 114321,
+          "e": 114361,
+          "id": 41640037
+        },
+        {
+          "t": "VISA",
+          "s": 114481,
+          "e": 114641,
+          "id": 41640040
+        },
+        {
+          "t": "OBJPRO",
+          "s": 114761,
+          "e": 114841,
+          "id": 41640043
+        },
+        {
+          "t": "NU@b",
+          "s": 114961,
+          "e": 115081,
+          "id": 41640046
+        },
+        {
+          "t": "UTE",
+          "s": 115201,
+          "e": 115441,
+          "id": 41640049
+        },
+        {
+          "t": "PRO1@z",
+          "s": 115521,
+          "e": 115601,
+          "id": 41640050
+        },
+        {
+          "t": "POJKE",
+          "s": 116403,
+          "e": 116523,
+          "id": 41640053
+        },
+        {
+          "t": "JASÅ",
+          "s": 116643,
+          "e": 116883,
+          "id": 41640056
+        },
+        {
+          "t": "SKA",
+          "s": 116923,
+          "e": 117043,
+          "id": 41640058
+        },
+        {
+          "t": "VARELSE(LL)+FÖRFLYTTA@p",
+          "s": 117363,
+          "e": 117923,
+          "id": 41640061
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 118243,
+          "e": 118523,
+          "id": 41640064
+        },
+        {
+          "t": "FLYGA(J)",
+          "s": 118723,
+          "e": 118923,
+          "id": 41640066
+        },
+        {
+          "t": "VARELSE(V)+FÖRFLYTTA@p",
+          "s": 119043,
+          "e": 119723,
+          "id": 41640069
+        },
+        {
+          "t": "ÖVER",
+          "s": 119923,
+          "e": 120043,
+          "id": 41640072
+        },
+        {
+          "t": "STAN",
+          "s": 120163,
+          "e": 120603,
+          "id": 41640073
+        },
+        {
+          "t": "VARELSE(V)+FÖRFLYTTA@p",
+          "s": 120723,
+          "e": 121563,
+          "id": 41640076
+        },
+        {
+          "t": "VARELSE(V)+FÖRFLYTTA-TILL+ENTITET(J)@p",
+          "s": 121723,
+          "e": 122324,
+          "id": 41640080
+        },
+        {
+          "t": "VATTEN",
+          "s": 122483,
+          "e": 122643,
+          "id": 41640082
+        },
+        {
+          "t": "FORM(55)+BESKRIVNING@p",
+          "s": 122763,
+          "e": 123563,
+          "id": 41640085
+        },
+        {
+          "t": "POJKE",
+          "s": 123723,
+          "e": 123803,
+          "id": 41640088
+        },
+        {
+          "t": "STÅ",
+          "s": 123963,
+          "e": 124443,
+          "id": 41640091
+        },
+        {
+          "t": "LÄGGA-ARM-OM@ka",
+          "s": 124763,
+          "e": 126884,
+          "id": 41640094
+        },
+        {
+          "t": "GREPP(GG)+HANTERA@p",
+          "s": 127093,
+          "e": 127293,
+          "id": 41640096
+        },
+        {
+          "t": "TILLBAKA",
+          "s": 127413,
+          "e": 127693,
+          "id": 41640099
+        },
+        {
+          "t": "BEGE-SIG-HEM",
+          "s": 127813,
+          "e": 128013,
+          "id": 41640102
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 128293,
+          "e": 129373,
+          "id": 41640105
+        },
+        {
+          "t": "KOMMA-FRAM",
+          "s": 129813,
+          "e": 130093,
+          "id": 41640107
+        },
+        {
+          "t": "HEMMA",
+          "s": 130293,
+          "e": 130533,
+          "id": 41640110
+        },
+        {
+          "t": "POJKE",
+          "s": 131345,
+          "e": 131385,
+          "id": 41640113
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 131486,
+          "e": 131646,
+          "id": 41640116
+        },
+        {
+          "t": "TACK",
+          "s": 131766,
+          "e": 132086,
+          "id": 41640119
+        },
+        {
+          "t": "ROLIG",
+          "s": 132206,
+          "e": 132646,
+          "id": 41640122
+        },
+        {
+          "t": "MED",
+          "s": 132766,
+          "e": 132846,
+          "id": 41640125
+        },
+        {
+          "t": "OBJPRO",
+          "s": 133046,
+          "e": 133327,
+          "id": 41640127
+        },
+        {
+          "t": "GÅ-IN(N)",
+          "s": 133880,
+          "e": 134040,
+          "id": 41640131
+        },
+        {
+          "t": "HUS",
+          "s": 134200,
+          "e": 134520,
+          "id": 41640132
+        },
+        {
+          "t": "PRO1",
+          "s": 134680,
+          "e": 134800,
+          "id": 41640135
+        },
+        {
+          "t": "UTE",
+          "s": 134920,
+          "e": 135200,
+          "id": 41640138
+        },
+        {
+          "t": "FÖLJAS-ÅT",
+          "s": 135360,
+          "e": 135520,
+          "id": 41640141
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 135560,
+          "e": 136281,
+          "id": 41640144
+        },
+        {
+          "t": "KRAMA",
+          "s": 136361,
+          "e": 137081,
+          "id": 41640146
+        },
+        {
+          "t": "SNÖ(5)^GUBBE",
+          "s": 137281,
+          "e": 137641,
+          "id": 41640149
+        },
+        {
+          "t": "GLOSA:(LÅTA-VARA)",
+          "s": 137721,
+          "e": 138001,
+          "id": 41640152
+        },
+        {
+          "t": "GÅ-IN(N)",
+          "s": 139121,
+          "e": 139201,
+          "id": 41640155
+        },
+        {
+          "t": "NU@b",
+          "s": 139241,
+          "e": 139401,
+          "id": 41640157
+        },
+        {
+          "t": "GÅ.KONT",
+          "s": 141821,
+          "e": 142301,
+          "id": 41640159
+        },
+        {
+          "t": "GÅ-IN(N)",
+          "s": 142461,
+          "e": 142901,
+          "id": 41640162
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 143221,
+          "e": 144022,
+          "id": 41640165
+        },
+        {
+          "t": "UPPRÄTT(J)@ka",
+          "s": 144421,
+          "e": 144981,
+          "id": 41640166
+        },
+        {
+          "t": "POJKE",
+          "s": 145166,
+          "e": 145206,
+          "id": 41640171
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 145286,
+          "e": 146246,
+          "id": 41640174
+        },
+        {
+          "t": "LEDSEN@z",
+          "s": 146326,
+          "e": 146406,
+          "id": 41640176
+        },
+        {
+          "t": "VARELSE(V)+FÖRFLYTTA@p",
+          "s": 146566,
+          "e": 147006,
+          "id": 41640178
+        },
+        {
+          "t": "SITTA",
+          "s": 147206,
+          "e": 147326,
+          "id": 41640180
+        },
+        {
+          "t": "LIGGA(G)",
+          "s": 147406,
+          "e": 147966,
+          "id": 41640183
+        },
+        {
+          "t": "SOVA(7v)",
+          "s": 148206,
+          "e": 148486,
+          "id": 41640185
+        },
+        {
+          "t": "LIGGA-SÖMNLÖS",
+          "s": 148566,
+          "e": 149886,
+          "id": 41640189
+        },
+        {
+          "t": "SOVA(7v)",
+          "s": 150046,
+          "e": 150326,
+          "id": 41640192
+        },
+        {
+          "t": "LIGGA-SÖMNLÖS",
+          "s": 150486,
+          "e": 150926,
+          "id": 41640195
+        },
+        {
+          "t": "VAKNA",
+          "s": 151086,
+          "e": 152966,
+          "id": 41640199
+        },
+        {
+          "t": "SITTA@z",
+          "s": 153325,
+          "e": 153525,
+          "id": 41640202
+        },
+        {
+          "t": "NEJ(N)",
+          "s": 153565,
+          "e": 154285,
+          "id": 41640205
+        },
+        {
+          "t": "SPRINGA(G)",
+          "s": 155005,
+          "e": 155525,
+          "id": 41640208
+        },
+        {
+          "t": "FÖRÄLDRAR(L)",
+          "s": 155765,
+          "e": 155925,
+          "id": 41640211
+        },
+        {
+          "t": "VÄNDA-SIG-OM@ka",
+          "s": 155956,
+          "e": 156436,
+          "id": 41640214
+        },
+        {
+          "t": "VAD",
+          "s": 156556,
+          "e": 156756,
+          "id": 41640217
+        },
+        {
+          "t": "HÄNDA",
+          "s": 156956,
+          "e": 157316,
+          "id": 41640220
+        },
+        {
+          "t": "SPRINGA(G)",
+          "s": 157436,
+          "e": 157836,
+          "id": 41640223
+        },
+        {
+          "t": "SMÄLTA(4f)",
+          "s": 158799,
+          "e": 160519,
+          "id": 41640226
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 160919,
+          "e": 161839,
+          "id": 41640228
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Glosa_NonDH S2",
+      "annotations": [
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 12060,
+          "e": 12840,
+          "id": 41640234
+        },
+        {
+          "t": "grepp(g)@hd",
+          "s": 12880,
+          "e": 14580,
+          "id": 41640237
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 25184,
+          "e": 25505,
+          "id": 41640239
+        },
+        {
+          "t": "EN-LISTA",
+          "s": 43134,
+          "e": 43136,
+          "id": 41640242
+        },
+        {
+          "t": "EN-LISTA",
+          "s": 43136,
+          "e": 43536,
+          "id": 41640245
+        },
+        {
+          "t": "TVÅ-LISTA",
+          "s": 43736,
+          "e": 44176,
+          "id": 41640249
+        },
+        {
+          "t": "TRE-LISTA",
+          "s": 44336,
+          "e": 44776,
+          "id": 41640252
+        },
+        {
+          "t": "GREPP(S)+HANTERA@p",
+          "s": 46316,
+          "e": 46736,
+          "id": 41640255
+        },
+        {
+          "t": "grepp(s)@hd",
+          "s": 46746,
+          "e": 47076,
+          "id": 41640257
+        },
+        {
+          "t": "GREPP(S)+HANTERA@p>näsa",
+          "s": 47236,
+          "e": 47876,
+          "id": 41640260
+        },
+        {
+          "t": "grepp(5bt)@hd",
+          "s": 51150,
+          "e": 52550,
+          "id": 41640264
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 73660,
+          "e": 74100,
+          "id": 41640266
+        },
+        {
+          "t": "grepp(g)@hd",
+          "s": 74135,
+          "e": 75820,
+          "id": 41640268
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 75860,
+          "e": 76221,
+          "id": 41640271
+        },
+        {
+          "t": "zzz@z",
+          "s": 80141,
+          "e": 80261,
+          "id": 41640275
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 80356,
+          "e": 80786,
+          "id": 41640279
+        },
+        {
+          "t": "FORM(J)+UTSTRÄCKNING@p",
+          "s": 81316,
+          "e": 81916,
+          "id": 41640283
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 82076,
+          "e": 82676,
+          "id": 41640285
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 83076,
+          "e": 83521,
+          "id": 41640289
+        },
+        {
+          "t": "grepp(g)@hd",
+          "s": 83536,
+          "e": 84476,
+          "id": 41640292
+        },
+        {
+          "t": "grepp(g)@hd",
+          "s": 85516,
+          "e": 88316,
+          "id": 41640294
+        },
+        {
+          "t": "KALLA-PÅ@rd",
+          "s": 90796,
+          "e": 91316,
+          "id": 41640297
+        },
+        {
+          "t": "KALLA-PÅ(J)",
+          "s": 91916,
+          "e": 92156,
+          "id": 41640300
+        },
+        {
+          "t": "GREPP(Q)+HANTERA@p",
+          "s": 98792,
+          "e": 99312,
+          "id": 41640303
+        },
+        {
+          "t": "KALLA-PÅ@rd",
+          "s": 108713,
+          "e": 109073,
+          "id": 41640306
+        },
+        {
+          "t": "KALLA-PÅ@rd",
+          "s": 113520,
+          "e": 113800,
+          "id": 41640309
+        },
+        {
+          "t": "KALLA-PÅ@rd",
+          "s": 115681,
+          "e": 116001,
+          "id": 41640312
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 125483,
+          "e": 125683,
+          "id": 41640315
+        },
+        {
+          "t": "MYSIG",
+          "s": 125763,
+          "e": 126043,
+          "id": 41640320
+        },
+        {
+          "t": "IVÄG-MED-ER@ka",
+          "s": 138761,
+          "e": 139001,
+          "id": 41640322
+        },
+        {
+          "t": "IVÄG-MED-ER@ka",
+          "s": 139444,
+          "e": 139644,
+          "id": 41640326
+        },
+        {
+          "t": "SOVA(7v)",
+          "s": 139821,
+          "e": 139981,
+          "id": 41640328
+        },
+        {
+          "t": "NU@b",
+          "s": 140101,
+          "e": 140181,
+          "id": 41640331
+        },
+        {
+          "t": "IVÄG-MED-ER@ka",
+          "s": 140261,
+          "e": 140661,
+          "id": 41640334
+        },
+        {
+          "t": "POJKE",
+          "s": 140821,
+          "e": 140861,
+          "id": 41640337
+        },
+        {
+          "t": "TITTA-PÅ",
+          "s": 140941,
+          "e": 141621,
+          "id": 41640340
+        },
+        {
+          "t": "SOLSTRÅLA",
+          "s": 151765,
+          "e": 152976,
+          "id": 41640343
+        },
+        {
+          "t": "VARELSE(Vb)+FÖRFLYTTA@p",
+          "s": 154525,
+          "e": 154925,
+          "id": 41640346
+        },
+        {
+          "t": "GREPP(G)+HANTERA@p",
+          "s": 158039,
+          "e": 158599,
+          "id": 41640349
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Översättning S2",
+      "annotations": [
+        {
+          "t": "Jag har 'Snömannen',",
+          "s": 5260,
+          "e": 7360,
+          "id": 41640362
+        },
+        {
+          "t": "det är en pojke som ligger och sover och när han vaknar så går han upp och drar undan gardinen",
+          "s": 7470,
+          "e": 12620,
+          "id": 41640365
+        },
+        {
+          "t": "och får se att det snöar och tar då glatt på sig sina kläder, varma kläder och en mössa",
+          "s": 12665,
+          "e": 17825,
+          "id": 41640367
+        },
+        {
+          "t": "och går till sin mamma och säger att han ska gå ut och göra en snögubbe,",
+          "s": 17865,
+          "e": 21555,
+          "id": 41640370
+        },
+        {
+          "t": "\"ja gör det\" säger mamma \"men hämta en mössa\" så det gör han och springer sen ut och tappar mössan i vinden men bryr sig inte om det,",
+          "s": 21600,
+          "e": 27630,
+          "id": 41640373
+        },
+        {
+          "t": "så börjar han att rulla snöbollar och bygga en snögubbe och efter ett tag känner han att han är hungrig så han går hem,",
+          "s": 27675,
+          "e": 32735,
+          "id": 41640376
+        },
+        {
+          "t": "när han sitter där och äter så tittar han hela tiden ut på snögubben,",
+          "s": 32775,
+          "e": 36125,
+          "id": 41640379
+        },
+        {
+          "t": "så bestämmer han sig för att gå ut och fortsätta så han tar på sig sina kläder och sin mössa",
+          "s": 36160,
+          "e": 39760,
+          "id": 41640383
+        },
+        {
+          "t": "och när han sen har satt på huvudet så tittar han på snögubben,",
+          "s": 39810,
+          "e": 41780,
+          "id": 41640386
+        },
+        {
+          "t": "han tycker att den ser tråkig ut utan ögon, näsa och mun och undrar vad han ska använda till det",
+          "s": 41845,
+          "e": 44975,
+          "id": 41640389
+        },
+        {
+          "t": "så kommer han på att han ska ha en tomat till näsa så det hämtar han och till mun och knappar använder han kol",
+          "s": 45060,
+          "e": 52570,
+          "id": 41640392
+        },
+        {
+          "t": "eeh sen säger han till sin mamma att han behöver en mössa eller hatt till snögubben och så får han en hatt och en halsduk som han sätter på",
+          "s": 52585,
+          "e": 58280,
+          "id": 41640395
+        },
+        {
+          "t": "och då känner han sig jättenöjd och så går han in,",
+          "s": 58345,
+          "e": 61650,
+          "id": 41640398
+        },
+        {
+          "t": "på kvällen sitter föräldrarna och tittar på tv men pojken tittar hela tiden ut genom fönstret, på snögubben",
+          "s": 61695,
+          "e": 66680,
+          "id": 41640401
+        },
+        {
+          "t": "och så säger han till sin mamma \"den har jag gjort\", \" jaja\" säger mamma,",
+          "s": 66720,
+          "e": 69860,
+          "id": 41640403
+        },
+        {
+          "t": "sen är det dags för pojken att gå och lägga sig men han kan inte somna utan ligger bara och vrider sig,",
+          "s": 69920,
+          "e": 73140,
+          "id": 41640406
+        },
+        {
+          "t": "så går han upp för att titta till snögubben och får se att han står kvar då går han och lägger sig igen men kan fortfarande inte somna",
+          "s": 73190,
+          "e": 77810,
+          "id": 41640409
+        },
+        {
+          "t": "så han går upp, tar på sig morgonrocken och går ner för trapporna men när han tittar ut så är där helt tomt",
+          "s": 77890,
+          "e": 82220,
+          "id": 41640412
+        },
+        {
+          "t": "så han öppnar dörren och där står snögubben och så säger han \"hej\" och pojken tänker \"snögubben kan prata\"",
+          "s": 82255,
+          "e": 87520,
+          "id": 41640415
+        },
+        {
+          "t": "och blir sen glad, tar snögubben i hand och bjuder in honom",
+          "s": 87587,
+          "e": 92037,
+          "id": 41640417
+        },
+        {
+          "t": "så går dom in i huset och snögubben tycker det är ett märkligt ställe,",
+          "s": 92082,
+          "e": 95052,
+          "id": 41640420
+        },
+        {
+          "t": "där finns blommor och tavlor, vatten som kommer ur en kran och en brasa,",
+          "s": 95097,
+          "e": 100287,
+          "id": 41640421
+        },
+        {
+          "t": "pojken förklarar hur det hela fungerar i köket, med vattnet och hur man tänder en eld och allt möjligt annat och snögubben är helt fascinerad av allt han ser,",
+          "s": 100322,
+          "e": 107407,
+          "id": 41640424
+        },
+        {
+          "t": "dom går vidare och pojken visar de olika rummen som finns i huset,",
+          "s": 107442,
+          "e": 113222,
+          "id": 41640428
+        },
+        {
+          "t": "sen säger snögubben att han vill visa pojken vad som finns därute,",
+          "s": 113272,
+          "e": 116192,
+          "id": 41640432
+        },
+        {
+          "t": "pojken ser lite förvånad ut men följer med och så tar snögubben hans hand och dom flyger iväg över stan och landar vid vattnet och vågorna böljar,",
+          "s": 116252,
+          "e": 123562,
+          "id": 41640435
+        },
+        {
+          "t": "pojken är helt tagen och snögubben lägger armen om honom och säger \"mysigt va?\"",
+          "s": 123607,
+          "e": 126887,
+          "id": 41640438
+        },
+        {
+          "t": "och sen så flyger dom hem igen,",
+          "s": 126907,
+          "e": 130537,
+          "id": 41640441
+        },
+        {
+          "t": "pojken tackar snögubben så mycket och säger att han har haft så roligt med honom både inne i huset och sen ute",
+          "s": 130742,
+          "e": 136007,
+          "id": 41640445
+        },
+        {
+          "t": "så ger han snögubben en bamsekram och så säger snögubben \"så ja, det är dags för dig att gå in och lägga dig\",",
+          "s": 136054,
+          "e": 140764,
+          "id": 41640448
+        },
+        {
+          "t": "\"jaja\" säger pojken och går motvilligt in och stänger dörren långsamt efter sig",
+          "s": 140804,
+          "e": 144114,
+          "id": 41640452
+        },
+        {
+          "t": "och så ställer sig snögubben på sin plats igen och pojken tittar ut på honom med ett leende",
+          "s": 144169,
+          "e": 146159,
+          "id": 41640455
+        },
+        {
+          "t": "och så går han och lägger sig och sover men sover oroligt ända tills han vaknar",
+          "s": 146204,
+          "e": 151624,
+          "id": 41640459
+        },
+        {
+          "t": "och då lyser solen honom i ansiktet och han tänker \"NEJ!\" så rusar han ner för trapporna och förbi sina föräldrar som undrar vad som står på,",
+          "s": 151664,
+          "e": 157279,
+          "id": 41640462
+        },
+        {
+          "t": "fram till dörren, sliter upp den och får se att snögubben har smält bort och han blir SÅ ledsen.",
+          "s": 157311,
+          "e": 162421,
+          "id": 41640465
+        },
+        {
+          "t": "Ja haha.",
+          "s": 164141,
+          "e": 166311,
+          "id": 41640467
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "source": "teckensprakskorpus.su.se",
+    "format": "blocksdata",
+    "time_units": "milliseconds",
+    "language": "sv",
+    "extraction_method": "javascript_blocksdata"
+  }
+}

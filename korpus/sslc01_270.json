@@ -1,0 +1,6594 @@
+{
+  "media_descriptors": [
+    {
+      "media_url": "https://teckensprakskorpus.su.se/video/sslc01_270.mp4",
+      "mime_type": "video/mp4",
+      "relative_media_url": "sslc01_270.mp4",
+      "type": "video"
+    }
+  ],
+  "tiers": [
+    {
+      "tier_id": "0",
+      "name": "Glosa_DH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "2",
+      "name": "Glosa_NonDH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "4",
+      "name": "Översättning S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "1",
+      "name": "Glosa_DH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "3",
+      "name": "Glosa_NonDH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "5",
+      "name": "Översättning S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    }
+  ],
+  "linguistic_types": [],
+  "annotations": {
+    "0": [
+      {
+        "annotation_id": "34918357",
+        "start_time": 5.52,
+        "end_time": 5.68,
+        "duration": 0.16000000000000014,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918359",
+        "start_time": 5.8,
+        "end_time": 5.88,
+        "duration": 0.08000000000000007,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918361",
+        "start_time": 5.92,
+        "end_time": 6.04,
+        "duration": 0.1200000000000001,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918363",
+        "start_time": 6.08,
+        "end_time": 6.2,
+        "duration": 0.1200000000000001,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918365",
+        "start_time": 6.28,
+        "end_time": 6.4,
+        "duration": 0.1200000000000001,
+        "value": "SE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918367",
+        "start_time": 6.52,
+        "end_time": 6.72,
+        "duration": 0.20000000000000018,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918369",
+        "start_time": 6.8,
+        "end_time": 8.56,
+        "duration": 1.7600000000000007,
+        "value": "ARG_SNICKARE@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918371",
+        "start_time": 8.64,
+        "end_time": 8.92,
+        "duration": 0.27999999999999936,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918373",
+        "start_time": 8.96,
+        "end_time": 9.24,
+        "duration": 0.27999999999999936,
+        "value": "pro1@hd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918375",
+        "start_time": 9.32,
+        "end_time": 9.68,
+        "duration": 0.35999999999999943,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918377",
+        "start_time": 9.84,
+        "end_time": 9.92,
+        "duration": 0.08000000000000007,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918379",
+        "start_time": 9.96,
+        "end_time": 10.28,
+        "duration": 0.3199999999999985,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918381",
+        "start_time": 10.44,
+        "end_time": 10.88,
+        "duration": 0.4400000000000013,
+        "value": "POSS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918383",
+        "start_time": 10.96,
+        "end_time": 11.08,
+        "duration": 0.11999999999999922,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918385",
+        "start_time": 11.2,
+        "end_time": 11.44,
+        "duration": 0.2400000000000002,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918387",
+        "start_time": 11.64,
+        "end_time": 11.88,
+        "duration": 0.2400000000000002,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918389",
+        "start_time": 11.96,
+        "end_time": 12.04,
+        "duration": 0.0799999999999983,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918391",
+        "start_time": 12.16,
+        "end_time": 12.36,
+        "duration": 0.1999999999999993,
+        "value": "MEN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918393",
+        "start_time": 12.44,
+        "end_time": 12.72,
+        "duration": 0.28000000000000114,
+        "value": "SAMTIDIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918395",
+        "start_time": 12.84,
+        "end_time": 12.96,
+        "duration": 0.120000000000001,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918397",
+        "start_time": 13.08,
+        "end_time": 13.12,
+        "duration": 0.03999999999999915,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918399",
+        "start_time": 13.2,
+        "end_time": 13.48,
+        "duration": 0.28000000000000114,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918402",
+        "start_time": 13.56,
+        "end_time": 14.04,
+        "duration": 0.47999999999999865,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918404",
+        "start_time": 14.28,
+        "end_time": 14.8,
+        "duration": 0.5200000000000014,
+        "value": "PROGRAM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918406",
+        "start_time": 14.92,
+        "end_time": 15.28,
+        "duration": 0.35999999999999943,
+        "value": "ORSAK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918408",
+        "start_time": 15.44,
+        "end_time": 15.76,
+        "duration": 0.3200000000000003,
+        "value": "HANDLA(da)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918410",
+        "start_time": 15.84,
+        "end_time": 15.92,
+        "duration": 0.08000000000000007,
+        "value": "OM@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918412",
+        "start_time": 16.0,
+        "end_time": 16.84,
+        "duration": 0.8399999999999999,
+        "value": "RELATION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918414",
+        "start_time": 16.96,
+        "end_time": 17.16,
+        "duration": 0.1999999999999993,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918416",
+        "start_time": 17.24,
+        "end_time": 19.28,
+        "duration": 2.0400000000000027,
+        "value": "SAM^ARBETA@rd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918418",
+        "start_time": 19.68,
+        "end_time": 19.92,
+        "duration": 0.240000000000002,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918420",
+        "start_time": 20.04,
+        "end_time": 20.36,
+        "duration": 0.3200000000000003,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918422",
+        "start_time": 20.44,
+        "end_time": 20.68,
+        "duration": 0.23999999999999844,
+        "value": "KAN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918424",
+        "start_time": 20.76,
+        "end_time": 21.64,
+        "duration": 0.879999999999999,
+        "value": "JOBBA@rd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918426",
+        "start_time": 22.12,
+        "end_time": 23.08,
+        "duration": 0.9599999999999973,
+        "value": "GEMENSAM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918428",
+        "start_time": 23.12,
+        "end_time": 23.24,
+        "duration": 0.11999999999999744,
+        "value": "mtyp:och",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918430",
+        "start_time": 23.32,
+        "end_time": 23.56,
+        "duration": 0.23999999999999844,
+        "value": "DELA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918432",
+        "start_time": 23.68,
+        "end_time": 24.72,
+        "duration": 1.0399999999999991,
+        "value": "ARBETA(G)@rd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918434",
+        "start_time": 24.84,
+        "end_time": 25.04,
+        "duration": 0.1999999999999993,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918436",
+        "start_time": 25.16,
+        "end_time": 25.24,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918438",
+        "start_time": 25.32,
+        "end_time": 25.44,
+        "duration": 0.120000000000001,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918440",
+        "start_time": 25.52,
+        "end_time": 26.4,
+        "duration": 0.879999999999999,
+        "value": "ARG_SNICKARE@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918442",
+        "start_time": 26.56,
+        "end_time": 26.88,
+        "duration": 0.3200000000000003,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918444",
+        "start_time": 27.04,
+        "end_time": 27.68,
+        "duration": 0.6400000000000006,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918446",
+        "start_time": 36.28,
+        "end_time": 36.56,
+        "duration": 0.28000000000000114,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918448",
+        "start_time": 36.8,
+        "end_time": 37.32,
+        "duration": 0.5200000000000031,
+        "value": "viktig@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918450",
+        "start_time": 37.84,
+        "end_time": 38.2,
+        "duration": 0.35999999999999943,
+        "value": "VIKTIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918453",
+        "start_time": 38.28,
+        "end_time": 38.4,
+        "duration": 0.11999999999999744,
+        "value": "VARA@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918455",
+        "start_time": 38.48,
+        "end_time": 39.32,
+        "duration": 0.8400000000000034,
+        "value": "DELA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918457",
+        "start_time": 39.48,
+        "end_time": 39.56,
+        "duration": 0.0800000000000054,
+        "value": "mtyp:och",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918460",
+        "start_time": 39.64,
+        "end_time": 39.92,
+        "duration": 0.28000000000000114,
+        "value": "KAN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918462",
+        "start_time": 40.04,
+        "end_time": 42.0,
+        "duration": 1.9600000000000009,
+        "value": "SAMTALA@rd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918464",
+        "start_time": 42.204,
+        "end_time": 42.324,
+        "duration": 0.11999999999999744,
+        "value": "OCH@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918466",
+        "start_time": 42.404,
+        "end_time": 42.524,
+        "duration": 0.11999999999999744,
+        "value": "INTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918468",
+        "start_time": 42.644,
+        "end_time": 43.064,
+        "duration": 0.4200000000000017,
+        "value": "EGOIST(B)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918470",
+        "start_time": 43.144,
+        "end_time": 43.314,
+        "duration": 0.1700000000000017,
+        "value": "SJÄLV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918472",
+        "start_time": 43.394,
+        "end_time": 43.484,
+        "duration": 0.09000000000000341,
+        "value": "SJÄLV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918474",
+        "start_time": 44.564,
+        "end_time": 44.644,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918476",
+        "start_time": 44.724,
+        "end_time": 44.964,
+        "duration": 0.240000000000002,
+        "value": "GÖRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918478",
+        "start_time": 45.084,
+        "end_time": 45.404,
+        "duration": 0.3200000000000003,
+        "value": "SJÄLV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918480",
+        "start_time": 45.644,
+        "end_time": 45.844,
+        "duration": 0.20000000000000284,
+        "value": "OCH@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918482",
+        "start_time": 45.964,
+        "end_time": 46.724,
+        "duration": 0.759999999999998,
+        "value": "GLOSA:(STOPPA-I-KROPP)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918484",
+        "start_time": 46.964,
+        "end_time": 47.364,
+        "duration": 0.3999999999999986,
+        "value": "FUNDERA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918486",
+        "start_time": 47.564,
+        "end_time": 48.644,
+        "duration": 1.0799999999999983,
+        "value": "ÖKA(5).SUCCESSIV",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918488",
+        "start_time": 48.884,
+        "end_time": 49.204,
+        "duration": 0.3200000000000003,
+        "value": "MÅSTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918490",
+        "start_time": 49.404,
+        "end_time": 49.884,
+        "duration": 0.4799999999999969,
+        "value": "UTTRYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918492",
+        "start_time": 50.124,
+        "end_time": 50.964,
+        "duration": 0.8399999999999963,
+        "value": "SAMTALA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918494",
+        "start_time": 51.124,
+        "end_time": 51.284,
+        "duration": 0.1599999999999966,
+        "value": "mtyp:och",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918497",
+        "start_time": 51.404,
+        "end_time": 51.724,
+        "duration": 0.3199999999999932,
+        "value": "DELA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918499",
+        "start_time": 51.804,
+        "end_time": 51.924,
+        "duration": 0.11999999999999744,
+        "value": "mtyp:och",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918501",
+        "start_time": 52.004,
+        "end_time": 53.044,
+        "duration": 1.0399999999999991,
+        "value": "PLANERA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918503",
+        "start_time": 53.244,
+        "end_time": 53.444,
+        "duration": 0.20000000000000284,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918505",
+        "start_time": 53.564,
+        "end_time": 53.644,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918507",
+        "start_time": 53.724,
+        "end_time": 54.004,
+        "duration": 0.28000000000000114,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918509",
+        "start_time": 54.084,
+        "end_time": 54.204,
+        "duration": 0.11999999999999744,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918511",
+        "start_time": 54.284,
+        "end_time": 54.444,
+        "duration": 0.1600000000000037,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918513",
+        "start_time": 54.524,
+        "end_time": 55.004,
+        "duration": 0.4799999999999969,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918515",
+        "start_time": 56.6,
+        "end_time": 56.76,
+        "duration": 0.1599999999999966,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918517",
+        "start_time": 56.88,
+        "end_time": 56.92,
+        "duration": 0.03999999999999915,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918519",
+        "start_time": 57.0,
+        "end_time": 57.12,
+        "duration": 0.11999999999999744,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918521",
+        "start_time": 57.24,
+        "end_time": 58.08,
+        "duration": 0.8399999999999963,
+        "value": "ARG_SNICKARE@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918523",
+        "start_time": 58.16,
+        "end_time": 58.28,
+        "duration": 0.12000000000000455,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918525",
+        "start_time": 58.44,
+        "end_time": 58.68,
+        "duration": 0.240000000000002,
+        "value": "POSS1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918527",
+        "start_time": 58.84,
+        "end_time": 59.04,
+        "duration": 0.19999999999999574,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918529",
+        "start_time": 59.2,
+        "end_time": 59.44,
+        "duration": 0.23999999999999488,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918531",
+        "start_time": 59.56,
+        "end_time": 59.72,
+        "duration": 0.1599999999999966,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918534",
+        "start_time": 59.84,
+        "end_time": 60.32,
+        "duration": 0.4799999999999969,
+        "value": "SERIÖS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918536",
+        "start_time": 60.44,
+        "end_time": 60.68,
+        "duration": 0.240000000000002,
+        "value": "PROGRAM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918538",
+        "start_time": 60.84,
+        "end_time": 60.96,
+        "duration": 0.11999999999999744,
+        "value": "SOM@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918540",
+        "start_time": 61.04,
+        "end_time": 61.12,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918542",
+        "start_time": 61.2,
+        "end_time": 61.32,
+        "duration": 0.11999999999999744,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918544",
+        "start_time": 61.44,
+        "end_time": 61.76,
+        "duration": 0.3200000000000003,
+        "value": "OM@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918546",
+        "start_time": 61.88,
+        "end_time": 62.04,
+        "duration": 0.1599999999999966,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918548",
+        "start_time": 62.16,
+        "end_time": 62.28,
+        "duration": 0.12000000000000455,
+        "value": "PEK@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918550",
+        "start_time": 62.44,
+        "end_time": 62.72,
+        "duration": 0.28000000000000114,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918552",
+        "start_time": 62.8,
+        "end_time": 62.96,
+        "duration": 0.1600000000000037,
+        "value": "GLOSA:(BESTÄMD)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918554",
+        "start_time": 63.08,
+        "end_time": 63.4,
+        "duration": 0.3200000000000003,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918556",
+        "start_time": 75.0,
+        "end_time": 75.44,
+        "duration": 0.4399999999999977,
+        "value": "JA@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918558",
+        "start_time": 80.366,
+        "end_time": 81.206,
+        "duration": 0.8400000000000034,
+        "value": "ÄNTLIGEN(L)@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918560",
+        "start_time": 87.72,
+        "end_time": 87.8,
+        "duration": 0.0799999999999983,
+        "value": "mtyp:men",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918562",
+        "start_time": 87.92,
+        "end_time": 88.36,
+        "duration": 0.4399999999999977,
+        "value": "SÅDAN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918564",
+        "start_time": 88.44,
+        "end_time": 88.72,
+        "duration": 0.28000000000000114,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918566",
+        "start_time": 98.96,
+        "end_time": 99.08,
+        "duration": 0.12000000000000455,
+        "value": "JA@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918568",
+        "start_time": 99.2,
+        "end_time": 99.32,
+        "duration": 0.11999999999999034,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918570",
+        "start_time": 99.4,
+        "end_time": 99.64,
+        "duration": 0.23999999999999488,
+        "value": "HÅLLA-MED",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918571",
+        "start_time": 99.76,
+        "end_time": 99.88,
+        "duration": 0.11999999999999034,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918573",
+        "start_time": 100.04,
+        "end_time": 100.24,
+        "duration": 0.19999999999998863,
+        "value": "BÄST(B)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918575",
+        "start_time": 100.32,
+        "end_time": 100.6,
+        "duration": 0.28000000000000114,
+        "value": "INTRESSERAD",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918577",
+        "start_time": 100.68,
+        "end_time": 100.76,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918579",
+        "start_time": 100.8,
+        "end_time": 101.08,
+        "duration": 0.28000000000000114,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918581",
+        "start_time": 101.4,
+        "end_time": 102.08,
+        "duration": 0.6799999999999926,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918583",
+        "start_time": 102.32,
+        "end_time": 102.64,
+        "duration": 0.3200000000000074,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918585",
+        "start_time": 102.76,
+        "end_time": 102.92,
+        "duration": 0.1599999999999966,
+        "value": "PROGRAM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918587",
+        "start_time": 103.04,
+        "end_time": 103.16,
+        "duration": 0.11999999999999034,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918589",
+        "start_time": 103.28,
+        "end_time": 103.88,
+        "duration": 0.5999999999999943,
+        "value": "ARG_SNICKARE@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918591",
+        "start_time": 104.12,
+        "end_time": 104.32,
+        "duration": 0.19999999999998863,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918593",
+        "start_time": 104.52,
+        "end_time": 104.92,
+        "duration": 0.4000000000000057,
+        "value": "RUM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918595",
+        "start_time": 105.0,
+        "end_time": 105.2,
+        "duration": 0.20000000000000284,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918597",
+        "start_time": 105.28,
+        "end_time": 105.72,
+        "duration": 0.4399999999999977,
+        "value": "PLACERA(V)@rd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918599",
+        "start_time": 105.92,
+        "end_time": 106.0,
+        "duration": 0.0799999999999983,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918601",
+        "start_time": 106.08,
+        "end_time": 106.16,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918603",
+        "start_time": 106.24,
+        "end_time": 106.36,
+        "duration": 0.12000000000000455,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918605",
+        "start_time": 106.44,
+        "end_time": 106.88,
+        "duration": 0.4399999999999977,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918607",
+        "start_time": 106.96,
+        "end_time": 107.48,
+        "duration": 0.5200000000000102,
+        "value": "MEN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918609",
+        "start_time": 107.68,
+        "end_time": 107.8,
+        "duration": 0.11999999999999034,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918611",
+        "start_time": 107.92,
+        "end_time": 108.08,
+        "duration": 0.1599999999999966,
+        "value": "OCKSÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918613",
+        "start_time": 108.16,
+        "end_time": 108.28,
+        "duration": 0.12000000000000455,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918615",
+        "start_time": 108.36,
+        "end_time": 108.56,
+        "duration": 0.20000000000000284,
+        "value": "TYCKA-OM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918617",
+        "start_time": 108.68,
+        "end_time": 109.16,
+        "duration": 0.47999999999998977,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918619",
+        "start_time": 109.6,
+        "end_time": 110.2,
+        "duration": 0.6000000000000085,
+        "value": "POLIS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918621",
+        "start_time": 110.4,
+        "end_time": 112.04,
+        "duration": 1.6400000000000006,
+        "value": "CRIMINAL@b^POLIS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918623",
+        "start_time": 112.24,
+        "end_time": 112.56,
+        "duration": 0.3200000000000074,
+        "value": "zzz@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918625",
+        "start_time": 112.68,
+        "end_time": 113.08,
+        "duration": 0.3999999999999915,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918627",
+        "start_time": 113.16,
+        "end_time": 113.44,
+        "duration": 0.28000000000000114,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918629",
+        "start_time": 113.88,
+        "end_time": 114.24,
+        "duration": 0.35999999999999943,
+        "value": "C@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918631",
+        "start_time": 114.28,
+        "end_time": 114.52,
+        "duration": 0.23999999999999488,
+        "value": "c@hd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918633",
+        "start_time": 114.64,
+        "end_time": 114.8,
+        "duration": 0.1599999999999966,
+        "value": "c@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918635",
+        "start_time": 114.96,
+        "end_time": 115.08,
+        "duration": 0.12000000000000455,
+        "value": "PF@g",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918637",
+        "start_time": 115.2,
+        "end_time": 115.64,
+        "duration": 0.4399999999999977,
+        "value": "CSI@b@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918639",
+        "start_time": 115.76,
+        "end_time": 115.84,
+        "duration": 0.0799999999999983,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918641",
+        "start_time": 115.96,
+        "end_time": 116.68,
+        "duration": 0.7200000000000131,
+        "value": "CSI@b@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918642",
+        "start_time": 116.8,
+        "end_time": 117.16,
+        "duration": 0.35999999999999943,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918644",
+        "start_time": 117.36,
+        "end_time": 117.84,
+        "duration": 0.480000000000004,
+        "value": "POLIS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918646",
+        "start_time": 117.96,
+        "end_time": 118.6,
+        "duration": 0.6400000000000006,
+        "value": "POLIS",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918648",
+        "start_time": 118.76,
+        "end_time": 118.92,
+        "duration": 0.1599999999999966,
+        "value": "PÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918650",
+        "start_time": 119.04,
+        "end_time": 119.92,
+        "duration": 0.8799999999999955,
+        "value": "KANAL-FEM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918652",
+        "start_time": 120.16,
+        "end_time": 120.48,
+        "duration": 0.3200000000000074,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918654",
+        "start_time": 120.6,
+        "end_time": 120.84,
+        "duration": 0.2400000000000091,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918656",
+        "start_time": 120.96,
+        "end_time": 121.2,
+        "duration": 0.2400000000000091,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918658",
+        "start_time": 121.32,
+        "end_time": 121.36,
+        "duration": 0.04000000000000625,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918662",
+        "start_time": 121.48,
+        "end_time": 121.88,
+        "duration": 0.3999999999999915,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918664",
+        "start_time": 122.0,
+        "end_time": 122.2,
+        "duration": 0.20000000000000284,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918666",
+        "start_time": 122.28,
+        "end_time": 122.36,
+        "duration": 0.0799999999999983,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918668",
+        "start_time": 122.44,
+        "end_time": 122.6,
+        "duration": 0.1599999999999966,
+        "value": "OM@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918670",
+        "start_time": 122.68,
+        "end_time": 122.96,
+        "duration": 0.2799999999999869,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918671",
+        "start_time": 123.04,
+        "end_time": 123.32,
+        "duration": 0.2799999999999869,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918673",
+        "start_time": 123.76,
+        "end_time": 124.96,
+        "duration": 1.1999999999999886,
+        "value": "TA-REDA-PÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918675",
+        "start_time": 126.28,
+        "end_time": 126.4,
+        "duration": 0.12000000000000455,
+        "value": "c@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918677",
+        "start_time": 126.52,
+        "end_time": 126.64,
+        "duration": 0.12000000000000455,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918679",
+        "start_time": 126.76,
+        "end_time": 127.04,
+        "duration": 0.28000000000000114,
+        "value": "BÅDA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918681",
+        "start_time": 127.24,
+        "end_time": 127.64,
+        "duration": 0.4000000000000057,
+        "value": "ALLA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918683",
+        "start_time": 127.88,
+        "end_time": 128.24,
+        "duration": 0.36000000000001364,
+        "value": "alla@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918685",
+        "start_time": 128.88,
+        "end_time": 129.72,
+        "duration": 0.8400000000000034,
+        "value": "NEW-YORK@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918687",
+        "start_time": 129.84,
+        "end_time": 130.72,
+        "duration": 0.8799999999999955,
+        "value": "NEW-YORK@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918688",
+        "start_time": 130.84,
+        "end_time": 131.04,
+        "duration": 0.19999999999998863,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918690",
+        "start_time": 131.16,
+        "end_time": 131.44,
+        "duration": 0.28000000000000114,
+        "value": "ALLA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918692",
+        "start_time": 131.6,
+        "end_time": 131.72,
+        "duration": 0.12000000000000455,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918694",
+        "start_time": 131.84,
+        "end_time": 132.04,
+        "duration": 0.19999999999998863,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918696",
+        "start_time": 132.16,
+        "end_time": 132.52,
+        "duration": 0.36000000000001364,
+        "value": "TYP",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918698",
+        "start_time": 132.84,
+        "end_time": 133.72,
+        "duration": 0.8799999999999955,
+        "value": "TA-REDA-PÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918700",
+        "start_time": 134.04,
+        "end_time": 135.08,
+        "duration": 1.0400000000000205,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918702",
+        "start_time": 135.16,
+        "end_time": 135.52,
+        "duration": 0.36000000000001364,
+        "value": "VARFÖR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918704",
+        "start_time": 135.64,
+        "end_time": 135.84,
+        "duration": 0.20000000000001705,
+        "value": "PEK@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918706",
+        "start_time": 136.04,
+        "end_time": 136.28,
+        "duration": 0.2400000000000091,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918708",
+        "start_time": 136.76,
+        "end_time": 137.32,
+        "duration": 0.5600000000000023,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918710",
+        "start_time": 137.36,
+        "end_time": 137.4,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918712",
+        "start_time": 137.52,
+        "end_time": 137.88,
+        "duration": 0.3599999999999852,
+        "value": "DÖD(J)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918714",
+        "start_time": 138.04,
+        "end_time": 138.16,
+        "duration": 0.12000000000000455,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918716",
+        "start_time": 138.8,
+        "end_time": 139.32,
+        "duration": 0.5199999999999818,
+        "value": "hur@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918718",
+        "start_time": 139.52,
+        "end_time": 139.64,
+        "duration": 0.11999999999997613,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918720",
+        "start_time": 139.72,
+        "end_time": 139.84,
+        "duration": 0.12000000000000455,
+        "value": "VEM(J)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918722",
+        "start_time": 139.96,
+        "end_time": 140.44,
+        "duration": 0.47999999999998977,
+        "value": "GLOSA:FINGERAVTRYCK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918724",
+        "start_time": 140.56,
+        "end_time": 140.72,
+        "duration": 0.1599999999999966,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918726",
+        "start_time": 140.8,
+        "end_time": 141.2,
+        "duration": 0.39999999999997726,
+        "value": "LÖSA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918728",
+        "start_time": 141.4,
+        "end_time": 141.56,
+        "duration": 0.1599999999999966,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918730",
+        "start_time": 141.64,
+        "end_time": 142.04,
+        "duration": 0.4000000000000057,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918732",
+        "start_time": 142.12,
+        "end_time": 142.36,
+        "duration": 0.2400000000000091,
+        "value": "SE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918734",
+        "start_time": 142.48,
+        "end_time": 143.04,
+        "duration": 0.5600000000000023,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918736",
+        "start_time": 143.16,
+        "end_time": 143.68,
+        "duration": 0.5200000000000102,
+        "value": "LÖSA.MULTI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918738",
+        "start_time": 143.88,
+        "end_time": 144.04,
+        "duration": 0.1599999999999966,
+        "value": "HUR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918740",
+        "start_time": 144.16,
+        "end_time": 144.84,
+        "duration": 0.6800000000000068,
+        "value": "TEKNIK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918742",
+        "start_time": 145.12,
+        "end_time": 145.24,
+        "duration": 0.12000000000000455,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918744",
+        "start_time": 145.32,
+        "end_time": 145.48,
+        "duration": 0.1599999999999966,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918746",
+        "start_time": 145.6,
+        "end_time": 145.8,
+        "duration": 0.20000000000001705,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918748",
+        "start_time": 145.88,
+        "end_time": 145.96,
+        "duration": 0.0800000000000125,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918750",
+        "start_time": 146.04,
+        "end_time": 146.64,
+        "duration": 0.5999999999999943,
+        "value": "ROLIG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918752",
+        "start_time": 146.72,
+        "end_time": 146.96,
+        "duration": 0.2400000000000091,
+        "value": "SE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918754",
+        "start_time": 147.04,
+        "end_time": 147.08,
+        "duration": 0.040000000000020464,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918756",
+        "start_time": 147.12,
+        "end_time": 147.4,
+        "duration": 0.28000000000000114,
+        "value": "PI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918758",
+        "start_time": 150.4,
+        "end_time": 150.44,
+        "duration": 0.03999999999999204,
+        "value": "TYCKA@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918760",
+        "start_time": 150.52,
+        "end_time": 150.64,
+        "duration": 0.11999999999997613,
+        "value": "SÅDÄR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918762",
+        "start_time": 150.72,
+        "end_time": 150.84,
+        "duration": 0.12000000000000455,
+        "value": "SE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918764",
+        "start_time": 150.92,
+        "end_time": 151.24,
+        "duration": 0.3200000000000216,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918766",
+        "start_time": 151.4,
+        "end_time": 151.48,
+        "duration": 0.07999999999998408,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918768",
+        "start_time": 151.6,
+        "end_time": 151.72,
+        "duration": 0.12000000000000455,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918770",
+        "start_time": 151.84,
+        "end_time": 151.92,
+        "duration": 0.07999999999998408,
+        "value": "TYCKA@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918772",
+        "start_time": 152.0,
+        "end_time": 152.16,
+        "duration": 0.1599999999999966,
+        "value": "FUL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918774",
+        "start_time": 152.2,
+        "end_time": 152.28,
+        "duration": 0.0800000000000125,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918776",
+        "start_time": 156.0,
+        "end_time": 156.08,
+        "duration": 0.0800000000000125,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918778",
+        "start_time": 156.16,
+        "end_time": 156.76,
+        "duration": 0.5999999999999943,
+        "value": "HOUSE@b@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918780",
+        "start_time": 156.88,
+        "end_time": 156.96,
+        "duration": 0.0800000000000125,
+        "value": "INTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918782",
+        "start_time": 157.04,
+        "end_time": 157.24,
+        "duration": 0.20000000000001705,
+        "value": "FÖRTJUST",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918784",
+        "start_time": 157.32,
+        "end_time": 157.52,
+        "duration": 0.20000000000001705,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918786",
+        "start_time": 157.6,
+        "end_time": 157.76,
+        "duration": 0.1599999999999966,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918788",
+        "start_time": 157.84,
+        "end_time": 158.04,
+        "duration": 0.19999999999998863,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918790",
+        "start_time": 158.16,
+        "end_time": 158.4,
+        "duration": 0.2400000000000091,
+        "value": "LÄKARE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918792",
+        "start_time": 158.44,
+        "end_time": 158.76,
+        "duration": 0.3199999999999932,
+        "value": "SOM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918794",
+        "start_time": 158.96,
+        "end_time": 159.2,
+        "duration": 0.23999999999998067,
+        "value": "MER",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918796",
+        "start_time": 159.32,
+        "end_time": 160.2,
+        "duration": 0.8799999999999955,
+        "value": "PROVOCERA@rd",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918798",
+        "start_time": 160.64,
+        "end_time": 160.88,
+        "duration": 0.2400000000000091,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918799",
+        "start_time": 161.104,
+        "end_time": 161.304,
+        "duration": 0.19999999999998863,
+        "value": "INTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918801",
+        "start_time": 161.384,
+        "end_time": 161.704,
+        "duration": 0.3200000000000216,
+        "value": "FÖRTJUST",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918802",
+        "start_time": 168.631,
+        "end_time": 168.831,
+        "duration": 0.19999999999998863,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918804",
+        "start_time": 171.557,
+        "end_time": 171.717,
+        "duration": 0.160000000000025,
+        "value": "TUR@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918806",
+        "start_time": 171.797,
+        "end_time": 171.877,
+        "duration": 0.0800000000000125,
+        "value": "HA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918808",
+        "start_time": 171.957,
+        "end_time": 172.197,
+        "duration": 0.2400000000000091,
+        "value": "TVÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918810",
+        "start_time": 172.277,
+        "end_time": 172.557,
+        "duration": 0.28000000000000114,
+        "value": "TV@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918812",
+        "start_time": 172.677,
+        "end_time": 172.757,
+        "duration": 0.0800000000000125,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918814",
+        "start_time": 172.957,
+        "end_time": 173.237,
+        "duration": 0.28000000000000114,
+        "value": "GLOSA:(UNDANTAG)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918816",
+        "start_time": 173.397,
+        "end_time": 173.637,
+        "duration": 0.2400000000000091,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918818",
+        "start_time": 173.917,
+        "end_time": 174.037,
+        "duration": 0.12000000000000455,
+        "value": "zzz@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918820",
+        "start_time": 174.077,
+        "end_time": 174.157,
+        "duration": 0.0800000000000125,
+        "value": "POSS1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918821",
+        "start_time": 174.237,
+        "end_time": 174.317,
+        "duration": 0.0800000000000125,
+        "value": "MAN(H)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918823",
+        "start_time": 174.357,
+        "end_time": 174.597,
+        "duration": 0.2400000000000091,
+        "value": "FÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918825",
+        "start_time": 174.677,
+        "end_time": 174.877,
+        "duration": 0.20000000000001705,
+        "value": "SE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918827",
+        "start_time": 174.957,
+        "end_time": 175.357,
+        "duration": 0.4000000000000057,
+        "value": "FOTBOLL(ml)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918829",
+        "start_time": 175.437,
+        "end_time": 175.517,
+        "duration": 0.07999999999998408,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918831",
+        "start_time": 175.637,
+        "end_time": 175.797,
+        "duration": 0.1599999999999966,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918833",
+        "start_time": 176.077,
+        "end_time": 176.317,
+        "duration": 0.2400000000000091,
+        "value": "FÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918835",
+        "start_time": 176.397,
+        "end_time": 176.477,
+        "duration": 0.0800000000000125,
+        "value": "ANNAN(ml)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918837",
+        "start_time": 176.557,
+        "end_time": 177.037,
+        "duration": 0.4800000000000182,
+        "value": "FILM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918839",
+        "start_time": 177.157,
+        "end_time": 177.397,
+        "duration": 0.23999999999998067,
+        "value": "ELLER",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918841",
+        "start_time": 177.597,
+        "end_time": 178.077,
+        "duration": 0.47999999999998977,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "34918843",
+        "start_time": 178.277,
+        "end_time": 178.677,
+        "duration": 0.4000000000000057,
+        "value": "BRED-UTBUD",
+        "tier_name": "Glosa_DH S1"
+      }
+    ],
+    "2": [
+      {
+        "annotation_id": "34919177",
+        "start_time": 43.964,
+        "end_time": 44.324,
+        "duration": 0.35999999999999943,
+        "value": "GLOSA:MOTA-BORT",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "34919179",
+        "start_time": 115.504,
+        "end_time": 116.664,
+        "duration": 1.1599999999999966,
+        "value": "BOJ-LIST-EN",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "34919181",
+        "start_time": 116.904,
+        "end_time": 120.144,
+        "duration": 3.240000000000009,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "34919183",
+        "start_time": 126.8,
+        "end_time": 127.16,
+        "duration": 0.35999999999999943,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "34919185",
+        "start_time": 137.589,
+        "end_time": 137.869,
+        "duration": 0.28000000000000114,
+        "value": "BOJ-PEK(L)",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "34919188",
+        "start_time": 138.069,
+        "end_time": 139.709,
+        "duration": 1.6400000000000148,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      }
+    ],
+    "4": [
+      {
+        "annotation_id": "34919211",
+        "start_time": 5.37,
+        "end_time": 8.888,
+        "duration": 3.518,
+        "value": "Jag tycker att det är roligt att titta på Arga snickaren.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919213",
+        "start_time": 9.327,
+        "end_time": 19.586,
+        "duration": 10.258999999999999,
+        "value": "Det är också ett väldigt bra program därför att det handlar om relationer och hur viktigt det är att samarbeta,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919215",
+        "start_time": 20.186,
+        "end_time": 28.325,
+        "duration": 8.139,
+        "value": "hur man bygger något gemensamt och delar på arbetet. Det tycker jag är riktigt bra med det programmet.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919217",
+        "start_time": 36.1,
+        "end_time": 41.637,
+        "duration": 5.536999999999999,
+        "value": "Det viktiga är att hjälpas åt och att kunna ha en diskussion.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919219",
+        "start_time": 42.475,
+        "end_time": 48.902,
+        "duration": 6.427,
+        "value": "Inte att klara allting själv och utesluta den andre. Om man håller allt inom sig så ökar bekymren.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919221",
+        "start_time": 48.942,
+        "end_time": 55.41,
+        "duration": 6.467999999999996,
+        "value": "Istället delge varandra, ha en dialog, hjälpas åt och planera tillsammans. Det är det jag tycker är bra.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919223",
+        "start_time": 56.4,
+        "end_time": 63.68,
+        "duration": 7.280000000000001,
+        "value": "Jag tycker att Arga snickaren är ett seriöst program och det tycker jag verkligen om.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919225",
+        "start_time": 74.55,
+        "end_time": 75.9,
+        "duration": 1.3500000000000085,
+        "value": "Ja, just det.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919227",
+        "start_time": 80.005,
+        "end_time": 81.975,
+        "duration": 1.9699999999999989,
+        "value": "Äntligen //",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919229",
+        "start_time": 87.57,
+        "end_time": 89.34,
+        "duration": 1.7700000000000102,
+        "value": "Men sådana....//",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919231",
+        "start_time": 98.69,
+        "end_time": 107.06,
+        "duration": 8.370000000000005,
+        "value": "Jag håller med dig. Jag är mest intresserad av program som Arga snickaren och  inredningsprogram...det tycker jag är roligt.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919233",
+        "start_time": 107.145,
+        "end_time": 113.585,
+        "duration": 6.439999999999998,
+        "value": "Men nåt som jag också tycker om är Criminal......",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919235",
+        "start_time": 113.755,
+        "end_time": 120.175,
+        "duration": 6.420000000000002,
+        "value": "Ja, CSI men också Criminal på femman,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919237",
+        "start_time": 120.275,
+        "end_time": 125.215,
+        "duration": 4.939999999999998,
+        "value": "den tycker jag är rolig. Jag gillar när det är utredningar //",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919239",
+        "start_time": 126.145,
+        "end_time": 134.105,
+        "duration": 7.959999999999994,
+        "value": "Jag gillar båda ...eller alla, både CSI New York och övriga. Alla som har med utredningar att göra.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919241",
+        "start_time": 134.995,
+        "end_time": 147.705,
+        "duration": 12.710000000000008,
+        "value": "Att få reda på varför, vilken dödsorsaken är, vilka vapen som använts, att de kommer fram till en lösning. Det är roligt att se olika lösningar och tekniker för det.  Det är verkligen kul att se, tycker jag.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919243",
+        "start_time": 150.225,
+        "end_time": 153.005,
+        "duration": 2.780000000000001,
+        "value": "Nej, jag gillar inte det alls.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919245",
+        "start_time": 155.715,
+        "end_time": 163.665,
+        "duration": 7.949999999999989,
+        "value": "Jag tycker att läkaren är arrogant, jag är inte speciellt förtjust i det.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919247",
+        "start_time": 168.33,
+        "end_time": 169.43,
+        "duration": 1.0999999999999943,
+        "value": "Ja, såklart.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "34919249",
+        "start_time": 171.31,
+        "end_time": 180.11,
+        "duration": 8.800000000000011,
+        "value": "Turligt nog har jag och min man två stycken tv-apparater så han kan titta på fotboll och jag på filmer eller annat.",
+        "tier_name": "Översättning S1"
+      }
+    ],
+    "1": [
+      {
+        "annotation_id": "34918846",
+        "start_time": 4.84,
+        "end_time": 4.92,
+        "duration": 0.08000000000000007,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918848",
+        "start_time": 4.96,
+        "end_time": 5.0,
+        "duration": 0.040000000000000036,
+        "value": "PEK>person",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918850",
+        "start_time": 5.04,
+        "end_time": 5.16,
+        "duration": 0.1200000000000001,
+        "value": "FÖRST(LL)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918852",
+        "start_time": 5.2,
+        "end_time": 5.24,
+        "duration": 0.040000000000000036,
+        "value": "PEK>person",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918854",
+        "start_time": 8.24,
+        "end_time": 8.52,
+        "duration": 0.27999999999999936,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918856",
+        "start_time": 8.72,
+        "end_time": 8.84,
+        "duration": 0.11999999999999922,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918857",
+        "start_time": 28.2,
+        "end_time": 28.32,
+        "duration": 0.120000000000001,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918859",
+        "start_time": 28.4,
+        "end_time": 28.68,
+        "duration": 0.28000000000000114,
+        "value": "BETYDA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918861",
+        "start_time": 28.88,
+        "end_time": 29.0,
+        "duration": 0.120000000000001,
+        "value": "zzz@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918863",
+        "start_time": 29.2,
+        "end_time": 29.32,
+        "duration": 0.120000000000001,
+        "value": "TRO",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918865",
+        "start_time": 29.4,
+        "end_time": 29.88,
+        "duration": 0.4800000000000004,
+        "value": "GE(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918867",
+        "start_time": 30.16,
+        "end_time": 30.8,
+        "duration": 0.6400000000000006,
+        "value": "PAR",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918869",
+        "start_time": 30.92,
+        "end_time": 31.0,
+        "duration": 0.0799999999999983,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918871",
+        "start_time": 31.16,
+        "end_time": 31.76,
+        "duration": 0.6000000000000014,
+        "value": "FÖR^FÖRTROENDE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918873",
+        "start_time": 31.96,
+        "end_time": 32.32,
+        "duration": 0.35999999999999943,
+        "value": "KAN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918875",
+        "start_time": 32.56,
+        "end_time": 32.96,
+        "duration": 0.3999999999999986,
+        "value": "PROVA(Vb)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918877",
+        "start_time": 33.08,
+        "end_time": 33.16,
+        "duration": 0.0799999999999983,
+        "value": "zzz@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918879",
+        "start_time": 33.28,
+        "end_time": 33.64,
+        "duration": 0.35999999999999943,
+        "value": "SMAKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918881",
+        "start_time": 33.72,
+        "end_time": 33.88,
+        "duration": 0.1600000000000037,
+        "value": "PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918883",
+        "start_time": 34.0,
+        "end_time": 34.32,
+        "duration": 0.3200000000000003,
+        "value": "SPIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918885",
+        "start_time": 34.4,
+        "end_time": 34.76,
+        "duration": 0.35999999999999943,
+        "value": "KAN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918887",
+        "start_time": 34.88,
+        "end_time": 35.08,
+        "duration": 0.19999999999999574,
+        "value": "GÖRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918889",
+        "start_time": 35.16,
+        "end_time": 35.52,
+        "duration": 0.36000000000000654,
+        "value": "SJÄLV",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918891",
+        "start_time": 35.72,
+        "end_time": 35.8,
+        "duration": 0.0799999999999983,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918893",
+        "start_time": 35.88,
+        "end_time": 36.0,
+        "duration": 0.11999999999999744,
+        "value": "JA@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918895",
+        "start_time": 36.12,
+        "end_time": 36.16,
+        "duration": 0.03999999999999915,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918897",
+        "start_time": 36.2,
+        "end_time": 36.4,
+        "duration": 0.19999999999999574,
+        "value": "BRUKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918899",
+        "start_time": 36.48,
+        "end_time": 36.52,
+        "duration": 0.04000000000000625,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918901",
+        "start_time": 36.6,
+        "end_time": 36.72,
+        "duration": 0.11999999999999744,
+        "value": "SE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918903",
+        "start_time": 36.8,
+        "end_time": 36.88,
+        "duration": 0.0800000000000054,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918905",
+        "start_time": 36.96,
+        "end_time": 37.8,
+        "duration": 0.8399999999999963,
+        "value": "IBLAND(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918907",
+        "start_time": 55.32,
+        "end_time": 55.52,
+        "duration": 0.20000000000000284,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918909",
+        "start_time": 55.64,
+        "end_time": 56.32,
+        "duration": 0.6799999999999997,
+        "value": "STÄMMA(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918911",
+        "start_time": 62.48,
+        "end_time": 62.8,
+        "duration": 0.3200000000000003,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918913",
+        "start_time": 63.05,
+        "end_time": 63.09,
+        "duration": 0.04000000000000625,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918914",
+        "start_time": 63.21,
+        "end_time": 63.29,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918916",
+        "start_time": 63.37,
+        "end_time": 63.57,
+        "duration": 0.20000000000000284,
+        "value": "PERF",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918918",
+        "start_time": 63.65,
+        "end_time": 63.69,
+        "duration": 0.03999999999999915,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918920",
+        "start_time": 63.81,
+        "end_time": 64.01,
+        "duration": 0.20000000000000284,
+        "value": "SE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918922",
+        "start_time": 64.09,
+        "end_time": 64.17,
+        "duration": 0.0799999999999983,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918924",
+        "start_time": 64.25,
+        "end_time": 64.49,
+        "duration": 0.23999999999999488,
+        "value": "NÅGRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918926",
+        "start_time": 64.61,
+        "end_time": 64.81,
+        "duration": 0.20000000000000284,
+        "value": "GÅNG.PL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918928",
+        "start_time": 64.89,
+        "end_time": 65.09,
+        "duration": 0.20000000000000284,
+        "value": "MEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918930",
+        "start_time": 65.21,
+        "end_time": 65.29,
+        "duration": 0.0800000000000125,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918932",
+        "start_time": 65.49,
+        "end_time": 66.01,
+        "duration": 0.5200000000000102,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918934",
+        "start_time": 66.25,
+        "end_time": 66.53,
+        "duration": 0.28000000000000114,
+        "value": "AVGÖRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918936",
+        "start_time": 66.61,
+        "end_time": 66.73,
+        "duration": 0.12000000000000455,
+        "value": "VILKEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918938",
+        "start_time": 66.77,
+        "end_time": 66.85,
+        "duration": 0.0799999999999983,
+        "value": "dag@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918940",
+        "start_time": 66.89,
+        "end_time": 66.93,
+        "duration": 0.04000000000000625,
+        "value": "VILKEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918942",
+        "start_time": 67.01,
+        "end_time": 67.33,
+        "duration": 0.3199999999999932,
+        "value": "KVÄLL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918944",
+        "start_time": 67.45,
+        "end_time": 67.65,
+        "duration": 0.20000000000000284,
+        "value": "PEK.MULTI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918946",
+        "start_time": 67.77,
+        "end_time": 68.13,
+        "duration": 0.35999999999999943,
+        "value": "MISSA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918948",
+        "start_time": 68.21,
+        "end_time": 68.61,
+        "duration": 0.4000000000000057,
+        "value": "GLOSA:(?)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918950",
+        "start_time": 68.69,
+        "end_time": 68.81,
+        "duration": 0.12000000000000455,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918952",
+        "start_time": 69.01,
+        "end_time": 69.13,
+        "duration": 0.11999999999999034,
+        "value": "MEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918954",
+        "start_time": 69.33,
+        "end_time": 69.49,
+        "duration": 0.1599999999999966,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918956",
+        "start_time": 69.65,
+        "end_time": 69.73,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918958",
+        "start_time": 69.85,
+        "end_time": 70.29,
+        "duration": 0.44000000000001194,
+        "value": "OFTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918960",
+        "start_time": 70.37,
+        "end_time": 70.49,
+        "duration": 0.11999999999999034,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918962",
+        "start_time": 70.65,
+        "end_time": 71.21,
+        "duration": 0.5599999999999881,
+        "value": "inr@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918964",
+        "start_time": 71.41,
+        "end_time": 72.65,
+        "duration": 1.240000000000009,
+        "value": "INREDNING@b^PROGRAM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918966",
+        "start_time": 72.85,
+        "end_time": 72.97,
+        "duration": 0.12000000000000455,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918968",
+        "start_time": 73.09,
+        "end_time": 73.37,
+        "duration": 0.28000000000000114,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918970",
+        "start_time": 73.45,
+        "end_time": 74.33,
+        "duration": 0.8799999999999955,
+        "value": "ÄNTLIGEN_HEMMA@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918972",
+        "start_time": 74.45,
+        "end_time": 74.73,
+        "duration": 0.28000000000000114,
+        "value": "ELLER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918974",
+        "start_time": 74.89,
+        "end_time": 74.97,
+        "duration": 0.0799999999999983,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918976",
+        "start_time": 75.09,
+        "end_time": 75.29,
+        "duration": 0.20000000000000284,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918978",
+        "start_time": 75.33,
+        "end_time": 75.89,
+        "duration": 0.5600000000000023,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918980",
+        "start_time": 76.01,
+        "end_time": 76.73,
+        "duration": 0.7199999999999989,
+        "value": "BYGGA^LOVA@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918982",
+        "start_time": 76.81,
+        "end_time": 78.01,
+        "duration": 1.2000000000000028,
+        "value": "ROOM@b_SERVICE@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918984",
+        "start_time": 78.25,
+        "end_time": 78.53,
+        "duration": 0.28000000000000114,
+        "value": "FÖRUT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918986",
+        "start_time": 78.665,
+        "end_time": 78.745,
+        "duration": 0.0799999999999983,
+        "value": "NU@b@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918988",
+        "start_time": 78.905,
+        "end_time": 78.985,
+        "duration": 0.0799999999999983,
+        "value": "zzz@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918990",
+        "start_time": 79.025,
+        "end_time": 79.105,
+        "duration": 0.0799999999999983,
+        "value": "mtyp:men",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918992",
+        "start_time": 79.145,
+        "end_time": 79.385,
+        "duration": 0.2400000000000091,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918994",
+        "start_time": 79.585,
+        "end_time": 79.865,
+        "duration": 0.28000000000000114,
+        "value": "SISTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918996",
+        "start_time": 79.945,
+        "end_time": 80.065,
+        "duration": 0.12000000000000455,
+        "value": "TID(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34918998",
+        "start_time": 80.225,
+        "end_time": 80.825,
+        "duration": 0.6000000000000085,
+        "value": "TID-FRAMÅT-FRÅN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919000",
+        "start_time": 81.105,
+        "end_time": 81.865,
+        "duration": 0.7599999999999909,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919002",
+        "start_time": 81.985,
+        "end_time": 82.145,
+        "duration": 0.1599999999999966,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919004",
+        "start_time": 82.225,
+        "end_time": 82.305,
+        "duration": 0.0800000000000125,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919006",
+        "start_time": 82.385,
+        "end_time": 82.465,
+        "duration": 0.0799999999999983,
+        "value": "SE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919008",
+        "start_time": 82.545,
+        "end_time": 83.305,
+        "duration": 0.7600000000000051,
+        "value": "IBLAND(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919010",
+        "start_time": 83.665,
+        "end_time": 83.785,
+        "duration": 0.11999999999999034,
+        "value": "INTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919012",
+        "start_time": 83.865,
+        "end_time": 84.265,
+        "duration": 0.4000000000000057,
+        "value": "ALLTID",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919014",
+        "start_time": 84.385,
+        "end_time": 84.465,
+        "duration": 0.0799999999999983,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919016",
+        "start_time": 84.545,
+        "end_time": 84.625,
+        "duration": 0.0799999999999983,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919018",
+        "start_time": 88.64,
+        "end_time": 89.0,
+        "duration": 0.35999999999999943,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919020",
+        "start_time": 89.08,
+        "end_time": 89.28,
+        "duration": 0.20000000000000284,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919022",
+        "start_time": 89.36,
+        "end_time": 89.6,
+        "duration": 0.23999999999999488,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919024",
+        "start_time": 89.72,
+        "end_time": 90.4,
+        "duration": 0.6800000000000068,
+        "value": "BERO(B)|PÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919026",
+        "start_time": 90.72,
+        "end_time": 92.04,
+        "duration": 1.3200000000000074,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919028",
+        "start_time": 92.16,
+        "end_time": 92.72,
+        "duration": 0.5600000000000023,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919030",
+        "start_time": 93.0,
+        "end_time": 93.24,
+        "duration": 0.23999999999999488,
+        "value": "HA|INTE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919032",
+        "start_time": 93.32,
+        "end_time": 93.44,
+        "duration": 0.12000000000000455,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919034",
+        "start_time": 93.56,
+        "end_time": 93.64,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919036",
+        "start_time": 93.84,
+        "end_time": 93.96,
+        "duration": 0.11999999999999034,
+        "value": "TÄNKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919038",
+        "start_time": 94.08,
+        "end_time": 94.4,
+        "duration": 0.3200000000000074,
+        "value": "fokusera@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919040",
+        "start_time": 94.52,
+        "end_time": 95.44,
+        "duration": 0.9200000000000017,
+        "value": "FOKUSERA(S)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919042",
+        "start_time": 95.84,
+        "end_time": 95.88,
+        "duration": 0.03999999999999204,
+        "value": "INTE@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919044",
+        "start_time": 95.96,
+        "end_time": 96.04,
+        "duration": 0.0800000000000125,
+        "value": "HELLER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919046",
+        "start_time": 96.12,
+        "end_time": 96.24,
+        "duration": 0.11999999999999034,
+        "value": "JÄMFÖRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919048",
+        "start_time": 96.28,
+        "end_time": 96.36,
+        "duration": 0.0799999999999983,
+        "value": "MED",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919050",
+        "start_time": 96.48,
+        "end_time": 97.0,
+        "duration": 0.519999999999996,
+        "value": "FÖRUT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919052",
+        "start_time": 97.24,
+        "end_time": 97.56,
+        "duration": 0.3200000000000074,
+        "value": "nu@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919054",
+        "start_time": 97.974,
+        "end_time": 98.174,
+        "duration": 0.20000000000000284,
+        "value": "PU-NEG@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919056",
+        "start_time": 98.254,
+        "end_time": 98.494,
+        "duration": 0.23999999999999488,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919058",
+        "start_time": 113.16,
+        "end_time": 113.6,
+        "duration": 0.4399999999999977,
+        "value": "c@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919060",
+        "start_time": 113.68,
+        "end_time": 114.44,
+        "duration": 0.7599999999999909,
+        "value": "CSI@b@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919062",
+        "start_time": 114.48,
+        "end_time": 114.84,
+        "duration": 0.35999999999999943,
+        "value": "i@hd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919064",
+        "start_time": 114.96,
+        "end_time": 115.44,
+        "duration": 0.480000000000004,
+        "value": "c@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919066",
+        "start_time": 115.56,
+        "end_time": 116.32,
+        "duration": 0.7599999999999909,
+        "value": "CSI@b@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919068",
+        "start_time": 124.24,
+        "end_time": 124.36,
+        "duration": 0.12000000000000455,
+        "value": "FINNAS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919070",
+        "start_time": 124.48,
+        "end_time": 124.88,
+        "duration": 0.3999999999999915,
+        "value": "CSI@b@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919072",
+        "start_time": 124.96,
+        "end_time": 125.16,
+        "duration": 0.20000000000000284,
+        "value": "TVÅ",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919074",
+        "start_time": 125.24,
+        "end_time": 125.4,
+        "duration": 0.1600000000000108,
+        "value": "STYCK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919076",
+        "start_time": 125.48,
+        "end_time": 125.6,
+        "duration": 0.11999999999999034,
+        "value": "OLIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919078",
+        "start_time": 125.8,
+        "end_time": 125.84,
+        "duration": 0.04000000000000625,
+        "value": "VARA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919080",
+        "start_time": 125.96,
+        "end_time": 126.6,
+        "duration": 0.6400000000000006,
+        "value": "CSI@b@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919082",
+        "start_time": 126.72,
+        "end_time": 126.84,
+        "duration": 0.12000000000000455,
+        "value": "zzz@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919083",
+        "start_time": 126.92,
+        "end_time": 127.64,
+        "duration": 0.7199999999999989,
+        "value": "MIAMI@b@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919085",
+        "start_time": 127.76,
+        "end_time": 127.88,
+        "duration": 0.11999999999999034,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919087",
+        "start_time": 128.0,
+        "end_time": 128.16,
+        "duration": 0.1599999999999966,
+        "value": "newyork@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919089",
+        "start_time": 128.36,
+        "end_time": 128.68,
+        "duration": 0.3199999999999932,
+        "value": "n@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919091",
+        "start_time": 128.88,
+        "end_time": 129.36,
+        "duration": 0.4800000000000182,
+        "value": "NEW-YORK@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919093",
+        "start_time": 129.64,
+        "end_time": 129.8,
+        "duration": 0.160000000000025,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919095",
+        "start_time": 130.04,
+        "end_time": 130.32,
+        "duration": 0.28000000000000114,
+        "value": "PEK>ringf",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919097",
+        "start_time": 130.52,
+        "end_time": 130.8,
+        "duration": 0.28000000000000114,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919099",
+        "start_time": 141.96,
+        "end_time": 142.04,
+        "duration": 0.07999999999998408,
+        "value": "SÅ-ATT-SÄGA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919101",
+        "start_time": 142.16,
+        "end_time": 142.88,
+        "duration": 0.7199999999999989,
+        "value": "BEVIS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919103",
+        "start_time": 143.0,
+        "end_time": 143.08,
+        "duration": 0.0800000000000125,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919104",
+        "start_time": 147.685,
+        "end_time": 147.765,
+        "duration": 0.07999999999998408,
+        "value": "PEK>person@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919106",
+        "start_time": 147.845,
+        "end_time": 147.965,
+        "duration": 0.12000000000000455,
+        "value": "BRUKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919108",
+        "start_time": 148.045,
+        "end_time": 148.165,
+        "duration": 0.12000000000000455,
+        "value": "SE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919110",
+        "start_time": 148.245,
+        "end_time": 148.325,
+        "duration": 0.07999999999998408,
+        "value": "PEK>person/PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919112",
+        "start_time": 148.565,
+        "end_time": 149.485,
+        "duration": 0.9200000000000159,
+        "value": "HOUSE@b@en",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919113",
+        "start_time": 149.645,
+        "end_time": 150.085,
+        "duration": 0.4399999999999977,
+        "value": "HUS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919115",
+        "start_time": 150.245,
+        "end_time": 150.605,
+        "duration": 0.3599999999999852,
+        "value": "DOKTOR",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919117",
+        "start_time": 150.725,
+        "end_time": 151.045,
+        "duration": 0.3199999999999932,
+        "value": "HUS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919119",
+        "start_time": 151.245,
+        "end_time": 152.085,
+        "duration": 0.8400000000000034,
+        "value": "PEK@uppr",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919121",
+        "start_time": 152.205,
+        "end_time": 152.525,
+        "duration": 0.3199999999999932,
+        "value": "ibland@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919123",
+        "start_time": 152.685,
+        "end_time": 153.565,
+        "duration": 0.8799999999999955,
+        "value": "IBLAND(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919125",
+        "start_time": 153.685,
+        "end_time": 153.885,
+        "duration": 0.19999999999998863,
+        "value": "OM@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919127",
+        "start_time": 154.005,
+        "end_time": 154.245,
+        "duration": 0.2400000000000091,
+        "value": "zzz@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919129",
+        "start_time": 154.445,
+        "end_time": 154.605,
+        "duration": 0.1599999999999966,
+        "value": "FÅ1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919131",
+        "start_time": 154.685,
+        "end_time": 155.125,
+        "duration": 0.4399999999999977,
+        "value": "TID(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919133",
+        "start_time": 155.365,
+        "end_time": 155.445,
+        "duration": 0.07999999999998408,
+        "value": "BARA(B)@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919135",
+        "start_time": 155.565,
+        "end_time": 156.365,
+        "duration": 0.8000000000000114,
+        "value": "IBLAND(7v)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919137",
+        "start_time": 160.16,
+        "end_time": 160.4,
+        "duration": 0.2400000000000091,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919139",
+        "start_time": 160.52,
+        "end_time": 160.64,
+        "duration": 0.11999999999997613,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919141",
+        "start_time": 163.64,
+        "end_time": 163.8,
+        "duration": 0.160000000000025,
+        "value": "PI",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919143",
+        "start_time": 164.0,
+        "end_time": 164.08,
+        "duration": 0.0800000000000125,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919145",
+        "start_time": 164.16,
+        "end_time": 164.52,
+        "duration": 0.36000000000001364,
+        "value": "MEST",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919146",
+        "start_time": 164.6,
+        "end_time": 164.72,
+        "duration": 0.12000000000000455,
+        "value": "VARA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919148",
+        "start_time": 164.96,
+        "end_time": 165.68,
+        "duration": 0.7199999999999989,
+        "value": "INREDNING@b^PROGRAM",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919151",
+        "start_time": 165.92,
+        "end_time": 166.0,
+        "duration": 0.0800000000000125,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919153",
+        "start_time": 166.16,
+        "end_time": 166.28,
+        "duration": 0.12000000000000455,
+        "value": "poss1@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919155",
+        "start_time": 166.4,
+        "end_time": 166.52,
+        "duration": 0.12000000000000455,
+        "value": "POSS1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919157",
+        "start_time": 166.6,
+        "end_time": 166.8,
+        "duration": 0.20000000000001705,
+        "value": "MAN(H)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919159",
+        "start_time": 166.88,
+        "end_time": 166.92,
+        "duration": 0.03999999999999204,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919161",
+        "start_time": 167.04,
+        "end_time": 167.12,
+        "duration": 0.0800000000000125,
+        "value": "TITTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919163",
+        "start_time": 167.2,
+        "end_time": 167.8,
+        "duration": 0.6000000000000227,
+        "value": "FOTBOLL(ml)@uppr",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919165",
+        "start_time": 167.88,
+        "end_time": 167.96,
+        "duration": 0.0800000000000125,
+        "value": "FÖRSÖKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919167",
+        "start_time": 168.04,
+        "end_time": 168.28,
+        "duration": 0.2400000000000091,
+        "value": "AVGÖRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919169",
+        "start_time": 168.32,
+        "end_time": 168.4,
+        "duration": 0.0800000000000125,
+        "value": "VILKEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919171",
+        "start_time": 168.48,
+        "end_time": 169.36,
+        "duration": 0.8800000000000239,
+        "value": "ANPASSA@rd",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919173",
+        "start_time": 169.44,
+        "end_time": 170.0,
+        "duration": 0.5600000000000023,
+        "value": "tp@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "34919174",
+        "start_time": 170.2,
+        "end_time": 170.36,
+        "duration": 0.160000000000025,
+        "value": "PU@g",
+        "tier_name": "Glosa_DH S2"
+      }
+    ],
+    "3": [
+      {
+        "annotation_id": "34919190",
+        "start_time": 34.36,
+        "end_time": 34.8,
+        "duration": 0.4399999999999977,
+        "value": "spika@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919192",
+        "start_time": 67.003,
+        "end_time": 68.123,
+        "duration": 1.1200000000000045,
+        "value": "BOJ-PEK(L)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919194",
+        "start_time": 74.86,
+        "end_time": 75.66,
+        "duration": 0.7999999999999972,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919196",
+        "start_time": 82.265,
+        "end_time": 83.185,
+        "duration": 0.9200000000000017,
+        "value": "BOJ-PEK(L)",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919198",
+        "start_time": 93.48,
+        "end_time": 93.6,
+        "duration": 0.11999999999999034,
+        "value": "GLOSA:BOJ-PEK1",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919200",
+        "start_time": 127.24,
+        "end_time": 127.64,
+        "duration": 0.4000000000000057,
+        "value": "BOJ-LIST-EN",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919203",
+        "start_time": 129.52,
+        "end_time": 129.8,
+        "duration": 0.28000000000000114,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919205",
+        "start_time": 129.96,
+        "end_time": 130.28,
+        "duration": 0.3199999999999932,
+        "value": "BOJ-LIST-TRE",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919207",
+        "start_time": 150.125,
+        "end_time": 150.605,
+        "duration": 0.47999999999998977,
+        "value": "hus@hd",
+        "tier_name": "Glosa_NonDH S2"
+      },
+      {
+        "annotation_id": "34919209",
+        "start_time": 164.08,
+        "end_time": 164.48,
+        "duration": 0.39999999999997726,
+        "value": "GLOSA:BOJ-PEK1",
+        "tier_name": "Glosa_NonDH S2"
+      }
+    ],
+    "5": [
+      {
+        "annotation_id": "34919252",
+        "start_time": 4.57,
+        "end_time": 5.67,
+        "duration": 1.0999999999999996,
+        "value": "Nä, det spelar ingen roll.Ta först du.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919254",
+        "start_time": 7.965,
+        "end_time": 9.305,
+        "duration": 1.3399999999999999,
+        "value": "Ja, just det.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919256",
+        "start_time": 28.02,
+        "end_time": 38.76,
+        "duration": 10.739999999999998,
+        "value": "Ja, jag tror att det programmet kan ge par självförtroende att våga snickra och prova på själva. Jag brukar också se det programmet ibland.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919258",
+        "start_time": 55.135,
+        "end_time": 56.925,
+        "duration": 1.7899999999999991,
+        "value": "Ja, det stämmer.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919260",
+        "start_time": 63.0,
+        "end_time": 68.821,
+        "duration": 5.820999999999998,
+        "value": "Jag har sett det några gånger, det beror på vilken kväll det går. Ibland har jag missat det.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919262",
+        "start_time": 68.901,
+        "end_time": 78.17,
+        "duration": 9.269000000000005,
+        "value": "Nu har det mest blivit inredningsprogram som Äntligen hemma, Bygglov eller Room service.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919264",
+        "start_time": 78.29,
+        "end_time": 86.16,
+        "duration": 7.86999999999999,
+        "value": "Förut blev det dem men nu på sista tiden har jag inte tittat så ofta, bara ibland.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919266",
+        "start_time": 88.415,
+        "end_time": 99.025,
+        "duration": 10.61,
+        "value": "Det beror liksom på, jag har inte något jag direkt fastnat för och följer just nu som tidigare.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919268",
+        "start_time": 112.685,
+        "end_time": 117.185,
+        "duration": 4.5,
+        "value": "CSI?.......Ja, CSI.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919270",
+        "start_time": 124.045,
+        "end_time": 131.325,
+        "duration": 7.279999999999987,
+        "value": "Det finns två olika CSI, den ena är CSI Miami och den andra CSI New York.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919272",
+        "start_time": 141.63,
+        "end_time": 143.84,
+        "duration": 2.210000000000008,
+        "value": "Bevisföring.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919274",
+        "start_time": 147.555,
+        "end_time": 156.855,
+        "duration": 9.299999999999983,
+        "value": "Brukar du se House doctor? Jag tittar på det bara ibland, ifall jag har tid över.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919276",
+        "start_time": 160.0,
+        "end_time": 161.09,
+        "duration": 1.0900000000000034,
+        "value": "Ja, i och för sig.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "34919278",
+        "start_time": 163.045,
+        "end_time": 170.735,
+        "duration": 7.690000000000026,
+        "value": "Jag gillar mest inredningsprogram. Min man kollar bara fotboll så det gäller att vi kan kompromissa.",
+        "tier_name": "Översättning S2"
+      }
+    ]
+  },
+  "blocksdata": [
+    {
+      "id": 0,
+      "name": "Glosa_DH S1",
+      "annotations": [
+        {
+          "t": "JA@ub",
+          "s": 5520,
+          "e": 5680,
+          "id": 34918357
+        },
+        {
+          "t": "PRO1",
+          "s": 5800,
+          "e": 5880,
+          "id": 34918359
+        },
+        {
+          "t": "TYCKA",
+          "s": 5920,
+          "e": 6040,
+          "id": 34918361
+        },
+        {
+          "t": "ROLIG",
+          "s": 6080,
+          "e": 6200,
+          "id": 34918363
+        },
+        {
+          "t": "SE",
+          "s": 6280,
+          "e": 6400,
+          "id": 34918365
+        },
+        {
+          "t": "VARA",
+          "s": 6520,
+          "e": 6720,
+          "id": 34918367
+        },
+        {
+          "t": "ARG_SNICKARE@en",
+          "s": 6800,
+          "e": 8560,
+          "id": 34918369
+        },
+        {
+          "t": "PRO1",
+          "s": 8640,
+          "e": 8920,
+          "id": 34918371
+        },
+        {
+          "t": "pro1@hd",
+          "s": 8960,
+          "e": 9240,
+          "id": 34918373
+        },
+        {
+          "t": "PI",
+          "s": 9320,
+          "e": 9680,
+          "id": 34918375
+        },
+        {
+          "t": "PRO1",
+          "s": 9840,
+          "e": 9920,
+          "id": 34918377
+        },
+        {
+          "t": "TYCKA",
+          "s": 9960,
+          "e": 10280,
+          "id": 34918379
+        },
+        {
+          "t": "POSS",
+          "s": 10440,
+          "e": 10880,
+          "id": 34918381
+        },
+        {
+          "t": "zzz@z",
+          "s": 10960,
+          "e": 11080,
+          "id": 34918383
+        },
+        {
+          "t": "TYCKA",
+          "s": 11200,
+          "e": 11440,
+          "id": 34918385
+        },
+        {
+          "t": "PI",
+          "s": 11640,
+          "e": 11880,
+          "id": 34918387
+        },
+        {
+          "t": "zzz@z",
+          "s": 11960,
+          "e": 12040,
+          "id": 34918389
+        },
+        {
+          "t": "MEN",
+          "s": 12160,
+          "e": 12360,
+          "id": 34918391
+        },
+        {
+          "t": "SAMTIDIG",
+          "s": 12440,
+          "e": 12720,
+          "id": 34918393
+        },
+        {
+          "t": "TYCKA",
+          "s": 12840,
+          "e": 12960,
+          "id": 34918395
+        },
+        {
+          "t": "PEK",
+          "s": 13080,
+          "e": 13120,
+          "id": 34918397
+        },
+        {
+          "t": "PI",
+          "s": 13200,
+          "e": 13480,
+          "id": 34918399
+        },
+        {
+          "t": "BRA",
+          "s": 13560,
+          "e": 14040,
+          "id": 34918402
+        },
+        {
+          "t": "PROGRAM",
+          "s": 14280,
+          "e": 14800,
+          "id": 34918404
+        },
+        {
+          "t": "ORSAK",
+          "s": 14920,
+          "e": 15280,
+          "id": 34918406
+        },
+        {
+          "t": "HANDLA(da)",
+          "s": 15440,
+          "e": 15760,
+          "id": 34918408
+        },
+        {
+          "t": "OM@b",
+          "s": 15840,
+          "e": 15920,
+          "id": 34918410
+        },
+        {
+          "t": "RELATION",
+          "s": 16000,
+          "e": 16840,
+          "id": 34918412
+        },
+        {
+          "t": "HUR",
+          "s": 16960,
+          "e": 17160,
+          "id": 34918414
+        },
+        {
+          "t": "SAM^ARBETA@rd",
+          "s": 17240,
+          "e": 19280,
+          "id": 34918416
+        },
+        {
+          "t": "zzz@z",
+          "s": 19680,
+          "e": 19920,
+          "id": 34918418
+        },
+        {
+          "t": "HUR",
+          "s": 20040,
+          "e": 20360,
+          "id": 34918420
+        },
+        {
+          "t": "KAN",
+          "s": 20440,
+          "e": 20680,
+          "id": 34918422
+        },
+        {
+          "t": "JOBBA@rd",
+          "s": 20760,
+          "e": 21640,
+          "id": 34918424
+        },
+        {
+          "t": "GEMENSAM",
+          "s": 22120,
+          "e": 23080,
+          "id": 34918426
+        },
+        {
+          "t": "mtyp:och",
+          "s": 23120,
+          "e": 23240,
+          "id": 34918428
+        },
+        {
+          "t": "DELA",
+          "s": 23320,
+          "e": 23560,
+          "id": 34918430
+        },
+        {
+          "t": "ARBETA(G)@rd",
+          "s": 23680,
+          "e": 24720,
+          "id": 34918432
+        },
+        {
+          "t": "PEK",
+          "s": 24840,
+          "e": 25040,
+          "id": 34918434
+        },
+        {
+          "t": "PRO1",
+          "s": 25160,
+          "e": 25240,
+          "id": 34918436
+        },
+        {
+          "t": "TYCKA",
+          "s": 25320,
+          "e": 25440,
+          "id": 34918438
+        },
+        {
+          "t": "ARG_SNICKARE@en",
+          "s": 25520,
+          "e": 26400,
+          "id": 34918440
+        },
+        {
+          "t": "PI",
+          "s": 26560,
+          "e": 26880,
+          "id": 34918442
+        },
+        {
+          "t": "BRA",
+          "s": 27040,
+          "e": 27680,
+          "id": 34918444
+        },
+        {
+          "t": "PEK",
+          "s": 36280,
+          "e": 36560,
+          "id": 34918446
+        },
+        {
+          "t": "viktig@&",
+          "s": 36800,
+          "e": 37320,
+          "id": 34918448
+        },
+        {
+          "t": "VIKTIG",
+          "s": 37840,
+          "e": 38200,
+          "id": 34918450
+        },
+        {
+          "t": "VARA@z",
+          "s": 38280,
+          "e": 38400,
+          "id": 34918453
+        },
+        {
+          "t": "DELA",
+          "s": 38480,
+          "e": 39320,
+          "id": 34918455
+        },
+        {
+          "t": "mtyp:och",
+          "s": 39480,
+          "e": 39560,
+          "id": 34918457
+        },
+        {
+          "t": "KAN",
+          "s": 39640,
+          "e": 39920,
+          "id": 34918460
+        },
+        {
+          "t": "SAMTALA@rd",
+          "s": 40040,
+          "e": 42000,
+          "id": 34918462
+        },
+        {
+          "t": "OCH@z",
+          "s": 42204,
+          "e": 42324,
+          "id": 34918464
+        },
+        {
+          "t": "INTE",
+          "s": 42404,
+          "e": 42524,
+          "id": 34918466
+        },
+        {
+          "t": "EGOIST(B)",
+          "s": 42644,
+          "e": 43064,
+          "id": 34918468
+        },
+        {
+          "t": "SJÄLV",
+          "s": 43144,
+          "e": 43314,
+          "id": 34918470
+        },
+        {
+          "t": "SJÄLV",
+          "s": 43394,
+          "e": 43484,
+          "id": 34918472
+        },
+        {
+          "t": "PRO1",
+          "s": 44564,
+          "e": 44644,
+          "id": 34918474
+        },
+        {
+          "t": "GÖRA",
+          "s": 44724,
+          "e": 44964,
+          "id": 34918476
+        },
+        {
+          "t": "SJÄLV",
+          "s": 45084,
+          "e": 45404,
+          "id": 34918478
+        },
+        {
+          "t": "OCH@z",
+          "s": 45644,
+          "e": 45844,
+          "id": 34918480
+        },
+        {
+          "t": "GLOSA:(STOPPA-I-KROPP)",
+          "s": 45964,
+          "e": 46724,
+          "id": 34918482
+        },
+        {
+          "t": "FUNDERA",
+          "s": 46964,
+          "e": 47364,
+          "id": 34918484
+        },
+        {
+          "t": "ÖKA(5).SUCCESSIV",
+          "s": 47564,
+          "e": 48644,
+          "id": 34918486
+        },
+        {
+          "t": "MÅSTE",
+          "s": 48884,
+          "e": 49204,
+          "id": 34918488
+        },
+        {
+          "t": "UTTRYCKA",
+          "s": 49404,
+          "e": 49884,
+          "id": 34918490
+        },
+        {
+          "t": "SAMTALA",
+          "s": 50124,
+          "e": 50964,
+          "id": 34918492
+        },
+        {
+          "t": "mtyp:och",
+          "s": 51124,
+          "e": 51284,
+          "id": 34918494
+        },
+        {
+          "t": "DELA",
+          "s": 51404,
+          "e": 51724,
+          "id": 34918497
+        },
+        {
+          "t": "mtyp:och",
+          "s": 51804,
+          "e": 51924,
+          "id": 34918499
+        },
+        {
+          "t": "PLANERA",
+          "s": 52004,
+          "e": 53044,
+          "id": 34918501
+        },
+        {
+          "t": "PEK",
+          "s": 53244,
+          "e": 53444,
+          "id": 34918503
+        },
+        {
+          "t": "PRO1",
+          "s": 53564,
+          "e": 53644,
+          "id": 34918505
+        },
+        {
+          "t": "TYCKA",
+          "s": 53724,
+          "e": 54004,
+          "id": 34918507
+        },
+        {
+          "t": "PEK",
+          "s": 54084,
+          "e": 54204,
+          "id": 34918509
+        },
+        {
+          "t": "PI",
+          "s": 54284,
+          "e": 54444,
+          "id": 34918511
+        },
+        {
+          "t": "BRA",
+          "s": 54524,
+          "e": 55004,
+          "id": 34918513
+        },
+        {
+          "t": "PEK",
+          "s": 56600,
+          "e": 56760,
+          "id": 34918515
+        },
+        {
+          "t": "PRO1",
+          "s": 56880,
+          "e": 56920,
+          "id": 34918517
+        },
+        {
+          "t": "TYCKA",
+          "s": 57000,
+          "e": 57120,
+          "id": 34918519
+        },
+        {
+          "t": "ARG_SNICKARE@en",
+          "s": 57240,
+          "e": 58080,
+          "id": 34918521
+        },
+        {
+          "t": "VARA",
+          "s": 58160,
+          "e": 58280,
+          "id": 34918523
+        },
+        {
+          "t": "POSS1",
+          "s": 58440,
+          "e": 58680,
+          "id": 34918525
+        },
+        {
+          "t": "PEK",
+          "s": 58840,
+          "e": 59040,
+          "id": 34918527
+        },
+        {
+          "t": "TYCKA",
+          "s": 59200,
+          "e": 59440,
+          "id": 34918529
+        },
+        {
+          "t": "PEK",
+          "s": 59560,
+          "e": 59720,
+          "id": 34918531
+        },
+        {
+          "t": "SERIÖS",
+          "s": 59840,
+          "e": 60320,
+          "id": 34918534
+        },
+        {
+          "t": "PROGRAM",
+          "s": 60440,
+          "e": 60680,
+          "id": 34918536
+        },
+        {
+          "t": "SOM@z",
+          "s": 60840,
+          "e": 60960,
+          "id": 34918538
+        },
+        {
+          "t": "PRO1",
+          "s": 61040,
+          "e": 61120,
+          "id": 34918540
+        },
+        {
+          "t": "TYCKA",
+          "s": 61200,
+          "e": 61320,
+          "id": 34918542
+        },
+        {
+          "t": "OM@b",
+          "s": 61440,
+          "e": 61760,
+          "id": 34918544
+        },
+        {
+          "t": "PI",
+          "s": 61880,
+          "e": 62040,
+          "id": 34918546
+        },
+        {
+          "t": "PEK@z",
+          "s": 62160,
+          "e": 62280,
+          "id": 34918548
+        },
+        {
+          "t": "zzz@z",
+          "s": 62440,
+          "e": 62720,
+          "id": 34918550
+        },
+        {
+          "t": "GLOSA:(BESTÄMD)",
+          "s": 62800,
+          "e": 62960,
+          "id": 34918552
+        },
+        {
+          "t": "BRA",
+          "s": 63080,
+          "e": 63400,
+          "id": 34918554
+        },
+        {
+          "t": "JA@b",
+          "s": 75000,
+          "e": 75440,
+          "id": 34918556
+        },
+        {
+          "t": "ÄNTLIGEN(L)@z",
+          "s": 80366,
+          "e": 81206,
+          "id": 34918558
+        },
+        {
+          "t": "mtyp:men",
+          "s": 87720,
+          "e": 87800,
+          "id": 34918560
+        },
+        {
+          "t": "SÅDAN",
+          "s": 87920,
+          "e": 88360,
+          "id": 34918562
+        },
+        {
+          "t": "PEK",
+          "s": 88440,
+          "e": 88720,
+          "id": 34918564
+        },
+        {
+          "t": "JA@b",
+          "s": 98960,
+          "e": 99080,
+          "id": 34918566
+        },
+        {
+          "t": "PRO1",
+          "s": 99200,
+          "e": 99320,
+          "id": 34918568
+        },
+        {
+          "t": "HÅLLA-MED",
+          "s": 99400,
+          "e": 99640,
+          "id": 34918570
+        },
+        {
+          "t": "PRO1",
+          "s": 99760,
+          "e": 99880,
+          "id": 34918571
+        },
+        {
+          "t": "BÄST(B)",
+          "s": 100040,
+          "e": 100240,
+          "id": 34918573
+        },
+        {
+          "t": "INTRESSERAD",
+          "s": 100320,
+          "e": 100600,
+          "id": 34918575
+        },
+        {
+          "t": "PRO1",
+          "s": 100680,
+          "e": 100760,
+          "id": 34918577
+        },
+        {
+          "t": "VARA",
+          "s": 100800,
+          "e": 101080,
+          "id": 34918579
+        },
+        {
+          "t": "PEK",
+          "s": 101400,
+          "e": 102080,
+          "id": 34918581
+        },
+        {
+          "t": "NU@b",
+          "s": 102320,
+          "e": 102640,
+          "id": 34918583
+        },
+        {
+          "t": "PROGRAM",
+          "s": 102760,
+          "e": 102920,
+          "id": 34918585
+        },
+        {
+          "t": "VARA",
+          "s": 103040,
+          "e": 103160,
+          "id": 34918587
+        },
+        {
+          "t": "ARG_SNICKARE@en",
+          "s": 103280,
+          "e": 103880,
+          "id": 34918589
+        },
+        {
+          "t": "OCH",
+          "s": 104120,
+          "e": 104320,
+          "id": 34918591
+        },
+        {
+          "t": "RUM",
+          "s": 104520,
+          "e": 104920,
+          "id": 34918593
+        },
+        {
+          "t": "HUR",
+          "s": 105000,
+          "e": 105200,
+          "id": 34918595
+        },
+        {
+          "t": "PLACERA(V)@rd",
+          "s": 105280,
+          "e": 105720,
+          "id": 34918597
+        },
+        {
+          "t": "PEK",
+          "s": 105920,
+          "e": 106000,
+          "id": 34918599
+        },
+        {
+          "t": "PRO1",
+          "s": 106080,
+          "e": 106160,
+          "id": 34918601
+        },
+        {
+          "t": "TYCKA",
+          "s": 106240,
+          "e": 106360,
+          "id": 34918603
+        },
+        {
+          "t": "ROLIG",
+          "s": 106440,
+          "e": 106880,
+          "id": 34918605
+        },
+        {
+          "t": "MEN",
+          "s": 106960,
+          "e": 107480,
+          "id": 34918607
+        },
+        {
+          "t": "TYCKA",
+          "s": 107680,
+          "e": 107800,
+          "id": 34918609
+        },
+        {
+          "t": "OCKSÅ",
+          "s": 107920,
+          "e": 108080,
+          "id": 34918611
+        },
+        {
+          "t": "PRO1",
+          "s": 108160,
+          "e": 108280,
+          "id": 34918613
+        },
+        {
+          "t": "TYCKA-OM",
+          "s": 108360,
+          "e": 108560,
+          "id": 34918615
+        },
+        {
+          "t": "VARA",
+          "s": 108680,
+          "e": 109160,
+          "id": 34918617
+        },
+        {
+          "t": "POLIS",
+          "s": 109600,
+          "e": 110200,
+          "id": 34918619
+        },
+        {
+          "t": "CRIMINAL@b^POLIS",
+          "s": 110400,
+          "e": 112040,
+          "id": 34918621
+        },
+        {
+          "t": "zzz@&",
+          "s": 112240,
+          "e": 112560,
+          "id": 34918623
+        },
+        {
+          "t": "zzz@z",
+          "s": 112680,
+          "e": 113080,
+          "id": 34918625
+        },
+        {
+          "t": "PEK",
+          "s": 113160,
+          "e": 113440,
+          "id": 34918627
+        },
+        {
+          "t": "C@b",
+          "s": 113880,
+          "e": 114240,
+          "id": 34918629
+        },
+        {
+          "t": "c@hd",
+          "s": 114280,
+          "e": 114520,
+          "id": 34918631
+        },
+        {
+          "t": "c@&",
+          "s": 114640,
+          "e": 114800,
+          "id": 34918633
+        },
+        {
+          "t": "PF@g",
+          "s": 114960,
+          "e": 115080,
+          "id": 34918635
+        },
+        {
+          "t": "CSI@b@en",
+          "s": 115200,
+          "e": 115640,
+          "id": 34918637
+        },
+        {
+          "t": "zzz@z",
+          "s": 115760,
+          "e": 115840,
+          "id": 34918639
+        },
+        {
+          "t": "CSI@b@en",
+          "s": 115960,
+          "e": 116680,
+          "id": 34918641
+        },
+        {
+          "t": "OCH",
+          "s": 116800,
+          "e": 117160,
+          "id": 34918642
+        },
+        {
+          "t": "POLIS",
+          "s": 117360,
+          "e": 117840,
+          "id": 34918644
+        },
+        {
+          "t": "POLIS",
+          "s": 117960,
+          "e": 118600,
+          "id": 34918646
+        },
+        {
+          "t": "PÅ",
+          "s": 118760,
+          "e": 118920,
+          "id": 34918648
+        },
+        {
+          "t": "KANAL-FEM",
+          "s": 119040,
+          "e": 119920,
+          "id": 34918650
+        },
+        {
+          "t": "PEK",
+          "s": 120160,
+          "e": 120480,
+          "id": 34918652
+        },
+        {
+          "t": "PI",
+          "s": 120600,
+          "e": 120840,
+          "id": 34918654
+        },
+        {
+          "t": "TYCKA",
+          "s": 120960,
+          "e": 121200,
+          "id": 34918656
+        },
+        {
+          "t": "PRO1",
+          "s": 121320,
+          "e": 121360,
+          "id": 34918658
+        },
+        {
+          "t": "ROLIG",
+          "s": 121480,
+          "e": 121880,
+          "id": 34918662
+        },
+        {
+          "t": "PRO1",
+          "s": 122000,
+          "e": 122200,
+          "id": 34918664
+        },
+        {
+          "t": "TYCKA",
+          "s": 122280,
+          "e": 122360,
+          "id": 34918666
+        },
+        {
+          "t": "OM@b",
+          "s": 122440,
+          "e": 122600,
+          "id": 34918668
+        },
+        {
+          "t": "VARA",
+          "s": 122680,
+          "e": 122960,
+          "id": 34918670
+        },
+        {
+          "t": "PEK",
+          "s": 123040,
+          "e": 123320,
+          "id": 34918671
+        },
+        {
+          "t": "TA-REDA-PÅ",
+          "s": 123760,
+          "e": 124960,
+          "id": 34918673
+        },
+        {
+          "t": "c@&",
+          "s": 126280,
+          "e": 126400,
+          "id": 34918675
+        },
+        {
+          "t": "zzz@z",
+          "s": 126520,
+          "e": 126640,
+          "id": 34918677
+        },
+        {
+          "t": "BÅDA",
+          "s": 126760,
+          "e": 127040,
+          "id": 34918679
+        },
+        {
+          "t": "ALLA",
+          "s": 127240,
+          "e": 127640,
+          "id": 34918681
+        },
+        {
+          "t": "alla@&",
+          "s": 127880,
+          "e": 128240,
+          "id": 34918683
+        },
+        {
+          "t": "NEW-YORK@en",
+          "s": 128880,
+          "e": 129720,
+          "id": 34918685
+        },
+        {
+          "t": "NEW-YORK@en",
+          "s": 129840,
+          "e": 130720,
+          "id": 34918687
+        },
+        {
+          "t": "TYCKA",
+          "s": 130840,
+          "e": 131040,
+          "id": 34918688
+        },
+        {
+          "t": "ALLA",
+          "s": 131160,
+          "e": 131440,
+          "id": 34918690
+        },
+        {
+          "t": "PEK",
+          "s": 131600,
+          "e": 131720,
+          "id": 34918692
+        },
+        {
+          "t": "VARA",
+          "s": 131840,
+          "e": 132040,
+          "id": 34918694
+        },
+        {
+          "t": "TYP",
+          "s": 132160,
+          "e": 132520,
+          "id": 34918696
+        },
+        {
+          "t": "TA-REDA-PÅ",
+          "s": 132840,
+          "e": 133720,
+          "id": 34918698
+        },
+        {
+          "t": "tp@&",
+          "s": 134040,
+          "e": 135080,
+          "id": 34918700
+        },
+        {
+          "t": "VARFÖR",
+          "s": 135160,
+          "e": 135520,
+          "id": 34918702
+        },
+        {
+          "t": "PEK@z",
+          "s": 135640,
+          "e": 135840,
+          "id": 34918704
+        },
+        {
+          "t": "OCH",
+          "s": 136040,
+          "e": 136280,
+          "id": 34918706
+        },
+        {
+          "t": "HUR",
+          "s": 136760,
+          "e": 137320,
+          "id": 34918708
+        },
+        {
+          "t": "PEK",
+          "s": 137360,
+          "e": 137400,
+          "id": 34918710
+        },
+        {
+          "t": "DÖD(J)",
+          "s": 137520,
+          "e": 137880,
+          "id": 34918712
+        },
+        {
+          "t": "PEK>långf",
+          "s": 138040,
+          "e": 138160,
+          "id": 34918714
+        },
+        {
+          "t": "hur@&",
+          "s": 138800,
+          "e": 139320,
+          "id": 34918716
+        },
+        {
+          "t": "OCH",
+          "s": 139520,
+          "e": 139640,
+          "id": 34918718
+        },
+        {
+          "t": "VEM(J)",
+          "s": 139720,
+          "e": 139840,
+          "id": 34918720
+        },
+        {
+          "t": "GLOSA:FINGERAVTRYCK",
+          "s": 139960,
+          "e": 140440,
+          "id": 34918722
+        },
+        {
+          "t": "HUR",
+          "s": 140560,
+          "e": 140720,
+          "id": 34918724
+        },
+        {
+          "t": "LÖSA",
+          "s": 140800,
+          "e": 141200,
+          "id": 34918726
+        },
+        {
+          "t": "PEK",
+          "s": 141400,
+          "e": 141560,
+          "id": 34918728
+        },
+        {
+          "t": "ROLIG",
+          "s": 141640,
+          "e": 142040,
+          "id": 34918730
+        },
+        {
+          "t": "SE",
+          "s": 142120,
+          "e": 142360,
+          "id": 34918732
+        },
+        {
+          "t": "OLIKA",
+          "s": 142480,
+          "e": 143040,
+          "id": 34918734
+        },
+        {
+          "t": "LÖSA.MULTI",
+          "s": 143160,
+          "e": 143680,
+          "id": 34918736
+        },
+        {
+          "t": "HUR",
+          "s": 143880,
+          "e": 144040,
+          "id": 34918738
+        },
+        {
+          "t": "TEKNIK",
+          "s": 144160,
+          "e": 144840,
+          "id": 34918740
+        },
+        {
+          "t": "PRO1",
+          "s": 145120,
+          "e": 145240,
+          "id": 34918742
+        },
+        {
+          "t": "PI",
+          "s": 145320,
+          "e": 145480,
+          "id": 34918744
+        },
+        {
+          "t": "TYCKA",
+          "s": 145600,
+          "e": 145800,
+          "id": 34918746
+        },
+        {
+          "t": "PEK",
+          "s": 145880,
+          "e": 145960,
+          "id": 34918748
+        },
+        {
+          "t": "ROLIG",
+          "s": 146040,
+          "e": 146640,
+          "id": 34918750
+        },
+        {
+          "t": "SE",
+          "s": 146720,
+          "e": 146960,
+          "id": 34918752
+        },
+        {
+          "t": "PRO1",
+          "s": 147040,
+          "e": 147080,
+          "id": 34918754
+        },
+        {
+          "t": "PI",
+          "s": 147120,
+          "e": 147400,
+          "id": 34918756
+        },
+        {
+          "t": "TYCKA@z",
+          "s": 150400,
+          "e": 150440,
+          "id": 34918758
+        },
+        {
+          "t": "SÅDÄR",
+          "s": 150520,
+          "e": 150640,
+          "id": 34918760
+        },
+        {
+          "t": "SE",
+          "s": 150720,
+          "e": 150840,
+          "id": 34918762
+        },
+        {
+          "t": "TYCKA",
+          "s": 150920,
+          "e": 151240,
+          "id": 34918764
+        },
+        {
+          "t": "PRO1",
+          "s": 151400,
+          "e": 151480,
+          "id": 34918766
+        },
+        {
+          "t": "PEK",
+          "s": 151600,
+          "e": 151720,
+          "id": 34918768
+        },
+        {
+          "t": "TYCKA@z",
+          "s": 151840,
+          "e": 151920,
+          "id": 34918770
+        },
+        {
+          "t": "FUL",
+          "s": 152000,
+          "e": 152160,
+          "id": 34918772
+        },
+        {
+          "t": "PRO1",
+          "s": 152200,
+          "e": 152280,
+          "id": 34918774
+        },
+        {
+          "t": "PRO1",
+          "s": 156000,
+          "e": 156080,
+          "id": 34918776
+        },
+        {
+          "t": "HOUSE@b@en",
+          "s": 156160,
+          "e": 156760,
+          "id": 34918778
+        },
+        {
+          "t": "INTE",
+          "s": 156880,
+          "e": 156960,
+          "id": 34918780
+        },
+        {
+          "t": "FÖRTJUST",
+          "s": 157040,
+          "e": 157240,
+          "id": 34918782
+        },
+        {
+          "t": "TYCKA",
+          "s": 157320,
+          "e": 157520,
+          "id": 34918784
+        },
+        {
+          "t": "zzz@z",
+          "s": 157600,
+          "e": 157760,
+          "id": 34918786
+        },
+        {
+          "t": "PEK",
+          "s": 157840,
+          "e": 158040,
+          "id": 34918788
+        },
+        {
+          "t": "LÄKARE",
+          "s": 158160,
+          "e": 158400,
+          "id": 34918790
+        },
+        {
+          "t": "SOM",
+          "s": 158440,
+          "e": 158760,
+          "id": 34918792
+        },
+        {
+          "t": "MER",
+          "s": 158960,
+          "e": 159200,
+          "id": 34918794
+        },
+        {
+          "t": "PROVOCERA@rd",
+          "s": 159320,
+          "e": 160200,
+          "id": 34918796
+        },
+        {
+          "t": "PRO1",
+          "s": 160640,
+          "e": 160880,
+          "id": 34918798
+        },
+        {
+          "t": "INTE",
+          "s": 161104,
+          "e": 161304,
+          "id": 34918799
+        },
+        {
+          "t": "FÖRTJUST",
+          "s": 161384,
+          "e": 161704,
+          "id": 34918801
+        },
+        {
+          "t": "zzz@z",
+          "s": 168631,
+          "e": 168831,
+          "id": 34918802
+        },
+        {
+          "t": "TUR@b",
+          "s": 171557,
+          "e": 171717,
+          "id": 34918804
+        },
+        {
+          "t": "HA",
+          "s": 171797,
+          "e": 171877,
+          "id": 34918806
+        },
+        {
+          "t": "TVÅ",
+          "s": 171957,
+          "e": 172197,
+          "id": 34918808
+        },
+        {
+          "t": "TV@b",
+          "s": 172277,
+          "e": 172557,
+          "id": 34918810
+        },
+        {
+          "t": "PRO1",
+          "s": 172677,
+          "e": 172757,
+          "id": 34918812
+        },
+        {
+          "t": "GLOSA:(UNDANTAG)",
+          "s": 172957,
+          "e": 173237,
+          "id": 34918814
+        },
+        {
+          "t": "PEK",
+          "s": 173397,
+          "e": 173637,
+          "id": 34918816
+        },
+        {
+          "t": "zzz@&",
+          "s": 173917,
+          "e": 174037,
+          "id": 34918818
+        },
+        {
+          "t": "POSS1",
+          "s": 174077,
+          "e": 174157,
+          "id": 34918820
+        },
+        {
+          "t": "MAN(H)",
+          "s": 174237,
+          "e": 174317,
+          "id": 34918821
+        },
+        {
+          "t": "FÅ",
+          "s": 174357,
+          "e": 174597,
+          "id": 34918823
+        },
+        {
+          "t": "SE",
+          "s": 174677,
+          "e": 174877,
+          "id": 34918825
+        },
+        {
+          "t": "FOTBOLL(ml)",
+          "s": 174957,
+          "e": 175357,
+          "id": 34918827
+        },
+        {
+          "t": "OCH",
+          "s": 175437,
+          "e": 175517,
+          "id": 34918829
+        },
+        {
+          "t": "PRO1",
+          "s": 175637,
+          "e": 175797,
+          "id": 34918831
+        },
+        {
+          "t": "FÅ",
+          "s": 176077,
+          "e": 176317,
+          "id": 34918833
+        },
+        {
+          "t": "ANNAN(ml)",
+          "s": 176397,
+          "e": 176477,
+          "id": 34918835
+        },
+        {
+          "t": "FILM",
+          "s": 176557,
+          "e": 177037,
+          "id": 34918837
+        },
+        {
+          "t": "ELLER",
+          "s": 177157,
+          "e": 177397,
+          "id": 34918839
+        },
+        {
+          "t": "OLIKA",
+          "s": 177597,
+          "e": 178077,
+          "id": 34918841
+        },
+        {
+          "t": "BRED-UTBUD",
+          "s": 178277,
+          "e": 178677,
+          "id": 34918843
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Glosa_NonDH S1",
+      "annotations": [
+        {
+          "t": "GLOSA:MOTA-BORT",
+          "s": 43964,
+          "e": 44324,
+          "id": 34919177
+        },
+        {
+          "t": "BOJ-LIST-EN",
+          "s": 115504,
+          "e": 116664,
+          "id": 34919179
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 116904,
+          "e": 120144,
+          "id": 34919181
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 126800,
+          "e": 127160,
+          "id": 34919183
+        },
+        {
+          "t": "BOJ-PEK(L)",
+          "s": 137589,
+          "e": 137869,
+          "id": 34919185
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 138069,
+          "e": 139709,
+          "id": 34919188
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Översättning S1",
+      "annotations": [
+        {
+          "t": "Jag tycker att det är roligt att titta på Arga snickaren.",
+          "s": 5370,
+          "e": 8888,
+          "id": 34919211
+        },
+        {
+          "t": "Det är också ett väldigt bra program därför att det handlar om relationer och hur viktigt det är att samarbeta,",
+          "s": 9327,
+          "e": 19586,
+          "id": 34919213
+        },
+        {
+          "t": "hur man bygger något gemensamt och delar på arbetet. Det tycker jag är riktigt bra med det programmet.",
+          "s": 20186,
+          "e": 28325,
+          "id": 34919215
+        },
+        {
+          "t": "Det viktiga är att hjälpas åt och att kunna ha en diskussion.",
+          "s": 36100,
+          "e": 41637,
+          "id": 34919217
+        },
+        {
+          "t": "Inte att klara allting själv och utesluta den andre. Om man håller allt inom sig så ökar bekymren.",
+          "s": 42475,
+          "e": 48902,
+          "id": 34919219
+        },
+        {
+          "t": "Istället delge varandra, ha en dialog, hjälpas åt och planera tillsammans. Det är det jag tycker är bra.",
+          "s": 48942,
+          "e": 55410,
+          "id": 34919221
+        },
+        {
+          "t": "Jag tycker att Arga snickaren är ett seriöst program och det tycker jag verkligen om.",
+          "s": 56400,
+          "e": 63680,
+          "id": 34919223
+        },
+        {
+          "t": "Ja, just det.",
+          "s": 74550,
+          "e": 75900,
+          "id": 34919225
+        },
+        {
+          "t": "Äntligen //",
+          "s": 80005,
+          "e": 81975,
+          "id": 34919227
+        },
+        {
+          "t": "Men sådana....//",
+          "s": 87570,
+          "e": 89340,
+          "id": 34919229
+        },
+        {
+          "t": "Jag håller med dig. Jag är mest intresserad av program som Arga snickaren och  inredningsprogram...det tycker jag är roligt.",
+          "s": 98690,
+          "e": 107060,
+          "id": 34919231
+        },
+        {
+          "t": "Men nåt som jag också tycker om är Criminal......",
+          "s": 107145,
+          "e": 113585,
+          "id": 34919233
+        },
+        {
+          "t": "Ja, CSI men också Criminal på femman,",
+          "s": 113755,
+          "e": 120175,
+          "id": 34919235
+        },
+        {
+          "t": "den tycker jag är rolig. Jag gillar när det är utredningar //",
+          "s": 120275,
+          "e": 125215,
+          "id": 34919237
+        },
+        {
+          "t": "Jag gillar båda ...eller alla, både CSI New York och övriga. Alla som har med utredningar att göra.",
+          "s": 126145,
+          "e": 134105,
+          "id": 34919239
+        },
+        {
+          "t": "Att få reda på varför, vilken dödsorsaken är, vilka vapen som använts, att de kommer fram till en lösning. Det är roligt att se olika lösningar och tekniker för det.  Det är verkligen kul att se, tycker jag.",
+          "s": 134995,
+          "e": 147705,
+          "id": 34919241
+        },
+        {
+          "t": "Nej, jag gillar inte det alls.",
+          "s": 150225,
+          "e": 153005,
+          "id": 34919243
+        },
+        {
+          "t": "Jag tycker att läkaren är arrogant, jag är inte speciellt förtjust i det.",
+          "s": 155715,
+          "e": 163665,
+          "id": 34919245
+        },
+        {
+          "t": "Ja, såklart.",
+          "s": 168330,
+          "e": 169430,
+          "id": 34919247
+        },
+        {
+          "t": "Turligt nog har jag och min man två stycken tv-apparater så han kan titta på fotboll och jag på filmer eller annat.",
+          "s": 171310,
+          "e": 180110,
+          "id": 34919249
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Glosa_DH S2",
+      "annotations": [
+        {
+          "t": "zzz@z",
+          "s": 4840,
+          "e": 4920,
+          "id": 34918846
+        },
+        {
+          "t": "PEK>person",
+          "s": 4960,
+          "e": 5000,
+          "id": 34918848
+        },
+        {
+          "t": "FÖRST(LL)",
+          "s": 5040,
+          "e": 5160,
+          "id": 34918850
+        },
+        {
+          "t": "PEK>person",
+          "s": 5200,
+          "e": 5240,
+          "id": 34918852
+        },
+        {
+          "t": "JA@ub",
+          "s": 8240,
+          "e": 8520,
+          "id": 34918854
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 8720,
+          "e": 8840,
+          "id": 34918856
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 28200,
+          "e": 28320,
+          "id": 34918857
+        },
+        {
+          "t": "BETYDA",
+          "s": 28400,
+          "e": 28680,
+          "id": 34918859
+        },
+        {
+          "t": "zzz@&",
+          "s": 28880,
+          "e": 29000,
+          "id": 34918861
+        },
+        {
+          "t": "TRO",
+          "s": 29200,
+          "e": 29320,
+          "id": 34918863
+        },
+        {
+          "t": "GE(J)",
+          "s": 29400,
+          "e": 29880,
+          "id": 34918865
+        },
+        {
+          "t": "PAR",
+          "s": 30160,
+          "e": 30800,
+          "id": 34918867
+        },
+        {
+          "t": "PEK",
+          "s": 30920,
+          "e": 31000,
+          "id": 34918869
+        },
+        {
+          "t": "FÖR^FÖRTROENDE",
+          "s": 31160,
+          "e": 31760,
+          "id": 34918871
+        },
+        {
+          "t": "KAN",
+          "s": 31960,
+          "e": 32320,
+          "id": 34918873
+        },
+        {
+          "t": "PROVA(Vb)",
+          "s": 32560,
+          "e": 32960,
+          "id": 34918875
+        },
+        {
+          "t": "zzz@&",
+          "s": 33080,
+          "e": 33160,
+          "id": 34918877
+        },
+        {
+          "t": "SMAKA",
+          "s": 33280,
+          "e": 33640,
+          "id": 34918879
+        },
+        {
+          "t": "PÅ",
+          "s": 33720,
+          "e": 33880,
+          "id": 34918881
+        },
+        {
+          "t": "SPIKA",
+          "s": 34000,
+          "e": 34320,
+          "id": 34918883
+        },
+        {
+          "t": "KAN",
+          "s": 34400,
+          "e": 34760,
+          "id": 34918885
+        },
+        {
+          "t": "GÖRA",
+          "s": 34880,
+          "e": 35080,
+          "id": 34918887
+        },
+        {
+          "t": "SJÄLV",
+          "s": 35160,
+          "e": 35520,
+          "id": 34918889
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 35720,
+          "e": 35800,
+          "id": 34918891
+        },
+        {
+          "t": "JA@b",
+          "s": 35880,
+          "e": 36000,
+          "id": 34918893
+        },
+        {
+          "t": "zzz@z",
+          "s": 36120,
+          "e": 36160,
+          "id": 34918895
+        },
+        {
+          "t": "BRUKA",
+          "s": 36200,
+          "e": 36400,
+          "id": 34918897
+        },
+        {
+          "t": "PEK",
+          "s": 36480,
+          "e": 36520,
+          "id": 34918899
+        },
+        {
+          "t": "SE",
+          "s": 36600,
+          "e": 36720,
+          "id": 34918901
+        },
+        {
+          "t": "PEK",
+          "s": 36800,
+          "e": 36880,
+          "id": 34918903
+        },
+        {
+          "t": "IBLAND(7v)",
+          "s": 36960,
+          "e": 37800,
+          "id": 34918905
+        },
+        {
+          "t": "JA@ub",
+          "s": 55320,
+          "e": 55520,
+          "id": 34918907
+        },
+        {
+          "t": "STÄMMA(J)",
+          "s": 55640,
+          "e": 56320,
+          "id": 34918909
+        },
+        {
+          "t": "JA@ub",
+          "s": 62480,
+          "e": 62800,
+          "id": 34918911
+        },
+        {
+          "t": "zzz@z",
+          "s": 63050,
+          "e": 63090,
+          "id": 34918913
+        },
+        {
+          "t": "PRO1",
+          "s": 63210,
+          "e": 63290,
+          "id": 34918914
+        },
+        {
+          "t": "PERF",
+          "s": 63370,
+          "e": 63570,
+          "id": 34918916
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 63650,
+          "e": 63690,
+          "id": 34918918
+        },
+        {
+          "t": "SE",
+          "s": 63810,
+          "e": 64010,
+          "id": 34918920
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 64090,
+          "e": 64170,
+          "id": 34918922
+        },
+        {
+          "t": "NÅGRA",
+          "s": 64250,
+          "e": 64490,
+          "id": 34918924
+        },
+        {
+          "t": "GÅNG.PL",
+          "s": 64610,
+          "e": 64810,
+          "id": 34918926
+        },
+        {
+          "t": "MEN",
+          "s": 64890,
+          "e": 65090,
+          "id": 34918928
+        },
+        {
+          "t": "PRO1",
+          "s": 65210,
+          "e": 65290,
+          "id": 34918930
+        },
+        {
+          "t": "tp@&",
+          "s": 65490,
+          "e": 66010,
+          "id": 34918932
+        },
+        {
+          "t": "AVGÖRA",
+          "s": 66250,
+          "e": 66530,
+          "id": 34918934
+        },
+        {
+          "t": "VILKEN",
+          "s": 66610,
+          "e": 66730,
+          "id": 34918936
+        },
+        {
+          "t": "dag@&",
+          "s": 66770,
+          "e": 66850,
+          "id": 34918938
+        },
+        {
+          "t": "VILKEN",
+          "s": 66890,
+          "e": 66930,
+          "id": 34918940
+        },
+        {
+          "t": "KVÄLL",
+          "s": 67010,
+          "e": 67330,
+          "id": 34918942
+        },
+        {
+          "t": "PEK.MULTI",
+          "s": 67450,
+          "e": 67650,
+          "id": 34918944
+        },
+        {
+          "t": "MISSA",
+          "s": 67770,
+          "e": 68130,
+          "id": 34918946
+        },
+        {
+          "t": "GLOSA:(?)",
+          "s": 68210,
+          "e": 68610,
+          "id": 34918948
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 68690,
+          "e": 68810,
+          "id": 34918950
+        },
+        {
+          "t": "MEN",
+          "s": 69010,
+          "e": 69130,
+          "id": 34918952
+        },
+        {
+          "t": "NU@b",
+          "s": 69330,
+          "e": 69490,
+          "id": 34918954
+        },
+        {
+          "t": "PRO1",
+          "s": 69650,
+          "e": 69730,
+          "id": 34918956
+        },
+        {
+          "t": "OFTA",
+          "s": 69850,
+          "e": 70290,
+          "id": 34918958
+        },
+        {
+          "t": "VARA",
+          "s": 70370,
+          "e": 70490,
+          "id": 34918960
+        },
+        {
+          "t": "inr@&",
+          "s": 70650,
+          "e": 71210,
+          "id": 34918962
+        },
+        {
+          "t": "INREDNING@b^PROGRAM",
+          "s": 71410,
+          "e": 72650,
+          "id": 34918964
+        },
+        {
+          "t": "VARA",
+          "s": 72850,
+          "e": 72970,
+          "id": 34918966
+        },
+        {
+          "t": "OLIKA",
+          "s": 73090,
+          "e": 73370,
+          "id": 34918968
+        },
+        {
+          "t": "ÄNTLIGEN_HEMMA@en",
+          "s": 73450,
+          "e": 74330,
+          "id": 34918970
+        },
+        {
+          "t": "ELLER",
+          "s": 74450,
+          "e": 74730,
+          "id": 34918972
+        },
+        {
+          "t": "PEK>långf",
+          "s": 74890,
+          "e": 74970,
+          "id": 34918974
+        },
+        {
+          "t": "PU@g",
+          "s": 75090,
+          "e": 75290,
+          "id": 34918976
+        },
+        {
+          "t": "tp@&",
+          "s": 75330,
+          "e": 75890,
+          "id": 34918978
+        },
+        {
+          "t": "BYGGA^LOVA@en",
+          "s": 76010,
+          "e": 76730,
+          "id": 34918980
+        },
+        {
+          "t": "ROOM@b_SERVICE@en",
+          "s": 76810,
+          "e": 78010,
+          "id": 34918982
+        },
+        {
+          "t": "FÖRUT",
+          "s": 78250,
+          "e": 78530,
+          "id": 34918984
+        },
+        {
+          "t": "NU@b@z",
+          "s": 78665,
+          "e": 78745,
+          "id": 34918986
+        },
+        {
+          "t": "zzz@&",
+          "s": 78905,
+          "e": 78985,
+          "id": 34918988
+        },
+        {
+          "t": "mtyp:men",
+          "s": 79025,
+          "e": 79105,
+          "id": 34918990
+        },
+        {
+          "t": "NU@b",
+          "s": 79145,
+          "e": 79385,
+          "id": 34918992
+        },
+        {
+          "t": "SISTA",
+          "s": 79585,
+          "e": 79865,
+          "id": 34918994
+        },
+        {
+          "t": "TID(L)",
+          "s": 79945,
+          "e": 80065,
+          "id": 34918996
+        },
+        {
+          "t": "TID-FRAMÅT-FRÅN",
+          "s": 80225,
+          "e": 80825,
+          "id": 34918998
+        },
+        {
+          "t": "zzz@z",
+          "s": 81105,
+          "e": 81865,
+          "id": 34919000
+        },
+        {
+          "t": "zzz@z",
+          "s": 81985,
+          "e": 82145,
+          "id": 34919002
+        },
+        {
+          "t": "PEK",
+          "s": 82225,
+          "e": 82305,
+          "id": 34919004
+        },
+        {
+          "t": "SE",
+          "s": 82385,
+          "e": 82465,
+          "id": 34919006
+        },
+        {
+          "t": "IBLAND(7v)",
+          "s": 82545,
+          "e": 83305,
+          "id": 34919008
+        },
+        {
+          "t": "INTE",
+          "s": 83665,
+          "e": 83785,
+          "id": 34919010
+        },
+        {
+          "t": "ALLTID",
+          "s": 83865,
+          "e": 84265,
+          "id": 34919012
+        },
+        {
+          "t": "PEK",
+          "s": 84385,
+          "e": 84465,
+          "id": 34919014
+        },
+        {
+          "t": "PU@g",
+          "s": 84545,
+          "e": 84625,
+          "id": 34919016
+        },
+        {
+          "t": "JA@ub",
+          "s": 88640,
+          "e": 89000,
+          "id": 34919018
+        },
+        {
+          "t": "tp@&",
+          "s": 89080,
+          "e": 89280,
+          "id": 34919020
+        },
+        {
+          "t": "zzz@z",
+          "s": 89360,
+          "e": 89600,
+          "id": 34919022
+        },
+        {
+          "t": "BERO(B)|PÅ",
+          "s": 89720,
+          "e": 90400,
+          "id": 34919024
+        },
+        {
+          "t": "tp@&",
+          "s": 90720,
+          "e": 92040,
+          "id": 34919026
+        },
+        {
+          "t": "zzz@z",
+          "s": 92160,
+          "e": 92720,
+          "id": 34919028
+        },
+        {
+          "t": "HA|INTE",
+          "s": 93000,
+          "e": 93240,
+          "id": 34919030
+        },
+        {
+          "t": "NU@b",
+          "s": 93320,
+          "e": 93440,
+          "id": 34919032
+        },
+        {
+          "t": "PRO1",
+          "s": 93560,
+          "e": 93640,
+          "id": 34919034
+        },
+        {
+          "t": "TÄNKA",
+          "s": 93840,
+          "e": 93960,
+          "id": 34919036
+        },
+        {
+          "t": "fokusera@&",
+          "s": 94080,
+          "e": 94400,
+          "id": 34919038
+        },
+        {
+          "t": "FOKUSERA(S)",
+          "s": 94520,
+          "e": 95440,
+          "id": 34919040
+        },
+        {
+          "t": "INTE@z",
+          "s": 95840,
+          "e": 95880,
+          "id": 34919042
+        },
+        {
+          "t": "HELLER",
+          "s": 95960,
+          "e": 96040,
+          "id": 34919044
+        },
+        {
+          "t": "JÄMFÖRA",
+          "s": 96120,
+          "e": 96240,
+          "id": 34919046
+        },
+        {
+          "t": "MED",
+          "s": 96280,
+          "e": 96360,
+          "id": 34919048
+        },
+        {
+          "t": "FÖRUT",
+          "s": 96480,
+          "e": 97000,
+          "id": 34919050
+        },
+        {
+          "t": "nu@&",
+          "s": 97240,
+          "e": 97560,
+          "id": 34919052
+        },
+        {
+          "t": "PU-NEG@g",
+          "s": 97974,
+          "e": 98174,
+          "id": 34919054
+        },
+        {
+          "t": "NU@b",
+          "s": 98254,
+          "e": 98494,
+          "id": 34919056
+        },
+        {
+          "t": "c@&",
+          "s": 113160,
+          "e": 113600,
+          "id": 34919058
+        },
+        {
+          "t": "CSI@b@en",
+          "s": 113680,
+          "e": 114440,
+          "id": 34919060
+        },
+        {
+          "t": "i@hd",
+          "s": 114480,
+          "e": 114840,
+          "id": 34919062
+        },
+        {
+          "t": "c@&",
+          "s": 114960,
+          "e": 115440,
+          "id": 34919064
+        },
+        {
+          "t": "CSI@b@en",
+          "s": 115560,
+          "e": 116320,
+          "id": 34919066
+        },
+        {
+          "t": "FINNAS",
+          "s": 124240,
+          "e": 124360,
+          "id": 34919068
+        },
+        {
+          "t": "CSI@b@en",
+          "s": 124480,
+          "e": 124880,
+          "id": 34919070
+        },
+        {
+          "t": "TVÅ",
+          "s": 124960,
+          "e": 125160,
+          "id": 34919072
+        },
+        {
+          "t": "STYCK",
+          "s": 125240,
+          "e": 125400,
+          "id": 34919074
+        },
+        {
+          "t": "OLIKA",
+          "s": 125480,
+          "e": 125600,
+          "id": 34919076
+        },
+        {
+          "t": "VARA@z",
+          "s": 125800,
+          "e": 125840,
+          "id": 34919078
+        },
+        {
+          "t": "CSI@b@en",
+          "s": 125960,
+          "e": 126600,
+          "id": 34919080
+        },
+        {
+          "t": "zzz@z",
+          "s": 126720,
+          "e": 126840,
+          "id": 34919082
+        },
+        {
+          "t": "MIAMI@b@en",
+          "s": 126920,
+          "e": 127640,
+          "id": 34919083
+        },
+        {
+          "t": "OCH",
+          "s": 127760,
+          "e": 127880,
+          "id": 34919085
+        },
+        {
+          "t": "newyork@&",
+          "s": 128000,
+          "e": 128160,
+          "id": 34919087
+        },
+        {
+          "t": "n@&",
+          "s": 128360,
+          "e": 128680,
+          "id": 34919089
+        },
+        {
+          "t": "NEW-YORK@en",
+          "s": 128880,
+          "e": 129360,
+          "id": 34919091
+        },
+        {
+          "t": "PEK>långf",
+          "s": 129640,
+          "e": 129800,
+          "id": 34919093
+        },
+        {
+          "t": "PEK>ringf",
+          "s": 130040,
+          "e": 130320,
+          "id": 34919095
+        },
+        {
+          "t": "JA@ub",
+          "s": 130520,
+          "e": 130800,
+          "id": 34919097
+        },
+        {
+          "t": "SÅ-ATT-SÄGA",
+          "s": 141960,
+          "e": 142040,
+          "id": 34919099
+        },
+        {
+          "t": "BEVIS",
+          "s": 142160,
+          "e": 142880,
+          "id": 34919101
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 143000,
+          "e": 143080,
+          "id": 34919103
+        },
+        {
+          "t": "PEK>person@z",
+          "s": 147685,
+          "e": 147765,
+          "id": 34919104
+        },
+        {
+          "t": "BRUKA",
+          "s": 147845,
+          "e": 147965,
+          "id": 34919106
+        },
+        {
+          "t": "SE",
+          "s": 148045,
+          "e": 148165,
+          "id": 34919108
+        },
+        {
+          "t": "PEK>person/PEK",
+          "s": 148245,
+          "e": 148325,
+          "id": 34919110
+        },
+        {
+          "t": "HOUSE@b@en",
+          "s": 148565,
+          "e": 149485,
+          "id": 34919112
+        },
+        {
+          "t": "HUS",
+          "s": 149645,
+          "e": 150085,
+          "id": 34919113
+        },
+        {
+          "t": "DOKTOR",
+          "s": 150245,
+          "e": 150605,
+          "id": 34919115
+        },
+        {
+          "t": "HUS",
+          "s": 150725,
+          "e": 151045,
+          "id": 34919117
+        },
+        {
+          "t": "PEK@uppr",
+          "s": 151245,
+          "e": 152085,
+          "id": 34919119
+        },
+        {
+          "t": "ibland@&",
+          "s": 152205,
+          "e": 152525,
+          "id": 34919121
+        },
+        {
+          "t": "IBLAND(7v)",
+          "s": 152685,
+          "e": 153565,
+          "id": 34919123
+        },
+        {
+          "t": "OM@b",
+          "s": 153685,
+          "e": 153885,
+          "id": 34919125
+        },
+        {
+          "t": "zzz@&",
+          "s": 154005,
+          "e": 154245,
+          "id": 34919127
+        },
+        {
+          "t": "FÅ1",
+          "s": 154445,
+          "e": 154605,
+          "id": 34919129
+        },
+        {
+          "t": "TID(L)",
+          "s": 154685,
+          "e": 155125,
+          "id": 34919131
+        },
+        {
+          "t": "BARA(B)@z",
+          "s": 155365,
+          "e": 155445,
+          "id": 34919133
+        },
+        {
+          "t": "IBLAND(7v)",
+          "s": 155565,
+          "e": 156365,
+          "id": 34919135
+        },
+        {
+          "t": "JA@ub",
+          "s": 160160,
+          "e": 160400,
+          "id": 34919137
+        },
+        {
+          "t": "PU@g",
+          "s": 160520,
+          "e": 160640,
+          "id": 34919139
+        },
+        {
+          "t": "PI",
+          "s": 163640,
+          "e": 163800,
+          "id": 34919141
+        },
+        {
+          "t": "PRO1",
+          "s": 164000,
+          "e": 164080,
+          "id": 34919143
+        },
+        {
+          "t": "MEST",
+          "s": 164160,
+          "e": 164520,
+          "id": 34919145
+        },
+        {
+          "t": "VARA",
+          "s": 164600,
+          "e": 164720,
+          "id": 34919146
+        },
+        {
+          "t": "INREDNING@b^PROGRAM",
+          "s": 164960,
+          "e": 165680,
+          "id": 34919148
+        },
+        {
+          "t": "PEK",
+          "s": 165920,
+          "e": 166000,
+          "id": 34919151
+        },
+        {
+          "t": "poss1@&",
+          "s": 166160,
+          "e": 166280,
+          "id": 34919153
+        },
+        {
+          "t": "POSS1",
+          "s": 166400,
+          "e": 166520,
+          "id": 34919155
+        },
+        {
+          "t": "MAN(H)",
+          "s": 166600,
+          "e": 166800,
+          "id": 34919157
+        },
+        {
+          "t": "PEK",
+          "s": 166880,
+          "e": 166920,
+          "id": 34919159
+        },
+        {
+          "t": "TITTA",
+          "s": 167040,
+          "e": 167120,
+          "id": 34919161
+        },
+        {
+          "t": "FOTBOLL(ml)@uppr",
+          "s": 167200,
+          "e": 167800,
+          "id": 34919163
+        },
+        {
+          "t": "FÖRSÖKA",
+          "s": 167880,
+          "e": 167960,
+          "id": 34919165
+        },
+        {
+          "t": "AVGÖRA",
+          "s": 168040,
+          "e": 168280,
+          "id": 34919167
+        },
+        {
+          "t": "VILKEN",
+          "s": 168320,
+          "e": 168400,
+          "id": 34919169
+        },
+        {
+          "t": "ANPASSA@rd",
+          "s": 168480,
+          "e": 169360,
+          "id": 34919171
+        },
+        {
+          "t": "tp@&",
+          "s": 169440,
+          "e": 170000,
+          "id": 34919173
+        },
+        {
+          "t": "PU@g",
+          "s": 170200,
+          "e": 170360,
+          "id": 34919174
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Glosa_NonDH S2",
+      "annotations": [
+        {
+          "t": "spika@hd",
+          "s": 34360,
+          "e": 34800,
+          "id": 34919190
+        },
+        {
+          "t": "BOJ-PEK(L)",
+          "s": 67003,
+          "e": 68123,
+          "id": 34919192
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 74860,
+          "e": 75660,
+          "id": 34919194
+        },
+        {
+          "t": "BOJ-PEK(L)",
+          "s": 82265,
+          "e": 83185,
+          "id": 34919196
+        },
+        {
+          "t": "GLOSA:BOJ-PEK1",
+          "s": 93480,
+          "e": 93600,
+          "id": 34919198
+        },
+        {
+          "t": "BOJ-LIST-EN",
+          "s": 127240,
+          "e": 127640,
+          "id": 34919200
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 129520,
+          "e": 129800,
+          "id": 34919203
+        },
+        {
+          "t": "BOJ-LIST-TRE",
+          "s": 129960,
+          "e": 130280,
+          "id": 34919205
+        },
+        {
+          "t": "hus@hd",
+          "s": 150125,
+          "e": 150605,
+          "id": 34919207
+        },
+        {
+          "t": "GLOSA:BOJ-PEK1",
+          "s": 164080,
+          "e": 164480,
+          "id": 34919209
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "name": "Översättning S2",
+      "annotations": [
+        {
+          "t": "Nä, det spelar ingen roll.Ta först du.",
+          "s": 4570,
+          "e": 5670,
+          "id": 34919252
+        },
+        {
+          "t": "Ja, just det.",
+          "s": 7965,
+          "e": 9305,
+          "id": 34919254
+        },
+        {
+          "t": "Ja, jag tror att det programmet kan ge par självförtroende att våga snickra och prova på själva. Jag brukar också se det programmet ibland.",
+          "s": 28020,
+          "e": 38760,
+          "id": 34919256
+        },
+        {
+          "t": "Ja, det stämmer.",
+          "s": 55135,
+          "e": 56925,
+          "id": 34919258
+        },
+        {
+          "t": "Jag har sett det några gånger, det beror på vilken kväll det går. Ibland har jag missat det.",
+          "s": 63000,
+          "e": 68821,
+          "id": 34919260
+        },
+        {
+          "t": "Nu har det mest blivit inredningsprogram som Äntligen hemma, Bygglov eller Room service.",
+          "s": 68901,
+          "e": 78170,
+          "id": 34919262
+        },
+        {
+          "t": "Förut blev det dem men nu på sista tiden har jag inte tittat så ofta, bara ibland.",
+          "s": 78290,
+          "e": 86160,
+          "id": 34919264
+        },
+        {
+          "t": "Det beror liksom på, jag har inte något jag direkt fastnat för och följer just nu som tidigare.",
+          "s": 88415,
+          "e": 99025,
+          "id": 34919266
+        },
+        {
+          "t": "CSI?.......Ja, CSI.",
+          "s": 112685,
+          "e": 117185,
+          "id": 34919268
+        },
+        {
+          "t": "Det finns två olika CSI, den ena är CSI Miami och den andra CSI New York.",
+          "s": 124045,
+          "e": 131325,
+          "id": 34919270
+        },
+        {
+          "t": "Bevisföring.",
+          "s": 141630,
+          "e": 143840,
+          "id": 34919272
+        },
+        {
+          "t": "Brukar du se House doctor? Jag tittar på det bara ibland, ifall jag har tid över.",
+          "s": 147555,
+          "e": 156855,
+          "id": 34919274
+        },
+        {
+          "t": "Ja, i och för sig.",
+          "s": 160000,
+          "e": 161090,
+          "id": 34919276
+        },
+        {
+          "t": "Jag gillar mest inredningsprogram. Min man kollar bara fotboll så det gäller att vi kan kompromissa.",
+          "s": 163045,
+          "e": 170735,
+          "id": 34919278
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "source": "teckensprakskorpus.su.se",
+    "format": "blocksdata",
+    "time_units": "milliseconds",
+    "language": "sv",
+    "extraction_method": "javascript_blocksdata"
+  }
+}

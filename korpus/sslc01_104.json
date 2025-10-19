@@ -1,0 +1,2853 @@
+{
+  "media_descriptors": [
+    {
+      "media_url": "https://teckensprakskorpus.su.se/video/sslc01_104.mp4",
+      "mime_type": "video/mp4",
+      "relative_media_url": "sslc01_104.mp4",
+      "type": "video"
+    }
+  ],
+  "tiers": [
+    {
+      "tier_id": "0",
+      "name": "Glosa_DH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "2",
+      "name": "Glosa_NonDH S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "3",
+      "name": "Översättning S1",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "1",
+      "name": "Glosa_DH S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    },
+    {
+      "tier_id": "4",
+      "name": "Översättning S2",
+      "linguistic_type_ref": "",
+      "participant": "",
+      "annotator": "",
+      "default_locale": "sv",
+      "parent_ref": ""
+    }
+  ],
+  "linguistic_types": [],
+  "annotations": {
+    "0": [
+      {
+        "annotation_id": "36354258",
+        "start_time": 29.983,
+        "end_time": 30.263,
+        "duration": 0.28000000000000114,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354259",
+        "start_time": 30.463,
+        "end_time": 31.223,
+        "duration": 0.759999999999998,
+        "value": "STÄMMA(J)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354260",
+        "start_time": 31.503,
+        "end_time": 32.543,
+        "duration": 1.0399999999999991,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354261",
+        "start_time": 33.05,
+        "end_time": 33.45,
+        "duration": 0.4000000000000057,
+        "value": "BLI(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354262",
+        "start_time": 33.77,
+        "end_time": 33.95,
+        "duration": 0.17999999999999972,
+        "value": "BÖRJA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354263",
+        "start_time": 34.35,
+        "end_time": 34.93,
+        "duration": 0.5799999999999983,
+        "value": "VARA-MED",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354264",
+        "start_time": 36.37,
+        "end_time": 37.01,
+        "duration": 0.6400000000000006,
+        "value": "LEDAMOT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354265",
+        "start_time": 37.13,
+        "end_time": 37.69,
+        "duration": 0.5599999999999952,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354266",
+        "start_time": 37.89,
+        "end_time": 39.05,
+        "duration": 1.1599999999999966,
+        "value": "IDROTT^KLUBB",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354267",
+        "start_time": 40.53,
+        "end_time": 41.21,
+        "duration": 0.6799999999999997,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354268",
+        "start_time": 41.49,
+        "end_time": 42.41,
+        "duration": 0.9199999999999946,
+        "value": "KASSÖR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354269",
+        "start_time": 42.57,
+        "end_time": 42.81,
+        "duration": 0.240000000000002,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354270",
+        "start_time": 43.05,
+        "end_time": 43.29,
+        "duration": 0.240000000000002,
+        "value": "BLI(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354271",
+        "start_time": 43.33,
+        "end_time": 43.81,
+        "duration": 0.480000000000004,
+        "value": "IDROTT^KLUBB",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354272",
+        "start_time": 43.97,
+        "end_time": 45.45,
+        "duration": 1.480000000000004,
+        "value": "ORDFÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354273",
+        "start_time": 45.77,
+        "end_time": 46.01,
+        "duration": 0.23999999999999488,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354274",
+        "start_time": 46.13,
+        "end_time": 46.37,
+        "duration": 0.23999999999999488,
+        "value": "SEX",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354275",
+        "start_time": 46.45,
+        "end_time": 47.49,
+        "duration": 1.0399999999999991,
+        "value": "ÅR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354276",
+        "start_time": 47.85,
+        "end_time": 48.17,
+        "duration": 0.3200000000000003,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354277",
+        "start_time": 48.65,
+        "end_time": 49.13,
+        "duration": 0.480000000000004,
+        "value": "NÅGOT-KOMMA-MELLAN@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354278",
+        "start_time": 49.41,
+        "end_time": 49.57,
+        "duration": 0.1600000000000037,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354279",
+        "start_time": 49.89,
+        "end_time": 50.49,
+        "duration": 0.6000000000000014,
+        "value": "DÖVFÖRENING",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354280",
+        "start_time": 50.65,
+        "end_time": 51.01,
+        "duration": 0.35999999999999943,
+        "value": "ORDFÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354281",
+        "start_time": 51.13,
+        "end_time": 51.25,
+        "duration": 0.11999999999999744,
+        "value": "SUMMA@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354282",
+        "start_time": 51.29,
+        "end_time": 51.53,
+        "duration": 0.240000000000002,
+        "value": "BLI@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354283",
+        "start_time": 52.232,
+        "end_time": 52.552,
+        "duration": 0.3200000000000003,
+        "value": "SITTA@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354284",
+        "start_time": 52.752,
+        "end_time": 53.272,
+        "duration": 0.519999999999996,
+        "value": "SITTA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354285",
+        "start_time": 54.432,
+        "end_time": 55.072,
+        "duration": 0.6400000000000006,
+        "value": "ORDFÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354286",
+        "start_time": 55.352,
+        "end_time": 55.672,
+        "duration": 0.3200000000000003,
+        "value": "DYKA-UPP",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354287",
+        "start_time": 56.072,
+        "end_time": 56.552,
+        "duration": 0.4799999999999969,
+        "value": "GAMMAL(5)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354288",
+        "start_time": 56.912,
+        "end_time": 57.472,
+        "duration": 0.5600000000000023,
+        "value": "ÄLVSBORG@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354289",
+        "start_time": 57.672,
+        "end_time": 58.352,
+        "duration": 0.6799999999999997,
+        "value": "LÄN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354290",
+        "start_time": 58.552,
+        "end_time": 58.672,
+        "duration": 0.11999999999999744,
+        "value": "GAMMAL(5)@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354291",
+        "start_time": 58.912,
+        "end_time": 58.992,
+        "duration": 0.0799999999999983,
+        "value": "BLI@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354292",
+        "start_time": 59.072,
+        "end_time": 59.352,
+        "duration": 0.27999999999999403,
+        "value": "ORDFÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354293",
+        "start_time": 59.512,
+        "end_time": 59.712,
+        "duration": 0.20000000000000284,
+        "value": "BLI(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354294",
+        "start_time": 59.912,
+        "end_time": 60.032,
+        "duration": 0.11999999999999744,
+        "value": "ALLA>pekf-långf-ringf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354295",
+        "start_time": 60.112,
+        "end_time": 60.552,
+        "duration": 0.4399999999999977,
+        "value": "ORDFÖRANDE>pekf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354296",
+        "start_time": 60.672,
+        "end_time": 60.872,
+        "duration": 0.20000000000000284,
+        "value": "ORDFÖRANDE>långf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354297",
+        "start_time": 60.912,
+        "end_time": 61.032,
+        "duration": 0.11999999999999744,
+        "value": "ORDFÖRANDE>tre",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354298",
+        "start_time": 61.112,
+        "end_time": 61.352,
+        "duration": 0.23999999999999488,
+        "value": "TRE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354299",
+        "start_time": 61.592,
+        "end_time": 61.672,
+        "duration": 0.0799999999999983,
+        "value": "PEK>pekf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354300",
+        "start_time": 61.872,
+        "end_time": 62.072,
+        "duration": 0.20000000000000284,
+        "value": "IDROTT^KLUBB",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354301",
+        "start_time": 62.192,
+        "end_time": 62.312,
+        "duration": 0.11999999999999744,
+        "value": "PEK>långf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354302",
+        "start_time": 62.512,
+        "end_time": 62.832,
+        "duration": 0.3200000000000003,
+        "value": "DÖVFÖRENING",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354303",
+        "start_time": 62.992,
+        "end_time": 63.072,
+        "duration": 0.0800000000000054,
+        "value": "PEK>ringf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354304",
+        "start_time": 63.272,
+        "end_time": 64.032,
+        "duration": 0.759999999999998,
+        "value": "ÄDLF@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354305",
+        "start_time": 64.552,
+        "end_time": 64.832,
+        "duration": 0.2799999999999869,
+        "value": "FÖRUT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354306",
+        "start_time": 64.992,
+        "end_time": 65.192,
+        "duration": 0.19999999999998863,
+        "value": "NAMN",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354307",
+        "start_time": 65.552,
+        "end_time": 66.032,
+        "duration": 0.47999999999998977,
+        "value": "PEK>ringf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354308",
+        "start_time": 67.232,
+        "end_time": 67.392,
+        "duration": 0.1599999999999966,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354309",
+        "start_time": 67.592,
+        "end_time": 67.912,
+        "duration": 0.3200000000000074,
+        "value": "SLUTA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354310",
+        "start_time": 67.959,
+        "end_time": 68.079,
+        "duration": 0.11999999999999034,
+        "value": "IDROTT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354311",
+        "start_time": 68.119,
+        "end_time": 68.319,
+        "duration": 0.20000000000000284,
+        "value": "KLUBB",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354312",
+        "start_time": 68.359,
+        "end_time": 68.439,
+        "duration": 0.0799999999999983,
+        "value": "MÅSTE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354313",
+        "start_time": 68.559,
+        "end_time": 68.639,
+        "duration": 0.0799999999999983,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354314",
+        "start_time": 68.679,
+        "end_time": 68.879,
+        "duration": 0.20000000000000284,
+        "value": "LÄMNA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354315",
+        "start_time": 68.959,
+        "end_time": 69.239,
+        "duration": 0.28000000000000114,
+        "value": "FÖR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354316",
+        "start_time": 69.319,
+        "end_time": 69.599,
+        "duration": 0.28000000000000114,
+        "value": "MYCKET",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354317",
+        "start_time": 69.839,
+        "end_time": 69.959,
+        "duration": 0.12000000000000455,
+        "value": "BLI(L)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354318",
+        "start_time": 70.919,
+        "end_time": 71.159,
+        "duration": 0.2400000000000091,
+        "value": "PEK>pekf",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354319",
+        "start_time": 71.359,
+        "end_time": 71.599,
+        "duration": 0.2400000000000091,
+        "value": "idrott@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354320",
+        "start_time": 71.759,
+        "end_time": 71.999,
+        "duration": 0.23999999999999488,
+        "value": "DÖVFÖRENING",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354321",
+        "start_time": 72.199,
+        "end_time": 72.399,
+        "duration": 0.20000000000000284,
+        "value": "OCH",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354322",
+        "start_time": 72.519,
+        "end_time": 73.319,
+        "duration": 0.7999999999999972,
+        "value": "ÄDLF@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354323",
+        "start_time": 75.122,
+        "end_time": 75.682,
+        "duration": 0.5600000000000023,
+        "value": "ÄDLF@b@z",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354324",
+        "start_time": 75.802,
+        "end_time": 76.002,
+        "duration": 0.19999999999998863,
+        "value": "BILDA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354325",
+        "start_time": 76.122,
+        "end_time": 76.842,
+        "duration": 0.7199999999999989,
+        "value": "REGION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354326",
+        "start_time": 77.042,
+        "end_time": 77.722,
+        "duration": 0.6799999999999926,
+        "value": "FÖRÄNDRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354327",
+        "start_time": 77.882,
+        "end_time": 78.562,
+        "duration": 0.6799999999999926,
+        "value": "REGION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354328",
+        "start_time": 78.704,
+        "end_time": 79.144,
+        "duration": 0.44000000000001194,
+        "value": "VÄSTERGÖTLAND@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354329",
+        "start_time": 79.184,
+        "end_time": 79.704,
+        "duration": 0.519999999999996,
+        "value": "REGION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354330",
+        "start_time": 79.935,
+        "end_time": 80.335,
+        "duration": 0.3999999999999915,
+        "value": "FÖRÄNDRA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354331",
+        "start_time": 80.415,
+        "end_time": 81.055,
+        "duration": 0.6400000000000006,
+        "value": "ÄDLF@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354332",
+        "start_time": 81.375,
+        "end_time": 81.655,
+        "duration": 0.28000000000000114,
+        "value": "TYNA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354333",
+        "start_time": 82.135,
+        "end_time": 82.295,
+        "duration": 0.1599999999999966,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354334",
+        "start_time": 82.415,
+        "end_time": 83.095,
+        "duration": 0.6799999999999926,
+        "value": "DYKA-UPP",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354335",
+        "start_time": 83.335,
+        "end_time": 84.015,
+        "duration": 0.6800000000000068,
+        "value": "PRO1.FL",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354336",
+        "start_time": 84.255,
+        "end_time": 84.495,
+        "duration": 0.2400000000000091,
+        "value": "MEDLEM",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354337",
+        "start_time": 84.615,
+        "end_time": 84.735,
+        "duration": 0.12000000000000455,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354338",
+        "start_time": 84.815,
+        "end_time": 85.255,
+        "duration": 0.4399999999999977,
+        "value": "REGION",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354339",
+        "start_time": 86.135,
+        "end_time": 86.375,
+        "duration": 0.23999999999999488,
+        "value": "FÖRESLÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354340",
+        "start_time": 86.535,
+        "end_time": 86.775,
+        "duration": 0.2400000000000091,
+        "value": "OBJPRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354341",
+        "start_time": 86.877,
+        "end_time": 87.117,
+        "duration": 0.2400000000000091,
+        "value": "glosa@&",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354342",
+        "start_time": 87.397,
+        "end_time": 87.837,
+        "duration": 0.4399999999999977,
+        "value": "ORDFÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354343",
+        "start_time": 87.877,
+        "end_time": 88.197,
+        "duration": 0.3200000000000074,
+        "value": "INUTI",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354344",
+        "start_time": 88.317,
+        "end_time": 89.197,
+        "duration": 0.8800000000000097,
+        "value": "VGDI@b@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354345",
+        "start_time": 89.437,
+        "end_time": 89.557,
+        "duration": 0.12000000000000455,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354346",
+        "start_time": 89.757,
+        "end_time": 89.877,
+        "duration": 0.11999999999999034,
+        "value": "SITTA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354347",
+        "start_time": 89.957,
+        "end_time": 90.117,
+        "duration": 0.1600000000000108,
+        "value": "I@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354348",
+        "start_time": 90.237,
+        "end_time": 90.597,
+        "duration": 0.35999999999999943,
+        "value": "ÅTTA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354349",
+        "start_time": 90.677,
+        "end_time": 91.757,
+        "duration": 1.0799999999999983,
+        "value": "ÅR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354350",
+        "start_time": 92.357,
+        "end_time": 93.557,
+        "duration": 1.2000000000000028,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354351",
+        "start_time": 94.237,
+        "end_time": 94.437,
+        "duration": 0.20000000000000284,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354352",
+        "start_time": 94.507,
+        "end_time": 94.747,
+        "duration": 0.23999999999999488,
+        "value": "SLUTA(da)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354353",
+        "start_time": 94.947,
+        "end_time": 95.347,
+        "duration": 0.3999999999999915,
+        "value": "GLOSA:(AVGÅ)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354354",
+        "start_time": 95.507,
+        "end_time": 95.787,
+        "duration": 0.28000000000000114,
+        "value": "LÄMNA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354355",
+        "start_time": 95.867,
+        "end_time": 96.787,
+        "duration": 0.9200000000000017,
+        "value": "NY@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354356",
+        "start_time": 97.027,
+        "end_time": 97.827,
+        "duration": 0.7999999999999972,
+        "value": "LEDARE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354357",
+        "start_time": 98.467,
+        "end_time": 98.547,
+        "duration": 0.0799999999999983,
+        "value": "NU@b",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354358",
+        "start_time": 98.587,
+        "end_time": 98.627,
+        "duration": 0.03999999999999204,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354359",
+        "start_time": 98.947,
+        "end_time": 98.987,
+        "duration": 0.03999999999999204,
+        "value": "FORTFARANDE(da)",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354360",
+        "start_time": 99.067,
+        "end_time": 99.547,
+        "duration": 0.480000000000004,
+        "value": "KVAR",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354361",
+        "start_time": 99.867,
+        "end_time": 100.027,
+        "duration": 0.1599999999999966,
+        "value": "TROLLHÄTTAN@en",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354362",
+        "start_time": 100.267,
+        "end_time": 100.467,
+        "duration": 0.20000000000000284,
+        "value": "DÖVFÖRENING",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354363",
+        "start_time": 100.547,
+        "end_time": 101.027,
+        "duration": 0.480000000000004,
+        "value": "ORDFÖRANDE",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354364",
+        "start_time": 101.267,
+        "end_time": 101.867,
+        "duration": 0.6000000000000085,
+        "value": "PÅGÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354365",
+        "start_time": 102.067,
+        "end_time": 102.787,
+        "duration": 0.7200000000000131,
+        "value": "I@b^DAG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354366",
+        "start_time": 106.08,
+        "end_time": 106.2,
+        "duration": 0.12000000000000455,
+        "value": "PÅ",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354367",
+        "start_time": 106.28,
+        "end_time": 106.48,
+        "duration": 0.20000000000000284,
+        "value": "VÄG",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354368",
+        "start_time": 106.64,
+        "end_time": 106.76,
+        "duration": 0.12000000000000455,
+        "value": "VARVA",
+        "tier_name": "Glosa_DH S1"
+      },
+      {
+        "annotation_id": "36354369",
+        "start_time": 106.84,
+        "end_time": 107.28,
+        "duration": 0.4399999999999977,
+        "value": "NER",
+        "tier_name": "Glosa_DH S1"
+      }
+    ],
+    "2": [
+      {
+        "annotation_id": "36354422",
+        "start_time": 49.152,
+        "end_time": 51.352,
+        "duration": 2.1999999999999957,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354423",
+        "start_time": 51.592,
+        "end_time": 51.872,
+        "duration": 0.28000000000000114,
+        "value": "TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354424",
+        "start_time": 54.392,
+        "end_time": 54.992,
+        "duration": 0.5999999999999943,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354425",
+        "start_time": 55.45,
+        "end_time": 56.49,
+        "duration": 1.0399999999999991,
+        "value": "BOJ-LIST-TRE",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354426",
+        "start_time": 59.048,
+        "end_time": 68.168,
+        "duration": 9.120000000000005,
+        "value": "BOJ-LIST-TRE",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354427",
+        "start_time": 70.189,
+        "end_time": 70.429,
+        "duration": 0.2400000000000091,
+        "value": "TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354428",
+        "start_time": 70.469,
+        "end_time": 70.669,
+        "duration": 0.20000000000000284,
+        "value": "KVAR",
+        "tier_name": "Glosa_NonDH S1"
+      },
+      {
+        "annotation_id": "36354429",
+        "start_time": 70.949,
+        "end_time": 75.109,
+        "duration": 4.159999999999997,
+        "value": "BOJ-LIST-TVÅ",
+        "tier_name": "Glosa_NonDH S1"
+      }
+    ],
+    "3": [
+      {
+        "annotation_id": "36354430",
+        "start_time": 29.58,
+        "end_time": 31.25,
+        "duration": 1.6700000000000017,
+        "value": "Ja det är riktigt,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354431",
+        "start_time": 31.29,
+        "end_time": 39.82,
+        "duration": 8.530000000000001,
+        "value": "jag började... som ledamot i idrottsklubben",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354432",
+        "start_time": 39.88,
+        "end_time": 45.29,
+        "duration": 5.409999999999997,
+        "value": "och efter en tid blev jag kassör och därefter blev jag ordförande i idrottsklubben",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354433",
+        "start_time": 45.32,
+        "end_time": 48.0,
+        "duration": 2.6799999999999997,
+        "value": "och det var jag i sex år",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354434",
+        "start_time": 48.05,
+        "end_time": 54.91,
+        "duration": 6.859999999999999,
+        "value": "men så halkade jag över och blev ordförande i dövas förening också så då satt jag som ordförande på två ställen",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354435",
+        "start_time": 54.95,
+        "end_time": 61.58,
+        "duration": 6.6299999999999955,
+        "value": "och så blev jag ordförande i gamla Älvsborgs dövas länsförbund också så då satt jag som ordförande på tre ställen,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354436",
+        "start_time": 61.63,
+        "end_time": 65.76,
+        "duration": 4.130000000000003,
+        "value": "i idrottsklubben, i dövas förening och i ÄDLF (Älvsborgs dövas länsförbund) som dom hette tidigare",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354437",
+        "start_time": 65.84,
+        "end_time": 69.53,
+        "duration": 3.6899999999999977,
+        "value": "men så slutade jag i idrottsklubben eftersom det blev för mycket",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354438",
+        "start_time": 69.57,
+        "end_time": 74.0,
+        "duration": 4.430000000000007,
+        "value": "så då satt jag bara i dövas förening och i ÄDLF",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354439",
+        "start_time": 74.059,
+        "end_time": 82.07,
+        "duration": 8.010999999999996,
+        "value": "och senare så bildades en region, Västra Götalandsregionen och då blev det förändringar och ÄDLF upphörde,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354440",
+        "start_time": 82.129,
+        "end_time": 89.279,
+        "duration": 7.1499999999999915,
+        "value": "sen föreslog medlemmarna i regionen mig till ordförande i VGDI",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354441",
+        "start_time": 89.349,
+        "end_time": 91.869,
+        "duration": 2.519999999999996,
+        "value": "och där satt jag i åtta år,",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354442",
+        "start_time": 91.91,
+        "end_time": 97.84,
+        "duration": 5.930000000000007,
+        "value": "ja och efter dom åren så tröttnade jag och avgick och lämnade över till den personen som skulle ta över",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354443",
+        "start_time": 97.88,
+        "end_time": 103.67,
+        "duration": 5.790000000000006,
+        "value": "och så satt jag kvar som ordförande i Trollhättans Dövas Förening och det gör jag fortfarande.",
+        "tier_name": "Översättning S1"
+      },
+      {
+        "annotation_id": "36354444",
+        "start_time": 105.53,
+        "end_time": 108.11,
+        "duration": 2.5799999999999983,
+        "value": "Ja jag är på väg att varva ner haha.",
+        "tier_name": "Översättning S1"
+      }
+    ],
+    "1": [
+      {
+        "annotation_id": "36354370",
+        "start_time": 4.598,
+        "end_time": 4.798,
+        "duration": 0.20000000000000018,
+        "value": "JA@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354371",
+        "start_time": 4.998,
+        "end_time": 5.438,
+        "duration": 0.4399999999999995,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354372",
+        "start_time": 5.572,
+        "end_time": 5.772,
+        "duration": 0.20000000000000018,
+        "value": "glosa@&",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354373",
+        "start_time": 6.252,
+        "end_time": 6.532,
+        "duration": 0.28000000000000025,
+        "value": "FOTBOLL(G)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354374",
+        "start_time": 6.612,
+        "end_time": 6.972,
+        "duration": 0.3600000000000003,
+        "value": "HANDBOLL",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354375",
+        "start_time": 7.132,
+        "end_time": 7.452,
+        "duration": 0.3200000000000003,
+        "value": "BÖRJA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354376",
+        "start_time": 7.532,
+        "end_time": 7.612,
+        "duration": 0.08000000000000007,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354377",
+        "start_time": 7.812,
+        "end_time": 8.172,
+        "duration": 0.3600000000000003,
+        "value": "AVVIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354378",
+        "start_time": 8.372,
+        "end_time": 8.692,
+        "duration": 0.3200000000000003,
+        "value": "MÅNGA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354379",
+        "start_time": 8.852,
+        "end_time": 9.252,
+        "duration": 0.40000000000000036,
+        "value": "REKOMMENDERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354380",
+        "start_time": 9.292,
+        "end_time": 9.412,
+        "duration": 0.120000000000001,
+        "value": "OBJPRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354381",
+        "start_time": 9.532,
+        "end_time": 9.852,
+        "duration": 0.3200000000000003,
+        "value": "VÄLJA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354382",
+        "start_time": 10.092,
+        "end_time": 10.732,
+        "duration": 0.6399999999999988,
+        "value": "IDROTT^KLUBB",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354383",
+        "start_time": 11.892,
+        "end_time": 12.252,
+        "duration": 0.3600000000000012,
+        "value": "STYRELSE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354384",
+        "start_time": 13.012,
+        "end_time": 13.332,
+        "duration": 0.3200000000000003,
+        "value": "FLERA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354385",
+        "start_time": 13.452,
+        "end_time": 13.812,
+        "duration": 0.35999999999999943,
+        "value": "ÅR@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354386",
+        "start_time": 14.052,
+        "end_time": 14.572,
+        "duration": 0.5199999999999996,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354387",
+        "start_time": 14.732,
+        "end_time": 15.012,
+        "duration": 0.28000000000000114,
+        "value": "BÖRJA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354388",
+        "start_time": 15.052,
+        "end_time": 15.172,
+        "duration": 0.120000000000001,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354389",
+        "start_time": 15.652,
+        "end_time": 15.932,
+        "duration": 0.28000000000000114,
+        "value": "ÄLDRE",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354390",
+        "start_time": 16.176,
+        "end_time": 16.536,
+        "duration": 0.360000000000003,
+        "value": "TID-FRAMÅT@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354391",
+        "start_time": 16.576,
+        "end_time": 16.696,
+        "duration": 0.120000000000001,
+        "value": "BÖRJA@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354392",
+        "start_time": 16.976,
+        "end_time": 17.256,
+        "duration": 0.28000000000000114,
+        "value": "AVVIKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354393",
+        "start_time": 17.456,
+        "end_time": 18.096,
+        "duration": 0.6400000000000006,
+        "value": "DÖVFÖRENING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354394",
+        "start_time": 18.576,
+        "end_time": 18.776,
+        "duration": 0.1999999999999993,
+        "value": "PERF",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354395",
+        "start_time": 18.896,
+        "end_time": 19.496,
+        "duration": 0.5999999999999979,
+        "value": "TID-FRAMÅT",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354396",
+        "start_time": 19.696,
+        "end_time": 19.856,
+        "duration": 0.16000000000000014,
+        "value": "SEDAN(L)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354397",
+        "start_time": 19.976,
+        "end_time": 20.376,
+        "duration": 0.40000000000000213,
+        "value": "SLUTA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354398",
+        "start_time": 20.536,
+        "end_time": 20.936,
+        "duration": 0.3999999999999986,
+        "value": "TILLBAKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354399",
+        "start_time": 21.096,
+        "end_time": 21.296,
+        "duration": 0.1999999999999993,
+        "value": "OMIGEN",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354400",
+        "start_time": 21.496,
+        "end_time": 21.656,
+        "duration": 0.16000000000000014,
+        "value": "PEK@z",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354401",
+        "start_time": 21.81,
+        "end_time": 21.89,
+        "duration": 0.08000000000000185,
+        "value": "TRIVAS(J)",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354402",
+        "start_time": 22.05,
+        "end_time": 22.41,
+        "duration": 0.35999999999999943,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354403",
+        "start_time": 22.53,
+        "end_time": 22.85,
+        "duration": 0.3200000000000003,
+        "value": "PEK",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354404",
+        "start_time": 23.37,
+        "end_time": 23.65,
+        "duration": 0.2799999999999976,
+        "value": "BRA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354405",
+        "start_time": 23.81,
+        "end_time": 24.45,
+        "duration": 0.6400000000000006,
+        "value": "UMGÅS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354406",
+        "start_time": 24.57,
+        "end_time": 24.73,
+        "duration": 0.16000000000000014,
+        "value": "VAD",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354407",
+        "start_time": 25.09,
+        "end_time": 25.53,
+        "duration": 0.4400000000000013,
+        "value": "HINDER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354408",
+        "start_time": 25.69,
+        "end_time": 25.97,
+        "duration": 0.2799999999999976,
+        "value": "VIKTIG",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354409",
+        "start_time": 26.17,
+        "end_time": 26.93,
+        "duration": 0.759999999999998,
+        "value": "DÖV(L)^FÖRENING",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354410",
+        "start_time": 27.13,
+        "end_time": 27.49,
+        "duration": 0.35999999999999943,
+        "value": "POSS",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354411",
+        "start_time": 27.73,
+        "end_time": 28.45,
+        "duration": 0.7199999999999989,
+        "value": "VERKSAMHET(J)^HET@b",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354412",
+        "start_time": 28.69,
+        "end_time": 28.73,
+        "duration": 0.03999999999999915,
+        "value": "TYCKA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354413",
+        "start_time": 28.81,
+        "end_time": 28.97,
+        "duration": 0.16000000000000014,
+        "value": "PRO1",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354414",
+        "start_time": 46.793,
+        "end_time": 47.073,
+        "duration": 0.28000000000000114,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354415",
+        "start_time": 59.656,
+        "end_time": 59.976,
+        "duration": 0.3200000000000003,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354416",
+        "start_time": 73.173,
+        "end_time": 73.533,
+        "duration": 0.35999999999999943,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354417",
+        "start_time": 78.378,
+        "end_time": 78.618,
+        "duration": 0.23999999999999488,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354418",
+        "start_time": 88.824,
+        "end_time": 89.064,
+        "duration": 0.23999999999999488,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354419",
+        "start_time": 104.15,
+        "end_time": 104.47,
+        "duration": 0.3199999999999932,
+        "value": "VARVA",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354420",
+        "start_time": 104.67,
+        "end_time": 105.11,
+        "duration": 0.4399999999999977,
+        "value": "NER",
+        "tier_name": "Glosa_DH S2"
+      },
+      {
+        "annotation_id": "36354421",
+        "start_time": 107.628,
+        "end_time": 107.948,
+        "duration": 0.3199999999999932,
+        "value": "JA@ub",
+        "tier_name": "Glosa_DH S2"
+      }
+    ],
+    "4": [
+      {
+        "annotation_id": "36354445",
+        "start_time": 4.31,
+        "end_time": 12.4,
+        "duration": 8.09,
+        "value": "Jo ehh när jag spelade fotboll och handboll då började jag med det,  ja jag blev rekommenderad att sitta i idrottsklubbens styrelse",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354446",
+        "start_time": 12.45,
+        "end_time": 14.44,
+        "duration": 1.9900000000000002,
+        "value": "och där satt jag i flera år",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354447",
+        "start_time": 14.49,
+        "end_time": 18.39,
+        "duration": 3.9000000000000004,
+        "value": "fast sen när jag blev äldre så började jag i dövföreningen i stället",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354448",
+        "start_time": 18.44,
+        "end_time": 22.29,
+        "duration": 3.849999999999998,
+        "value": "och satt där en tid, sen så slutade jag men så har jag kommit tillbaka igen och jag har trivts bra där",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354449",
+        "start_time": 22.33,
+        "end_time": 29.35,
+        "duration": 7.020000000000003,
+        "value": "eftersom dom har bra gemenskap där man får veta vad som händer och det är en viktig del i dövföreningens verksamhet tycker jag.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354450",
+        "start_time": 72.959,
+        "end_time": 74.089,
+        "duration": 1.1299999999999955,
+        "value": "Ja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354451",
+        "start_time": 88.559,
+        "end_time": 89.449,
+        "duration": 0.8900000000000006,
+        "value": "Ja.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354452",
+        "start_time": 103.26,
+        "end_time": 105.5,
+        "duration": 2.239999999999995,
+        "value": "Mm och nu varvar du ner haha.",
+        "tier_name": "Översättning S2"
+      },
+      {
+        "annotation_id": "36354453",
+        "start_time": 107.31,
+        "end_time": 108.45,
+        "duration": 1.1400000000000006,
+        "value": "Ja haha.",
+        "tier_name": "Översättning S2"
+      }
+    ]
+  },
+  "blocksdata": [
+    {
+      "id": 0,
+      "name": "Glosa_DH S1",
+      "annotations": [
+        {
+          "t": "JA@ub",
+          "s": 29983,
+          "e": 30263,
+          "id": 36354258
+        },
+        {
+          "t": "STÄMMA(J)",
+          "s": 30463,
+          "e": 31223,
+          "id": 36354259
+        },
+        {
+          "t": "PRO1",
+          "s": 31503,
+          "e": 32543,
+          "id": 36354260
+        },
+        {
+          "t": "BLI(L)",
+          "s": 33050,
+          "e": 33450,
+          "id": 36354261
+        },
+        {
+          "t": "BÖRJA",
+          "s": 33770,
+          "e": 33950,
+          "id": 36354262
+        },
+        {
+          "t": "VARA-MED",
+          "s": 34350,
+          "e": 34930,
+          "id": 36354263
+        },
+        {
+          "t": "LEDAMOT",
+          "s": 36370,
+          "e": 37010,
+          "id": 36354264
+        },
+        {
+          "t": "INUTI",
+          "s": 37130,
+          "e": 37690,
+          "id": 36354265
+        },
+        {
+          "t": "IDROTT^KLUBB",
+          "s": 37890,
+          "e": 39050,
+          "id": 36354266
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 40530,
+          "e": 41210,
+          "id": 36354267
+        },
+        {
+          "t": "KASSÖR",
+          "s": 41490,
+          "e": 42410,
+          "id": 36354268
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 42570,
+          "e": 42810,
+          "id": 36354269
+        },
+        {
+          "t": "BLI(L)",
+          "s": 43050,
+          "e": 43290,
+          "id": 36354270
+        },
+        {
+          "t": "IDROTT^KLUBB",
+          "s": 43330,
+          "e": 43810,
+          "id": 36354271
+        },
+        {
+          "t": "ORDFÖRANDE",
+          "s": 43970,
+          "e": 45450,
+          "id": 36354272
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 45770,
+          "e": 46010,
+          "id": 36354273
+        },
+        {
+          "t": "SEX",
+          "s": 46130,
+          "e": 46370,
+          "id": 36354274
+        },
+        {
+          "t": "ÅR",
+          "s": 46450,
+          "e": 47490,
+          "id": 36354275
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 47850,
+          "e": 48170,
+          "id": 36354276
+        },
+        {
+          "t": "NÅGOT-KOMMA-MELLAN@z",
+          "s": 48650,
+          "e": 49130,
+          "id": 36354277
+        },
+        {
+          "t": "PEK>långf",
+          "s": 49410,
+          "e": 49570,
+          "id": 36354278
+        },
+        {
+          "t": "DÖVFÖRENING",
+          "s": 49890,
+          "e": 50490,
+          "id": 36354279
+        },
+        {
+          "t": "ORDFÖRANDE",
+          "s": 50650,
+          "e": 51010,
+          "id": 36354280
+        },
+        {
+          "t": "SUMMA@z",
+          "s": 51130,
+          "e": 51250,
+          "id": 36354281
+        },
+        {
+          "t": "BLI@z",
+          "s": 51290,
+          "e": 51530,
+          "id": 36354282
+        },
+        {
+          "t": "SITTA@z",
+          "s": 52232,
+          "e": 52552,
+          "id": 36354283
+        },
+        {
+          "t": "SITTA",
+          "s": 52752,
+          "e": 53272,
+          "id": 36354284
+        },
+        {
+          "t": "ORDFÖRANDE",
+          "s": 54432,
+          "e": 55072,
+          "id": 36354285
+        },
+        {
+          "t": "DYKA-UPP",
+          "s": 55352,
+          "e": 55672,
+          "id": 36354286
+        },
+        {
+          "t": "GAMMAL(5)",
+          "s": 56072,
+          "e": 56552,
+          "id": 36354287
+        },
+        {
+          "t": "ÄLVSBORG@en",
+          "s": 56912,
+          "e": 57472,
+          "id": 36354288
+        },
+        {
+          "t": "LÄN",
+          "s": 57672,
+          "e": 58352,
+          "id": 36354289
+        },
+        {
+          "t": "GAMMAL(5)@z",
+          "s": 58552,
+          "e": 58672,
+          "id": 36354290
+        },
+        {
+          "t": "BLI@z",
+          "s": 58912,
+          "e": 58992,
+          "id": 36354291
+        },
+        {
+          "t": "ORDFÖRANDE",
+          "s": 59072,
+          "e": 59352,
+          "id": 36354292
+        },
+        {
+          "t": "BLI(L)",
+          "s": 59512,
+          "e": 59712,
+          "id": 36354293
+        },
+        {
+          "t": "ALLA>pekf-långf-ringf",
+          "s": 59912,
+          "e": 60032,
+          "id": 36354294
+        },
+        {
+          "t": "ORDFÖRANDE>pekf",
+          "s": 60112,
+          "e": 60552,
+          "id": 36354295
+        },
+        {
+          "t": "ORDFÖRANDE>långf",
+          "s": 60672,
+          "e": 60872,
+          "id": 36354296
+        },
+        {
+          "t": "ORDFÖRANDE>tre",
+          "s": 60912,
+          "e": 61032,
+          "id": 36354297
+        },
+        {
+          "t": "TRE",
+          "s": 61112,
+          "e": 61352,
+          "id": 36354298
+        },
+        {
+          "t": "PEK>pekf",
+          "s": 61592,
+          "e": 61672,
+          "id": 36354299
+        },
+        {
+          "t": "IDROTT^KLUBB",
+          "s": 61872,
+          "e": 62072,
+          "id": 36354300
+        },
+        {
+          "t": "PEK>långf",
+          "s": 62192,
+          "e": 62312,
+          "id": 36354301
+        },
+        {
+          "t": "DÖVFÖRENING",
+          "s": 62512,
+          "e": 62832,
+          "id": 36354302
+        },
+        {
+          "t": "PEK>ringf",
+          "s": 62992,
+          "e": 63072,
+          "id": 36354303
+        },
+        {
+          "t": "ÄDLF@b",
+          "s": 63272,
+          "e": 64032,
+          "id": 36354304
+        },
+        {
+          "t": "FÖRUT",
+          "s": 64552,
+          "e": 64832,
+          "id": 36354305
+        },
+        {
+          "t": "NAMN",
+          "s": 64992,
+          "e": 65192,
+          "id": 36354306
+        },
+        {
+          "t": "PEK>ringf",
+          "s": 65552,
+          "e": 66032,
+          "id": 36354307
+        },
+        {
+          "t": "PRO1",
+          "s": 67232,
+          "e": 67392,
+          "id": 36354308
+        },
+        {
+          "t": "SLUTA",
+          "s": 67592,
+          "e": 67912,
+          "id": 36354309
+        },
+        {
+          "t": "IDROTT",
+          "s": 67959,
+          "e": 68079,
+          "id": 36354310
+        },
+        {
+          "t": "KLUBB",
+          "s": 68119,
+          "e": 68319,
+          "id": 36354311
+        },
+        {
+          "t": "MÅSTE",
+          "s": 68359,
+          "e": 68439,
+          "id": 36354312
+        },
+        {
+          "t": "PRO1",
+          "s": 68559,
+          "e": 68639,
+          "id": 36354313
+        },
+        {
+          "t": "LÄMNA",
+          "s": 68679,
+          "e": 68879,
+          "id": 36354314
+        },
+        {
+          "t": "FÖR",
+          "s": 68959,
+          "e": 69239,
+          "id": 36354315
+        },
+        {
+          "t": "MYCKET",
+          "s": 69319,
+          "e": 69599,
+          "id": 36354316
+        },
+        {
+          "t": "BLI(L)",
+          "s": 69839,
+          "e": 69959,
+          "id": 36354317
+        },
+        {
+          "t": "PEK>pekf",
+          "s": 70919,
+          "e": 71159,
+          "id": 36354318
+        },
+        {
+          "t": "idrott@&",
+          "s": 71359,
+          "e": 71599,
+          "id": 36354319
+        },
+        {
+          "t": "DÖVFÖRENING",
+          "s": 71759,
+          "e": 71999,
+          "id": 36354320
+        },
+        {
+          "t": "OCH",
+          "s": 72199,
+          "e": 72399,
+          "id": 36354321
+        },
+        {
+          "t": "ÄDLF@b",
+          "s": 72519,
+          "e": 73319,
+          "id": 36354322
+        },
+        {
+          "t": "ÄDLF@b@z",
+          "s": 75122,
+          "e": 75682,
+          "id": 36354323
+        },
+        {
+          "t": "BILDA",
+          "s": 75802,
+          "e": 76002,
+          "id": 36354324
+        },
+        {
+          "t": "REGION",
+          "s": 76122,
+          "e": 76842,
+          "id": 36354325
+        },
+        {
+          "t": "FÖRÄNDRA",
+          "s": 77042,
+          "e": 77722,
+          "id": 36354326
+        },
+        {
+          "t": "REGION",
+          "s": 77882,
+          "e": 78562,
+          "id": 36354327
+        },
+        {
+          "t": "VÄSTERGÖTLAND@en",
+          "s": 78704,
+          "e": 79144,
+          "id": 36354328
+        },
+        {
+          "t": "REGION",
+          "s": 79184,
+          "e": 79704,
+          "id": 36354329
+        },
+        {
+          "t": "FÖRÄNDRA",
+          "s": 79935,
+          "e": 80335,
+          "id": 36354330
+        },
+        {
+          "t": "ÄDLF@b",
+          "s": 80415,
+          "e": 81055,
+          "id": 36354331
+        },
+        {
+          "t": "TYNA",
+          "s": 81375,
+          "e": 81655,
+          "id": 36354332
+        },
+        {
+          "t": "PEK",
+          "s": 82135,
+          "e": 82295,
+          "id": 36354333
+        },
+        {
+          "t": "DYKA-UPP",
+          "s": 82415,
+          "e": 83095,
+          "id": 36354334
+        },
+        {
+          "t": "PRO1.FL",
+          "s": 83335,
+          "e": 84015,
+          "id": 36354335
+        },
+        {
+          "t": "MEDLEM",
+          "s": 84255,
+          "e": 84495,
+          "id": 36354336
+        },
+        {
+          "t": "INUTI",
+          "s": 84615,
+          "e": 84735,
+          "id": 36354337
+        },
+        {
+          "t": "REGION",
+          "s": 84815,
+          "e": 85255,
+          "id": 36354338
+        },
+        {
+          "t": "FÖRESLÅ",
+          "s": 86135,
+          "e": 86375,
+          "id": 36354339
+        },
+        {
+          "t": "OBJPRO1",
+          "s": 86535,
+          "e": 86775,
+          "id": 36354340
+        },
+        {
+          "t": "glosa@&",
+          "s": 86877,
+          "e": 87117,
+          "id": 36354341
+        },
+        {
+          "t": "ORDFÖRANDE",
+          "s": 87397,
+          "e": 87837,
+          "id": 36354342
+        },
+        {
+          "t": "INUTI",
+          "s": 87877,
+          "e": 88197,
+          "id": 36354343
+        },
+        {
+          "t": "VGDI@b@en",
+          "s": 88317,
+          "e": 89197,
+          "id": 36354344
+        },
+        {
+          "t": "PRO1",
+          "s": 89437,
+          "e": 89557,
+          "id": 36354345
+        },
+        {
+          "t": "SITTA",
+          "s": 89757,
+          "e": 89877,
+          "id": 36354346
+        },
+        {
+          "t": "I@b",
+          "s": 89957,
+          "e": 90117,
+          "id": 36354347
+        },
+        {
+          "t": "ÅTTA",
+          "s": 90237,
+          "e": 90597,
+          "id": 36354348
+        },
+        {
+          "t": "ÅR",
+          "s": 90677,
+          "e": 91757,
+          "id": 36354349
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 92357,
+          "e": 93557,
+          "id": 36354350
+        },
+        {
+          "t": "PRO1",
+          "s": 94237,
+          "e": 94437,
+          "id": 36354351
+        },
+        {
+          "t": "SLUTA(da)",
+          "s": 94507,
+          "e": 94747,
+          "id": 36354352
+        },
+        {
+          "t": "GLOSA:(AVGÅ)",
+          "s": 94947,
+          "e": 95347,
+          "id": 36354353
+        },
+        {
+          "t": "LÄMNA",
+          "s": 95507,
+          "e": 95787,
+          "id": 36354354
+        },
+        {
+          "t": "NY@b",
+          "s": 95867,
+          "e": 96787,
+          "id": 36354355
+        },
+        {
+          "t": "LEDARE",
+          "s": 97027,
+          "e": 97827,
+          "id": 36354356
+        },
+        {
+          "t": "NU@b",
+          "s": 98467,
+          "e": 98547,
+          "id": 36354357
+        },
+        {
+          "t": "PRO1",
+          "s": 98587,
+          "e": 98627,
+          "id": 36354358
+        },
+        {
+          "t": "FORTFARANDE(da)",
+          "s": 98947,
+          "e": 98987,
+          "id": 36354359
+        },
+        {
+          "t": "KVAR",
+          "s": 99067,
+          "e": 99547,
+          "id": 36354360
+        },
+        {
+          "t": "TROLLHÄTTAN@en",
+          "s": 99867,
+          "e": 100027,
+          "id": 36354361
+        },
+        {
+          "t": "DÖVFÖRENING",
+          "s": 100267,
+          "e": 100467,
+          "id": 36354362
+        },
+        {
+          "t": "ORDFÖRANDE",
+          "s": 100547,
+          "e": 101027,
+          "id": 36354363
+        },
+        {
+          "t": "PÅGÅ",
+          "s": 101267,
+          "e": 101867,
+          "id": 36354364
+        },
+        {
+          "t": "I@b^DAG",
+          "s": 102067,
+          "e": 102787,
+          "id": 36354365
+        },
+        {
+          "t": "PÅ",
+          "s": 106080,
+          "e": 106200,
+          "id": 36354366
+        },
+        {
+          "t": "VÄG",
+          "s": 106280,
+          "e": 106480,
+          "id": 36354367
+        },
+        {
+          "t": "VARVA",
+          "s": 106640,
+          "e": 106760,
+          "id": 36354368
+        },
+        {
+          "t": "NER",
+          "s": 106840,
+          "e": 107280,
+          "id": 36354369
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Glosa_NonDH S1",
+      "annotations": [
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 49152,
+          "e": 51352,
+          "id": 36354422
+        },
+        {
+          "t": "TVÅ",
+          "s": 51592,
+          "e": 51872,
+          "id": 36354423
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 54392,
+          "e": 54992,
+          "id": 36354424
+        },
+        {
+          "t": "BOJ-LIST-TRE",
+          "s": 55450,
+          "e": 56490,
+          "id": 36354425
+        },
+        {
+          "t": "BOJ-LIST-TRE",
+          "s": 59048,
+          "e": 68168,
+          "id": 36354426
+        },
+        {
+          "t": "TVÅ",
+          "s": 70189,
+          "e": 70429,
+          "id": 36354427
+        },
+        {
+          "t": "KVAR",
+          "s": 70469,
+          "e": 70669,
+          "id": 36354428
+        },
+        {
+          "t": "BOJ-LIST-TVÅ",
+          "s": 70949,
+          "e": 75109,
+          "id": 36354429
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Översättning S1",
+      "annotations": [
+        {
+          "t": "Ja det är riktigt,",
+          "s": 29580,
+          "e": 31250,
+          "id": 36354430
+        },
+        {
+          "t": "jag började... som ledamot i idrottsklubben",
+          "s": 31290,
+          "e": 39820,
+          "id": 36354431
+        },
+        {
+          "t": "och efter en tid blev jag kassör och därefter blev jag ordförande i idrottsklubben",
+          "s": 39880,
+          "e": 45290,
+          "id": 36354432
+        },
+        {
+          "t": "och det var jag i sex år",
+          "s": 45320,
+          "e": 48000,
+          "id": 36354433
+        },
+        {
+          "t": "men så halkade jag över och blev ordförande i dövas förening också så då satt jag som ordförande på två ställen",
+          "s": 48050,
+          "e": 54910,
+          "id": 36354434
+        },
+        {
+          "t": "och så blev jag ordförande i gamla Älvsborgs dövas länsförbund också så då satt jag som ordförande på tre ställen,",
+          "s": 54950,
+          "e": 61580,
+          "id": 36354435
+        },
+        {
+          "t": "i idrottsklubben, i dövas förening och i ÄDLF (Älvsborgs dövas länsförbund) som dom hette tidigare",
+          "s": 61630,
+          "e": 65760,
+          "id": 36354436
+        },
+        {
+          "t": "men så slutade jag i idrottsklubben eftersom det blev för mycket",
+          "s": 65840,
+          "e": 69530,
+          "id": 36354437
+        },
+        {
+          "t": "så då satt jag bara i dövas förening och i ÄDLF",
+          "s": 69570,
+          "e": 74000,
+          "id": 36354438
+        },
+        {
+          "t": "och senare så bildades en region, Västra Götalandsregionen och då blev det förändringar och ÄDLF upphörde,",
+          "s": 74059,
+          "e": 82070,
+          "id": 36354439
+        },
+        {
+          "t": "sen föreslog medlemmarna i regionen mig till ordförande i VGDI",
+          "s": 82129,
+          "e": 89279,
+          "id": 36354440
+        },
+        {
+          "t": "och där satt jag i åtta år,",
+          "s": 89349,
+          "e": 91869,
+          "id": 36354441
+        },
+        {
+          "t": "ja och efter dom åren så tröttnade jag och avgick och lämnade över till den personen som skulle ta över",
+          "s": 91910,
+          "e": 97840,
+          "id": 36354442
+        },
+        {
+          "t": "och så satt jag kvar som ordförande i Trollhättans Dövas Förening och det gör jag fortfarande.",
+          "s": 97880,
+          "e": 103670,
+          "id": 36354443
+        },
+        {
+          "t": "Ja jag är på väg att varva ner haha.",
+          "s": 105530,
+          "e": 108110,
+          "id": 36354444
+        }
+      ]
+    },
+    {
+      "id": 1,
+      "name": "Glosa_DH S2",
+      "annotations": [
+        {
+          "t": "JA@b",
+          "s": 4598,
+          "e": 4798,
+          "id": 36354370
+        },
+        {
+          "t": "PRO1",
+          "s": 4998,
+          "e": 5438,
+          "id": 36354371
+        },
+        {
+          "t": "glosa@&",
+          "s": 5572,
+          "e": 5772,
+          "id": 36354372
+        },
+        {
+          "t": "FOTBOLL(G)",
+          "s": 6252,
+          "e": 6532,
+          "id": 36354373
+        },
+        {
+          "t": "HANDBOLL",
+          "s": 6612,
+          "e": 6972,
+          "id": 36354374
+        },
+        {
+          "t": "BÖRJA",
+          "s": 7132,
+          "e": 7452,
+          "id": 36354375
+        },
+        {
+          "t": "PRO1",
+          "s": 7532,
+          "e": 7612,
+          "id": 36354376
+        },
+        {
+          "t": "AVVIKA",
+          "s": 7812,
+          "e": 8172,
+          "id": 36354377
+        },
+        {
+          "t": "MÅNGA",
+          "s": 8372,
+          "e": 8692,
+          "id": 36354378
+        },
+        {
+          "t": "REKOMMENDERA",
+          "s": 8852,
+          "e": 9252,
+          "id": 36354379
+        },
+        {
+          "t": "OBJPRO1",
+          "s": 9292,
+          "e": 9412,
+          "id": 36354380
+        },
+        {
+          "t": "VÄLJA",
+          "s": 9532,
+          "e": 9852,
+          "id": 36354381
+        },
+        {
+          "t": "IDROTT^KLUBB",
+          "s": 10092,
+          "e": 10732,
+          "id": 36354382
+        },
+        {
+          "t": "STYRELSE",
+          "s": 11892,
+          "e": 12252,
+          "id": 36354383
+        },
+        {
+          "t": "FLERA",
+          "s": 13012,
+          "e": 13332,
+          "id": 36354384
+        },
+        {
+          "t": "ÅR@b",
+          "s": 13452,
+          "e": 13812,
+          "id": 36354385
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 14052,
+          "e": 14572,
+          "id": 36354386
+        },
+        {
+          "t": "BÖRJA",
+          "s": 14732,
+          "e": 15012,
+          "id": 36354387
+        },
+        {
+          "t": "PRO1",
+          "s": 15052,
+          "e": 15172,
+          "id": 36354388
+        },
+        {
+          "t": "ÄLDRE",
+          "s": 15652,
+          "e": 15932,
+          "id": 36354389
+        },
+        {
+          "t": "TID-FRAMÅT@z",
+          "s": 16176,
+          "e": 16536,
+          "id": 36354390
+        },
+        {
+          "t": "BÖRJA@z",
+          "s": 16576,
+          "e": 16696,
+          "id": 36354391
+        },
+        {
+          "t": "AVVIKA",
+          "s": 16976,
+          "e": 17256,
+          "id": 36354392
+        },
+        {
+          "t": "DÖVFÖRENING",
+          "s": 17456,
+          "e": 18096,
+          "id": 36354393
+        },
+        {
+          "t": "PERF",
+          "s": 18576,
+          "e": 18776,
+          "id": 36354394
+        },
+        {
+          "t": "TID-FRAMÅT",
+          "s": 18896,
+          "e": 19496,
+          "id": 36354395
+        },
+        {
+          "t": "SEDAN(L)",
+          "s": 19696,
+          "e": 19856,
+          "id": 36354396
+        },
+        {
+          "t": "SLUTA",
+          "s": 19976,
+          "e": 20376,
+          "id": 36354397
+        },
+        {
+          "t": "TILLBAKA",
+          "s": 20536,
+          "e": 20936,
+          "id": 36354398
+        },
+        {
+          "t": "OMIGEN",
+          "s": 21096,
+          "e": 21296,
+          "id": 36354399
+        },
+        {
+          "t": "PEK@z",
+          "s": 21496,
+          "e": 21656,
+          "id": 36354400
+        },
+        {
+          "t": "TRIVAS(J)",
+          "s": 21810,
+          "e": 21890,
+          "id": 36354401
+        },
+        {
+          "t": "BRA",
+          "s": 22050,
+          "e": 22410,
+          "id": 36354402
+        },
+        {
+          "t": "PEK",
+          "s": 22530,
+          "e": 22850,
+          "id": 36354403
+        },
+        {
+          "t": "BRA",
+          "s": 23370,
+          "e": 23650,
+          "id": 36354404
+        },
+        {
+          "t": "UMGÅS",
+          "s": 23810,
+          "e": 24450,
+          "id": 36354405
+        },
+        {
+          "t": "VAD",
+          "s": 24570,
+          "e": 24730,
+          "id": 36354406
+        },
+        {
+          "t": "HINDER",
+          "s": 25090,
+          "e": 25530,
+          "id": 36354407
+        },
+        {
+          "t": "VIKTIG",
+          "s": 25690,
+          "e": 25970,
+          "id": 36354408
+        },
+        {
+          "t": "DÖV(L)^FÖRENING",
+          "s": 26170,
+          "e": 26930,
+          "id": 36354409
+        },
+        {
+          "t": "POSS",
+          "s": 27130,
+          "e": 27490,
+          "id": 36354410
+        },
+        {
+          "t": "VERKSAMHET(J)^HET@b",
+          "s": 27730,
+          "e": 28450,
+          "id": 36354411
+        },
+        {
+          "t": "TYCKA",
+          "s": 28690,
+          "e": 28730,
+          "id": 36354412
+        },
+        {
+          "t": "PRO1",
+          "s": 28810,
+          "e": 28970,
+          "id": 36354413
+        },
+        {
+          "t": "JA@ub",
+          "s": 46793,
+          "e": 47073,
+          "id": 36354414
+        },
+        {
+          "t": "JA@ub",
+          "s": 59656,
+          "e": 59976,
+          "id": 36354415
+        },
+        {
+          "t": "JA@ub",
+          "s": 73173,
+          "e": 73533,
+          "id": 36354416
+        },
+        {
+          "t": "JA@ub",
+          "s": 78378,
+          "e": 78618,
+          "id": 36354417
+        },
+        {
+          "t": "JA@ub",
+          "s": 88824,
+          "e": 89064,
+          "id": 36354418
+        },
+        {
+          "t": "VARVA",
+          "s": 104150,
+          "e": 104470,
+          "id": 36354419
+        },
+        {
+          "t": "NER",
+          "s": 104670,
+          "e": 105110,
+          "id": 36354420
+        },
+        {
+          "t": "JA@ub",
+          "s": 107628,
+          "e": 107948,
+          "id": 36354421
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "name": "Översättning S2",
+      "annotations": [
+        {
+          "t": "Jo ehh när jag spelade fotboll och handboll då började jag med det,  ja jag blev rekommenderad att sitta i idrottsklubbens styrelse",
+          "s": 4310,
+          "e": 12400,
+          "id": 36354445
+        },
+        {
+          "t": "och där satt jag i flera år",
+          "s": 12450,
+          "e": 14440,
+          "id": 36354446
+        },
+        {
+          "t": "fast sen när jag blev äldre så började jag i dövföreningen i stället",
+          "s": 14490,
+          "e": 18390,
+          "id": 36354447
+        },
+        {
+          "t": "och satt där en tid, sen så slutade jag men så har jag kommit tillbaka igen och jag har trivts bra där",
+          "s": 18440,
+          "e": 22290,
+          "id": 36354448
+        },
+        {
+          "t": "eftersom dom har bra gemenskap där man får veta vad som händer och det är en viktig del i dövföreningens verksamhet tycker jag.",
+          "s": 22330,
+          "e": 29350,
+          "id": 36354449
+        },
+        {
+          "t": "Ja.",
+          "s": 72959,
+          "e": 74089,
+          "id": 36354450
+        },
+        {
+          "t": "Ja.",
+          "s": 88559,
+          "e": 89449,
+          "id": 36354451
+        },
+        {
+          "t": "Mm och nu varvar du ner haha.",
+          "s": 103260,
+          "e": 105500,
+          "id": 36354452
+        },
+        {
+          "t": "Ja haha.",
+          "s": 107310,
+          "e": 108450,
+          "id": 36354453
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "source": "teckensprakskorpus.su.se",
+    "format": "blocksdata",
+    "time_units": "milliseconds",
+    "language": "sv",
+    "extraction_method": "javascript_blocksdata"
+  }
+}
