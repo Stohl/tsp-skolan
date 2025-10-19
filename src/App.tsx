@@ -20,6 +20,7 @@ import OvningPage from './pages/OvningPage';
 import ListorPage from './pages/ListorPage';
 import LexikonPage from './pages/LexikonPage';
 import KorpusPage from './pages/KorpusPage';
+import LekrummetPage from './pages/LekrummetPage';
 import InstallningarPage from './pages/InstallningarPage';
 import HjalpPage from './pages/HjalpPage';
 import StartGuideDialog from './components/StartGuideDialog';
@@ -53,6 +54,11 @@ function AppContent() {
     const state = window.history.state;
     return state?.showKorpus ?? false;
   });
+  // State för att hantera om lekrummet-sidan ska visas
+  const [showLekrummet, setShowLekrummet] = useState(() => {
+    const state = window.history.state;
+    return state?.showLekrummet ?? false;
+  });
   // State för att hantera start-guiden
   const [showStartGuide, setShowStartGuide] = useState(false);
   // State för att hantera dialog om att lägga till ordlistor
@@ -72,11 +78,20 @@ function AppContent() {
 
   const navigateToKorpus = () => {
     window.history.pushState(
-      { page: currentPage, showHelp: false, showKorpus: true },
+      { page: currentPage, showHelp: false, showKorpus: true, showLekrummet: false },
       '',
       window.location.href
     );
     setShowKorpus(true);
+  };
+
+  const navigateToLekrummet = () => {
+    window.history.pushState(
+      { page: currentPage, showHelp: false, showKorpus: false, showLekrummet: true },
+      '',
+      window.location.href
+    );
+    setShowLekrummet(true);
   };
 
   const navigateBack = () => {
@@ -88,11 +103,27 @@ function AppContent() {
     // Om det inte finns något state, skapa initial state
     if (!window.history.state) {
       window.history.replaceState(
-        { page: currentPage, showHelp: false, showKorpus: false },
+        { page: currentPage, showHelp: false, showKorpus: false, showLekrummet: false },
         '',
         window.location.href
       );
     }
+  }, []);
+
+  // Lyssna på navigation till ÖvningPage från Lekrummet
+  React.useEffect(() => {
+    const handleNavigateToExercise = () => {
+      setCurrentPage(0);
+      setShowLekrummet(false);
+      setShowKorpus(false);
+      setShowHelp(false);
+    };
+
+    window.addEventListener('navigateToExercise', handleNavigateToExercise);
+    
+    return () => {
+      window.removeEventListener('navigateToExercise', handleNavigateToExercise);
+    };
   }, []);
 
   // Kontrollera om användaren är ny (ingen sparad data)
@@ -207,6 +238,7 @@ function AppContent() {
         setCurrentPage(state.page ?? 0);
         setShowHelp(state.showHelp ?? false);
         setShowKorpus(state.showKorpus ?? false);
+        setShowLekrummet(state.showLekrummet ?? false);
       }
     };
 
@@ -223,7 +255,7 @@ function AppContent() {
 
   // Array med alla sidor för enkel rendering
   const pages = [
-    <OvningPage key="ovning" onShowKorpus={navigateToKorpus} onOpenMenu={() => setShowMenu(true)} />,
+    <OvningPage key="ovning" onShowKorpus={navigateToKorpus} onShowLekrummet={navigateToLekrummet} onOpenMenu={() => setShowMenu(true)} />,
     <ListorPage key="listor" />,
     <LexikonPage key="lexikon" />,
     <InstallningarPage key="installningar" onShowHelp={navigateToHelp} />
@@ -233,7 +265,7 @@ function AppContent() {
   const handlePageChange = (event: React.SyntheticEvent, newValue: number) => {
     // Pusha ny history state
     window.history.pushState(
-      { page: newValue, showHelp: false, showKorpus: false },
+      { page: newValue, showHelp: false, showKorpus: false, showLekrummet: false },
       '',
       window.location.href
     );
@@ -278,6 +310,8 @@ function AppContent() {
             <HjalpPage onBack={navigateBack} />
           ) : showKorpus ? (
             <KorpusPage onBack={navigateBack} />
+          ) : showLekrummet ? (
+            <LekrummetPage onBack={navigateBack} />
           ) : (
             pages[currentPage]
           )}

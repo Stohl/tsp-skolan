@@ -1,0 +1,588 @@
+import React, { useState, useEffect, useMemo } from 'react';
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Button,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+  Checkbox,
+  TextField,
+  InputAdornment,
+  Collapse,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Alert,
+  Chip,
+  Divider,
+  Fab
+} from '@mui/material';
+import {
+  Build,
+  Add,
+  Search,
+  ExpandMore,
+  ExpandLess,
+  Delete,
+  Edit,
+  PlayArrow,
+  ArrowBack,
+  Share
+} from '@mui/icons-material';
+import { useDatabase } from '../contexts/DatabaseContext';
+import { getAllWordLists, getWordsFromList, CustomWordList } from '../types/wordLists';
+
+// Interface för delad ordlista från URL
+interface SharedWordList {
+  name: string;
+  wordIds: string[];
+}
+
+
+const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+  const { wordDatabase, wordIndex } = useDatabase();
+  const [customWordLists, setCustomWordLists] = useState<CustomWordList[]>([]);
+  const [selectedLists, setSelectedLists] = useState<string[]>([]);
+  const [showAppLists, setShowAppLists] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showCreateDialog, setShowCreateDialog] = useState(false);
+  const [showSharedDialog, setShowSharedDialog] = useState(false);
+  const [sharedWordList, setSharedWordList] = useState<SharedWordList | null>(null);
+  const [sortBy, setSortBy] = useState<'alphabetical' | 'recent'>('recent');
+  
+  // States för att skapa nya ordlistor
+  const [newListName, setNewListName] = useState('');
+  const [newListDescription, setNewListDescription] = useState('');
+  const [selectedWordIds, setSelectedWordIds] = useState<string[]>([]);
+  const [wordSearchQuery, setWordSearchQuery] = useState('');
+  
+
+  // Ladda anpassade ordlistor från localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('customWordLists');
+    if (saved) {
+      try {
+        setCustomWordLists(JSON.parse(saved));
+      } catch (error) {
+        console.error('Error loading custom word lists:', error);
+      }
+    }
+  }, []);
+
+  // Kontrollera om det finns delad ordlista i URL
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const wordlistName = urlParams.get('wordlist');
+    const wordIds = urlParams.getAll('wordid');
+    
+    if (wordlistName && wordIds.length > 0) {
+      // Validera att alla wordIds finns i databasen
+      const validWordIds = wordIds.filter(id => wordDatabase[id]);
+      
+      if (validWordIds.length > 0) {
+        setSharedWordList({
+          name: wordlistName,
+          wordIds: validWordIds
+        });
+        setShowSharedDialog(true);
+      }
+    }
+  }, [wordDatabase]);
+
+  // Spara anpassade ordlistor till localStorage
+  const saveCustomWordLists = (lists: CustomWordList[]) => {
+    setCustomWordLists(lists);
+    localStorage.setItem('customWordLists', JSON.stringify(lists));
+  };
+
+  // Hämta alla ordlistor från appen
+  const appWordLists = useMemo(() => {
+    return getAllWordLists(wordDatabase);
+  }, [wordDatabase]);
+
+  // Sök ord i databasen för att lägga till i ordlistor
+  const wordSearchResults = useMemo(() => {
+    if (!wordSearchQuery.trim() || !wordDatabase) return [];
+    
+    const query = wordSearchQuery.toLowerCase();
+    const results = Object.values(wordDatabase)
+      .filter(word => 
+        word.ord.toLowerCase().includes(query) ||
+        word.beskrivning?.toLowerCase().includes(query)
+      )
+      .slice(0, 10); // Bara första 10 resultaten
+    
+    return results;
+  }, [wordSearchQuery, wordDatabase]);
+
+  // Sök ordlistor i appen
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return appWordLists;
+    
+    const query = searchQuery.toLowerCase();
+    return appWordLists.filter(list => 
+      list.name.toLowerCase().includes(query) ||
+      list.description.toLowerCase().includes(query)
+    );
+  }, [searchQuery, appWordLists]);
+
+  // Sortera anpassade ordlistor
+  const sortedCustomLists = useMemo(() => {
+    return [...customWordLists].sort((a, b) => {
+      if (sortBy === 'alphabetical') {
+        return a.name.localeCompare(b.name);
+      } else {
+        return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+      }
+    });
+  }, [customWordLists, sortBy]);
+
+  // Hantera val av ordlistor
+  const handleListToggle = (listId: string) => {
+    setSelectedLists(prev => 
+      prev.includes(listId) 
+        ? prev.filter(id => id !== listId)
+        : [...prev, listId]
+    );
+  };
+
+  // Räkna totalt antal ord från valda listor
+  const totalSelectedWords = useMemo(() => {
+    let total = 0;
+    selectedLists.forEach(listId => {
+      // Hitta ordlistan (antingen från appens listor eller egna listor)
+      const appList = appWordLists.find(list => list.id === listId);
+      const customList = customWordLists.find(list => list.id === listId);
+      const wordList = appList || customList;
+      
+      if (wordList) {
+        const words = getWordsFromList(wordList, wordDatabase);
+        total += words.length;
+      }
+    });
+    return total;
+  }, [selectedLists, wordDatabase, appWordLists, customWordLists]);
+
+  // Starta övning med valda ordlistor
+  const handleStartExercise = (exerciseType: 'flashcards' | 'quiz') => {
+    if (selectedLists.length === 0) return;
+    
+    // Samla alla ord från valda listor
+    const allWords: any[] = [];
+    selectedLists.forEach(listId => {
+      const appList = appWordLists.find(list => list.id === listId);
+      const customList = customWordLists.find(list => list.id === listId);
+      const wordList = appList || customList;
+      
+      if (wordList) {
+        const words = getWordsFromList(wordList, wordDatabase);
+        allWords.push(...words);
+      }
+    });
+    
+    // Ta bort dubletter baserat på word.id
+    const uniqueWords = allWords.filter((word, index, arr) => 
+      arr.findIndex(w => w.id === word.id) === index
+    );
+    
+    if (uniqueWords.length === 0) {
+      alert('Inga ord hittades i de valda ordlistorna.');
+      return;
+    }
+    
+    // Spara ordlistan i localStorage så OvningPage kan använda den
+    localStorage.setItem('customExerciseWords', JSON.stringify(uniqueWords));
+    
+    // Navigera till ÖvningPage (page 0) och triggera övning
+    window.history.pushState(
+      { page: 0, showHelp: false, showKorpus: false, showLekrummet: false },
+      '',
+      window.location.href
+    );
+    
+    // Triggera navigation till ÖvningPage
+    window.dispatchEvent(new CustomEvent('navigateToExercise'));
+    
+    // Triggera övning via custom event med övningstyp
+    setTimeout(() => {
+      window.dispatchEvent(new CustomEvent('startCustomExercise', { 
+        detail: { words: uniqueWords, exerciseType } 
+      }));
+    }, 100);
+  };
+
+
+  // Hantera val av ord för nya ordlistor
+  const handleWordToggle = (wordId: string) => {
+    setSelectedWordIds(prev => 
+      prev.includes(wordId) 
+        ? prev.filter(id => id !== wordId)
+        : [...prev, wordId]
+    );
+  };
+
+  // Hantera borttagning av valda ord
+  const handleRemoveWord = (wordId: string) => {
+    setSelectedWordIds(prev => prev.filter(id => id !== wordId));
+  };
+
+  // Skapa ny ordlista
+  const handleCreateList = () => {
+    if (!newListName.trim() || selectedWordIds.length === 0) return;
+    
+    const newList: CustomWordList = {
+      id: `custom_${Date.now()}`,
+      name: newListName.trim(),
+      description: newListDescription.trim() || 'Anpassad ordlista',
+      wordIds: selectedWordIds,
+      type: 'custom',
+      createdAt: new Date().toISOString(),
+      isShared: false,
+      priority: 1000, // Lägre prioritet än appens ordlistor
+      difficulty: 'nyborjare' // Default svårighetsgrad
+    };
+    
+    saveCustomWordLists([...customWordLists, newList]);
+    
+    // Återställ formulär
+    setNewListName('');
+    setNewListDescription('');
+    setSelectedWordIds([]);
+    setWordSearchQuery('');
+    setShowCreateDialog(false);
+  };
+
+  // Ta emot delad ordlista
+  const handleAcceptSharedList = () => {
+    if (!sharedWordList) return;
+    
+    const newList: CustomWordList = {
+      id: `custom_${Date.now()}`,
+      name: sharedWordList.name,
+      description: 'Delad ordlista',
+      wordIds: sharedWordList.wordIds,
+      type: 'custom',
+      createdAt: new Date().toISOString(),
+      isShared: true,
+      priority: 1000, // Lägre prioritet än appens ordlistor
+      difficulty: 'nyborjare' // Default svårighetsgrad
+    };
+    
+    saveCustomWordLists([...customWordLists, newList]);
+    setShowSharedDialog(false);
+    setSharedWordList(null);
+    
+    // Rensa URL-parametrar
+    window.history.replaceState({}, document.title, window.location.pathname);
+  };
+
+  return (
+    <Box sx={{ p: 2, maxWidth: 800, mx: 'auto' }}>
+      {/* Header med tillbaka-knapp */}
+      <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
+        <IconButton onClick={onBack} sx={{ mr: 1 }}>
+          <ArrowBack />
+        </IconButton>
+        <Typography variant="h4" sx={{ flexGrow: 1, textAlign: 'center' }}>
+          🛠️ Lekrummet
+        </Typography>
+      </Box>
+
+      {/* Skapa ny ordlista */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Button
+            variant="contained"
+            startIcon={<Add />}
+            onClick={() => setShowCreateDialog(true)}
+            sx={{ width: '100%' }}
+          >
+            📝 Skapa ny ordlista
+          </Button>
+        </CardContent>
+      </Card>
+
+      {/* Mina ordlistor */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6">
+              📚 Mina ordlistor ({customWordLists.length})
+            </Typography>
+            <Box sx={{ display: 'flex', gap: 1 }}>
+              <Button
+                size="small"
+                variant={sortBy === 'recent' ? 'contained' : 'outlined'}
+                onClick={() => setSortBy('recent')}
+              >
+                Senast
+              </Button>
+              <Button
+                size="small"
+                variant={sortBy === 'alphabetical' ? 'contained' : 'outlined'}
+                onClick={() => setSortBy('alphabetical')}
+              >
+                A-Ö
+              </Button>
+            </Box>
+          </Box>
+          
+          {sortedCustomLists.length === 0 ? (
+            <Typography color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
+              Inga egna ordlistor än. Skapa din första!
+            </Typography>
+          ) : (
+            <List>
+              {sortedCustomLists.map((list) => {
+                const wordCount = getWordsFromList(list, wordDatabase).length;
+                return (
+                  <ListItem key={list.id} sx={{ px: 0 }}>
+                    <Checkbox
+                      checked={selectedLists.includes(list.id)}
+                      onChange={() => handleListToggle(list.id)}
+                    />
+                    <ListItemText
+                      primary={list.name}
+                      secondary={`${wordCount} ord • ${new Date(list.createdAt).toLocaleDateString()}`}
+                    />
+                    <ListItemSecondaryAction>
+                      <IconButton size="small" sx={{ mr: 1 }}>
+                        <Share />
+                      </IconButton>
+                      <IconButton size="small" sx={{ mr: 1 }}>
+                        <Edit />
+                      </IconButton>
+                      <IconButton size="small" color="error">
+                        <Delete />
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                );
+              })}
+            </List>
+          )}
+        </CardContent>
+      </Card>
+
+      {/* Appens ordlistor */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6">
+              📖 Appens ordlistor ({appWordLists.length})
+            </Typography>
+            <IconButton onClick={() => setShowAppLists(!showAppLists)}>
+              {showAppLists ? <ExpandLess /> : <ExpandMore />}
+            </IconButton>
+          </Box>
+          
+          <Collapse in={showAppLists}>
+            <TextField
+              fullWidth
+              placeholder="Sök ordlistor..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <Search />
+                  </InputAdornment>
+                ),
+              }}
+              sx={{ mb: 2 }}
+            />
+            
+            <List>
+              {searchResults.map((list) => {
+                const wordCount = getWordsFromList(list, wordDatabase).length;
+                return (
+                  <ListItem key={list.id} sx={{ px: 0 }}>
+                    <Checkbox
+                      checked={selectedLists.includes(list.id)}
+                      onChange={() => handleListToggle(list.id)}
+                    />
+                    <ListItemText
+                      primary={list.name}
+                      secondary={`${wordCount} ord • ${list.description}`}
+                    />
+                  </ListItem>
+                );
+              })}
+            </List>
+          </Collapse>
+        </CardContent>
+      </Card>
+
+      {/* Starta övning */}
+      <Card sx={{ mb: 3 }}>
+        <CardContent>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+            <Typography variant="h6">
+              Valda för övning ({selectedLists.length} listor)
+            </Typography>
+            <Typography variant="h6" color="primary">
+              {totalSelectedWords} ord
+            </Typography>
+          </Box>
+          
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<PlayArrow />}
+              onClick={() => handleStartExercise('flashcards')}
+              disabled={selectedLists.length === 0}
+              sx={{ py: 2, textTransform: 'none', fontSize: '1.1rem' }}
+            >
+              🙌 Teckna själv ({totalSelectedWords} ord)
+            </Button>
+            
+            <Button
+              variant="contained"
+              size="large"
+              startIcon={<PlayArrow />}
+              onClick={() => handleStartExercise('quiz')}
+              disabled={selectedLists.length === 0}
+              sx={{ py: 2, textTransform: 'none', fontSize: '1.1rem' }}
+            >
+              👀 Se tecknet ({totalSelectedWords} ord)
+            </Button>
+          </Box>
+        </CardContent>
+      </Card>
+
+
+
+      {/* Dialog för att skapa nya ordlistor */}
+      <Dialog open={showCreateDialog} onClose={() => setShowCreateDialog(false)} maxWidth="md" fullWidth>
+        <DialogTitle>Skapa ny ordlista</DialogTitle>
+        <DialogContent>
+          <TextField
+            fullWidth
+            label="Namn på ordlista"
+            value={newListName}
+            onChange={(e) => setNewListName(e.target.value)}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            fullWidth
+            label="Beskrivning (valfritt)"
+            value={newListDescription}
+            onChange={(e) => setNewListDescription(e.target.value)}
+            sx={{ mb: 3 }}
+          />
+          
+          <Typography variant="h6" sx={{ mb: 2 }}>
+            Sök och lägg till ord
+          </Typography>
+          <TextField
+            fullWidth
+            placeholder="Sök ord..."
+            value={wordSearchQuery}
+            onChange={(e) => setWordSearchQuery(e.target.value)}
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <Search />
+                </InputAdornment>
+              ),
+            }}
+            sx={{ mb: 2 }}
+          />
+          
+          {wordSearchResults.length > 0 && (
+            <>
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                Tillgängliga ord:
+              </Typography>
+              <List sx={{ maxHeight: 200, overflow: 'auto', mb: 2 }}>
+                {wordSearchResults.map((word) => (
+                  <ListItem key={word.id} sx={{ px: 0 }}>
+                    <Checkbox
+                      checked={selectedWordIds.includes(word.id)}
+                      onChange={() => handleWordToggle(word.id)}
+                    />
+                    <ListItemText
+                      primary={word.ord}
+                      secondary={word.beskrivning}
+                    />
+                  </ListItem>
+                ))}
+              </List>
+            </>
+          )}
+          
+          {selectedWordIds.length > 0 && (
+            <>
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                Valda ord ({selectedWordIds.length}):
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                {selectedWordIds.map((wordId) => {
+                  const word = wordDatabase[wordId];
+                  return word ? (
+                    <Chip
+                      key={wordId}
+                      label={word.ord}
+                      onDelete={() => handleRemoveWord(wordId)}
+                      color="primary"
+                      variant="outlined"
+                    />
+                  ) : null;
+                })}
+              </Box>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowCreateDialog(false)}>
+            Avbryt
+          </Button>
+          <Button 
+            onClick={handleCreateList} 
+            variant="contained"
+            disabled={!newListName.trim() || selectedWordIds.length === 0}
+          >
+            Skapa ordlista
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Dialog för delad ordlista */}
+      <Dialog open={showSharedDialog} onClose={() => setShowSharedDialog(false)}>
+        <DialogTitle>Delad ordlista</DialogTitle>
+        <DialogContent>
+          {sharedWordList && (
+            <>
+              <Typography variant="h6" sx={{ mb: 1 }}>
+                {sharedWordList.name}
+              </Typography>
+              <Typography color="text.secondary" sx={{ mb: 2 }}>
+                {sharedWordList.wordIds.length} ord
+              </Typography>
+              <Alert severity="info" sx={{ mb: 2 }}>
+                Vill du spara denna ordlista i ditt Lekrum?
+              </Alert>
+            </>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setShowSharedDialog(false)}>
+            Avbryt
+          </Button>
+          <Button onClick={handleAcceptSharedList} variant="contained">
+            Spara ordlista
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
+};
+
+export default LekrummetPage;

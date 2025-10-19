@@ -44,7 +44,8 @@ import {
   Spellcheck,
   ChatBubbleOutline,
   Menu,
-  ArrowBack
+  ArrowBack,
+  Build
 } from '@mui/icons-material';
 import { useDatabase, WordIndex } from '../contexts/DatabaseContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -2059,10 +2060,11 @@ const SentencesPracticeExercise: React.FC<{
 // Huvudkomponent för övningssidan
 interface OvningPageProps {
   onShowKorpus?: () => void;
+  onShowLekrummet?: () => void;
   onOpenMenu?: () => void;
 }
 
-const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => {
+const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onShowLekrummet, onOpenMenu }) => {
   const { wordDatabase, phraseDatabase, wordIndex, isLoading, error } = useDatabase();
   const { getWordsForPractice, markWordResult, setWordLevel, wordProgress, createWordGroups, markWordGroupAsLearned, updateWordProgress } = useWordProgress();
   
@@ -2072,6 +2074,11 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   const [results, setResults] = useState<ExerciseResult[]>([]);
   const [flashcardResults, setFlashcardResults] = useState<(boolean | null)[]>(new Array(10).fill(null)); // null = inte besvarad, true = rätt, false = fel
   const [quizResults, setQuizResults] = useState<(boolean | null)[]>(new Array(10).fill(null)); // null = inte besvarad, true = rätt, false = fel
+  
+  // States för stora övningar
+  const [isLargeExercise, setIsLargeExercise] = useState(false);
+  const [largeExerciseType, setLargeExerciseType] = useState<'flashcards' | 'quiz' | null>(null);
+  const [largeExerciseWordCount, setLargeExerciseWordCount] = useState(0);
 
   const [learningWordsOnly, setLearningWordsOnly] = useState(false);
   
@@ -2119,6 +2126,40 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     };
 
     loadPhraseIndex();
+  }, []);
+
+  // Lyssna på custom exercise events från Lekrummet
+  useEffect(() => {
+    const handleCustomExercise = (event: CustomEvent) => {
+      const { words, exerciseType } = event.detail;
+      console.log('[DEBUG] Received custom exercise with', words.length, 'words, type:', exerciseType);
+      
+      // Slumpa ordningen på orden
+      const shuffledWords = [...words].sort(() => Math.random() - 0.5);
+      console.log('[DEBUG] Shuffled words:', shuffledWords.map((w: any) => w.ord));
+      
+      // Spara ordlistan i localStorage
+      localStorage.setItem('customExerciseWords', JSON.stringify(shuffledWords));
+      
+      // Sätt states för stor övning med direkt vald typ
+      setIsLargeExercise(true);
+      setLargeExerciseType(exerciseType);
+      setLargeExerciseWordCount(shuffledWords.length);
+      setSelectedExerciseType(exerciseType === 'flashcards' ? ExerciseType.FLASHCARDS : ExerciseType.QUIZ);
+      
+      // Återställ övningsstates
+      setCurrentWordIndex(0);
+      setShowResults(false);
+      setResults([]);
+      setFlashcardResults(new Array(shuffledWords.length).fill(null));
+      setQuizResults(new Array(shuffledWords.length).fill(null));
+    };
+
+    window.addEventListener('startCustomExercise', handleCustomExercise as EventListener);
+    
+    return () => {
+      window.removeEventListener('startCustomExercise', handleCustomExercise as EventListener);
+    };
   }, []);
 
   // Rensa sentencesWords när selectedExerciseType ändras från SENTENCES
@@ -2689,6 +2730,25 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   const practiceWords = useMemo(() => {
     if (Object.keys(wordDatabase).length === 0) return [];
     
+    // För stora övningar, använd staticPracticeWords istället för localStorage
+    if (isLargeExercise && staticPracticeWords.length > 0) {
+      console.log(`[DEBUG] PracticeWords using static practice words for large exercise:`, staticPracticeWords.map((w: any) => `${w.ord} (ID: ${w.id})`));
+      return staticPracticeWords;
+    }
+    
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    if (customWordsJson) {
+      try {
+        const customWords = JSON.parse(customWordsJson);
+        console.log(`[DEBUG] PracticeWords using custom exercise words:`, customWords.map((w: any) => `${w.ord} (ID: ${w.id})`));
+        return customWords;
+      } catch (error) {
+        console.error('Error parsing custom exercise words for practiceWords:', error);
+        localStorage.removeItem('customExerciseWords');
+      }
+    }
+    
     // Hämta inställning för antal lärda ord att repetera
     const reviewCountFromStorage = localStorage.getItem('reviewLearnedWords');
     const reviewCount = parseInt(reviewCountFromStorage || '2');
@@ -2818,14 +2878,32 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     }
     
     return shuffledCombinedWords;
-  }, [wordDatabase, wordProgress, learningWordsOnly]); // Lägg till learningWordsOnly som dependency
+  }, [wordDatabase, wordProgress, learningWordsOnly, isLargeExercise, staticPracticeWords]); // Lägg till learningWordsOnly som dependency
 
   // Uppdatera staticPracticeWords när practiceWords ändras och vi inte är mitt i en övning
   useEffect(() => {
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    if (customWordsJson) {
+      try {
+        const customWords = JSON.parse(customWordsJson);
+        console.log(`[DEBUG] Using custom exercise words:`, customWords.map((w: any) => `${w.ord} (ID: ${w.id})`));
+        setStaticPracticeWords(customWords);
+        setWordsMovedToLearned(new Set()); // Återställ när ny övning börjar
+        
+        // Rensa custom ordlistan från localStorage efter användning
+        localStorage.removeItem('customExerciseWords');
+        return;
+      } catch (error) {
+        console.error('Error parsing custom exercise words:', error);
+        localStorage.removeItem('customExerciseWords');
+      }
+    }
+    
     if (practiceWords.length > 0 && !showResults && staticPracticeWords.length === 0) {
-      console.log(`[DEBUG] Setting static practice words:`, practiceWords.map(w => `${w.ord} (ID: ${w.id}, level: ${w.progress?.level || 0})`));
-      const level1Count = practiceWords.filter(w => w.progress?.level === 1).length;
-      const level2Count = practiceWords.filter(w => w.progress?.level === 2).length;
+      console.log(`[DEBUG] Setting static practice words:`, practiceWords.map((w: any) => `${w.ord} (ID: ${w.id}, level: ${w.progress?.level || 0})`));
+      const level1Count = practiceWords.filter((w: any) => w.progress?.level === 1).length;
+      const level2Count = practiceWords.filter((w: any) => w.progress?.level === 2).length;
       console.log(`[DEBUG] Static practice words breakdown: ${level1Count} level 1 (att lära mig), ${level2Count} level 2 (lärda)`);
       setStaticPracticeWords(practiceWords);
       setWordsMovedToLearned(new Set()); // Återställ när ny övning börjar
@@ -2835,6 +2913,25 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
   // Beräkna ord för quiz med minst 10 ord (inklusive fallback till lärda ord)
   const quizWords = useMemo(() => {
     if (Object.keys(wordDatabase).length === 0) return [];
+    
+    // För stora övningar, använd staticPracticeWords istället för localStorage
+    if (isLargeExercise && staticPracticeWords.length > 0) {
+      console.log(`[DEBUG] Quiz using static practice words for large exercise:`, staticPracticeWords.map((w: any) => `${w.ord} (ID: ${w.id})`));
+      return staticPracticeWords;
+    }
+    
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    if (customWordsJson) {
+      try {
+        const customWords = JSON.parse(customWordsJson);
+        console.log(`[DEBUG] Quiz using custom exercise words:`, customWords.map((w: any) => `${w.ord} (ID: ${w.id})`));
+        return customWords;
+      } catch (error) {
+        console.error('Error parsing custom exercise words for quiz:', error);
+        localStorage.removeItem('customExerciseWords');
+      }
+    }
     
     const wordsWithProgress = Object.entries(wordDatabase).map(([wordId, word]: [string, any]) => ({
       ...word,
@@ -2906,7 +3003,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     
     // Om vi fortfarande inte har tillräckligt många ord, använd alla ord
     return wordsWithProgress.slice(0, 10);
-  }, [wordDatabase, wordProgress]);
+  }, [wordDatabase, wordProgress, isLargeExercise, staticPracticeWords]);
 
   // Funktion för att ladda bara ord som användaren vill lära sig
   const loadLearningWordsOnly = () => {
@@ -2916,8 +3013,58 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     setShowResults(false);
   };
 
+
+  // Funktion för att avsluta stor övning
+  const handleEndLargeExercise = () => {
+    setIsLargeExercise(false);
+    setLargeExerciseType(null);
+    setLargeExerciseWordCount(0);
+    setSelectedExerciseType(null);
+    setCurrentWordIndex(0);
+    setShowResults(false);
+    setResults([]);
+    setFlashcardResults(new Array(10).fill(null));
+    setQuizResults(new Array(10).fill(null));
+    localStorage.removeItem('customExerciseWords');
+  };
+
   // Funktion som körs när användaren väljer övningstyp
   const handleExerciseTypeSelect = (exerciseType: ExerciseType) => {
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    if (customWordsJson) {
+      try {
+        const customWords = JSON.parse(customWordsJson);
+        console.log(`[DEBUG] Starting exercise with custom words:`, customWords.map((w: any) => `${w.ord} (ID: ${w.id})`));
+        
+        // Sätt övningstypen direkt utan validering för custom ordlistor
+        setSelectedExerciseType(exerciseType);
+        setCurrentWordIndex(0);
+        setShowResults(false);
+        setResults([]);
+        setFlashcardResults(new Array(customWords.length).fill(null));
+        setQuizResults(new Array(customWords.length).fill(null));
+        
+        // Pusha history state för övningsvalet
+        window.history.pushState(
+          { 
+            page: 0, // Övningssidan är alltid page 0
+            showHelp: false, 
+            showKorpus: false, 
+            showLekrummet: false,
+            exerciseType: exerciseType 
+          },
+          '',
+          window.location.href
+        );
+        
+        return;
+      } catch (error) {
+        console.error('Error parsing custom exercise words:', error);
+        localStorage.removeItem('customExerciseWords');
+      }
+    }
+    
     // Validera bara för övningar som behöver lärda ord (inte bokstavering eller meningar)
     if (exerciseType !== ExerciseType.SPELLING && exerciseType !== ExerciseType.SENTENCES) {
       const validation = validateAvailableWords();
@@ -2959,9 +3106,26 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
   // Funktion som körs när användaren slutför en övning
   const handleExerciseResult = (isCorrect: boolean) => {
-    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
-                         selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    let currentWords: any[];
+    
+    if (customWordsJson) {
+      try {
+        currentWords = JSON.parse(customWordsJson);
+      } catch (error) {
+        console.error('Error parsing custom exercise words:', error);
+        localStorage.removeItem('customExerciseWords');
+        currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                       selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                       selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+      }
+    } else {
+      currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                     selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                     selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    }
+    
     const currentWord = currentWords[currentWordIndex];
     if (!currentWord) return;
 
@@ -3093,9 +3257,26 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
   // Funktion som körs när användaren klickar på "Placera i lärda ord"
   const handleMoveToLearned = () => {
-    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
-                         selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    let currentWords: any[];
+    
+    if (customWordsJson) {
+      try {
+        currentWords = JSON.parse(customWordsJson);
+      } catch (error) {
+        console.error('Error parsing custom exercise words:', error);
+        localStorage.removeItem('customExerciseWords');
+        currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                       selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                       selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+      }
+    } else {
+      currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                     selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                     selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    }
+    
     const currentWord = currentWords[currentWordIndex];
     if (!currentWord) return;
 
@@ -3152,9 +3333,26 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
   // Funktion som körs när användaren hoppar över en övning
   const handleSkip = () => {
-    const currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
-                         selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
-                         selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    // Kontrollera om vi har en custom ordlista från Lekrummet
+    const customWordsJson = localStorage.getItem('customExerciseWords');
+    let currentWords: any[];
+    
+    if (customWordsJson) {
+      try {
+        currentWords = JSON.parse(customWordsJson);
+      } catch (error) {
+        console.error('Error parsing custom exercise words:', error);
+        localStorage.removeItem('customExerciseWords');
+        currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                       selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                       selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+      }
+    } else {
+      currentWords = selectedExerciseType === ExerciseType.SPELLING ? spellingWords : 
+                     selectedExerciseType === ExerciseType.QUIZ ? quizWords : 
+                     selectedExerciseType === ExerciseType.SENTENCES ? sentencesWords : staticPracticeWords;
+    }
+    
     console.log(`[DEBUG] handleSkip: currentWordIndex=${currentWordIndex}, currentWords.length=${currentWords.length}`);
     
     if (currentWordIndex < currentWords.length - 1) {
@@ -3217,11 +3415,16 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
 
   // Funktion som körs när användaren går tillbaka till menyn
   const handleBackToMenu = () => {
-    setSelectedExerciseType(null);
-    setCurrentWordIndex(0);
-    setResults([]);
-    setShowResults(false);
-    setLearningWordsOnly(false);
+    // Om det är en stor övning, rensa states för den
+    if (isLargeExercise) {
+      handleEndLargeExercise();
+    } else {
+      setSelectedExerciseType(null);
+      setCurrentWordIndex(0);
+      setResults([]);
+      setShowResults(false);
+      setLearningWordsOnly(false);
+    }
   };
 
   // Beräkna statistik
@@ -3783,6 +3986,41 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
               </CardContent>
             </Card>
 
+          {/* Lekrummet */}
+            <Card 
+              sx={{ 
+                cursor: 'pointer', 
+                height: '100%',
+              borderRadius: 2,
+              backgroundColor: 'background.paper',
+              border: '1px solid',
+              borderColor: 'divider',
+              position: 'relative',
+              overflow: 'hidden',
+              '&:hover': { 
+                transform: 'translateY(-4px)', 
+                transition: 'all 0.2s ease',
+                boxShadow: '0 8px 24px rgba(0, 0, 0, 0.12)',
+                borderColor: 'info.main'
+              }
+            }}
+            onClick={() => {
+              if (onShowLekrummet) {
+                onShowLekrummet();
+              }
+            }}
+            >
+              <CardContent sx={{ textAlign: 'center', p: 3 }}>
+              <Build sx={{ fontSize: 40, color: 'info.main', mb: 2 }} />
+              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                Lekrummet
+                </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+                Skapa egna ordlistor och gör stora övningar.
+                </Typography>
+              </CardContent>
+            </Card>
+
         </Box>
 
         {/* Progress-mätare */}
@@ -4086,6 +4324,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
     }
   }
 
+
   return (
     <Box sx={{ minHeight: '100vh' }}>
       <Container maxWidth="md" sx={{ py: 4 }}>
@@ -4097,29 +4336,41 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onOpenMenu }) => 
               
               {/* Progress-mätare */}
               {(selectedExerciseType === ExerciseType.FLASHCARDS || selectedExerciseType === ExerciseType.QUIZ) ? (
-                // Uppdelad progress för flashcards och quiz (10 korta horisontella streck) med tillbaka-knapp
-                <Box sx={{ mb: 0.1, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  <IconButton onClick={() => window.history.back()} size="small">
-                    <ArrowBack />
-                  </IconButton>
-                  <Box sx={{ 
-                    display: 'flex', 
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    gap: { xs: 0.5, sm: 1 },
-                    flex: 1
-                  }}>
-                    {Array.from({ length: 10 }, (_, index) => {
-                      const result = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults[index] : quizResults[index];
-                      let backgroundColor = 'rgba(25, 118, 210, 0.1)';
-                      if (result === true) backgroundColor = 'success.main';
-                      else if (result === false) backgroundColor = 'error.main';
-                      return (
-                        <Box key={index} sx={{ width: { xs: 20, sm: 24 }, height: 4, backgroundColor, transition: 'background-color 0.3s ease', borderRadius: 2 }} />
-                      );
-                    })}
+                isLargeExercise ? (
+                  // För stora övningar: visa siffror istället för rutor
+                  <Box sx={{ mb: 0.1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <IconButton onClick={handleEndLargeExercise} size="small">
+                      <ArrowBack />
+                    </IconButton>
+                    <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'center', color: 'primary.main', fontWeight: 600 }}>
+                      Ord {currentWordIndex + 1} av {largeExerciseWordCount}
+                    </Typography>
                   </Box>
-                </Box>
+                ) : (
+                  // Uppdelad progress för flashcards och quiz (10 korta horisontella streck) med tillbaka-knapp
+                  <Box sx={{ mb: 0.1, display: 'flex', alignItems: 'center', gap: 1 }}>
+                    <IconButton onClick={() => window.history.back()} size="small">
+                      <ArrowBack />
+                    </IconButton>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      gap: { xs: 0.5, sm: 1 },
+                      flex: 1
+                    }}>
+                      {Array.from({ length: 10 }, (_, index) => {
+                        const result = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults[index] : quizResults[index];
+                        let backgroundColor = 'rgba(25, 118, 210, 0.1)';
+                        if (result === true) backgroundColor = 'success.main';
+                        else if (result === false) backgroundColor = 'error.main';
+                        return (
+                          <Box key={index} sx={{ width: { xs: 20, sm: 24 }, height: 4, backgroundColor, transition: 'background-color 0.3s ease', borderRadius: 2 }} />
+                        );
+                      })}
+                    </Box>
+                  </Box>
+                )
               ) : (
                 // Använd samma segmenterade stil även för Bokstavering med tillbaka-knapp
                 <Box sx={{ mb: 0.1, display: 'flex', alignItems: 'center', gap: 1 }}>

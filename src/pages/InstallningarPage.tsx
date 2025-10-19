@@ -24,7 +24,9 @@ import {
   FilterList,
   ArrowBack,
   Timer,
-  School
+  School,
+  Download,
+  Upload
 } from '@mui/icons-material';
 import { useTheme } from '../contexts/ThemeContext';
 import { useWordProgress } from '../hooks/usePersistentState';
@@ -341,6 +343,71 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
                 primary="Nollställ allt" 
                 secondary="Rensa alla inställningar"
               />
+            </ListItem>
+            
+            <Divider />
+            
+            {/* Progress backup */}
+            <ListItem>
+              <ListItemIcon>
+                <Download />
+              </ListItemIcon>
+              <ListItemText 
+                primary="Exportera progress" 
+                secondary="Ladda ner din framsteg som fil"
+              />
+              <IconButton 
+                onClick={() => {
+                  const progress = localStorage.getItem('wordProgress');
+                  if (progress) {
+                    const blob = new Blob([progress], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `tsp-progress-${new Date().toISOString().split('T')[0]}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                  }
+                }}
+              >
+                <Download />
+              </IconButton>
+            </ListItem>
+            
+            <ListItem>
+              <ListItemIcon>
+                <Upload />
+              </ListItemIcon>
+              <ListItemText 
+                primary="Importera progress" 
+                secondary="Ladda upp tidigare sparad framsteg"
+              />
+              <IconButton 
+                onClick={() => {
+                  const input = document.createElement('input');
+                  input.type = 'file';
+                  input.accept = '.json';
+                  input.onchange = (e) => {
+                    const file = (e.target as HTMLInputElement).files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onload = (e) => {
+                        try {
+                          const progress = JSON.parse(e.target?.result as string);
+                          localStorage.setItem('wordProgress', JSON.stringify(progress));
+                          window.location.reload();
+                        } catch (error) {
+                          alert('Felaktigt filformat');
+                        }
+                      };
+                      reader.readAsText(file);
+                    }
+                  };
+                  input.click();
+                }}
+              >
+                <Upload />
+              </IconButton>
             </ListItem>
             
             <Divider />

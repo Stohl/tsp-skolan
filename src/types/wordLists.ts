@@ -36,8 +36,24 @@ export interface DynamicWordList {
   showWordsInStartGuide?: boolean; // Om orden ska visas eller bara beskrivning
 }
 
+// Anpassade ordlistor som användaren skapar
+export interface CustomWordList {
+  id: string;
+  name: string;
+  description: string;
+  wordIds: string[];
+  type: 'custom';
+  createdAt: string;
+  isShared: boolean;
+  priority: number; // Prioritering för lärande (lägre nummer = högre prioritet)
+  difficulty: DifficultyLevel; // Svårighetsnivå för ordlistan
+  showInStartGuide?: boolean; // Om ordlistan ska visas i start-guiden
+  startGuidePosition?: number; // Position i start-guiden (1, 2, 3, etc.)
+  showWordsInStartGuide?: boolean; // Om orden ska visas eller bara beskrivning
+}
+
 // Union type för alla ordlistor
-export type WordList = PredefinedWordList | DynamicWordList;
+export type WordList = PredefinedWordList | DynamicWordList | CustomWordList;
 
 // Map för snabb lookup av svårighetsgrad från ord-ID
 let wordDifficultyMap: Map<string, DifficultyLevel> | null = null;
@@ -2572,6 +2588,11 @@ export const getAllWordLists = (database: any): WordList[] => {
 export const getWordsFromList = (wordList: WordList, database: any): any[] => {
   if (wordList.type === 'predefined') {
     // För förgenererade listor, hämta ord baserat på ID:n
+    return wordList.wordIds
+      .map(id => database[id])
+      .filter(word => word !== undefined); // Filtrera bort ord som inte finns
+  } else if (wordList.type === 'custom') {
+    // För anpassade listor, hämta ord baserat på ID:n
     return wordList.wordIds
       .map(id => database[id])
       .filter(word => word !== undefined); // Filtrera bort ord som inte finns
