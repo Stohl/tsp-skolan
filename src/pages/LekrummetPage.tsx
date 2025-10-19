@@ -62,6 +62,9 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [selectedWordIds, setSelectedWordIds] = useState<string[]>([]);
   const [wordSearchQuery, setWordSearchQuery] = useState('');
   
+  // State för redigering
+  const [editingList, setEditingList] = useState<CustomWordList | null>(null);
+  
 
   // Ladda anpassade ordlistor från localStorage
   useEffect(() => {
@@ -106,20 +109,30 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     return getAllWordLists(wordDatabase);
   }, [wordDatabase]);
 
-  // Sök ord i databasen för att lägga till i ordlistor
-  const wordSearchResults = useMemo(() => {
-    if (!wordSearchQuery.trim() || !wordDatabase) return [];
+  // Kombinerad sökfunktion för både ord och ordlistor
+  const combinedSearchResults = useMemo(() => {
+    if (!wordSearchQuery.trim() || !wordDatabase) return { words: [], wordLists: [] };
     
     const query = wordSearchQuery.toLowerCase();
-    const results = Object.values(wordDatabase)
+    
+    // Sök ord
+    const wordResults = Object.values(wordDatabase)
       .filter(word => 
         word.ord.toLowerCase().includes(query) ||
         word.beskrivning?.toLowerCase().includes(query)
       )
       .slice(0, 10); // Bara första 10 resultaten
     
-    return results;
-  }, [wordSearchQuery, wordDatabase]);
+    // Sök ordlistor
+    const wordListResults = appWordLists
+      .filter(list => 
+        list.name.toLowerCase().includes(query) ||
+        list.description.toLowerCase().includes(query)
+      )
+      .slice(0, 5); // Bara första 5 resultaten
+    
+    return { words: wordResults, wordLists: wordListResults };
+  }, [wordSearchQuery, wordDatabase, appWordLists]);
 
   // Sök ordlistor i appen
   const searchResults = useMemo(() => {
@@ -232,29 +245,46 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     setSelectedWordIds(prev => prev.filter(id => id !== wordId));
   };
 
-  // Skapa ny ordlista
+  // Skapa ny ordlista eller uppdatera befintlig
   const handleCreateList = () => {
     if (!newListName.trim() || selectedWordIds.length === 0) return;
     
-    const newList: CustomWordList = {
-      id: `custom_${Date.now()}`,
-      name: newListName.trim(),
-      description: newListDescription.trim() || 'Anpassad ordlista',
-      wordIds: selectedWordIds,
-      type: 'custom',
-      createdAt: new Date().toISOString(),
-      isShared: false,
-      priority: 1000, // Lägre prioritet än appens ordlistor
-      difficulty: 'nyborjare' // Default svårighetsgrad
-    };
-    
-    saveCustomWordLists([...customWordLists, newList]);
+    if (editingList) {
+      // Uppdatera befintlig ordlista
+      const updatedList: CustomWordList = {
+        ...editingList,
+        name: newListName.trim(),
+        description: newListDescription.trim() || 'Anpassad ordlista',
+        wordIds: selectedWordIds,
+      };
+      
+      const updatedLists = customWordLists.map(list => 
+        list.id === editingList.id ? updatedList : list
+      );
+      saveCustomWordLists(updatedLists);
+    } else {
+      // Skapa ny ordlista
+      const newList: CustomWordList = {
+        id: `custom_${Date.now()}`,
+        name: newListName.trim(),
+        description: newListDescription.trim() || 'Anpassad ordlista',
+        wordIds: selectedWordIds,
+        type: 'custom',
+        createdAt: new Date().toISOString(),
+        isShared: false,
+        priority: 1000, // Lägre prioritet än appens ordlistor
+        difficulty: 'nyborjare' // Default svårighetsgrad
+      };
+      
+      saveCustomWordLists([...customWordLists, newList]);
+    }
     
     // Återställ formulär
     setNewListName('');
     setNewListDescription('');
     setSelectedWordIds([]);
     setWordSearchQuery('');
+    setEditingList(null);
     setShowCreateDialog(false);
   };
 
@@ -279,12 +309,11 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   };
 
   const handleEditList = (list: CustomWordList) => {
+    setEditingList(list);
     setNewListName(list.name);
     setNewListDescription(list.description);
     setSelectedWordIds([...list.wordIds]);
     setShowCreateDialog(true);
-    // Ta bort den gamla listan när vi sparar den nya
-    setCustomWordLists(customWordLists.filter(l => l.id !== list.id));
   };
 
   const handleDeleteList = (list: CustomWordList) => {
@@ -496,8 +525,15 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
 
       {/* Dialog för att skapa nya ordlistor */}
-      <Dialog open={showCreateDialog} onClose={() => setShowCreateDialog(false)} maxWidth="md" fullWidth>
-        <DialogTitle>Skapa ny ordlista</DialogTitle>
+      <Dialog open={showCreateDialog} onClose={() => {
+        setShowCreateDialog(false);
+        setEditingList(null);
+        setNewListName('');
+        setNewListDescription('');
+        setSelectedWordIds([]);
+        setWordSearchQuery('');
+      }} maxWidth="md" fullWidth>
+        <DialogTitle>{editingList ? 'Redigera ordlista' : 'Skapa ny ordlista'}</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
@@ -515,11 +551,11 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           />
           
           <Typography variant="h6" sx={{ mb: 2 }}>
-            Sök och lägg till ord
+            Sök och lägg till ord eller ordlistor
           </Typography>
           <TextField
             fullWidth
-            placeholder="Sök ord..."
+            placeholder="Sök ord eller ordlistor..."
             value={wordSearchQuery}
             onChange={(e) => setWordSearchQuery(e.target.value)}
             InputProps={{
@@ -532,94 +568,59 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             sx={{ mb: 2 }}
           />
           
-          {wordSearchResults.length > 0 && (
+          {(combinedSearchResults.words.length > 0 || combinedSearchResults.wordLists.length > 0) && (
             <>
               <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                Tillgängliga ord:
+                Sökresultat:
               </Typography>
-              <List sx={{ maxHeight: 200, overflow: 'auto', mb: 2 }}>
-                {wordSearchResults.map((word) => (
-                  <ListItem key={word.id} sx={{ px: 0 }}>
+              <List sx={{ maxHeight: 300, overflow: 'auto', mb: 2 }}>
+                {/* Visa ord först */}
+                {combinedSearchResults.words.map((word) => (
+                  <ListItem key={`word-${word.id}`} sx={{ px: 0 }}>
                     <Checkbox
                       checked={selectedWordIds.includes(word.id)}
                       onChange={() => handleWordToggle(word.id)}
                     />
                     <ListItemText
                       primary={word.ord}
-                      secondary={word.beskrivning}
+                      secondary={`Ord • ${word.beskrivning}`}
                     />
                   </ListItem>
                 ))}
-              </List>
-            </>
-          )}
-          
-          {/* Sök och lägg till ordlistor */}
-          <Typography variant="h6" sx={{ mb: 2, mt: 3 }}>
-            Eller lägg till hela ordlistor
-          </Typography>
-          <TextField
-            fullWidth
-            placeholder="Sök ordlistor..."
-            value={wordSearchQuery}
-            onChange={(e) => setWordSearchQuery(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <Search />
-                </InputAdornment>
-              ),
-            }}
-            sx={{ mb: 2 }}
-          />
-          
-          {appWordLists.filter(list => 
-            list.name.toLowerCase().includes(wordSearchQuery.toLowerCase()) ||
-            list.description.toLowerCase().includes(wordSearchQuery.toLowerCase())
-          ).length > 0 && (
-            <>
-              <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                Tillgängliga ordlistor:
-              </Typography>
-              <List sx={{ maxHeight: 200, overflow: 'auto', mb: 2 }}>
-                {appWordLists
-                  .filter(list => 
-                    list.name.toLowerCase().includes(wordSearchQuery.toLowerCase()) ||
-                    list.description.toLowerCase().includes(wordSearchQuery.toLowerCase())
-                  )
-                  .slice(0, 5) // Bara första 5 resultaten
-                  .map((list) => {
-                    const words = getWordsFromList(list, wordDatabase);
-                    const alreadySelected = words.every(word => selectedWordIds.includes(word.id));
-                    const partiallySelected = words.some(word => selectedWordIds.includes(word.id));
-                    
-                    return (
-                      <ListItem key={list.id} sx={{ px: 0 }}>
-                        <Checkbox
-                          checked={alreadySelected}
-                          indeterminate={partiallySelected && !alreadySelected}
-                          onChange={() => {
-                            if (alreadySelected) {
-                              // Ta bort alla ord från denna lista
-                              const wordsToRemove = words.map(w => w.id);
-                              setSelectedWordIds(prev => prev.filter(id => !wordsToRemove.includes(id)));
-                            } else {
-                              // Lägg till alla ord från denna lista (ta bort dubletter)
-                              const wordsToAdd = words.map(w => w.id);
-                              setSelectedWordIds(prev => {
-                                const combined = [...prev, ...wordsToAdd];
-                                return combined.filter((id, index) => combined.indexOf(id) === index);
-                              });
-                            }
-                          }}
-                        />
-                        <ListItemText
-                          primary={list.name}
-                          secondary={`${words.length} ord • ${list.description}`}
-                        />
-                      </ListItem>
-                    );
-                  })}
+                
+                {/* Visa ordlistor sedan */}
+                {combinedSearchResults.wordLists.map((list) => {
+                  const words = getWordsFromList(list, wordDatabase);
+                  const alreadySelected = words.every(word => selectedWordIds.includes(word.id));
+                  const partiallySelected = words.some(word => selectedWordIds.includes(word.id));
+                  
+                  return (
+                    <ListItem key={`list-${list.id}`} sx={{ px: 0 }}>
+                      <Checkbox
+                        checked={alreadySelected}
+                        indeterminate={partiallySelected && !alreadySelected}
+                        onChange={() => {
+                          if (alreadySelected) {
+                            // Ta bort alla ord från denna lista
+                            const wordsToRemove = words.map(w => w.id);
+                            setSelectedWordIds(prev => prev.filter(id => !wordsToRemove.includes(id)));
+                          } else {
+                            // Lägg till alla ord från denna lista (ta bort dubletter)
+                            const wordsToAdd = words.map(w => w.id);
+                            setSelectedWordIds(prev => {
+                              const combined = [...prev, ...wordsToAdd];
+                              return combined.filter((id, index) => combined.indexOf(id) === index);
+                            });
+                          }
+                        }}
+                      />
+                      <ListItemText
+                        primary={list.name}
+                        secondary={`Ordlista • ${words.length} ord • ${list.description}`}
+                      />
+                    </ListItem>
+                  );
+                })}
               </List>
             </>
           )}
