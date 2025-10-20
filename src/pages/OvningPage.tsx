@@ -3032,11 +3032,22 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onShowLekrummet, 
           const listStats = JSON.parse(localStorage.getItem('wordListTrainingStats') || '{}');
           
           listIds.forEach((listId: string) => {
+            const existingStats = listStats[listId] || {
+              lastPracticed: '',
+              lastSessionCorrect: 0,
+              lastSessionTotal: 0,
+              totalCorrectAttempts: 0,
+              totalAttempts: 0,
+              sessions: 0
+            };
+            
             listStats[listId] = {
               lastPracticed: new Date().toISOString(),
-              correctAttempts: (listStats[listId]?.correctAttempts || 0) + correctCount,
-              totalAttempts: (listStats[listId]?.totalAttempts || 0) + totalCount,
-              sessions: (listStats[listId]?.sessions || 0) + 1
+              lastSessionCorrect: correctCount, // Senaste sessionens resultat
+              lastSessionTotal: totalCount, // Senaste sessionens totala
+              totalCorrectAttempts: existingStats.totalCorrectAttempts + correctCount, // Totalt genom tiderna
+              totalAttempts: existingStats.totalAttempts + totalCount, // Totalt genom tiderna
+              sessions: existingStats.sessions + 1
             };
           });
           

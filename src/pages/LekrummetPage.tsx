@@ -71,8 +71,10 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   interface WordListTrainingStats {
     [listId: string]: {
       lastPracticed: string; // ISO date string
-      correctAttempts: number;
-      totalAttempts: number;
+      lastSessionCorrect: number; // Senaste sessionens rätta svar
+      lastSessionTotal: number; // Senaste sessionens totala försök
+      totalCorrectAttempts: number; // Totalt antal rätta svar genom tiderna
+      totalAttempts: number; // Totalt antal försök genom tiderna
       sessions: number; // Antal träningssessioner
     };
   }
@@ -88,8 +90,8 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       const stats = listStats[list.id];
       return {
         lastPracticed: stats.lastPracticed ? new Date(stats.lastPracticed) : null,
-        correctCount: stats.correctAttempts,
-        totalAttempts: stats.totalAttempts,
+        correctCount: stats.lastSessionCorrect || 0,
+        totalAttempts: stats.lastSessionTotal || 0,
         wordCount: words.length
       };
     }
@@ -130,11 +132,22 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const saveWordListTrainingStats = (listId: string, correctAttempts: number, totalAttempts: number) => {
     const listStats = JSON.parse(localStorage.getItem('wordListTrainingStats') || '{}');
     
+    const existingStats = listStats[listId] || {
+      lastPracticed: '',
+      lastSessionCorrect: 0,
+      lastSessionTotal: 0,
+      totalCorrectAttempts: 0,
+      totalAttempts: 0,
+      sessions: 0
+    };
+    
     listStats[listId] = {
       lastPracticed: new Date().toISOString(),
-      correctAttempts: (listStats[listId]?.correctAttempts || 0) + correctAttempts,
-      totalAttempts: (listStats[listId]?.totalAttempts || 0) + totalAttempts,
-      sessions: (listStats[listId]?.sessions || 0) + 1
+      lastSessionCorrect: correctAttempts, // Senaste sessionens resultat
+      lastSessionTotal: totalAttempts, // Senaste sessionens totala
+      totalCorrectAttempts: existingStats.totalCorrectAttempts + correctAttempts, // Totalt genom tiderna
+      totalAttempts: existingStats.totalAttempts + totalAttempts, // Totalt genom tiderna
+      sessions: existingStats.sessions + 1
     };
     
     localStorage.setItem('wordListTrainingStats', JSON.stringify(listStats));
