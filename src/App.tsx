@@ -126,6 +126,33 @@ function AppContent() {
     };
   }, []);
 
+  // Kontrollera URL-parametrar för delade ordlistor direkt när sidan laddas
+  React.useEffect(() => {
+    if (!wordDatabase || Object.keys(wordDatabase).length === 0) return;
+    
+    const urlParams = new URLSearchParams(window.location.search);
+    const wordlistName = urlParams.get('wordlist');
+    const wordIds = urlParams.getAll('wordid');
+    
+    if (wordlistName && wordIds.length > 0) {
+      // Validera att alla wordIds finns i databasen
+      const validWordIds = wordIds.filter(id => wordDatabase[id]);
+      
+      if (validWordIds.length > 0) {
+        // Navigera direkt till Lekrummet för att visa delad ordlista
+        navigateToLekrummet();
+        
+        // Rensa URL-parametrarna efter att vi har hanterat dem
+        const newUrl = window.location.pathname;
+        window.history.replaceState(
+          { page: currentPage, showHelp: false, showKorpus: false, showLekrummet: true },
+          '',
+          newUrl
+        );
+      }
+    }
+  }, [wordDatabase]);
+
   // Kontrollera om användaren är ny (ingen sparad data)
   React.useEffect(() => {
     const wordProgressData = localStorage.getItem('wordProgress');

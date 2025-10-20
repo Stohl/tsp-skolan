@@ -56,6 +56,7 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [sharedWordList, setSharedWordList] = useState<SharedWordList | null>(null);
   const [sortBy, setSortBy] = useState<'alphabetical' | 'recent' | 'lastPracticed'>('recent');
   const [showAllLists, setShowAllLists] = useState(false);
+  const [showSharedList, setShowSharedList] = useState(false);
   
   // States för att skapa nya ordlistor
   const [newListName, setNewListName] = useState('');
@@ -148,7 +149,7 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           name: wordlistName,
           wordIds: validWordIds
         });
-        setShowSharedDialog(true);
+        setShowSharedList(true);
       }
     }
   }, [wordDatabase]);
@@ -410,6 +411,7 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     };
     
     saveCustomWordLists([...customWordLists, newList]);
+    setShowSharedList(false);
     setShowSharedDialog(false);
     setSharedWordList(null);
     
@@ -442,6 +444,79 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           </Button>
         </CardContent>
       </Card>
+
+      {/* Delad ordlista */}
+      {showSharedList && sharedWordList && (
+        <Card sx={{ mb: 3, border: '2px solid', borderColor: 'primary.main' }}>
+          <CardContent>
+            <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
+              <Typography variant="h6" color="primary">
+                📥 Delad ordlista: {sharedWordList.name}
+              </Typography>
+              <Button
+                size="small"
+                onClick={() => setShowSharedList(false)}
+                color="inherit"
+              >
+                ✕ Stäng
+              </Button>
+            </Box>
+            
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+              {sharedWordList.wordIds.length} ord • Vill du spara denna ordlista i ditt Lekrum?
+            </Typography>
+            
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                Ord i listan:
+              </Typography>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, maxHeight: 200, overflow: 'auto' }}>
+                {sharedWordList.wordIds.map(wordId => {
+                  const word = wordDatabase[wordId];
+                  return word ? (
+                    <Box
+                      key={wordId}
+                      sx={{
+                        p: 1,
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        borderRadius: 1,
+                        backgroundColor: 'background.paper',
+                        minWidth: 'fit-content'
+                      }}
+                    >
+                      <Typography variant="body2" sx={{ fontWeight: 600 }}>
+                        {word.ord}
+                      </Typography>
+                      {word.beskrivning && (
+                        <Typography variant="caption" color="text.secondary">
+                          {word.beskrivning}
+                        </Typography>
+                      )}
+                    </Box>
+                  ) : null;
+                })}
+              </Box>
+            </Box>
+            
+            <Box sx={{ display: 'flex', gap: 2 }}>
+              <Button
+                variant="contained"
+                onClick={handleAcceptSharedList}
+                startIcon={<Add />}
+              >
+                Spara ordlista
+              </Button>
+              <Button
+                variant="outlined"
+                onClick={() => setShowSharedList(false)}
+              >
+                Avbryt
+              </Button>
+            </Box>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Mina ordlistor */}
       <Card sx={{ mb: 3 }}>
