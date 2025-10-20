@@ -3016,6 +3016,38 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onShowLekrummet, 
 
   // Funktion för att avsluta stor övning
   const handleEndLargeExercise = () => {
+    // Spara ordlista-träningsstatistik innan vi rensar
+    const listIdsJson = localStorage.getItem('currentExerciseListIds');
+    if (listIdsJson && isLargeExercise) {
+      try {
+        const listIds = JSON.parse(listIdsJson);
+        const currentResults = selectedExerciseType === ExerciseType.FLASHCARDS ? flashcardResults : quizResults;
+        
+        // Räkna rätta och felaktiga svar
+        const correctCount = currentResults.filter(result => result === true).length;
+        const totalCount = currentResults.filter(result => result !== null).length;
+        
+        if (totalCount > 0) {
+          // Spara statistik för varje ordlista
+          const listStats = JSON.parse(localStorage.getItem('wordListTrainingStats') || '{}');
+          
+          listIds.forEach((listId: string) => {
+            listStats[listId] = {
+              lastPracticed: new Date().toISOString(),
+              correctAttempts: (listStats[listId]?.correctAttempts || 0) + correctCount,
+              totalAttempts: (listStats[listId]?.totalAttempts || 0) + totalCount,
+              sessions: (listStats[listId]?.sessions || 0) + 1
+            };
+          });
+          
+          localStorage.setItem('wordListTrainingStats', JSON.stringify(listStats));
+          console.log(`[DEBUG] Saved training stats for lists ${listIds.join(', ')}: ${correctCount}/${totalCount}`);
+        }
+      } catch (error) {
+        console.error('Error saving word list training stats:', error);
+      }
+    }
+    
     setIsLargeExercise(false);
     setLargeExerciseType(null);
     setLargeExerciseWordCount(0);
@@ -3026,6 +3058,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onShowLekrummet, 
     setFlashcardResults(new Array(10).fill(null));
     setQuizResults(new Array(10).fill(null));
     localStorage.removeItem('customExerciseWords');
+    localStorage.removeItem('currentExerciseListIds');
   };
 
   // Funktion som körs när användaren väljer övningstyp

@@ -67,11 +67,34 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   // State för redigering
   const [editingList, setEditingList] = useState<CustomWordList | null>(null);
 
+  // Interface för ordlista-träningsstatistik
+  interface WordListTrainingStats {
+    [listId: string]: {
+      lastPracticed: string; // ISO date string
+      correctAttempts: number;
+      totalAttempts: number;
+      sessions: number; // Antal träningssessioner
+    };
+  }
+
   // Funktion för att hämta träningsstatistik för en ordlista
   const getListTrainingStats = (list: CustomWordList) => {
     const words = getWordsFromList(list, wordDatabase);
     const wordProgress = JSON.parse(localStorage.getItem('wordProgress') || '{}');
+    const listStats = JSON.parse(localStorage.getItem('wordListTrainingStats') || '{}');
     
+    // Först kontrollera om det finns sparad ordlista-statistik
+    if (listStats[list.id]) {
+      const stats = listStats[list.id];
+      return {
+        lastPracticed: stats.lastPracticed ? new Date(stats.lastPracticed) : null,
+        correctCount: stats.correctAttempts,
+        totalAttempts: stats.totalAttempts,
+        wordCount: words.length
+      };
+    }
+    
+    // Fallback: beräkna från individuell ord-progress
     let lastPracticed: Date | null = null;
     let correctCount = 0;
     let totalAttempts = 0;
@@ -88,12 +111,10 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         }
         
         // Räkna totala försök och rätta svar
-        if (progress.stats.totalAttempts) {
-          totalAttempts += progress.stats.totalAttempts;
-        }
-        if (progress.stats.correctAttempts) {
-          correctCount += progress.stats.correctAttempts;
-        }
+        const correct = progress.stats.correct || 0;
+        const incorrect = progress.stats.incorrect || 0;
+        totalAttempts += correct + incorrect;
+        correctCount += correct;
       }
     });
     
@@ -103,6 +124,20 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
       totalAttempts,
       wordCount: words.length
     };
+  };
+
+  // Funktion för att spara ordlista-träningsstatistik
+  const saveWordListTrainingStats = (listId: string, correctAttempts: number, totalAttempts: number) => {
+    const listStats = JSON.parse(localStorage.getItem('wordListTrainingStats') || '{}');
+    
+    listStats[listId] = {
+      lastPracticed: new Date().toISOString(),
+      correctAttempts: (listStats[listId]?.correctAttempts || 0) + correctAttempts,
+      totalAttempts: (listStats[listId]?.totalAttempts || 0) + totalAttempts,
+      sessions: (listStats[listId]?.sessions || 0) + 1
+    };
+    
+    localStorage.setItem('wordListTrainingStats', JSON.stringify(listStats));
   };
 
   // Funktion för att formatera tid sedan senaste träning
@@ -282,6 +317,9 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     
     // Spara ordlistan i localStorage så OvningPage kan använda den
     localStorage.setItem('customExerciseWords', JSON.stringify(uniqueWords));
+    
+    // Spara ordlista-ID:n för statistik
+    localStorage.setItem('currentExerciseListIds', JSON.stringify(selectedLists));
     
     // Navigera till ÖvningPage (page 0) och triggera övning
     window.history.pushState(
