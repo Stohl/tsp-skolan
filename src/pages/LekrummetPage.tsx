@@ -54,7 +54,8 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showSharedDialog, setShowSharedDialog] = useState(false);
   const [sharedWordList, setSharedWordList] = useState<SharedWordList | null>(null);
-  const [sortBy, setSortBy] = useState<'alphabetical' | 'recent'>('recent');
+  const [sortBy, setSortBy] = useState<'alphabetical' | 'recent' | 'lastPracticed'>('recent');
+  const [showAllLists, setShowAllLists] = useState(false);
   
   // States för att skapa nya ordlistor
   const [newListName, setNewListName] = useState('');
@@ -201,14 +202,29 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
 
   // Sortera anpassade ordlistor
   const sortedCustomLists = useMemo(() => {
-    return [...customWordLists].sort((a, b) => {
+    const sorted = [...customWordLists].sort((a, b) => {
       if (sortBy === 'alphabetical') {
         return a.name.localeCompare(b.name);
+      } else if (sortBy === 'lastPracticed') {
+        const statsA = getListTrainingStats(a);
+        const statsB = getListTrainingStats(b);
+        
+        // Ordlistor som aldrig tränats hamnar sist
+        if (!statsA.lastPracticed && !statsB.lastPracticed) return 0;
+        if (!statsA.lastPracticed) return 1;
+        if (!statsB.lastPracticed) return -1;
+        
+        // Sortera efter senaste träning (nyast först)
+        return (statsB.lastPracticed as Date).getTime() - (statsA.lastPracticed as Date).getTime();
       } else {
+        // 'recent' - sortera efter skapelsedatum
         return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
       }
     });
-  }, [customWordLists, sortBy]);
+    
+    // Visa max 10 ordlistor om inte expanderat
+    return showAllLists ? sorted : sorted.slice(0, 10);
+  }, [customWordLists, sortBy, showAllLists]);
 
   // Hantera val av ordlistor
   const handleListToggle = (listId: string) => {
@@ -434,13 +450,13 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             <Typography variant="h6">
               📚 Mina ordlistor ({customWordLists.length})
             </Typography>
-            <Box sx={{ display: 'flex', gap: 1 }}>
+            <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
               <Button
                 size="small"
                 variant={sortBy === 'recent' ? 'contained' : 'outlined'}
                 onClick={() => setSortBy('recent')}
               >
-                Senast
+                Senast skapade
               </Button>
               <Button
                 size="small"
@@ -449,8 +465,30 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
               >
                 A-Ö
               </Button>
+              <Button
+                size="small"
+                variant={sortBy === 'lastPracticed' ? 'contained' : 'outlined'}
+                onClick={() => setSortBy('lastPracticed')}
+              >
+                Senast tränat
+              </Button>
+              {customWordLists.length > 10 && (
+                <Button
+                  size="small"
+                  onClick={() => setShowAllLists(!showAllLists)}
+                  startIcon={showAllLists ? <ExpandLess /> : <ExpandMore />}
+                >
+                  {showAllLists ? 'Visa färre' : `Visa alla (${customWordLists.length})`}
+                </Button>
+              )}
             </Box>
           </Box>
+          
+          {!showAllLists && customWordLists.length > 10 && (
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1, textAlign: 'center' }}>
+              Visar {Math.min(10, customWordLists.length)} av {customWordLists.length} ordlistor
+            </Typography>
+          )}
           
           {sortedCustomLists.length === 0 ? (
             <Typography color="text.secondary" sx={{ textAlign: 'center', py: 2 }}>
