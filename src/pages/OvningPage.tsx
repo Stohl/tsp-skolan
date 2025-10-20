@@ -77,7 +77,8 @@ const FlashcardsExercise: React.FC<{
   onMoveToLearned: () => void;
   wordIndex: WordIndex | null;
   wordDatabase: any;
-}> = ({ word, onResult, onSkip, onMoveToLearned, wordIndex, wordDatabase }) => {
+  isLargeExercise?: boolean;
+}> = ({ word, onResult, onSkip, onMoveToLearned, wordIndex, wordDatabase, isLargeExercise = false }) => {
   // Bestäm vilken typ av ord detta är baserat på progress level
   const isLearnedWord = word.progress?.level === 2;
   const isLearningWord = word.progress?.level === 1;
@@ -87,6 +88,7 @@ const FlashcardsExercise: React.FC<{
   
   // Hämta inställningar
   const countdownSeconds = parseInt(localStorage.getItem('flashcardCountdown') || '3');
+  const skipCountdownFirstTime = localStorage.getItem('skipCountdownFirstTime') !== 'false'; // Default true
 
   // Återställ state när ordet ändras
   useEffect(() => {
@@ -98,11 +100,32 @@ const FlashcardsExercise: React.FC<{
   // Starta countdown när komponenten laddas
   useEffect(() => {
     if (!showVideo) {
-      // Om ordet aldrig övats (lastPracticed är tomt), visa videon direkt
+      // För stora övningar: aldrig skippa countdown
+      if (isLargeExercise) {
+        console.log(`[DEBUG] Flashcards: Large exercise - always show countdown for ${word.ord}`);
+        if (countdownSeconds === 0) {
+          setShowVideo(true);
+          return;
+        }
+        setCountdown(countdownSeconds);
+        const timer = setInterval(() => {
+          setCountdown(prev => {
+            if (prev === null || prev <= 1) {
+              clearInterval(timer);
+              setShowVideo(true);
+              return null;
+            }
+            return prev - 1;
+          });
+        }, 1000);
+        return () => clearInterval(timer);
+      }
+      
+      // För vanliga övningar: kontrollera inställning för första gången
       const hasBeenPracticed = word.progress?.stats?.lastPracticed && word.progress.stats.lastPracticed !== '';
       
-      if (!hasBeenPracticed) {
-        console.log(`[DEBUG] Flashcards: First time seeing word ${word.ord}, showing video directly`);
+      if (!hasBeenPracticed && skipCountdownFirstTime) {
+        console.log(`[DEBUG] Flashcards: First time seeing word ${word.ord}, showing video directly (setting enabled)`);
         setShowVideo(true);
         return;
       }
@@ -4474,6 +4497,7 @@ const OvningPage: React.FC<OvningPageProps> = ({ onShowKorpus, onShowLekrummet, 
           onMoveToLearned={handleMoveToLearned}
           wordIndex={wordIndex}
           wordDatabase={wordDatabase}
+          isLargeExercise={isLargeExercise}
         />
               
               </>

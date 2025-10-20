@@ -58,6 +58,9 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
   // State för "Kör så det ryker!" läge
   const [turboMode, setTurboMode] = useState<boolean>(false);
   
+  // State för att skippa countdown första gången man ser ett ord
+  const [skipCountdownFirstTime, setSkipCountdownFirstTime] = useState<boolean>(true);
+  
   // Ladda inställningar från localStorage vid komponentens mount
   useEffect(() => {
     const savedReviewWords = localStorage.getItem('reviewLearnedWords');
@@ -83,6 +86,11 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const savedTurboMode = localStorage.getItem('turboMode');
     if (savedTurboMode !== null) {
       setTurboMode(savedTurboMode === 'true');
+    }
+    
+    const savedSkipCountdownFirstTime = localStorage.getItem('skipCountdownFirstTime');
+    if (savedSkipCountdownFirstTime !== null) {
+      setSkipCountdownFirstTime(savedSkipCountdownFirstTime === 'true');
     }
   }, []);
   
@@ -119,6 +127,13 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
     const newValue = event.target.checked;
     setTurboMode(newValue);
     localStorage.setItem('turboMode', newValue.toString());
+  };
+
+  // Hantera ändring av skip countdown första gången
+  const handleSkipCountdownFirstTimeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newValue = event.target.checked;
+    setSkipCountdownFirstTime(newValue);
+    localStorage.setItem('skipCountdownFirstTime', newValue.toString());
   };
 
   // Funktion för att nollställa alla inställningar och progress
@@ -295,6 +310,24 @@ const InstallningarPage: React.FC<InstallningarPageProps> = ({ onShowHelp }) => 
                 }
               </Typography>
             </Box>
+          </ListItem>
+          
+          <Divider />
+          
+          {/* Skip countdown första gången */}
+          <ListItem>
+            <ListItemIcon>
+              <Timer />
+            </ListItemIcon>
+            <ListItemText 
+              primary="Skippa countdown första gången" 
+              secondary={skipCountdownFirstTime ? 'Visa video direkt första gången man ser ett ord' : 'Alltid visa countdown enligt inställning ovan'}
+            />
+            <Switch 
+              edge="end" 
+              checked={skipCountdownFirstTime}
+              onChange={handleSkipCountdownFirstTimeChange}
+            />
           </ListItem>
           
           <Divider />
