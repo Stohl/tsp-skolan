@@ -64,6 +64,60 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   
   // State för redigering
   const [editingList, setEditingList] = useState<CustomWordList | null>(null);
+
+  // Funktion för att hämta träningsstatistik för en ordlista
+  const getListTrainingStats = (list: CustomWordList) => {
+    const words = getWordsFromList(list, wordDatabase);
+    const wordProgress = JSON.parse(localStorage.getItem('wordProgress') || '{}');
+    
+    let lastPracticed: Date | null = null;
+    let correctCount = 0;
+    let totalAttempts = 0;
+    
+    words.forEach(word => {
+      const progress = wordProgress[word.id];
+      if (progress?.stats) {
+        // Hitta senaste träningsdatum
+        if (progress.stats.lastPracticed) {
+          const practicedDate = new Date(progress.stats.lastPracticed);
+          if (!lastPracticed || practicedDate > lastPracticed) {
+            lastPracticed = practicedDate;
+          }
+        }
+        
+        // Räkna totala försök och rätta svar
+        if (progress.stats.totalAttempts) {
+          totalAttempts += progress.stats.totalAttempts;
+        }
+        if (progress.stats.correctAttempts) {
+          correctCount += progress.stats.correctAttempts;
+        }
+      }
+    });
+    
+    return {
+      lastPracticed,
+      correctCount,
+      totalAttempts,
+      wordCount: words.length
+    };
+  };
+
+  // Funktion för att formatera tid sedan senaste träning
+  const formatTimeSinceLastPractice = (lastPracticed: Date | null) => {
+    if (!lastPracticed) return 'Aldrig tränat';
+    
+    const now = new Date();
+    const diffMs = now.getTime() - lastPracticed.getTime();
+    const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+    
+    if (diffDays === 0) return 'Idag';
+    if (diffDays === 1) return 'Igår';
+    if (diffDays < 7) return `${diffDays} dagar sedan`;
+    if (diffDays < 30) return `${Math.floor(diffDays / 7)} veckor sedan`;
+    if (diffDays < 365) return `${Math.floor(diffDays / 30)} månader sedan`;
+    return `${Math.floor(diffDays / 365)} år sedan`;
+  };
   
 
   // Ladda anpassade ordlistor från localStorage
@@ -405,7 +459,10 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           ) : (
             <List>
               {sortedCustomLists.map((list) => {
-                const wordCount = getWordsFromList(list, wordDatabase).length;
+                const stats = getListTrainingStats(list);
+                const timeSince = formatTimeSinceLastPractice(stats.lastPracticed);
+                const scoreText = stats.totalAttempts > 0 ? `${stats.correctCount}/${stats.totalAttempts}` : 'Ingen träning';
+                
                 return (
                   <ListItem key={list.id} sx={{ px: 0 }}>
                     <Checkbox
@@ -414,17 +471,20 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                     />
                     <ListItemText
                       primary={list.name}
-                      secondary={`${wordCount} ord • ${new Date(list.createdAt).toLocaleDateString()}`}
+                      secondary={
+                        <Box>
+                          <Typography variant="body2" color="text.secondary">
+                            {stats.wordCount} ord • Skapad {new Date(list.createdAt).toLocaleDateString()}
+                          </Typography>
+                          <Typography variant="body2" color="text.secondary">
+                            Senast tränat: {timeSince} • Senaste resultat: {scoreText}
+                          </Typography>
+                        </Box>
+                      }
                     />
                     <ListItemSecondaryAction>
-                      <IconButton size="small" sx={{ mr: 1 }} onClick={() => handleShareList(list)}>
-                        <Share />
-                      </IconButton>
-                      <IconButton size="small" sx={{ mr: 1 }} onClick={() => handleEditList(list)}>
+                      <IconButton size="small" onClick={() => handleEditList(list)}>
                         <Edit />
-                      </IconButton>
-                      <IconButton size="small" color="error" onClick={() => handleDeleteList(list)}>
-                        <Delete />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -648,15 +708,42 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
           )}
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setShowCreateDialog(false)}>
+          <Button onClick={() => {
+            setShowCreateDialog(false);
+            setEditingList(null);
+            setNewListName('');
+            setNewListDescription('');
+            setSelectedWordIds([]);
+            setWordSearchQuery('');
+          }}>
             Avbryt
           </Button>
+          
+          {editingList && (
+            <>
+              <Button 
+                onClick={() => handleShareList(editingList)}
+                startIcon={<Share />}
+                color="info"
+              >
+                Dela
+              </Button>
+              <Button 
+                onClick={() => handleDeleteList(editingList)}
+                startIcon={<Delete />}
+                color="error"
+              >
+                Ta bort
+              </Button>
+            </>
+          )}
+          
           <Button 
             onClick={handleCreateList} 
             variant="contained"
             disabled={!newListName.trim() || selectedWordIds.length === 0}
           >
-            Skapa ordlista
+            {editingList ? 'Uppdatera ordlista' : 'Skapa ordlista'}
           </Button>
         </DialogActions>
       </Dialog>
