@@ -139,8 +139,21 @@ function AppContent() {
       const validWordIds = wordIds.filter(id => wordDatabase[id]);
       
       if (validWordIds.length > 0) {
+        // Skapa delad ordlista-data
+        const sharedWordList = {
+          name: wordlistName,
+          wordIds: validWordIds
+        };
+        
         // Navigera direkt till Lekrummet för att visa delad ordlista
         navigateToLekrummet();
+        
+        // Skicka delad ordlista-data via custom event
+        setTimeout(() => {
+          window.dispatchEvent(new CustomEvent('showSharedWordList', { 
+            detail: sharedWordList 
+          }));
+        }, 100);
         
         // Rensa URL-parametrarna efter att vi har hanterat dem
         const newUrl = window.location.pathname;

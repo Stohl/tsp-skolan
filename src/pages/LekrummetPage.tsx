@@ -54,7 +54,7 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
   const [showCreateDialog, setShowCreateDialog] = useState(false);
   const [showSharedDialog, setShowSharedDialog] = useState(false);
   const [sharedWordList, setSharedWordList] = useState<SharedWordList | null>(null);
-  const [sortBy, setSortBy] = useState<'alphabetical' | 'recent' | 'lastPracticed'>('recent');
+  const [sortBy, setSortBy] = useState<'alphabetical' | 'recent' | 'lastPracticed'>('lastPracticed');
   const [showAllLists, setShowAllLists] = useState(false);
   const [showSharedList, setShowSharedList] = useState(false);
   
@@ -182,25 +182,22 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     }
   }, []);
 
-  // Kontrollera om det finns delad ordlista i URL
+  // Lyssna på custom event för delade ordlistor
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const wordlistName = urlParams.get('wordlist');
-    const wordIds = urlParams.getAll('wordid');
-    
-    if (wordlistName && wordIds.length > 0) {
-      // Validera att alla wordIds finns i databasen
-      const validWordIds = wordIds.filter(id => wordDatabase[id]);
-      
-      if (validWordIds.length > 0) {
-        setSharedWordList({
-          name: wordlistName,
-          wordIds: validWordIds
-        });
+    const handleShowSharedWordList = (event: CustomEvent) => {
+      const sharedWordListData = event.detail;
+      if (sharedWordListData && sharedWordListData.name && sharedWordListData.wordIds) {
+        setSharedWordList(sharedWordListData);
         setShowSharedList(true);
       }
-    }
-  }, [wordDatabase]);
+    };
+
+    window.addEventListener('showSharedWordList', handleShowSharedWordList as EventListener);
+    
+    return () => {
+      window.removeEventListener('showSharedWordList', handleShowSharedWordList as EventListener);
+    };
+  }, []);
 
   // Spara anpassade ordlistor till localStorage
   const saveCustomWordLists = (lists: CustomWordList[]) => {
@@ -582,7 +579,7 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 variant={sortBy === 'recent' ? 'contained' : 'outlined'}
                 onClick={() => setSortBy('recent')}
               >
-                Senast skapade
+                Skapad
               </Button>
               <Button
                 size="small"
@@ -596,7 +593,7 @@ const LekrummetPage: React.FC<{ onBack: () => void }> = ({ onBack }) => {
                 variant={sortBy === 'lastPracticed' ? 'contained' : 'outlined'}
                 onClick={() => setSortBy('lastPracticed')}
               >
-                Senast tränat
+                Tränat
               </Button>
               {customWordLists.length > 10 && (
                 <Button
